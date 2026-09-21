@@ -1,0 +1,39 @@
+/*
+ * Foundations shared by every theme.
+ * Load the fonts in your <head>:
+ * <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&family=Lora:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap">
+ */
+
+@theme {
+  --font-sans: "Titillium Web", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-serif: "Lora", Georgia, serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+  /* design-tokens-italia: links are underlined 2px below the baseline */
+  a:not([class]) {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  a:not([class]):hover {
+    text-decoration: none;
+  }
+}
+
+/*
+ * The .italia focus ring: a double ring (inner = page background,
+ * outer = text color) that follows the theme. Deliberately unlayered so it
+ * wins over daisyUI's per-component outlines, keyboard focus only.
+ */
+:focus-visible {
+  outline: 3px solid transparent !important;
+  outline-offset: 3px !important;
+  box-shadow:
+    0 0 0 2px var(--color-base-100),
+    0 0 0 5px var(--color-base-content) !important;
+}

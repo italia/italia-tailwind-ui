@@ -1,0 +1,197 @@
+---
+import "../styles/global.css";
+import { components, themes, icon } from "@italia-daisy/recipes";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const {
+  title,
+  description = "Componenti .italia solo CSS, su daisyUI e Tailwind",
+} = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang='it' data-theme='italia'>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <meta name='description' content={description} />
+    <title>{title} · Italia daisy</title>
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+    <link
+      rel='stylesheet'
+      href='https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&family=Lora:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap'
+    />
+    <script is:inline>
+      // Restore the theme picked last time (the switcher itself is CSS-only daisyUI theme-controller).
+      try {
+        const t = localStorage.getItem("italia-daisy-theme");
+        if (t) document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body class='min-h-screen bg-base-100 font-sans text-base-content'>
+    <a
+      href='#main'
+      class='sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 btn btn-primary'
+      >Vai al contenuto</a
+    >
+    <div class='drawer lg:drawer-open'>
+      <input id='nav-drawer' type='checkbox' class='drawer-toggle' />
+      <div class='drawer-content flex min-h-screen flex-col'>
+        <header
+          class='navbar sticky top-0 z-30 gap-2 border-b border-base-content/15 bg-base-100/95 px-4 backdrop-blur'
+        >
+          <label
+            for='nav-drawer'
+            class='btn btn-ghost btn-square lg:hidden'
+            aria-label='Apri il menu'
+          >
+            <Fragment set:html={icon("it-burger", "size-6")} />
+          </label>
+          <a
+            href={base}
+            class='flex items-center gap-2 whitespace-nowrap text-xl font-bold lg:hidden'
+            >Italia daisy</a
+          >
+          <div class='flex-1'></div>
+          <a
+            href={`${base}storybook/`}
+            class='btn btn-ghost btn-sm font-semibold'>Storybook</a
+          >
+          <div class='dropdown dropdown-end'>
+            <div
+              tabindex='0'
+              role='button'
+              class='btn btn-sm btn-outline font-semibold gap-2'
+            >
+              <Fragment set:html={icon("it-settings", "size-5")} />
+              Tema
+            </div>
+            <ul
+              tabindex='-1'
+              class='dropdown-content menu z-40 mt-2 w-52 rounded-box border border-base-content/15 bg-base-100 p-2 shadow-lg'
+            >
+              {
+                themes.map((t) => (
+                  <li>
+                    <label class='flex cursor-pointer gap-3'>
+                      <input
+                        type='radio'
+                        name='theme'
+                        value={t.id}
+                        aria-label={t.label}
+                        class='theme-controller radio radio-sm radio-primary'
+                        checked={t.id === "italia"}
+                      />
+                      <span
+                        data-theme={t.id}
+                        class='flex gap-0.5 rounded-sm bg-base-100 p-0.5'
+                        aria-hidden='true'
+                      >
+                        <span class='size-3 rounded-full bg-primary' />
+                        <span class='size-3 rounded-full bg-secondary' />
+                        <span class='size-3 rounded-full bg-success' />
+                      </span>
+                      {t.label}
+                    </label>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </header>
+        <main
+          id='main'
+          class='mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-8'
+        >
+          <slot />
+        </main>
+        <footer
+          class='border-t border-base-content/15 px-4 py-6 text-sm text-base-content/70 sm:px-8'
+        >
+          Ricette ispirate a <a href='https://github.com/italia/dev-kit-italia'
+            >dev-kit-italia</a
+          > e{" "}
+          <a href='https://github.com/italia/bootstrap-italia'
+            >bootstrap-italia</a
+          > (BSD-3-Clause), costruite con{" "}
+          <a href='https://daisyui.com'>daisyUI</a> e{" "}<a
+            href='https://tailwindcss.com'>Tailwind CSS</a
+          >.
+        </footer>
+      </div>
+      <div class='drawer-side z-40'>
+        <label
+          for='nav-drawer'
+          aria-label='Chiudi il menu'
+          class='drawer-overlay'></label>
+        <nav
+          class='min-h-full w-64 border-r border-base-content/15 bg-base-200 p-4'
+          aria-label='Componenti'
+        >
+          <a
+            href={base}
+            class='mb-6 flex items-center gap-2 px-2 text-xl font-bold'
+          >
+            <span
+              class='grid size-8 place-items-center rounded-field bg-primary text-primary-content'
+            >
+              <Fragment set:html={icon("it-designers-italia", "size-5")} />
+            </span>
+            Italia daisy
+          </a>
+          <ul class='menu w-full p-0'>
+            <li>
+              <a href={base} class:list={["", { "menu-active": path === base }]}
+                >Introduzione</a
+              >
+            </li>
+            <li class='menu-title mt-4'>Componenti</li>
+            {
+              components.map((c) => {
+                const href = `${base}components/${c.slug}/`;
+                return (
+                  <li>
+                    <a
+                      href={href}
+                      class:list={[
+                        "",
+                        { "menu-active": path.startsWith(href) },
+                      ]}
+                    >
+                      {c.name}
+                    </a>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <script is:inline>
+      document.addEventListener("change", (e) => {
+        const el = e.target;
+        if (
+          el instanceof HTMLInputElement &&
+          el.classList.contains("theme-controller")
+        ) {
+          document.documentElement.dataset.theme = el.value;
+          try {
+            localStorage.setItem("italia-daisy-theme", el.value);
+          } catch {}
+        }
+      });
+      const saved = document.documentElement.dataset.theme;
+      document.querySelectorAll(".theme-controller").forEach((r) => {
+        r.checked = r.value === saved;
+      });
+    </script>
+  </body>
+</html>

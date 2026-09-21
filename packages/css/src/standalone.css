@@ -1,0 +1,9 @@
+/*
+ * Prebuilt, drop-in stylesheet (dist/italia-daisy.css).
+ * Contains every class used by the recipes, so a plain HTML page can link it
+ * without running Tailwind. If you use Tailwind yourself, import index.css instead.
+ */
+@import "tailwindcss" source(none);
+@import "./index.css";
+
+@source "../../recipes/src";

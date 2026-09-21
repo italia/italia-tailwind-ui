@@ -1,0 +1,123 @@
+/*
+ * .italia themes for daisyUI 5.
+ * Switch with data-theme="italia | italia-v3 | italia-dark | light | dark"
+ * on <html> or any element (themes nest).
+ */
+
+/* The theme set up in the "daisyUI" design system: default, light scheme. */
+@plugin "daisyui/theme" {
+  name: "italia";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: oklch(99% 0 0);
+  --color-base-200: oklch(98% 0 0);
+  --color-base-300: oklch(97% 0 0);
+  --color-base-content: #212529;
+  --color-primary: #0066cc;
+  --color-primary-content: #ffffff;
+  --color-secondary: #023466;
+  --color-secondary-content: #ffffff;
+  /* design-tokens-italia blue-30: the deep band behind the slim header and the footer's small prints. */
+  --color-accent: #004d99;
+  --color-accent-content: #ffffff;
+  --color-neutral: #333333;
+  --color-neutral-content: #ffffff;
+  --color-info: #17a2b8;
+  --color-info-content: #ffffff;
+  --color-success: #28a745;
+  --color-success-content: #ffffff;
+  --color-warning: #ffc107;
+  --color-warning-content: #333333;
+  --color-error: #dc3545;
+  --color-error-content: #ffffff;
+
+  --radius-selector: 1rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+/*
+ * Exact bootstrap-italia v3 / design-tokens-italia values, as used by
+ * dev-kit-italia. Flat (no depth), 4px radii, pill selectors, AA-safe status colors.
+ */
+@plugin "daisyui/theme" {
+  name: "italia-v3";
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #ffffff;
+  --color-base-200: #f5f5f5;
+  --color-base-300: #ebeced;
+  --color-base-content: #1a1a1a;
+  --color-primary: #0066cc;
+  --color-primary-content: #ffffff;
+  --color-secondary: #5c6f82;
+  --color-secondary-content: #ffffff;
+  --color-accent: #003366;
+  --color-accent-content: #ffffff;
+  --color-neutral: #17324d;
+  --color-neutral-content: #ffffff;
+  --color-info: #004d99;
+  --color-info-content: #ffffff;
+  --color-success: #008055;
+  --color-success-content: #ffffff;
+  --color-warning: #995c00;
+  --color-warning-content: #ffffff;
+  --color-error: #cc334d;
+  --color-error-content: #ffffff;
+
+  --radius-selector: 2.5rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* A dark companion built from the design-tokens-italia blue and slate scales. */
+@plugin "daisyui/theme" {
+  name: "italia-dark";
+  default: false;
+  prefersdark: false;
+  color-scheme: dark;
+
+  --color-base-100: #0f2133;
+  --color-base-200: #132a40;
+  --color-base-300: #17324d;
+  --color-base-content: #ebeced;
+  --color-primary: #6aaaeb;
+  --color-primary-content: #001a33;
+  --color-secondary: #a3adb7;
+  --color-secondary-content: #0f2133;
+  --color-accent: #94c4f5;
+  --color-accent-content: #001a33;
+  --color-neutral: #ebeced;
+  --color-neutral-content: #17324d;
+  --color-info: #94c4f5;
+  --color-info-content: #001a33;
+  --color-success: #4cc497;
+  --color-success-content: #002619;
+  --color-warning: #f0b35a;
+  --color-warning-content: #2b1a00;
+  --color-error: #f28b9c;
+  --color-error-content: #33000a;
+
+  --radius-selector: 1rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}

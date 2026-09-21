@@ -1,0 +1,24 @@
+{
+  "name": "@italia-daisy/storybook",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build": "storybook build -o storybook-static"
+  },
+  "dependencies": {
+    "@italia-daisy/css": "workspace:*",
+    "@italia-daisy/recipes": "workspace:*"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.6.0",
+    "@storybook/addon-docs": "^10.6.0",
+    "@storybook/addon-themes": "^10.6.0",
+    "@storybook/html-vite": "^10.6.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "daisyui": "^5.7.42",
+    "storybook": "^10.6.0",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.0"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "@italia-daisy/recipes",
+  "version": "0.1.0",
+  "description": "HTML recipes (daisyUI + Tailwind markup) for the dev-kit-italia components, plus the bootstrap-italia icon set",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./icons": "./src/icons/index.ts",
+    "./components/*": "./src/components/*.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "devDependencies": {
+    "bootstrap-italia": "3.0.0-beta.5"
+  }
+}

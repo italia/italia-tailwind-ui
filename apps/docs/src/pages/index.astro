@@ -1,0 +1,83 @@
+---
+import Base from "../layouts/Base.astro";
+import { Code } from "astro:components";
+import { components, themes, button, alert, chip, badge, icon } from "@italia-daisy/recipes";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+
+const sample = [
+  `<div class="flex flex-wrap gap-2">${button({ label: "Invia" })}${button({ label: "Annulla", variant: "secondary", outline: true })}</div>`,
+  alert({ variant: "success", content: "Domanda inviata correttamente." }),
+  `<div class="flex flex-wrap items-center gap-2">${chip({ label: "Scuola", variant: "primary" })}${chip({ label: "Mobilità" })}${badge({ label: "Nuovo", variant: "danger" })}</div>`,
+].join("\n");
+
+const cssUsage = `@import "tailwindcss";
+@import "@italia-daisy/css";`;
+const htmlUsage = `<html data-theme="italia">
+  <button class="btn btn-primary font-semibold">Invia</button>
+
+  <!-- i temi si annidano -->
+  <section data-theme="italia-dark"> … </section>
+</html>`;
+---
+
+<Base title="Introduzione">
+  <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-base-content/60">dev-kit-italia, senza JavaScript</p>
+  <h1 class="mb-4 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">
+    I componenti del design system .italia come ricette daisyUI
+  </h1>
+  <p class="mb-8 max-w-3xl text-lg text-base-content/85">
+    Ogni componente è HTML con classi daisyUI e utility Tailwind: nessun web component, nessun Bootstrap.
+    I colori arrivano tutti dai token del tema, quindi cambiando <code class="font-mono">data-theme</code> cambia tutto.
+  </p>
+  <div class="mb-14 flex flex-wrap gap-3">
+    <a href={`${base}components/button/`} class="btn btn-primary font-semibold gap-3">
+      Vedi i componenti <Fragment set:html={icon("it-arrow-right", "size-5")} />
+    </a>
+    <a href={`${base}storybook/`} class="btn btn-outline btn-primary border-2 font-semibold">Apri Storybook</a>
+  </div>
+
+  <h2 class="mb-2 text-3xl font-bold">Stesso markup, cinque temi</h2>
+  <p class="mb-6 max-w-3xl text-base-content/80">
+    Qui sotto lo stesso frammento HTML è ripetuto dentro cinque contenitori con un <code class="font-mono">data-theme</code> diverso.
+  </p>
+  <div class="mb-16 grid gap-4 md:grid-cols-2">
+    {
+      themes.map((t) => (
+        <div data-theme={t.id} class="rounded-box border border-base-content/15 bg-base-100 p-5 text-base-content">
+          <p class="mb-3 font-mono text-sm text-base-content/70">data-theme="{t.id}"</p>
+          <div class="flex flex-col gap-4" set:html={sample} />
+        </div>
+      ))
+    }
+  </div>
+
+  <h2 class="mb-4 text-3xl font-bold">Uso</h2>
+  <div class="mb-16 grid gap-6 lg:grid-cols-2">
+    <div>
+      <p class="mb-2 font-semibold">1. Nel CSS del progetto (Tailwind 4)</p>
+      <div class="overflow-hidden rounded-box text-sm [&_pre]:p-4"><Code code={cssUsage} lang="css" theme="github-dark" /></div>
+    </div>
+    <div>
+      <p class="mb-2 font-semibold">2. Nell'HTML</p>
+      <div class="overflow-hidden rounded-box text-sm [&_pre]:p-4"><Code code={htmlUsage} lang="html" theme="github-dark" wrap /></div>
+    </div>
+  </div>
+
+  <h2 class="mb-4 text-3xl font-bold">Componenti</h2>
+  <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      components.map((c) => (
+        <li>
+          <a href={`${base}components/${c.slug}/`} class="card card-border h-full border-base-content/15 bg-base-100 transition hover:border-primary hover:shadow-md">
+            <div class="card-body gap-1 p-5">
+              <h3 class="card-title text-xl text-primary">{c.name}</h3>
+              <p class="font-mono text-xs text-base-content/60">{c.replaces}</p>
+              <p class="mt-1 text-sm text-base-content/80">{c.summary}</p>
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

@@ -1,0 +1,28 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduzione" />
+
+# Italia daisy
+
+Una libreria **solo CSS** che riscrive i componenti di [dev-kit-italia](https://github.com/italia/dev-kit-italia)
+come ricette HTML su **daisyUI 5** e **Tailwind CSS 4**, invece che come web component.
+
+- Ogni componente è markup con classi daisyUI (`btn`, `alert`, `card`, `collapse`…) più utility Tailwind.
+- I colori vengono tutti dai token del tema: cambia il tema dalla barra in alto (icona pennello) e ogni componente si adatta.
+- Temi inclusi: **italia** (predefinito), **italia-v3** (valori esatti di bootstrap-italia v3), **italia-dark**, e i `light` / `dark` di daisyUI.
+- Il comportamento interattivo (accordion, chiusura di alert e chip, «Leggi tutto») usa HTML nativo: `<details>`, checkbox e `:has()`.
+
+## Uso
+
+```css
+@import "tailwindcss";
+@import "@italia-daisy/css";
+```
+
+```html
+<html data-theme="italia">
+  <button class="btn btn-primary font-semibold">Invia</button>
+</html>
+```
+
+Oppure, senza Tailwind: `<link rel="stylesheet" href="italia-daisy.css">` (il file precompilato in `packages/css/dist`).

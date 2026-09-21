@@ -1,0 +1,20 @@
+{
+  "name": "@italia-daisy/docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@italia-daisy/css": "workspace:*",
+    "@italia-daisy/recipes": "workspace:*",
+    "astro": "^7.3.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "daisyui": "^5.7.42",
+    "tailwindcss": "^4.3.3"
+  }
+}

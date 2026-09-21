@@ -1,0 +1,72 @@
+/*
+ * The thin extension layer: only what daisyUI + Tailwind utilities cannot
+ * express cleanly. Every rule uses theme tokens, so it re-themes too.
+ * All classes are prefixed "it-". They sit in the utilities layer, above
+ * daisyUI's nested component layers, so they can refine daisyUI classes.
+ */
+
+@layer utilities {
+  /* Callout "Approfondimento": folded top-right corner (two 48px triangles). */
+  .it-fold-corner {
+    position: relative;
+  }
+  .it-fold-corner::before,
+  .it-fold-corner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-style: solid;
+    border-width: 0 3rem 3rem 0;
+  }
+  .it-fold-corner::before {
+    border-color: transparent var(--color-base-100) transparent transparent;
+  }
+  .it-fold-corner::after {
+    border-width: 3rem 0 0 3rem;
+    border-color: transparent transparent transparent
+      color-mix(in oklab, var(--color-base-content) 12%, var(--color-base-200));
+  }
+
+  /* "+ / –" toggle glyph used by callout-more and left-icon accordions. */
+  .it-plus-minus {
+    position: relative;
+    display: inline-block;
+    inline-size: 0.9375rem;
+    block-size: 0.9375rem;
+    border: 1px solid currentColor;
+    border-radius: 9999px;
+    flex: none;
+  }
+  .it-plus-minus::before,
+  .it-plus-minus::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    inline-size: 0.4375rem;
+    block-size: 1px;
+    background: currentColor;
+    translate: -50% -50%;
+    transition: rotate 0.2s ease-in-out;
+  }
+  .it-plus-minus::after {
+    rotate: 90deg;
+  }
+  details[open] > summary .it-plus-minus::after {
+    rotate: 0deg;
+  }
+
+  /* Breadcrumbs with the .italia "/" separator instead of daisyUI's chevron. */
+  .breadcrumbs.it-slash > menu > li + *::before,
+  .breadcrumbs.it-slash > ul > li + *::before,
+  .breadcrumbs.it-slash > ol > li + *::before {
+    content: "/";
+    rotate: none;
+    border: 0;
+    inline-size: auto;
+    block-size: auto;
+    margin-inline: 0.5rem;
+    opacity: 0.7;
+  }
+}

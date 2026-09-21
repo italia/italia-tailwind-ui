@@ -1,0 +1,55 @@
+---
+import Base from "../../layouts/Base.astro";
+import Example from "../../components/Example.astro";
+import { components, type ComponentDoc } from "@italia-daisy/recipes";
+
+export function getStaticPaths() {
+  return components.map((doc) => ({ params: { slug: doc.slug }, props: { doc } }));
+}
+interface Props {
+  doc: ComponentDoc;
+}
+const { doc } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+
+<Base title={doc.name} description={doc.summary}>
+  <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-base-content/60">Componente</p>
+  <h1 class="mb-4 text-4xl font-bold sm:text-5xl">{doc.name}</h1>
+  <p class="mb-6 max-w-3xl text-lg text-base-content/85">{doc.summary}</p>
+
+  <dl class="mb-10 grid gap-x-8 gap-y-3 rounded-box bg-base-200 p-5 text-sm sm:grid-cols-[max-content_1fr]">
+    <dt class="font-semibold">Sostituisce</dt>
+    <dd><code class="font-mono">{doc.replaces}</code></dd>
+    {doc.daisy.length > 0 && (
+      <>
+        <dt class="font-semibold">Classi daisyUI</dt>
+        <dd class="flex flex-wrap gap-1.5">{doc.daisy.map((c) => <code class="rounded-sm bg-base-100 px-1.5 py-0.5 font-mono">{c}</code>)}</dd>
+      </>
+    )}
+    {doc.extensions?.length && (
+      <>
+        <dt class="font-semibold">Estensioni</dt>
+        <dd class="flex flex-wrap gap-1.5">{doc.extensions.map((c) => <code class="rounded-sm bg-base-100 px-1.5 py-0.5 font-mono">{c}</code>)}</dd>
+      </>
+    )}
+    {doc.cssOnly && (
+      <>
+        <dt class="font-semibold">Solo CSS</dt>
+        <dd>{doc.cssOnly}</dd>
+      </>
+    )}
+    <dt class="font-semibold">Storybook</dt>
+    <dd><a href={`${base}storybook/?path=/docs/componenti-${doc.slug}--docs`}>Apri le storie di {doc.name}</a></dd>
+  </dl>
+
+  <nav aria-label="Esempi" class="mb-10">
+    <ul class="flex flex-wrap gap-2">
+      {doc.examples.map((ex) => <li><a href={`#${ex.id}`} class="badge badge-lg badge-outline border-base-content/25 font-semibold hover:bg-base-200">{ex.title}</a></li>)}
+    </ul>
+  </nav>
+
+  <div class="flex flex-col gap-14">
+    {doc.examples.map((ex) => <Example example={ex} />)}
+  </div>
+</Base>

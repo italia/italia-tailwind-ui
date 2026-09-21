@@ -1,0 +1,28 @@
+---
+import { Code } from "astro:components";
+import type { Example } from "@italia-daisy/recipes";
+
+interface Props {
+  example: Example;
+}
+const { example } = Astro.props;
+---
+
+<section id={example.id} class="scroll-mt-20">
+  <h2 class="mb-1 text-2xl font-bold">
+    <a href={`#${example.id}`} class="hover:underline">{example.title}</a>
+  </h2>
+  {example.description && <p class="mb-3 text-base-content/75">{example.description}</p>}
+  <div class="overflow-hidden rounded-box border border-base-content/15">
+    <div class:list={["bg-base-100", example.fullBleed ? "" : "p-6 sm:p-8"]} set:html={example.html} />
+    <details class="group border-t border-base-content/15 bg-base-200">
+      <summary class="flex cursor-pointer list-none items-center gap-2 px-4 py-2 text-sm font-semibold text-primary hover:underline [&::-webkit-details-marker]:hidden">
+        <span class="group-open:hidden">Mostra il codice HTML</span>
+        <span class="hidden group-open:inline">Nascondi il codice HTML</span>
+      </summary>
+      <div class="max-h-[32rem] overflow-auto text-sm [&_pre]:p-4">
+        <Code code={example.html} lang="html" theme="github-dark" wrap />
+      </div>
+    </details>
+  </div>
+</section>

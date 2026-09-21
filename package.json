@@ -1,0 +1,25 @@
+{
+  "name": "italia-daisy",
+  "private": true,
+  "description": "CSS-only reimplementation of dev-kit-italia components as daisyUI + Tailwind recipes",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "icons": "bun run packages/recipes/scripts/build-icons.ts",
+    "build:css": "bun run --cwd packages/css build",
+    "dev": "bun run --cwd apps/docs dev",
+    "docs:build": "bun run --cwd apps/docs build",
+    "storybook": "bun run --cwd apps/storybook storybook",
+    "storybook:build": "bun run --cwd apps/storybook build",
+    "build": "bun run build:css && bun run docs:build && bun run storybook:build && bun run site",
+    "typecheck": "tsc -p tsconfig.json",
+    "site": "rm -rf apps/docs/dist/storybook && cp -r apps/storybook/storybook-static apps/docs/dist/storybook && echo 'Static site ready in apps/docs/dist'"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0"
+  }
+}

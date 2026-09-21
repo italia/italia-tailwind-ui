@@ -1,0 +1,33 @@
+{
+  "name": "@italia-daisy/css",
+  "version": "0.1.0",
+  "description": "daisyUI 5 themes and a thin extension layer that give Tailwind CSS 4 the look of the .italia design system",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "style": "./src/index.css",
+  "exports": {
+    ".": "./src/index.css",
+    "./index.css": "./src/index.css",
+    "./themes.css": "./src/themes.css",
+    "./base.css": "./src/base.css",
+    "./extensions.css": "./src/extensions.css",
+    "./dist/italia-daisy.css": "./dist/italia-daisy.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tailwindcss -i ./src/standalone.css -o ./dist/italia-daisy.css --minify"
+  },
+  "peerDependencies": {
+    "daisyui": "^5.7.0",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "daisyui": "^5.7.42",
+    "tailwindcss": "^4.3.3"
+  }
+}

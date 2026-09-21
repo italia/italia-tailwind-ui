@@ -1,0 +1,23 @@
+/*
+ * @italia-daisy/css
+ *
+ * Use it AFTER Tailwind in your own entry stylesheet:
+ *
+ *   @import "tailwindcss";
+ *   @import "@italia-daisy/css";
+ *   @source "../node_modules/@italia-daisy/recipes/src";   (only if you use the recipe helpers)
+ *
+ * Everything here is daisyUI + Tailwind. Components are written as plain
+ * daisyUI class recipes (see packages/recipes), so switching data-theme
+ * re-themes every component.
+ */
+
+/* daisyUI with its built-in light + dark themes (kept as alternatives). */
+@plugin "daisyui" {
+  themes: light, dark, dracula, cupcake, lofi;
+  logs: false;
+}
+
+@import "./themes.css";
+@import "./base.css";
+@import "./extensions.css";
