@@ -212,7 +212,7 @@ export const doc: ComponentDoc = {
       title: "Dimensioni",
       html: stack([
         input({ label: "Campo piccolo", size: "sm", placeholder: "input-sm" }),
-        input({ label: "Campo standard", placeholder: "40px, come bootstrap-italia" }),
+        input({ label: "Campo standard", placeholder: "44px (--size-field del tema)" }),
         input({ label: "Campo grande", size: "lg", placeholder: "input-lg" }),
       ]),
     },

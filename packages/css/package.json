@@ -12,11 +12,13 @@
     "./base.css": "./src/base.css",
     "./extensions.css": "./src/extensions.css",
     "./dist/italia-daisy.css": "./dist/italia-daisy.css",
+    "./fonts.css": "./src/fonts.css",
     "./package.json": "./package.json"
   },
   "files": [
     "src",
-    "dist"
+    "dist",
+    "fonts"
   ],
   "scripts": {
     "build": "tailwindcss -i ./src/standalone.css -o ./dist/italia-daisy.css --minify"

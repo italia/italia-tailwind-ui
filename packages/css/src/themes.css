@@ -2,6 +2,10 @@
  * .italia themes for daisyUI 5.
  * Switch with data-theme="italia-original | italia-custom | italia-dark | italia-darker | light | dark"
  * on <html> or any element (themes nest).
+ *
+ * --size-field is 0.275rem in the italia-* themes: buttons, inputs, selects and
+ * tabs are 44px high (daisyUI's 0.25rem gives 40px). bootstrap-italia buttons
+ * are 45px. Set it back to 0.25rem in a theme to get daisyUI's sizes.
  */
 
 /* The theme set up in the "daisyUI" design system: default, light scheme. */
@@ -39,7 +43,7 @@
   --radius-field: 0.25rem;
   --radius-box: 0.5rem;
   --size-selector: 0.25rem;
-  --size-field: 0.25rem;
+  --size-field: 0.275rem;
   --border: 1px;
   --depth: 1;
   --noise: 0;
@@ -80,7 +84,7 @@
   --radius-field: 0.25rem;
   --radius-box: 0.25rem;
   --size-selector: 0.25rem;
-  --size-field: 0.25rem;
+  --size-field: 0.275rem;
   --border: 1px;
   --depth: 0;
   --noise: 0;
@@ -118,7 +122,7 @@
   --radius-field: 0.25rem;
   --radius-box: 0.5rem;
   --size-selector: 0.25rem;
-  --size-field: 0.25rem;
+  --size-field: 0.275rem;
   --border: 1px;
   --depth: 0;
   --noise: 0;
@@ -161,7 +165,7 @@
   --radius-field: 0.5rem;
   --radius-box: 0.5rem;
   --size-selector: 0.25rem;
-  --size-field: 0.25rem;
+  --size-field: 0.275rem;
   --border: 1px;
   --depth: 1;
   --noise: 0;

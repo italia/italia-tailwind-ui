@@ -1,0 +1,62 @@
+/*
+ * Titillium Sans Pro, the typeface of dev-kit-italia and bootstrap-italia 3
+ * (SIL Open Font License, see fonts/Titillium_Sans_Pro/OFL.txt). Self-hosted:
+ * it is not on Google Fonts. The urls are relative to this file, so Vite,
+ * Astro and the Tailwind CLI all resolve them.
+ */
+@font-face {
+  font-family: "Titillium Sans Pro";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../fonts/Titillium_Sans_Pro/TitilliumSansPro-Light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Titillium Sans Pro";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../fonts/Titillium_Sans_Pro/TitilliumSansPro-LightItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Titillium Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/Titillium_Sans_Pro/TitilliumSansPro-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Titillium Sans Pro";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/Titillium_Sans_Pro/TitilliumSansPro-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Titillium Sans Pro";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/Titillium_Sans_Pro/TitilliumSansPro-Semibold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Titillium Sans Pro";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/Titillium_Sans_Pro/TitilliumSansPro-SemiboldItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Titillium Sans Pro";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/Titillium_Sans_Pro/TitilliumSansPro-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Titillium Sans Pro";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/Titillium_Sans_Pro/TitilliumSansPro-BoldItalic.woff2") format("woff2");
+}

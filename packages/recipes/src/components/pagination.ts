@@ -106,7 +106,7 @@ export const doc: ComponentDoc = {
 ${pagination({ current: 2, total: 10 })}
 <div class="flex flex-wrap items-end justify-center gap-6">
   <label class="flex items-center gap-2 text-base">Elementi per pagina:
-    <select class="select w-32"><option>10/pagina</option><option>20/pagina</option><option>50/pagina</option><option>100/pagina</option></select>
+    <select class="select w-auto"><option>10/pagina</option><option>20/pagina</option><option>50/pagina</option><option>100/pagina</option></select>
   </label>
   <form class="join" action="">
     <label class="sr-only" for="jump">Vai alla pagina</label>

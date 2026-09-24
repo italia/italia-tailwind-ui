@@ -89,6 +89,34 @@
 }
 
 /*
+ * Default component text sizes, as in bootstrap-italia 3: daisyUI starts its
+ * components at 14px (0.875rem), .italia at 16px, and form fields and tabs at
+ * the body size (16px, 18px from 576px). Same innermost sub-layer as above:
+ * only the default changes, so btn-sm, input-lg, tabs-xs, badge-sm and the
+ * other size modifiers (outer sub-layers) keep their daisyUI sizes.
+ */
+@layer utilities {
+  @layer daisyui.l1.l2.l3 {
+    /* :root raises specificity a notch: inside this sub-layer the build puts
+       some daisyUI rules after ours, and the later rule would otherwise win. */
+    :root .btn {
+      --fontsize: 1rem;
+    }
+    :root :is(.input, .select, .textarea) {
+      --font-size-min: var(--it-font-size-body, 1rem);
+    }
+    /* daisyUI sizes tabs with .tab:is(.tabs > .tab) (three classes): match it
+       and add one, so this default wins while tabs-sm/-lg (outer) still do. */
+    :root .tabs > .tab.tab {
+      font-size: var(--it-font-size-body, 1rem);
+    }
+    :root :is(.badge, .alert, .file-input) {
+      font-size: 1rem;
+    }
+  }
+}
+
+/*
  * Back to top: hidden at the top of the page, fades in once the page has
  * scrolled 20% of the viewport. A scroll-driven animation, so no JS; browsers
  * without animation-timeline just show the button all the time.

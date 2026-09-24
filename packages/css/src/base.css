@@ -1,18 +1,90 @@
 /*
  * Foundations shared by every theme.
- * Load the fonts in your <head>:
- * <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&family=Lora:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap">
+ * Titillium Sans Pro ships with the package (fonts.css). Load the other two
+ * fonts in your <head>:
+ * <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap">
  */
 
 @theme {
-  --font-sans: "Titillium Web", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  /* Titillium Sans Pro first; Titillium Web still applies where a page loads it instead. */
+  --font-sans: "Titillium Sans Pro", "Titillium Web", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-serif: "Lora", Georgia, serif;
   --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+/*
+ * The .italia type scale (design-tokens-italia, as in bootstrap-italia 3):
+ * body text 16px, 18px from 576px up; headings 40/32/28/24/20/16px, then
+ * 48/40/32/28/24/18px. The values live in the theme layer, the lowest one,
+ * so a daisyUI theme block can redefine any of them (then at every width).
+ */
+@layer theme {
+  :root {
+    --it-font-size-body: 1rem;
+    --it-font-size-lead: 1.25rem;
+    --it-font-size-h1: 2.5rem;
+    --it-font-size-h2: 2rem;
+    --it-font-size-h3: 1.75rem;
+    --it-font-size-h4: 1.5rem;
+    --it-font-size-h5: 1.25rem;
+    --it-font-size-h6: 1rem;
+    --it-leading-body: 1.5;
+    --it-leading-heading: 1.2;
+  }
+  @media (min-width: 36rem) {
+    :root {
+      --it-font-size-body: 1.125rem;
+      --it-font-size-lead: 1.5rem;
+      --it-font-size-h1: 3rem;
+      --it-font-size-h2: 2.5rem;
+      --it-font-size-h3: 2rem;
+      --it-font-size-h4: 1.75rem;
+      --it-font-size-h5: 1.5rem;
+      --it-font-size-h6: 1.125rem;
+    }
+  }
+}
+
+/*
+ * Base styles for text that carries no class of its own. They sit in the base
+ * layer, so any utility (text-xl on a heading) and any daisyUI component (which
+ * sets its own font-size) still wins. Tailwind's reset leaves headings unstyled;
+ * these give them the .italia sizes back, without margins, as the reset does.
+ */
 @layer base {
   html {
     font-family: var(--font-sans);
+  }
+  body {
+    font-size: var(--it-font-size-body);
+    line-height: var(--it-leading-body);
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    line-height: var(--it-leading-heading);
+  }
+  h1 {
+    font-size: var(--it-font-size-h1);
+  }
+  h2 {
+    font-size: var(--it-font-size-h2);
+  }
+  h3 {
+    font-size: var(--it-font-size-h3);
+  }
+  h4 {
+    font-size: var(--it-font-size-h4);
+  }
+  h5 {
+    font-size: var(--it-font-size-h5);
+  }
+  h6 {
+    font-size: var(--it-font-size-h6);
   }
   /* design-tokens-italia: links are underlined 2px below the baseline */
   a:not([class]) {

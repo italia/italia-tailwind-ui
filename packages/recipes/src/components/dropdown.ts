@@ -185,11 +185,11 @@ export const doc: ComponentDoc = {
       id: "posizionamento",
       title: "Posizionamento",
       description: "daisyUI posiziona il menu; la tacca segue l'allineamento.",
-      html: `<div class="grid h-80 grid-cols-3 place-items-center gap-2">
-  <div class="col-start-2">${dropdown({ label: "Apri dropdown", align: "start" })}</div>
-  <div class="col-start-1 row-start-2">${dropdown({ label: "Apri dropend", align: "right" })}</div>
-  <div class="col-start-3 row-start-2">${dropdown({ label: "Apri dropstart", align: "left" })}</div>
-  <div class="col-start-2 row-start-3">${dropdown({ label: "Apri dropup", align: "top" })}</div>
+      html: `<div class="flex flex-col items-start gap-4 pb-56 sm:grid sm:h-80 sm:grid-cols-3 sm:place-items-center sm:gap-2 sm:pb-0">
+  <div class="sm:col-start-2">${dropdown({ label: "Apri dropdown", align: "start" })}</div>
+  <div class="sm:col-start-1 sm:row-start-2">${dropdown({ label: "Apri dropend", align: "right" })}</div>
+  <div class="sm:col-start-3 sm:row-start-2">${dropdown({ label: "Apri dropstart", align: "left" })}</div>
+  <div class="sm:col-start-2 sm:row-start-3">${dropdown({ label: "Apri dropup", align: "top" })}</div>
 </div>`,
     },
     {

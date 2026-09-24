@@ -187,8 +187,14 @@ With Tailwind 4:
 Without Tailwind, link the prebuilt `packages/css/dist/italia-daisy.css` (about 140 KB minified). It contains every
 class the recipes use.
 
-Load the fonts (Titillium Web, Lora, Roboto Mono) from Google Fonts. The `<link>` tag is in
-`packages/css/src/base.css`.
+Fonts:
+- **Titillium Sans Pro**, the typeface of dev-kit-italia and bootstrap-italia 3, ships with the package:
+  `packages/css/fonts/` holds the woff2 files (SIL Open Font License) and `src/fonts.css` the `@font-face` rules.
+  Vite (Astro, Storybook) copies the files when you import `@italia-daisy/css`. With the prebuilt stylesheet, keep
+  `fonts/` next to `dist/`, as in the package.
+- **Lora and Roboto Mono** come from Google Fonts. The `<link>` tag is in `packages/css/src/base.css`.
+- The stack is `"Titillium Sans Pro", "Titillium Web", system-ui…`, so a page that loads Titillium Web instead still
+  gets it.
 
 ## Themes
 
@@ -207,6 +213,21 @@ Themes nest: `<section data-theme="italia-dark">` inside an `italia-original` pa
 and the footer's main block use `primary`. In `italia-custom` it is design-tokens-italia blue-30 (`#004d99`), in
 `italia-original` primary-deep (`#003366`). In `italia-dark` `accent` is lighter than `primary`, so the two bands swap
 weight but stay distinct.
+
+### Type scale and control sizes
+
+The sizes follow bootstrap-italia 3 (design-tokens-italia), not Tailwind's and daisyUI's defaults:
+
+- **Text:** body 16px, 18px from 576px up. Headings are 40/32/28/24/20/16px, then 48/40/32/28/24/18px. They come
+  from `--it-font-size-body`, `--it-font-size-h1`…`h6` and `--it-font-size-lead` in `base.css`, set in the lowest
+  layer, so a theme block can redefine them. The base styles only reach text without a class: utilities and
+  daisyUI components keep their own sizes.
+- **Components:** daisyUI starts buttons, fields, tabs, badges and alerts at 14px. Here the default is 16px
+  (buttons, badges, alerts) or the body size (fields, tabs). The override sits in daisyUI's innermost sub-layer
+  (`extensions.css`), so `btn-sm`, `input-lg`, `tabs-xs` and the other size modifiers keep daisyUI's values.
+- **Heights:** `--size-field: 0.275rem` in the `italia-*` themes makes buttons, fields and tabs 44px high (daisyUI's
+  0.25rem gives 40px; bootstrap-italia buttons are 45px). It is a regular daisyUI theme variable: set it back to
+  0.25rem in a theme for daisyUI's sizes.
 
 ### Surfaces, not "light" and "dark"
 
