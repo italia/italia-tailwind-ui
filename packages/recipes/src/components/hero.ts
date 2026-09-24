@@ -27,25 +27,11 @@ export interface HeroArgs {
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const overlayFill: Record<Overlay, string> = {
+const overlayClass: Record<Overlay, string> = {
   none: "",
-  neutral: "hero-overlay bg-neutral/85",
-  primary: "hero-overlay bg-primary/85",
-  filter: "",
-};
-const overlayText: Record<Overlay, string> = {
-  none: "text-primary-content",
-  neutral: "text-neutral-content",
-  primary: "text-primary-content",
-  filter: "text-primary-content",
-};
-// daisyUI's .btn sets its own color, so currentColor inside it is the button's,
-// not the hero's: the CTA names the same token the surface uses.
-const ctaColor: Record<Overlay, string> = {
-  none: "border-primary-content text-primary-content hover:bg-primary-content hover:text-primary",
-  neutral: "border-neutral-content text-neutral-content hover:bg-neutral-content hover:text-neutral",
-  primary: "border-primary-content text-primary-content hover:bg-primary-content hover:text-primary",
-  filter: "border-primary-content text-primary-content hover:bg-primary-content hover:text-primary",
+  neutral: "ita-hero-neutral",
+  primary: "ita-hero-primary",
+  filter: "ita-hero-filter",
 };
 
 let counter = 0;
@@ -61,40 +47,25 @@ export function hero(a: HeroArgs = {}): string {
   const id = `hero-${++counter}-title`;
   const hasText = Boolean(a.category || title || a.text || a.ctaLabel);
 
-  const section = cx(
-    "hero relative w-full items-end justify-items-center bg-primary lg:items-center",
-    overlayText[overlay],
-    a.small ? "md:min-h-[300px] lg:min-h-[300px]" : "md:min-h-[300px] lg:min-h-[400px]",
-    a.overlap && "-mb-12 lg:-mb-10",
-  );
-  const img = a.image
-    ? `\n  <img src="${a.image}" alt="${a.imageAlt ?? ""}" class="${cx("size-full object-cover", overlay === "filter" && "mix-blend-screen")}">`
-    : "";
-  const veil = overlayFill[overlay] ? `\n  <div class="${overlayFill[overlay]}"></div>` : "";
+  const section = cx("hero ita-hero", overlayClass[overlay], a.small && "ita-hero-sm", a.center && "ita-hero-center", a.overlap && "ita-hero-overlap");
+  const img = a.image ? `\n  <img src="${a.image}" alt="${a.imageAlt ?? ""}">` : "";
+  const veil = overlay === "neutral" || overlay === "primary" ? `\n  <div class="hero-overlay"></div>` : "";
   if (!hasText) {
     return `<section class="${section}" aria-label="${a.ariaLabel ?? "In evidenza"}">${img}${veil}\n</section>`;
   }
 
-  const content = cx(
-    "hero-content w-full max-w-[1320px] flex-col gap-0 px-4 sm:px-6",
-    a.center ? "items-center text-center" : "items-start text-start",
-    a.overlap ? "pb-18 pt-12 lg:pb-12" : "py-12",
-  );
-  const wrapper = cx("relative", !a.center && "lg:max-w-[50vw]");
   const parts: string[] = [];
   if (a.category)
-    parts.push(`<span class="mb-1 block text-sm font-semibold uppercase tracking-wide">${a.category}</span>`);
-  if (title) parts.push(`<${h} id="${id}" class="mb-4 text-3xl font-bold leading-tight lg:text-4xl">${title}</${h}>`);
-  if (a.text) parts.push(`<p class="mb-4 font-serif leading-relaxed">${a.text}</p>`);
+    parts.push(`<span class="ita-hero-kicker">${a.category}</span>`);
+  if (title) parts.push(`<${h} id="${id}" class="ita-hero-title">${title}</${h}>`);
+  if (a.text) parts.push(`<p class="ita-hero-text">${a.text}</p>`);
   if (a.ctaLabel)
-    parts.push(
-      `<div><a href="${a.ctaHref ?? "#"}" class="btn btn-sm border-2 bg-transparent font-semibold ${ctaColor[overlay]}">${a.ctaLabel}</a></div>`,
-    );
+    parts.push(`<div><a href="${a.ctaHref ?? "#"}" class="ita-btn ita-btn-xs ita-hero-cta">${a.ctaLabel}</a></div>`);
 
   const label = title ? ` aria-labelledby="${id}"` : ` aria-label="${a.ariaLabel ?? "In evidenza"}"`;
   return `<section class="${section}"${label}>${img}${veil}
-  <div class="${content}">
-    <div class="${wrapper}">
+  <div class="hero-content">
+    <div>
       ${parts.join("\n      ")}
     </div>
   </div>
@@ -117,9 +88,10 @@ export const doc: ComponentDoc = {
   replaces: "<it-hero>",
   summary:
     "Blocco di apertura con immagine di sfondo, occhiello, titolo e azione. daisyUI hero e hero-overlay, con i colori presi dai token del tema.",
+  classes: ["ita-hero", "ita-hero-neutral", "ita-hero-primary", "ita-hero-filter", "ita-hero-center", "ita-hero-sm", "ita-hero-overlap", "ita-hero-kicker", "ita-hero-title", "ita-hero-text", "ita-hero-cta"],
   daisy: ["hero", "hero-content", "hero-overlay", "btn"],
   cssOnly:
-    "Nessuno script: lo slot background è un <img> nella stessa cella di griglia di .hero, l'overlay è un div hero-overlay e il filtro è mix-blend-screen. Il nome accessibile arriva da aria-labelledby sul titolo (aria-label quando l'hero è solo immagine), non da ariaLabelledByElements.",
+    "Nessuno script: lo slot background è un <img> nella stessa cella di griglia di .hero, l'overlay è un div hero-overlay colorato da ita-hero-neutral/-primary e il filtro (ita-hero-filter) è mix-blend-screen. Il nome accessibile arriva da aria-labelledby sul titolo (aria-label quando l'hero è solo immagine), non da ariaLabelledByElements.",
   examples: [
     {
       id: "immagine",

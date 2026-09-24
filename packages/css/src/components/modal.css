@@ -1,0 +1,80 @@
+/*
+ * Modal (structural): daisyUI modal, modal-box, modal-action, modal-backdrop
+ * and modal-toggle stay in the markup; ita-modal gives the .italia look.
+ *   <dialog id="m" class="modal ita-modal" aria-labelledby="m-title">
+ *     <div class="modal-box">
+ *       <button class="ita-modal-close" command="close" commandfor="m" aria-label="Chiudi">…</button>
+ *       <h2 id="m-title" class="ita-modal-title">Titolo</h2>
+ *       <div class="ita-modal-body">…</div>
+ *       <div class="modal-action">…</div>
+ *     </div>
+ *   </dialog>
+ *   modifiers: ita-modal-{sm|lg|xl}, ita-modal-alert (centred, with
+ *   ita-modal-icon and ita-modal-icon-{primary|danger|success}; warning is the
+ *   default), ita-modal-popconfirm, ita-modal-scroll
+ */
+@layer utilities {
+  .ita-modal {
+    & > .modal-box {
+      @apply rounded-sm p-6;
+    }
+  }
+  .ita-modal-sm > .modal-box {
+    @apply max-w-sm;
+  }
+  .ita-modal-lg > .modal-box {
+    @apply max-w-2xl;
+  }
+  .ita-modal-xl > .modal-box {
+    @apply max-w-5xl;
+  }
+  .ita-modal-alert > .modal-box {
+    @apply text-center;
+  }
+  .ita-modal-popconfirm > .modal-box {
+    @apply max-w-xs p-4;
+    & > .modal-action {
+      @apply mt-2;
+    }
+  }
+  .ita-modal-scroll > .modal-box {
+    @apply flex max-h-[70vh] flex-col overflow-hidden;
+    & > .ita-modal-body {
+      @apply grow overflow-y-auto;
+    }
+  }
+
+  .ita-modal-title {
+    @apply pe-8 text-2xl leading-tight font-bold;
+    .ita-modal-alert & {
+      @apply pe-0;
+    }
+  }
+  .ita-modal-body {
+    @apply py-4 leading-relaxed;
+  }
+  .ita-modal-icon {
+    @apply mb-3 flex justify-center text-warning;
+    & > svg {
+      @apply size-12;
+    }
+  }
+  .ita-modal-icon-primary {
+    @apply text-primary;
+  }
+  .ita-modal-icon-danger {
+    @apply text-error;
+  }
+  .ita-modal-icon-success {
+    @apply text-success;
+  }
+}
+
+@layer components {
+  .ita-modal-close {
+    @apply btn btn-sm btn-circle btn-ghost absolute end-3 top-3 text-base-content;
+    & > svg {
+      @apply size-5;
+    }
+  }
+}

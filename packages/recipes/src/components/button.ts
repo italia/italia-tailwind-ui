@@ -127,7 +127,7 @@ export const doc: ComponentDoc = {
       id: "badge",
       title: "Con badge",
       html: `<button type="button" class="ita-btn ita-btn-primary gap-2">
-  Notifiche <span class="badge badge-sm rounded-sm bg-base-100 text-primary border-0 font-semibold">4</span>
+  Notifiche <span class="ita-badge ita-badge-inverse">4</span>
   <span class="sr-only">Messaggi non letti</span>
 </button>`,
     },

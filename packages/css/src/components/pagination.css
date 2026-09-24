@@ -1,0 +1,50 @@
+/*
+ * Pagination: real links in 48px square daisyUI ghost buttons with a 2px
+ * border; the current page is outlined in primary.
+ *   <nav class="ita-pagination" aria-label="Paginazione"><ul>
+ *     <li><a class="ita-page-link" href="?page=2">2</a></li>
+ *     <li><a class="ita-page-link" href="?page=3" aria-current="page">3</a></li>
+ *   </ul></nav>
+ *   modifiers: ita-pagination-start, ita-pagination-end (default centred)
+ *   parts: ita-pagination-text for the "1 / 5" and caption texts
+ * A disabled arrow is <a class="ita-page-link" role="link" aria-disabled="true">;
+ * an ellipsis is a <span class="ita-page-link" aria-hidden="true">.
+ */
+@layer components {
+  .ita-pagination {
+    @apply flex flex-col items-center gap-4;
+    & > ul {
+      @apply flex flex-wrap items-center justify-center gap-2;
+    }
+  }
+  .ita-pagination-start {
+    @apply items-start;
+    & > ul {
+      @apply justify-start;
+    }
+  }
+  .ita-pagination-end {
+    @apply items-end;
+    & > ul {
+      @apply justify-end;
+    }
+  }
+  .ita-page-link {
+    @apply btn btn-ghost h-12 min-w-12 border-2 px-4 text-base font-semibold text-primary hover:underline;
+    &:is(span) {
+      @apply pointer-events-none;
+    }
+    &[aria-current="page"] {
+      @apply border-primary bg-transparent;
+    }
+    /* daisyUI leaves ghost buttons out of the grey disabled fill with
+       :not(.btn-ghost), a check on its own class name: repeated here. */
+    &[aria-disabled="true"] {
+      @apply btn-disabled;
+      background-color: transparent;
+    }
+  }
+  .ita-pagination-text {
+    @apply text-base font-semibold it-muted-80;
+  }
+}

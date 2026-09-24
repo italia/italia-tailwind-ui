@@ -1,0 +1,94 @@
+/*
+ * Transfer: move items from "disponibili" to "selezionati".
+ * CSS only — one group of checkboxes on a two-column grid; a checked item moves
+ * to the right column (:has(:checked)), grid-flow-dense packs both columns:
+ *   <fieldset class="ita-transfer"><legend>…</legend><p>hint</p>
+ *     <div class="ita-transfer-grid">
+ *       <p class="ita-transfer-head" aria-hidden="true">svg Disponibili</p>
+ *       <p class="ita-transfer-head" aria-hidden="true">svg Selezionati</p>
+ *       <label><input type="checkbox" class="ita-checkbox ita-checkbox-sm" …><span>Anagrafe</span></label> …
+ *       <span aria-hidden="true"></span>
+ *     </div></fieldset>
+ * With buttons (the server, or a script, moves the items):
+ *   <form class="ita-transfer-form"><fieldset><legend>…</legend><div class="ita-transfer-layout">
+ *     <fieldset class="ita-transfer-box"><legend class="sr-only">…</legend>
+ *       <p class="ita-transfer-head"><span>Disponibili</span><span class="ita-transfer-count">4</span></p>
+ *       <ul><li><label>…</label></li></ul></fieldset>
+ *     <div class="ita-transfer-moves">…buttons…</div>
+ *     <fieldset class="ita-transfer-box">…</fieldset>
+ *   </div></fieldset></form>
+ */
+@layer components {
+  :is(.ita-transfer, .ita-transfer-form > fieldset) {
+    @apply fieldset gap-0 p-0;
+    & > legend {
+      @apply fieldset-legend mb-2 p-0 text-base font-semibold text-base-content;
+    }
+  }
+  .ita-transfer {
+    @apply w-full max-w-2xl;
+    & > p {
+      @apply mb-3 text-sm it-muted-70;
+    }
+  }
+  /* A one-pixel rule down the middle, drawn by the grid's own background. */
+  .ita-transfer-grid {
+    @apply grid grid-flow-dense grid-cols-2 overflow-hidden rounded-box border border-base-content/20;
+    @apply bg-[linear-gradient(to_right,transparent_calc(50%-0.5px),color-mix(in_oklab,var(--color-base-content)_20%,transparent)_calc(50%-0.5px),color-mix(in_oklab,var(--color-base-content)_20%,transparent)_calc(50%+0.5px),transparent_calc(50%+0.5px))];
+    & > .ita-transfer-head {
+      @apply col-start-1 row-start-1;
+      & + .ita-transfer-head {
+        @apply col-start-2;
+        & > svg {
+          @apply text-primary;
+        }
+      }
+    }
+    & > label {
+      @apply col-start-1 has-checked:col-start-2;
+    }
+    & > span:last-child {
+      @apply col-span-2 h-2;
+    }
+  }
+  .ita-transfer-head {
+    @apply flex items-center gap-2 border-b border-base-content/20 bg-base-200 px-4 py-3 font-semibold;
+    & > svg {
+      @apply size-5;
+    }
+  }
+  :is(.ita-transfer-grid > label, .ita-transfer-box label) {
+    @apply flex cursor-pointer items-center gap-3 px-4 py-2;
+    &:not(:has(input:disabled)):hover {
+      @apply bg-primary/5;
+    }
+    &:has(input:disabled) {
+      @apply cursor-not-allowed text-base-content/50;
+    }
+  }
+  .ita-transfer-box label:has(input:disabled) {
+    @apply cursor-auto;
+  }
+
+  .ita-transfer-form {
+    @apply w-full max-w-3xl;
+  }
+  .ita-transfer-layout {
+    @apply grid items-center gap-4 md:grid-cols-[1fr_auto_1fr];
+  }
+  .ita-transfer-moves {
+    @apply flex justify-center gap-2 md:flex-col;
+  }
+  .ita-transfer-box {
+    @apply flex flex-col rounded-box border border-base-content/20;
+    & > .ita-transfer-head {
+      @apply justify-between gap-0;
+    }
+    & > ul {
+      @apply flex min-h-48 flex-col py-2;
+    }
+  }
+  .ita-transfer-count {
+    @apply badge badge-sm badge-ghost;
+  }
+}

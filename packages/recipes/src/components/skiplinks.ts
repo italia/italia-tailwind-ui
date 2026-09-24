@@ -1,4 +1,4 @@
-import { cx, type ComponentDoc } from "../types";
+import type { ComponentDoc } from "../types";
 
 export interface Skiplink {
   label: string;
@@ -24,16 +24,9 @@ const defaultLinks: Skiplink[] = [
  */
 export function skiplinks(a: SkiplinksArgs = {}): string {
   const { links = defaultLinks, label = "Scorciatoie di navigazione" } = a;
-  const bar = "flex flex-wrap gap-2 bg-base-100 p-2 shadow-lg";
-  const cls = a.visible
-    ? bar
-    : cx(
-        "sr-only focus-within:not-sr-only focus-within:absolute focus-within:inset-x-0 focus-within:top-0 focus-within:z-50",
-        "focus-within:flex focus-within:flex-wrap focus-within:gap-2 focus-within:bg-base-100 focus-within:p-2 focus-within:shadow-lg",
-      );
-  const link = "rounded-field px-4 py-2 font-bold text-primary underline underline-offset-2 hover:no-underline focus:bg-primary focus:text-primary-content";
+  const cls = a.visible ? "ita-skiplinks-bar" : "ita-skiplinks";
   return `<nav aria-label="${label}" class="${cls}">
-  ${links.map((l) => `<a href="${l.href}" class="${link}">${l.label}</a>`).join("\n  ")}
+  ${links.map((l) => `<a href="${l.href}">${l.label}</a>`).join("\n  ")}
 </nav>`;
 }
 
@@ -43,9 +36,10 @@ export const doc: ComponentDoc = {
   replaces: "<it-skiplinks>",
   summary:
     "I collegamenti «Vai al contenuto» per chi naviga da tastiera: nascosti con sr-only, la barra intera compare in cima quando uno di loro riceve il focus.",
+  classes: ["ita-skiplinks", "ita-skiplinks-bar"],
   daisy: [],
   cssOnly:
-    "sr-only più focus-within:not-sr-only sul <nav>: con il primo Tab compare tutta la barra, non solo il link attivo. Mettilo come primo elemento del <body> e dai un id alle destinazioni (<main id=\"main\">). Per spostare davvero il focus su un elemento non interattivo aggiungi tabindex=\"-1\" alla destinazione.",
+    "ita-skiplinks è sr-only finché un suo link non ha il focus (focus-within) sul <nav>: con il primo Tab compare tutta la barra, non solo il link attivo. Mettilo come primo elemento del <body> e dai un id alle destinazioni (<main id=\"main\">). Per spostare davvero il focus su un elemento non interattivo aggiungi tabindex=\"-1\" alla destinazione.",
   examples: [
     {
       id: "base",

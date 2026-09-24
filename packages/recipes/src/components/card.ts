@@ -29,19 +29,20 @@ export interface CardArgs {
   actions?: string;
 }
 
+// Literal class maps: Tailwind only sees classes written out in full.
 const borderTop: Record<CardBorderTop, string> = {
   none: "",
-  primary: "border-t-6 border-t-primary",
-  secondary: "border-t-6 border-t-secondary",
-  success: "border-t-6 border-t-success",
-  danger: "border-t-6 border-t-error",
-  warning: "border-t-6 border-t-warning",
+  primary: "ita-card-primary",
+  secondary: "ita-card-secondary",
+  success: "ita-card-success",
+  danger: "ita-card-danger",
+  warning: "ita-card-warning",
 };
 const shadows: Record<CardShadow, string> = {
-  none: "shadow-none",
-  sm: "shadow-[0_4px_4px_rgb(0_0_0/0.05)]",
-  md: "shadow-[0_8px_16px_rgb(0_0_0/0.1)]",
-  lg: "shadow-[0_16px_48px_rgb(0_0_0/0.15)]",
+  none: "ita-card-shadow-none",
+  sm: "",
+  md: "ita-card-shadow-md",
+  lg: "ita-card-shadow-lg",
 };
 
 export function card(a: CardArgs = {}): string {
@@ -54,36 +55,34 @@ export function card(a: CardArgs = {}): string {
   } = a;
   const h = `h${headingLevel}`;
   const cls = cx(
-    "card bg-base-100 text-base-content/85",
-    a.border !== false && "card-border border-base-content/20",
+    "card ita-card",
+    a.border === false && "ita-card-borderless",
     shadows[shadow],
     borderTop[a.borderTop ?? "none"],
-    a.inline && "md:card-side",
-    a.inline && a.reverse && "md:flex-row-reverse",
+    a.inline && "ita-card-inline",
+    a.inline && a.reverse && "ita-card-reverse",
   );
-  const figure = a.image
-    ? `<figure class="bg-base-300 ${a.inline ? "aspect-video md:aspect-auto md:w-1/2 md:shrink-0" : "aspect-video"}"><img src="${a.image}" alt="${a.imageAlt ?? ""}" class="size-full object-cover" loading="lazy"></figure>`
-    : "";
-  const titleEl = `<${h} class="card-title flex items-start justify-between gap-3 text-2xl font-bold leading-tight">
-      <a href="${href}" class="link link-primary underline-offset-2">${title}</a>${a.titleIcon ? `\n      ${icon(a.titleIcon, "size-8 text-secondary")}` : ""}
+  const figure = a.image ? `<figure><img src="${a.image}" alt="${a.imageAlt ?? ""}" loading="lazy"></figure>` : "";
+  const titleEl = `<${h} class="card-title">
+      <a href="${href}">${title}</a>${a.titleIcon ? `\n      ${icon(a.titleIcon, "")}` : ""}
     </${h}>`;
   const body: string[] = [titleEl];
-  if (a.subtitle) body.push(`<p class="text-xl font-semibold leading-tight text-base-content">${a.subtitle}</p>`);
-  if (a.signature) body.push(`<address class="font-mono not-italic">${a.signature}</address>`);
-  if (text) body.push(`<p class="leading-normal">${text}</p>`);
+  if (a.subtitle) body.push(`<p class="ita-card-subtitle">${a.subtitle}</p>`);
+  if (a.signature) body.push(`<address>${a.signature}</address>`);
+  if (text) body.push(`<p class="ita-card-text">${text}</p>`);
   const hasFooter = a.category || a.date || a.tags?.length;
   if (hasFooter) {
     const tax = a.tags?.length
-      ? `<div class="flex grow flex-wrap gap-2">${a.tags.map((t) => chip({ label: t, href: "#" })).join("")}</div>`
-      : `<div class="grow"><a href="#" class="link link-hover text-base font-semibold uppercase text-base-content/70">${a.category}</a></div>`;
-    body.push(`<footer class="mt-auto flex flex-wrap items-end justify-end gap-4 pt-4 text-base-content/70">
-      ${tax}${a.date ? `\n      <time class="text-sm">${a.date}</time>` : ""}
+      ? `<div class="ita-card-tags">${a.tags.map((t) => chip({ label: t, href: "#" })).join("")}</div>`
+      : `<div><a href="#" class="ita-card-category">${a.category}</a></div>`;
+    body.push(`<footer class="ita-card-footer">
+      ${tax}${a.date ? `\n      <time>${a.date}</time>` : ""}
     </footer>`);
   }
-  if (a.actions) body.push(`<div class="card-actions mt-4 border-t border-base-content/20 pt-4" role="group" aria-label="Link correlati:">${a.actions}</div>`);
+  if (a.actions) body.push(`<div class="card-actions" role="group" aria-label="Link correlati:">${a.actions}</div>`);
   return `<article class="${cls}">
   ${figure}
-  <div class="card-body gap-2 p-4">
+  <div class="card-body">
     ${body.join("\n    ")}
   </div>
 </article>`;
@@ -91,12 +90,12 @@ export function card(a: CardArgs = {}): string {
 
 /** Profile card: avatar + name + role, with an optional description list. */
 export function profileCard(name = "Nome Personale", role = "Ruolo nell'organizzazione", initials = "NP"): string {
-  return `<article class="card card-border border-base-content/20 bg-base-100 shadow-[0_4px_4px_rgb(0_0_0/0.05)]">
-  <div class="card-body gap-4 p-4">
+  return `<article class="card ita-card ita-card-profile">
+  <div class="card-body">
     <div class="flex items-center gap-4">
       <div class="avatar avatar-placeholder"><div class="size-20 rounded-full bg-primary text-primary-content text-2xl font-bold">${initials}</div></div>
       <div>
-        <h3 class="text-2xl font-bold leading-tight"><a href="#" class="link link-primary underline-offset-2">${name}</a></h3>
+        <h3 class="card-title"><a href="#">${name}</a></h3>
         <p class="text-base-content/70">${role}</p>
       </div>
     </div>
@@ -110,10 +109,10 @@ export function profileCard(name = "Nome Personale", role = "Ruolo nell'organizz
 
 /** Banner card: centred icon, title, subtitle and an optional action. */
 export function bannerCard(action = false): string {
-  return `<article class="card card-border border-base-content/20 bg-base-100 shadow-[0_4px_4px_rgb(0_0_0/0.05)]">
-  <div class="card-body items-center gap-4 p-6 text-center lg:p-10">
+  return `<article class="card ita-card ita-card-banner">
+  <div class="card-body">
     ${icon("it-chart-line", "size-16 text-secondary")}
-    <h3 class="text-2xl font-bold leading-tight"><a href="#" class="link link-primary underline-offset-2">Titolo del contenuto</a></h3>
+    <h3 class="card-title"><a href="#">Titolo del contenuto</a></h3>
     <p class="font-semibold">Scopri maggiori informazioni</p>${action ? `\n    <div class="card-actions">${button({ label: "Apri il form di iscrizione", outline: true })}</div>` : ""}
   </div>
 </article>`;
@@ -128,7 +127,8 @@ export const doc: ComponentDoc = {
   replaces: "<it-card>",
   summary:
     "Card editoriali, inline, profilo e banner. daisyUI card con bordo sottile, ombre di design-tokens-italia e titolo come link.",
-  daisy: ["card", "card-border", "card-body", "card-title", "card-actions", "md:card-side", "avatar"],
+  classes: ["ita-card", "ita-card-primary", "ita-card-secondary", "ita-card-success", "ita-card-danger", "ita-card-warning", "ita-card-shadow-none", "ita-card-shadow-md", "ita-card-shadow-lg", "ita-card-borderless", "ita-card-inline", "ita-card-reverse", "ita-card-profile", "ita-card-banner", "ita-card-subtitle", "ita-card-text", "ita-card-footer", "ita-card-tags", "ita-card-category"],
+  daisy: ["card", "card-body", "card-title", "card-actions", "card-side", "avatar"],
   examples: [
     {
       id: "editoriali",
@@ -181,7 +181,7 @@ ${card({ inline: true, reverse: true, image: "https://picsum.photos/seed/nature/
       html: grid([
         card({
           subtitle: "Sottotitolo del contenuto",
-          actions: `<a href="#" class="link link-primary inline-flex items-center gap-2 font-semibold">Leggi di più ${icon("it-arrow-right", "size-5")}</a>`,
+          actions: `<a href="#" class="ita-link inline-flex items-center gap-2 font-semibold">Leggi di più ${icon("it-arrow-right", "size-5")}</a>`,
         }),
       ]),
     },

@@ -1,0 +1,64 @@
+/*
+ * Navscroll: a page index with the current section highlighted while
+ * scrolling (scroll-target-group + :target-current, Chrome 140+; aria-current
+ * from the server elsewhere) and an optional reading progress bar
+ * (it-scroll-progress). Folds into a <details> under lg.
+ *   <nav class="ita-navscroll" aria-label="Indice"><details>
+ *     <summary><span>Indice</span>svg</summary>
+ *     <div><p class="ita-navscroll-title" aria-hidden="true">Indice</p>
+ *       <div class="ita-navscroll-progress" aria-hidden="true"><div class="it-scroll-progress"></div></div>
+ *       <ul><li><a href="#s1">…</a><ul><li><a href="#s1a">…</a></li></ul></li></ul>
+ *     </div>
+ *   </details></nav>
+ */
+@layer components {
+  .ita-navscroll {
+    @apply w-full;
+    & > details {
+      @apply rounded-box border border-base-content/15 bg-base-100 lg:border-0;
+      @media (width >= 64rem) {
+        &::details-content {
+          content-visibility: visible;
+        }
+      }
+      & > summary {
+        @apply flex cursor-pointer list-none items-center justify-between gap-2 p-4 font-semibold text-primary lg:hidden;
+        &::-webkit-details-marker {
+          display: none;
+        }
+        & > svg {
+          @apply size-5 transition-transform;
+        }
+      }
+      &[open] > summary > svg {
+        @apply rotate-180;
+      }
+      & > div {
+        @apply px-4 pb-4 lg:p-0;
+        & > ul {
+          @apply border-s-[3px] border-base-300 [scroll-target-group:auto];
+        }
+      }
+    }
+    & li > a {
+      @apply -ms-[3px] block border-s-[3px] border-transparent py-2 ps-4 text-primary no-underline hover:underline;
+      /* The current link: a thick primary bar over the list's thin rule. */
+      &:target-current,
+      &[aria-current="true"] {
+        @apply border-primary font-bold text-base-content;
+      }
+    }
+    & li li > a {
+      @apply ps-8 text-sm;
+    }
+  }
+  .ita-navscroll-title {
+    @apply hidden pb-2 text-sm font-semibold tracking-wide it-muted-70 uppercase lg:block;
+  }
+  .ita-navscroll-progress {
+    @apply mb-4 h-1 overflow-hidden rounded-full bg-base-300;
+    & > div {
+      @apply h-full bg-primary;
+    }
+  }
+}

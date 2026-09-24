@@ -63,38 +63,15 @@ export interface HeaderArgs extends HeaderSlimArgs, HeaderCenterArgs, HeaderNavA
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const slimSurface: Record<HeaderSurface, string> = {
-  primary: "bg-accent text-accent-content",
-  base: "border-b border-primary/20 bg-base-100 text-primary",
-};
-const centerSurface: Record<HeaderSurface, string> = {
-  primary: "bg-primary text-primary-content",
-  base: "bg-base-100 text-primary",
-};
-const navSurface: Record<HeaderSurface, string> = {
-  primary: "bg-primary text-primary-content",
-  base: "bg-base-100 text-primary lg:border-b lg:border-primary/20",
-};
 const accessButton: Record<HeaderSurface, string> = {
-  primary: "btn btn-sm border-0 bg-base-100 font-semibold text-primary hover:bg-base-200",
-  base: "btn btn-sm btn-primary font-semibold",
+  primary: "ita-btn ita-btn-inverse ita-btn-xs",
+  base: "ita-btn ita-btn-primary ita-btn-xs",
 };
-// daisyUI's menu paints [aria-current] with --menu-active-bg: the active nav
-// item names its own colours so it keeps the .italia underline instead.
-const navActive: Record<HeaderSurface, string> = {
-  primary: "bg-transparent text-primary-content lg:border-b-4 lg:border-primary-content",
-  base: "bg-transparent text-primary lg:border-b-4 lg:border-primary",
-};
-const searchButton: Record<HeaderSurface, string> = {
-  primary: "md:bg-base-100 md:text-primary lg:hover:bg-base-200",
-  base: "md:bg-primary md:text-primary-content lg:hover:bg-accent",
-};
+const base = (surface: HeaderSurface) => (surface === "base" ? " ita-header-base" : "");
 
 /** The surface to use: `surface`, or the deprecated `theme` alias. */
 const surfaceOf = (a: { surface?: HeaderSurface; theme?: HeaderTheme }): HeaderSurface =>
   a.surface ?? (a.theme === "light" ? "base" : "primary");
-
-const container = "mx-auto flex w-full max-w-[1320px] items-center gap-4 px-4";
 
 let counter = 0;
 
@@ -110,32 +87,28 @@ export function headerSlim(a: HeaderSlimArgs = {}): string {
       { label: "Link 2 (Attivo)", href: "#", active: true },
     ],
   } = a;
-  const item = (l: NavLink) =>
-    `<li><a href="${l.href ?? "#"}" class="${cx(
-      "px-3 py-2 text-sm hover:underline",
-      l.active && "font-semibold shadow-[inset_0_-2px_0_currentColor]",
-    )}"${l.active ? ' aria-current="page"' : ""}>${l.label}</a></li>`;
+  const item = (l: NavLink) => `<li><a href="${l.href ?? "#"}"${l.active ? ' aria-current="page"' : ""}>${l.label}</a></li>`;
   const login =
     access === "full"
-      ? `<a href="#" class="${accessButton[surface]} gap-2 px-2 md:px-3" aria-label="Accedi all'area personale">
-            <span class="grid size-6 place-items-center rounded-full bg-primary text-primary-content">${icon("it-user", "size-4")}</span>
-            <span class="hidden lg:block" aria-hidden="true">Accedi all'area personale</span>
+      ? `<a href="#" class="${accessButton[surface]} ita-header-login" aria-label="Accedi all'area personale">
+            <span>${icon("it-user", "")}</span>
+            <span aria-hidden="true">Accedi all'area personale</span>
           </a>`
       : access === "button"
         ? `<a href="#" class="${accessButton[surface]}">Accedi</a>`
         : "";
-  return `<div class="${slimSurface[surface]}">
-  <div class="${container} h-12 justify-between">
-    <a href="#" class="min-w-0 truncate text-sm font-semibold hover:underline">${owner}</a>
-    <nav aria-label="Navigazione accessoria" class="hidden grow lg:block">
-      <ul class="flex items-center justify-end border-x border-current/20 px-1">
+  return `<div class="ita-header-slim${base(surface)}">
+  <div class="ita-header-container">
+    <a href="#" class="ita-header-owner">${owner}</a>
+    <nav aria-label="Navigazione accessoria" class="ita-header-links">
+      <ul>
         ${links.map(item).join("\n        ")}
       </ul>
     </nav>
-    <div class="flex shrink-0 items-center gap-3">
-      <details class="dropdown dropdown-end group">
-        <summary class="btn btn-ghost btn-sm gap-1 text-sm font-normal uppercase text-current hover:bg-current/10" aria-label="Selettore lingua. Lingua attiva: ${languages[0]}">${languages[0]}${chevron()}</summary>
-        <ul class="dropdown-content menu z-40 mt-1 w-32 rounded-box bg-base-100 p-2 text-base-content shadow-lg">
+    <div class="ita-header-tools">
+      <details class="dropdown dropdown-end ita-header-lang">
+        <summary aria-label="Selettore lingua. Lingua attiva: ${languages[0]}">${languages[0]}${chevron()}</summary>
+        <ul class="dropdown-content menu">
           ${languages
             .map(
               (l, i) =>
@@ -163,28 +136,27 @@ export function headerCenter(a: HeaderCenterArgs = {}): string {
       { name: "it-twitter", label: "Twitter" },
     ],
   } = a;
-  const brandSize = a.compact ? "size-10 md:size-12 lg:size-14" : "size-10 md:size-14 lg:size-18";
-  return `<div class="${centerSurface[surface]}">
-  <div class="${container} ${a.compact ? "h-16 lg:h-26" : "h-18 lg:h-30"} justify-between">
-    <div class="min-w-0">
-      <a href="#" class="flex min-w-0 items-center gap-2 no-underline hover:no-underline">
-        ${icon(brandIcon, `${brandSize} shrink-0`)}
-        <span class="min-w-0">
-          <span class="block truncate text-xl font-bold leading-tight lg:text-3xl">${title}</span>
-          <span class="hidden truncate text-base md:block">${tagline}</span>
+  return `<div class="${cx("ita-header-center", surface === "base" && "ita-header-base", a.compact && "ita-header-compact")}">
+  <div class="ita-header-container">
+    <div class="ita-header-brand">
+      <a href="#">
+        ${icon(brandIcon, "")}
+        <span>
+          <span class="ita-header-name">${title}</span>
+          <span class="ita-header-tagline">${tagline}</span>
         </span>
       </a>
     </div>
-    <div class="flex shrink-0 items-center gap-2 md:gap-4">
+    <div class="ita-header-tools">
       ${
         socials.length
-          ? `<div class="hidden items-center gap-1 text-xs md:flex">
+          ? `<div class="ita-header-socials">
         <span>Seguici su</span>
-        <ul class="flex items-center">
+        <ul>
           ${socials
             .map(
               (s) =>
-                `<li><a href="${s.href ?? "#"}" class="grid size-8 place-items-center hover:opacity-80" aria-label="${s.label}" target="_blank" rel="noopener">${icon(s.name, "size-5")}</a></li>`,
+                `<li><a href="${s.href ?? "#"}" aria-label="${s.label}" target="_blank" rel="noopener">${icon(s.name, "")}</a></li>`,
             )
             .join("\n          ")}
         </ul>
@@ -193,17 +165,17 @@ export function headerCenter(a: HeaderCenterArgs = {}): string {
       }
       ${
         search
-          ? `<div class="flex items-center gap-2 text-xs md:ms-6">
-        <span class="hidden md:block">Cerca</span>
-        <a href="#" class="grid size-12 place-items-center rounded-full lg:size-14 ${searchButton[surface]}" aria-label="Cerca nel sito">${icon("it-search", "size-6")}</a>
+          ? `<div class="ita-header-search">
+        <span>Cerca</span>
+        <a href="#" aria-label="Cerca nel sito">${icon("it-search", "")}</a>
       </div>`
           : ""
       }
       ${
         a.toggleFor
-          ? `<input id="${a.toggleFor}" type="checkbox" class="peer sr-only" aria-label="Mostra la navigazione">
-      <label for="${a.toggleFor}" class="btn btn-ghost btn-square text-current peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 lg:hidden">
-        ${icon("it-burger", "size-6")}
+          ? `<input id="${a.toggleFor}" type="checkbox" class="sr-only" aria-label="Mostra la navigazione">
+      <label for="${a.toggleFor}" class="ita-header-burger">
+        ${icon("it-burger", "")}
       </label>`
           : ""
       }
@@ -212,27 +184,21 @@ export function headerCenter(a: HeaderCenterArgs = {}): string {
 </div>`;
 }
 
-const navLink = (l: NavLink, surface: HeaderSurface, secondary = false) => {
-  const cls = cx(
-    "rounded-none px-3 py-3 hover:bg-current/10",
-    secondary ? "text-sm" : "font-semibold",
-    l.active && navActive[surface],
-    l.disabled && "pointer-events-none opacity-50",
-  );
+const navLink = (l: NavLink) => {
   if (!l.items?.length)
-    return `<li><a href="${l.href ?? "#"}" class="${cls}"${l.active ? ' aria-current="page"' : ""}${l.disabled ? ' aria-disabled="true" tabindex="-1"' : ""}>${l.label}</a></li>`;
+    return `<li><a href="${l.href ?? "#"}"${l.active ? ' aria-current="page"' : ""}${l.disabled ? ' aria-disabled="true" tabindex="-1"' : ""}>${l.label}</a></li>`;
   const panel = l.mega
     ? megamenuPanel({
         label: l.label,
         links: (l.items ?? []).map((s) => ({ label: s.label, href: s.href })),
         headerLink: `Esplora la sezione ${l.label}`,
       })
-    : `<ul class="w-56 text-base-content">
+    : `<ul class="ita-header-submenu">
             ${(l.items ?? []).map((s) => `<li><a href="${s.href ?? "#"}">${s.label}</a></li>`).join("\n            ")}
           </ul>`;
-  return `<li${l.mega ? ' class="lg:static"' : ""}>
-        <details class="${l.mega ? "group relative lg:static lg:overflow-visible" : "group relative"}">
-          <summary class="${cls}">${l.label}</summary>
+  return `<li${l.mega ? ' class="ita-header-mega"' : ""}>
+        <details>
+          <summary${l.active ? ' aria-current="page"' : ""}${l.disabled ? ' aria-disabled="true"' : ""}>${l.label}</summary>
           ${panel}
         </details>
       </li>`;
@@ -261,16 +227,16 @@ export function headerNav(a: HeaderNavArgs = {}): string {
     ],
     secondary = [],
   } = a;
-  return `<div class="${navSurface[surface]} border-t border-current/20 lg:relative lg:border-t-0">
-  <nav aria-label="Navigazione principale" class="mx-auto w-full max-w-[1320px] px-4">
-    <div class="flex flex-col justify-between gap-0 lg:flex-row lg:items-end">
-      <ul class="menu menu-vertical w-full gap-0 p-0 lg:menu-horizontal lg:w-auto lg:items-end">
-        ${links.map((l) => navLink(l, surface)).join("\n        ")}
+  return `<div class="ita-header-nav${base(surface)}">
+  <nav aria-label="Navigazione principale">
+    <div>
+      <ul class="menu menu-vertical lg:menu-horizontal">
+        ${links.map((l) => navLink(l)).join("\n        ")}
       </ul>
       ${
         secondary.length
-          ? `<ul class="menu menu-vertical w-full gap-0 p-0 lg:menu-horizontal lg:w-auto lg:items-end lg:justify-end">
-        ${secondary.map((l) => navLink(l, surface, true)).join("\n        ")}
+          ? `<ul class="menu menu-vertical lg:menu-horizontal ita-header-secondary">
+        ${secondary.map((l) => navLink(l)).join("\n        ")}
       </ul>`
           : ""
       }
@@ -283,10 +249,10 @@ export function headerNav(a: HeaderNavArgs = {}): string {
 export function header(a: HeaderArgs = {}): string {
   const surface = surfaceOf(a);
   const id = `header-nav-${++counter}`;
-  return `<header class="${cx("group/nav relative", a.shadow && "shadow-[0_8px_16px_rgb(0_0_0/0.1)]")}">
+  return `<header class="${cx("ita-header", a.shadow && "ita-header-shadow")}">
 ${headerSlim({ owner: a.owner, links: a.slimLinks, surface, access: a.access, languages: a.languages })}
 ${headerCenter({ title: a.title, tagline: a.tagline, brandIcon: a.brandIcon, surface, compact: a.compact, socials: a.socials, search: a.search, toggleFor: id })}
-<div class="hidden group-has-checked/nav:block lg:block">
+<div class="ita-header-collapse">
 ${headerNav({ links: a.links, secondary: a.secondary, surface })}
 </div>
 </header>`;
@@ -298,9 +264,10 @@ export const doc: ComponentDoc = {
   replaces: "<it-header>",
   summary:
     "Le tre fasce dell'intestazione .italia — slim, centrale e navigazione — su daisyUI menu, dropdown e navbar. Su mobile il menu si apre con una checkbox, senza JavaScript.",
+  classes: ["ita-header", "ita-header-shadow", "ita-header-base", "ita-header-slim", "ita-header-center", "ita-header-compact", "ita-header-nav", "ita-header-container", "ita-header-tools", "ita-header-owner", "ita-header-links", "ita-header-lang", "ita-header-login", "ita-header-brand", "ita-header-name", "ita-header-tagline", "ita-header-socials", "ita-header-search", "ita-header-burger", "ita-header-collapse", "ita-header-secondary", "ita-header-mega", "ita-header-submenu"],
   daisy: ["menu", "menu-horizontal", "menu-vertical", "menu-active", "dropdown", "dropdown-end", "btn", "btn-ghost"],
   cssOnly:
-    "Il passaggio desktop/mobile è una media query, non matchMedia: menu-vertical sotto lg, menu-horizontal da lg. I dropdown sono <details>/<summary>, quindi tastiera e chiusura funzionano da sole. Il menu mobile è una checkbox sr-only con peer-checked, al posto della modale del web component.",
+    "Il passaggio desktop/mobile è una media query, non matchMedia: menu-vertical sotto lg, menu-horizontal da lg. I dropdown sono <details>/<summary>, quindi tastiera e chiusura funzionano da sole. Il menu mobile è una checkbox sr-only (ita-header:has(:checked)), al posto della modale del web component.",
   examples: [
     { id: "slim", fullBleed: true, title: "Slim Header", html: headerSlim() },
     { id: "slim-full", fullBleed: true, title: "Slim Header con pulsante full-responsive", html: headerSlim({ access: "full" }) },

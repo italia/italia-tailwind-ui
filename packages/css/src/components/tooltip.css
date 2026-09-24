@@ -1,0 +1,80 @@
+/*
+ * Tooltip.
+ * daisyUI tooltip (structural: tooltip, tooltip-{top|bottom|left|right},
+ * tooltip-open and tooltip-{color} stay in the markup):
+ *   <span class="tooltip ita-tooltip" data-tip="Testo"><button …>…</button></span>
+ * The accessible variant, a real element tied with aria-describedby, shown on
+ * hover and on keyboard focus:
+ *   <span class="ita-tip">
+ *     <button aria-describedby="t1" …>…</button>
+ *     <span role="tooltip" id="t1" class="ita-tip-panel">Testo<span aria-hidden="true"></span></span>
+ *   </span>
+ *   ita-tip-panel modifiers: ita-tip-{bottom|left|right} (top is the default),
+ *   ita-tip-{primary|secondary|success|warning|danger|info} (neutral is the default)
+ */
+@layer utilities {
+  .ita-tooltip {
+    @apply max-w-[32em];
+  }
+
+  .ita-tip {
+    @apply relative inline-block;
+  }
+  .ita-tip-panel {
+    --ita-tip-bg: var(--color-neutral);
+    --ita-tip-fg: var(--color-neutral-content);
+    @apply pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max max-w-[32em] -translate-x-1/2 rounded-sm px-2 py-1 text-sm opacity-0 transition-opacity;
+    background-color: var(--ita-tip-bg);
+    color: var(--ita-tip-fg);
+    .ita-tip:is(:hover, :focus-within) > & {
+      @apply opacity-100;
+    }
+    /* The arrow. */
+    & > span {
+      @apply absolute -bottom-1 left-1/2 size-2 -translate-x-1/2 rotate-45;
+      background-color: var(--ita-tip-bg);
+    }
+  }
+  .ita-tip-bottom {
+    @apply top-full bottom-auto mt-2 mb-0;
+    & > span {
+      @apply -top-1 bottom-auto;
+    }
+  }
+  .ita-tip-left {
+    @apply top-1/2 right-full bottom-auto left-auto me-2 mb-0 translate-x-0 -translate-y-1/2;
+    & > span {
+      @apply top-1/2 -right-1 bottom-auto left-auto translate-x-0 -translate-y-1/2;
+    }
+  }
+  .ita-tip-right {
+    @apply top-1/2 bottom-auto left-full ms-2 mb-0 translate-x-0 -translate-y-1/2;
+    & > span {
+      @apply top-1/2 bottom-auto -left-1 translate-x-0 -translate-y-1/2;
+    }
+  }
+  .ita-tip-primary {
+    --ita-tip-bg: var(--color-primary);
+    --ita-tip-fg: var(--color-primary-content);
+  }
+  .ita-tip-secondary {
+    --ita-tip-bg: var(--color-secondary);
+    --ita-tip-fg: var(--color-secondary-content);
+  }
+  .ita-tip-success {
+    --ita-tip-bg: var(--color-success);
+    --ita-tip-fg: var(--color-success-content);
+  }
+  .ita-tip-warning {
+    --ita-tip-bg: var(--color-warning);
+    --ita-tip-fg: var(--color-warning-content);
+  }
+  .ita-tip-danger {
+    --ita-tip-bg: var(--color-error);
+    --ita-tip-fg: var(--color-error-content);
+  }
+  .ita-tip-info {
+    --ita-tip-bg: var(--color-info);
+    --ita-tip-fg: var(--color-info-content);
+  }
+}

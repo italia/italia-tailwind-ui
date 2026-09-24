@@ -1,0 +1,85 @@
+/*
+ * Progress indicators.
+ *   Bar:     <progress class="ita-progress" value="40" max="100">
+ *            ita-progress-{success|warning|danger|info}, ita-progress-md, ita-progress-lg;
+ *            with a label: <div class="ita-progress-field"><div class="ita-progress-label">
+ *            <label for="p">Caricamento</label><span>40%</span></div><progress …></div>
+ *   Donut:   <div class="ita-donut" style="--value:60" role="progressbar" …><span>60%</span></div>
+ *            ita-donut-sm, ita-donut-{success|warning|danger|info}
+ *   Spinner: <span role="status" class="ita-spinner"><span aria-hidden="true"></span>
+ *            <span class="sr-only">Caricamento</span></span>; ita-spinner-sm, ita-spinner-lg
+ */
+@layer components {
+  .ita-progress {
+    /* Colours set directly: daisy's progress-* modifiers share one nested
+       layer, where the minifier's merge order would decide between them. */
+    @apply progress h-1 w-full rounded-full bg-base-300 text-primary;
+  }
+  .ita-progress-success {
+    @apply text-success;
+  }
+  .ita-progress-warning {
+    @apply text-warning;
+  }
+  .ita-progress-danger {
+    @apply text-error;
+  }
+  .ita-progress-info {
+    @apply text-info;
+  }
+  .ita-progress-md {
+    @apply h-2;
+  }
+  .ita-progress-lg {
+    @apply h-4;
+  }
+  .ita-progress-field {
+    @apply flex w-full flex-col gap-1;
+  }
+  .ita-progress-label {
+    @apply flex items-baseline justify-between text-sm font-semibold;
+  }
+
+  .ita-donut {
+    @apply radial-progress text-2xl font-bold text-primary;
+    --size: 8rem;
+    --thickness: 0.375rem;
+    & > span {
+      @apply text-base-content;
+    }
+  }
+  .ita-donut-sm {
+    @apply text-sm;
+    --size: 4rem;
+    --thickness: 0.25rem;
+  }
+
+  /* Widths set directly, as daisy's loading-{sm|md|lg} would (same nested-layer issue). */
+  .ita-spinner {
+    @apply inline-flex text-primary;
+    & > span[aria-hidden] {
+      @apply loading loading-spinner;
+      width: calc(var(--size-selector, 0.25rem) * 6);
+    }
+  }
+  .ita-spinner-sm > span[aria-hidden] {
+    width: calc(var(--size-selector, 0.25rem) * 5);
+  }
+  .ita-spinner-lg > span[aria-hidden] {
+    width: calc(var(--size-selector, 0.25rem) * 7);
+  }
+
+  /* One colour set for donut and spinner (they paint with currentColor). */
+  :is(.ita-donut, .ita-spinner).ita-tone-success {
+    @apply text-success;
+  }
+  :is(.ita-donut, .ita-spinner).ita-tone-warning {
+    @apply text-warning;
+  }
+  :is(.ita-donut, .ita-spinner).ita-tone-danger {
+    @apply text-error;
+  }
+  :is(.ita-donut, .ita-spinner).ita-tone-info {
+    @apply text-info;
+  }
+}

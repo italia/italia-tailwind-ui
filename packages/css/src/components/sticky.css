@@ -1,0 +1,50 @@
+/*
+ * Sticky: position: sticky, with a shadow only while the element is actually
+ * stuck (scroll-state container queries, Chrome 133+; elsewhere no shadow).
+ *   <div class="ita-sticky ita-sticky-shadow"><div>…</div></div>
+ *   modifiers: ita-sticky-bottom, ita-sticky-offset-{sm|md|lg} (8/16/64px from
+ *   the edge), ita-sticky-shadow
+ */
+@layer components {
+  .ita-sticky {
+    @apply sticky top-0 z-20;
+    & > * {
+      @apply transition-shadow;
+    }
+  }
+  .ita-sticky-offset-sm {
+    @apply top-2;
+  }
+  .ita-sticky-offset-md {
+    @apply top-4;
+  }
+  .ita-sticky-offset-lg {
+    @apply top-16;
+  }
+  .ita-sticky-bottom {
+    top: auto;
+    @apply bottom-0;
+    &.ita-sticky-offset-sm {
+      @apply bottom-2;
+    }
+    &.ita-sticky-offset-md {
+      @apply bottom-4;
+    }
+    &.ita-sticky-offset-lg {
+      @apply bottom-16;
+    }
+  }
+  .ita-sticky-shadow {
+    container-type: scroll-state;
+  }
+  @container scroll-state(stuck: top) {
+    .ita-sticky-shadow > * {
+      @apply bg-base-100 shadow-lg;
+    }
+  }
+  @container scroll-state(stuck: bottom) {
+    .ita-sticky-shadow > * {
+      @apply bg-base-100 shadow-[0_-8px_16px_rgb(0_0_0/0.1)];
+    }
+  }
+}

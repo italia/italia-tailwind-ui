@@ -1,0 +1,88 @@
+/*
+ * Choice controls: daisyUI checkbox, radio and toggle in the primary colour,
+ * each inside a label row, and groups in a fieldset with a legend.
+ *   <label class="ita-choice" for="c1">
+ *     <input type="checkbox" id="c1" class="ita-checkbox">
+ *     <span class="ita-choice-text"><span>Etichetta</span><span class="ita-choice-hint">Aiuto</span></span>
+ *   </label>
+ *   controls: ita-checkbox, ita-radio, ita-toggle, with -sm / -lg sizes
+ *   ita-choice-end: label first, control on the right edge (settings lists)
+ *   <fieldset class="ita-choice-group"><legend class="ita-legend">…</legend>
+ *     <div class="ita-choice-list"> (ita-choice-list-inline for one row) …</div></fieldset>
+ */
+@layer components {
+  .ita-checkbox {
+    @apply checkbox checkbox-primary shrink-0;
+  }
+  .ita-radio {
+    @apply radio radio-primary shrink-0;
+  }
+  .ita-toggle {
+    @apply toggle toggle-primary shrink-0;
+  }
+  .ita-checkbox-sm {
+    @apply checkbox-sm;
+  }
+  .ita-checkbox-lg {
+    @apply checkbox-lg;
+  }
+  .ita-radio-sm {
+    @apply radio-sm;
+  }
+  .ita-radio-lg {
+    @apply radio-lg;
+  }
+  .ita-toggle-sm {
+    @apply toggle-sm;
+  }
+  .ita-toggle-lg {
+    @apply toggle-lg;
+  }
+
+  .ita-choice {
+    @apply flex cursor-pointer items-center gap-3 text-base;
+    &:has(.ita-choice-hint) {
+      @apply items-start;
+      & > input {
+        @apply mt-0.5;
+      }
+    }
+    &:has(> input:disabled) {
+      @apply cursor-not-allowed text-base-content/50;
+    }
+  }
+  .ita-choice-end {
+    @apply w-full justify-between;
+  }
+  .ita-choice-text {
+    @apply flex flex-col;
+  }
+  .ita-choice-hint {
+    @apply mt-1 text-sm it-muted-70;
+  }
+
+  .ita-choice-group {
+    @apply fieldset gap-0 p-0;
+    & > .ita-hint {
+      @apply mb-3;
+    }
+    & > .ita-feedback {
+      @apply mt-3;
+    }
+  }
+  .ita-legend {
+    @apply fieldset-legend mb-2 p-0 text-base font-semibold text-base-content;
+  }
+  .ita-choice-list {
+    @apply flex flex-col gap-x-6 gap-y-3;
+    &:has(.ita-toggle) {
+      @apply gap-y-4;
+    }
+  }
+  .ita-choice-list-inline {
+    @apply flex-row flex-wrap;
+    &:has(.ita-toggle) {
+      @apply gap-y-3;
+    }
+  }
+}

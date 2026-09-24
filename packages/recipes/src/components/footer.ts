@@ -39,20 +39,6 @@ export interface FooterArgs {
   theme?: FooterTheme;
 }
 
-const band = "mx-auto w-full max-w-[1320px] px-4";
-
-// Literal class maps: Tailwind only sees classes written out in full.
-const mainBand: Record<FooterSurface, string> = {
-  primary: "bg-primary text-primary-content",
-  base: "border-t border-primary/20 bg-base-100 text-primary",
-};
-const smallPrintsBand: Record<FooterSurface, string> = {
-  primary: "bg-accent text-accent-content",
-  base: "border-t border-primary/20 bg-base-200 text-primary",
-};
-const listLink =
-  "text-sm underline decoration-current/50 decoration-1 underline-offset-[3px] hover:decoration-current";
-
 const defaultColumns: FooterColumn[] = [
   {
     title: "Amministrazione",
@@ -98,7 +84,7 @@ const defaultSmallPrints: FooterLink[] = [
 ];
 
 const link = (l: FooterLink) =>
-  `<a href="${l.href ?? "#"}" class="${listLink}">${l.label}${l.note ? `<span class="sr-only"> ${l.note}</span>` : ""}</a>`;
+  `<a href="${l.href ?? "#"}">${l.label}${l.note ? `<span class="sr-only"> ${l.note}</span>` : ""}</a>`;
 
 export function footer(a: FooterArgs = {}): string {
   const {
@@ -124,16 +110,15 @@ export function footer(a: FooterArgs = {}): string {
   const surface: FooterSurface = a.surface ?? (a.theme === "light" ? "base" : "primary");
   const h = `h${headingLevel}`;
   const sub = `h${headingLevel + 1}`;
-  const title = "footer-title mb-3 text-sm font-semibold uppercase opacity-100";
 
   const cols = columns.length
     ? `
-      <section class="footer grid gap-10 border-t border-current/40 py-8 sm:grid-cols-2 lg:grid-cols-4">
+      <section class="footer ita-footer-columns">
         ${columns
           .map(
-            (c) => `<nav class="gap-0">
-          <${sub} class="${title}">${c.href ? `<a href="${c.href}" class="${listLink}">${c.title}</a>` : c.title}</${sub}>
-          <ul class="flex flex-col gap-3">
+            (c) => `<nav>
+          <${sub} class="footer-title">${c.href ? `<a href="${c.href}">${c.title}</a>` : c.title}</${sub}>
+          <ul class="ita-footer-list">
             ${c.links.map((l) => `<li>${link(l)}</li>`).join("\n            ")}
           </ul>
         </nav>`,
@@ -143,43 +128,43 @@ export function footer(a: FooterArgs = {}): string {
     : "";
 
   const contactsBlock = `
-      <section class="footer grid gap-10 border-t border-current/40 py-8 md:grid-cols-3">
-        <div class="gap-0">
-          <${sub} class="${title}">${contacts.title ?? "Contatti"}</${sub}>
-          <p class="mb-3 text-sm leading-relaxed"><strong>${contacts.name ?? ""}</strong><br>${contacts.address ?? ""}</p>
-          <ul class="flex flex-col gap-3">
+      <section class="footer ita-footer-contacts">
+        <div>
+          <${sub} class="footer-title">${contacts.title ?? "Contatti"}</${sub}>
+          <p><strong>${contacts.name ?? ""}</strong><br>${contacts.address ?? ""}</p>
+          <ul class="ita-footer-list">
             ${(contacts.links ?? []).map((l) => `<li>${link(l)}</li>`).join("\n            ")}
           </ul>
         </div>
-        <div class="gap-0 md:col-start-3">
-          <${sub} class="${title}">Seguici su</${sub}>
-          <ul class="flex flex-wrap items-center gap-1">
+        <div>
+          <${sub} class="footer-title">Seguici su</${sub}>
+          <ul class="ita-footer-socials">
             ${socials
               .map(
                 (s) =>
-                  `<li><a href="${s.href ?? "#"}" class="grid size-9 place-items-center rounded-full hover:bg-current/15">${icon(s.name, "size-5")}<span class="sr-only">${s.label}</span></a></li>`,
+                  `<li><a href="${s.href ?? "#"}">${icon(s.name, "")}<span class="sr-only">${s.label}</span></a></li>`,
               )
               .join("\n            ")}
           </ul>
         </div>
       </section>`;
 
-  return `<footer>
-  <div class="${mainBand[surface]}">
-    <div class="${band} py-8">
-      <section class="pb-8">
-        <a href="#" class="flex items-center gap-4 no-underline hover:no-underline">
-          ${icon(brandIcon, "size-12 shrink-0 lg:size-14")}
+  return `<footer class="${cx("ita-footer", surface === "base" && "ita-footer-base")}">
+  <div class="ita-footer-main">
+    <div class="ita-footer-container">
+      <section class="ita-footer-brand">
+        <a href="#">
+          ${icon(brandIcon, "")}
           <span>
-            <${h} class="text-xl font-normal leading-tight lg:text-2xl">${brand}</${h}>
-            <span class="hidden text-base md:block">${tagline}</span>
+            <${h} class="ita-footer-name">${brand}</${h}>
+            <span class="ita-footer-tagline">${tagline}</span>
           </span>
         </a>
       </section>${cols}${contactsBlock}
     </div>
   </div>
-  <div class="${smallPrintsBand[surface]}">
-    <ul class="${cx(band, "flex flex-col gap-3 py-4 text-xs md:flex-row md:flex-wrap md:gap-6")}">
+  <div class="ita-footer-legal">
+    <ul class="ita-footer-container">
       ${smallPrints.map((l) => `<li>${link(l)}</li>`).join("\n      ")}
     </ul>
   </div>
@@ -197,6 +182,7 @@ export const doc: ComponentDoc = {
   replaces: ".it-footer (bootstrap-italia)",
   summary:
     "Piè di pagina istituzionale a due fasce: colonne di link e contatti su primary, note legali su accent, oppure sulla superficie base (lo sfondo della pagina) con testo primary. daisyUI footer e footer-title, colori dai token del tema.",
+  classes: ["ita-footer", "ita-footer-base", "ita-footer-main", "ita-footer-container", "ita-footer-brand", "ita-footer-name", "ita-footer-tagline", "ita-footer-columns", "ita-footer-contacts", "ita-footer-list", "ita-footer-socials", "ita-footer-legal"],
   daisy: ["footer", "footer-title"],
   cssOnly:
     "Nessun comportamento da replicare: è markup statico. Le due fasce usano bg-primary e bg-accent invece dei token primary-muted e primary-deep di bootstrap-italia, così restano leggibili in tutti i temi.",

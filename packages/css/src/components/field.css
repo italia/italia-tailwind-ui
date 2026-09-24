@@ -1,0 +1,62 @@
+/*
+ * Form field parts shared by input, select, textarea and the choice controls.
+ *   <div class="ita-field">
+ *     <label class="ita-label" for="x">Nome <span class="ita-required" aria-hidden="true">*</span></label>
+ *     <input id="x" class="ita-input">
+ *     <p class="ita-hint">Testo di aiuto</p>
+ *   </div>
+ *   ita-feedback ita-feedback-{valid|invalid}: a server-side message with its icon
+ *   ita-valid / ita-invalid: colour any field (input, select, textarea, checkbox…)
+ *   ita-validate + ita-validate-hint: native validation, shown after the user edits
+ *
+ * ita-validate mirrors daisyUI's validator: daisyUI finds the hint through
+ * `.validator:user-invalid ~ .validator-hint`, a selector on its own class names,
+ * so it is written out here for the ita-* names.
+ */
+@layer components {
+  .ita-field {
+    @apply w-full max-w-md;
+  }
+  .ita-label {
+    @apply mb-1 block text-base font-semibold text-base-content;
+  }
+  .ita-required {
+    @apply text-error;
+  }
+  .ita-hint {
+    @apply mt-1 text-sm it-muted-70;
+  }
+  .ita-feedback {
+    @apply mt-1 flex items-center gap-1 text-sm font-semibold;
+    & > svg {
+      @apply size-4;
+    }
+  }
+  .ita-feedback-valid {
+    @apply text-success;
+  }
+  .ita-feedback-invalid {
+    @apply text-error;
+  }
+
+  .ita-valid {
+    --input-color: var(--color-success);
+  }
+  .ita-invalid {
+    --input-color: var(--color-error);
+  }
+  .ita-validate:is(:user-valid, :has(:user-valid)) {
+    --input-color: var(--color-success);
+  }
+  .ita-validate:is(:user-invalid, :has(:user-invalid), [aria-invalid]:not([aria-invalid="false"]), :has([aria-invalid]:not([aria-invalid="false"]))) {
+    --input-color: var(--color-error);
+  }
+  .ita-validate-hint {
+    @apply mt-1 text-sm;
+    visibility: hidden;
+  }
+  .ita-validate:is(:user-invalid, :has(:user-invalid), [aria-invalid]:not([aria-invalid="false"]), :has([aria-invalid]:not([aria-invalid="false"]))) ~ .ita-validate-hint {
+    visibility: visible;
+    color: var(--color-error);
+  }
+}

@@ -1,0 +1,92 @@
+/*
+ * Stepper: the header of a multi-step form, with done steps, the current one
+ * (aria-current="step") and Indietro / Avanti with dots or a progress bar.
+ *   <div class="ita-stepper">   (or <form class="ita-stepper" data-stepper>)
+ *     <nav aria-label="…"><ol class="ita-stepper-header">
+ *       <li class="ita-stepper-done"><span>Informativa</span>svg.ita-stepper-check</li>
+ *       <li aria-current="step"><span>Dati personali</span><span class="ita-stepper-count">2/5</span></li> …
+ *     </ol></nav>
+ *     <div class="ita-stepper-nav">…buttons… <div class="ita-stepper-dots"><ul><li></li><li data-current></li>…</ul></div></div>
+ *   </div>
+ *   parts: ita-stepper-mark (numbered circle), ita-stepper-icon, ita-stepper-check,
+ *   ita-stepper-count, ita-stepper-progress, ita-stepper-dots, ita-stepper-title.
+ *   The daisyUI steps header (structural) takes ita-steps next to steps.
+ */
+@layer components {
+  .ita-stepper {
+    @apply flex w-full flex-col gap-6;
+  }
+  .ita-stepper-header {
+    @apply flex w-full;
+    & > li {
+      @apply flex min-h-16 flex-1 items-center gap-3 border-b-2 border-base-content/15 px-3 text-base it-muted-70 max-lg:hidden;
+      &[aria-current="step"] {
+        @apply flex border-primary font-semibold text-primary;
+      }
+    }
+  }
+  .ita-stepper-mark {
+    @apply grid size-8 shrink-0 place-items-center rounded-full border border-base-content/30 text-sm font-semibold;
+    & > svg {
+      @apply size-5;
+    }
+    [aria-current="step"] > & {
+      @apply border-primary bg-primary text-primary-content;
+    }
+    .ita-stepper-done > & {
+      @apply border-success bg-success text-success-content;
+    }
+  }
+  .ita-stepper-icon {
+    @apply size-6 shrink-0 it-muted-60;
+    [aria-current="step"] > & {
+      @apply text-primary;
+    }
+    .ita-stepper-done > & {
+      @apply text-success;
+    }
+  }
+  .ita-stepper-check {
+    @apply ms-auto size-5 shrink-0 text-success;
+  }
+  .ita-stepper-count {
+    @apply ms-auto text-sm font-normal it-muted-70 lg:hidden;
+  }
+  .ita-stepper-nav {
+    @apply flex items-center justify-between gap-4 border-t border-base-content/15 pt-4;
+    & > .ita-btn {
+      @apply gap-2;
+    }
+  }
+  .ita-stepper-progress {
+    @apply hidden flex-1 px-4 sm:block;
+    & > progress {
+      @apply progress h-1 w-full bg-base-300 text-primary;
+    }
+  }
+  .ita-stepper-dots {
+    @apply hidden sm:block;
+    & > ul {
+      @apply flex items-center gap-2;
+      & > li {
+        @apply size-2 rounded-full bg-base-300;
+        &[data-current],
+        &:has(~ [data-current]) {
+          @apply bg-primary;
+        }
+      }
+    }
+  }
+  .ita-stepper-title {
+    @apply mb-4 text-2xl font-bold focus:outline-none;
+  }
+}
+
+@layer utilities {
+  .ita-steps {
+    @apply w-full;
+    & > [aria-current="step"] {
+      @apply font-semibold;
+    }
+  }
+}

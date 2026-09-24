@@ -24,7 +24,8 @@ export const doc: ComponentDoc = {
   replaces: "<it-radio>, <it-radio-group>",
   summary:
     "Pulsanti di opzione nativi con daisyUI radio nel colore primario, in un fieldset con legenda: lo stesso name li rende esclusivi e le frecce si muovono nel gruppo.",
-  daisy: ["radio", "radio-primary", "radio-sm", "radio-lg", "fieldset", "fieldset-legend", "validator"],
+  classes: ["ita-radio", "ita-radio-sm", "ita-radio-lg", "ita-choice", "ita-choice-text", "ita-choice-hint", "ita-choice-group", "ita-legend", "ita-choice-list", "ita-choice-list-inline"],
+  daisy: ["radio", "fieldset", "validator"],
   cssOnly: "Esclusività e navigazione con le frecce sono del browser. Per un gruppo obbligatorio basta required su un elemento.",
   examples: [
     { id: "base", title: "Esempio base", html: radioGroup({ legend: "Modalità di ritiro" , items: [

@@ -14,11 +14,11 @@ export interface BackArgs {
 
 export function back(a: BackArgs = {}): string {
   const { label = "Torna indietro", href = "#" } = a;
-  const glyph = icon("it-arrow-left", "size-5 shrink-0");
+  const glyph = icon("it-arrow-left", "");
   const text = a.iconOnly ? `<span class="sr-only">${label}</span>` : `<span>${label}</span>`;
   const cls = a.asButton
-    ? cx(buttonClass({ variant: "primary", outline: true, size: "xs" }), "gap-2", a.iconOnly && "btn-square")
-    : "inline-flex items-center gap-2 font-semibold text-primary underline-offset-2 hover:underline";
+    ? cx(buttonClass({ variant: "primary", outline: true, size: "xs" }), "gap-2", a.iconOnly && "ita-btn-square")
+    : "ita-back";
   return `<a href="${href}" class="${cls}">${glyph}${text}</a>`;
 }
 
@@ -30,7 +30,8 @@ export const doc: ComponentDoc = {
   replaces: "<it-back>",
   summary:
     "Il link «Torna indietro» con la freccia a sinistra: un <a> verso la pagina padre, come link semplice o come pulsante piccolo.",
-  daisy: ["btn", "btn-outline", "btn-sm", "btn-square"],
+  classes: ["ita-back", "ita-btn", "ita-btn-outline", "ita-btn-xs", "ita-btn-square"],
+  daisy: ["btn"],
   cssOnly:
     "<it-back> chiama history.back(), che è JavaScript. La ricetta punta alla pagina padre con un href vero: funziona anche aperta da un link esterno, dove la cronologia è vuota. Se ti serve proprio la cronologia, aggiungi tu onclick=\"history.back(); return false\".",
   examples: [

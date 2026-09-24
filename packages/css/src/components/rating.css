@@ -1,0 +1,22 @@
+/*
+ * Rating (structural): daisyUI rating on radio inputs; its rating, rating-*
+ * and mask classes stay in the markup. ita-rating paints the stars in primary,
+ * ita-rating-group is the fieldset with its legend.
+ *   <fieldset class="ita-rating-group"><legend>Valuta il servizio</legend>
+ *     <div class="rating ita-rating">
+ *       <input type="radio" name="r" class="rating-hidden" aria-label="Nessuna valutazione">
+ *       <input type="radio" name="r" class="mask mask-star-2" aria-label="1 stella su 5"> …
+ *     </div>
+ *   </fieldset>
+ */
+@layer utilities {
+  .ita-rating > .mask {
+    @apply bg-primary;
+  }
+  .ita-rating-group {
+    @apply fieldset p-0;
+    & > legend:not(.sr-only) {
+      @apply fieldset-legend p-0 text-base font-semibold text-base-content;
+    }
+  }
+}

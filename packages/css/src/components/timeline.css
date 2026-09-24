@@ -1,0 +1,69 @@
+/*
+ * Timeline (structural): daisyUI timeline, timeline-vertical,
+ * timeline-snap-icon, timeline-compact, timeline-start/-middle/-end stay in the
+ * markup; ita-timeline gives the .italia pins, dates and cards. The line is
+ * solid up to the present and pale after it.
+ *   <ol class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact ita-timeline">
+ *     <li><hr><div class="timeline-start"><p>Gennaio 2024</p></div>
+ *       <div class="timeline-middle"><span>svg</span></div>
+ *       <div class="timeline-end"><h3>Titolo</h3><p>…</p><a href="#">Leggi di più svg</a></div><hr></li>
+ *     <li class="ita-timeline-now" aria-current="step">… <span class="ita-timeline-badge">Oggi</span> …</li>
+ *     <li class="ita-timeline-future">…</li>
+ *   </ol>
+ *   ita-timeline-evidence on an item: the highlighted card.
+ */
+@layer utilities {
+  .ita-timeline {
+    & > li > hr {
+      @apply bg-base-content/20;
+    }
+    & > li:not(.ita-timeline-now, .ita-timeline-future) > hr:last-child,
+    & > li:not(.ita-timeline-now, .ita-timeline-future) + li > hr:first-child {
+      @apply bg-accent;
+    }
+    & .timeline-middle > span {
+      @apply grid size-12 place-items-center rounded-full bg-accent text-accent-content;
+      & > svg {
+        @apply size-6;
+      }
+    }
+    & .timeline-start {
+      @apply mb-2 self-start md:me-4 md:mb-0 md:pt-3 md:text-end;
+      & > p {
+        @apply font-semibold tracking-wide it-muted-70 uppercase;
+      }
+    }
+    & .timeline-end {
+      @apply mb-10 w-full max-w-md rounded-sm border border-base-content/15 bg-base-100 p-5 shadow-[0_2px_12px_rgb(0_0_0/0.08)] md:ms-4;
+      & > h3 {
+        @apply mb-1 text-xl font-bold;
+      }
+      & > p {
+        @apply it-muted-80;
+      }
+      & > a {
+        @apply mt-3 inline-flex items-center gap-1 font-semibold text-primary underline underline-offset-2 hover:no-underline;
+        & > svg {
+          @apply size-4;
+        }
+      }
+    }
+  }
+  .ita-timeline-now {
+    & .timeline-middle > span {
+      @apply bg-primary text-primary-content ring-4 ring-primary/25;
+    }
+    & .timeline-start > p {
+      @apply text-primary;
+    }
+  }
+  .ita-timeline-future .timeline-middle > span {
+    @apply border-2 border-accent bg-base-100 text-accent;
+  }
+  .ita-timeline-evidence .timeline-end {
+    @apply border-s-4 border-primary;
+  }
+  .ita-timeline-badge {
+    @apply badge badge-sm mt-1 border-primary bg-primary font-semibold text-primary-content;
+  }
+}

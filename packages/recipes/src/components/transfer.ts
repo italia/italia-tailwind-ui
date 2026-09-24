@@ -45,28 +45,17 @@ export function transfer(a: TransferArgs = {}): string {
   } = a;
   const name = a.name ?? `transfer-${++counter}`;
   const hintId = a.hint ? `${name}-hint` : "";
-  // A one-pixel rule down the middle, drawn by the grid's own background.
-  const grid = cx(
-    "grid grid-flow-dense grid-cols-2 overflow-hidden rounded-box border border-base-content/20",
-    "bg-[linear-gradient(to_right,transparent_calc(50%-0.5px),color-mix(in_oklab,var(--color-base-content)_20%,transparent)_calc(50%-0.5px),color-mix(in_oklab,var(--color-base-content)_20%,transparent)_calc(50%+0.5px),transparent_calc(50%+0.5px))]",
-  );
-  const head = "row-start-1 flex items-center gap-2 border-b border-base-content/20 bg-base-200 px-4 py-3 font-semibold";
   const row = (it: TransferItem) =>
-    `<label class="${cx(
-      "col-start-1 flex items-center gap-3 px-4 py-2 has-checked:col-start-2",
-      it.disabled ? "cursor-not-allowed text-base-content/50" : "cursor-pointer hover:bg-primary/5",
-    )}"><input type="checkbox" name="${name}" value="${it.value ?? it.label}" class="checkbox checkbox-primary checkbox-sm"${it.selected ? " checked" : ""}${
+    `<label><input type="checkbox" name="${name}" value="${it.value ?? it.label}" class="ita-checkbox ita-checkbox-sm"${it.selected ? " checked" : ""}${
       it.disabled ? " disabled" : ""
     }><span>${it.label}</span></label>`;
-  return `<fieldset class="fieldset w-full max-w-2xl gap-0 p-0"${hintId ? ` aria-describedby="${hintId}"` : ""}>
-  <legend class="fieldset-legend mb-2 p-0 text-base font-semibold text-base-content">${legend}</legend>${
-    a.hint ? `\n  <p id="${hintId}" class="mb-3 text-sm text-base-content/70">${a.hint}</p>` : ""
-  }
-  <div class="${grid}">
-    <p class="${head} col-start-1" aria-hidden="true">${icon("it-list", "size-5")}${sourceTitle}</p>
-    <p class="${head} col-start-2" aria-hidden="true">${icon("it-check-circle", "size-5 text-primary")}${targetTitle}</p>
+  return `<fieldset class="ita-transfer"${hintId ? ` aria-describedby="${hintId}"` : ""}>
+  <legend>${legend}</legend>${a.hint ? `\n  <p id="${hintId}">${a.hint}</p>` : ""}
+  <div class="ita-transfer-grid">
+    <p class="ita-transfer-head" aria-hidden="true">${icon("it-list", "")}${sourceTitle}</p>
+    <p class="ita-transfer-head" aria-hidden="true">${icon("it-check-circle", "")}${targetTitle}</p>
     ${items.map(row).join("\n    ")}
-    <span class="col-span-2 h-2" aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
   </div>
 </fieldset>`;
 }
@@ -78,14 +67,14 @@ export function transfer(a: TransferArgs = {}): string {
 export function transferForm(a: TransferArgs & { action?: string } = {}): string {
   const { legend = "Uffici da cui ricevere comunicazioni", sourceTitle = "Disponibili", targetTitle = "Selezionati", items = defaultItems, action = "#" } = a;
   const name = a.name ?? `transfer-form-${++counter}`;
-  const box = (title: string, list: TransferItem[], field: string) => `<fieldset class="flex flex-col rounded-box border border-base-content/20">
+  const box = (title: string, list: TransferItem[], field: string) => `<fieldset class="ita-transfer-box">
       <legend class="sr-only">${title}</legend>
-      <p class="flex items-center justify-between border-b border-base-content/20 bg-base-200 px-4 py-3 font-semibold" aria-hidden="true"><span>${title}</span><span class="badge badge-sm badge-ghost">${list.length}</span></p>
-      <ul class="flex min-h-48 flex-col py-2">
+      <p class="ita-transfer-head" aria-hidden="true"><span>${title}</span><span class="ita-transfer-count">${list.length}</span></p>
+      <ul>
         ${list
           .map(
             (it) =>
-              `<li><label class="${cx("flex items-center gap-3 px-4 py-2", it.disabled ? "text-base-content/50" : "cursor-pointer hover:bg-primary/5")}"><input type="checkbox" name="${field}" value="${it.value ?? it.label}" class="checkbox checkbox-primary checkbox-sm"${
+              `<li><label><input type="checkbox" name="${field}" value="${it.value ?? it.label}" class="ita-checkbox ita-checkbox-sm"${
                 it.disabled ? " disabled" : ""
               }><span>${it.label}</span></label></li>`,
           )
@@ -95,13 +84,13 @@ export function transferForm(a: TransferArgs & { action?: string } = {}): string
   const src = items.filter((i) => !i.selected);
   const dst = items.filter((i) => i.selected);
   const move = (label: string, value: string, glyph: "it-arrow-right" | "it-arrow-left") =>
-    `<button type="submit" name="azione" value="${value}" class="${buttonClass({ outline: true, size: "xs" })} btn-square" aria-label="${label}">${icon(glyph, "size-5")}</button>`;
-  return `<form action="${action}" method="post" class="w-full max-w-3xl" data-transfer>
-  <fieldset class="fieldset gap-0 p-0">
-    <legend class="fieldset-legend mb-2 p-0 text-base font-semibold text-base-content">${legend}</legend>
-    <div class="grid items-center gap-4 md:grid-cols-[1fr_auto_1fr]">
+    `<button type="submit" name="azione" value="${value}" class="${buttonClass({ outline: true, size: "xs" })} ita-btn-square" aria-label="${label}">${icon(glyph, "")}</button>`;
+  return `<form action="${action}" method="post" class="ita-transfer-form" data-transfer>
+  <fieldset>
+    <legend>${legend}</legend>
+    <div class="ita-transfer-layout">
     ${box(sourceTitle, src, `${name}-aggiungi`)}
-    <div class="flex justify-center gap-2 md:flex-col">
+    <div class="ita-transfer-moves">
       ${move("Sposta nei selezionati", "aggiungi", "it-arrow-right")}
       ${move("Rimuovi dai selezionati", "rimuovi", "it-arrow-left")}
     </div>
@@ -129,7 +118,7 @@ document.querySelectorAll("form[data-transfer]").forEach((form) => {
       to.append(box.closest("li"));
     }
     // keep the counters in the box headers in sync
-    for (const ul of [source, target]) ul.parentElement.querySelector(".badge").textContent = ul.children.length;
+    for (const ul of [source, target]) ul.parentElement.querySelector(".ita-transfer-count").textContent = ul.children.length;
   });
 });`;
 
@@ -153,16 +142,16 @@ export function Transfer({ items, name, initial = [] }: { items: Item[]; name: s
   const list = (title: string, inSelected: boolean) => {
     const rows = items.filter((i) => selected.has(i.value) === inSelected);
     return (
-      <fieldset className="rounded-box border border-base-content/20">
+      <fieldset className="ita-transfer-box">
         <legend className="sr-only">{title}</legend>
-        <p className="flex justify-between border-b border-base-content/20 bg-base-200 px-4 py-3 font-semibold" aria-hidden>
-          {title} <span className="badge badge-sm badge-ghost">{rows.length}</span>
+        <p className="ita-transfer-head" aria-hidden>
+          <span>{title}</span><span className="ita-transfer-count">{rows.length}</span>
         </p>
-        <ul className="min-h-48 py-2">
+        <ul>
           {rows.map((i) => (
             <li key={i.value}>
-              <label className="flex cursor-pointer items-center gap-3 px-4 py-2 hover:bg-primary/5">
-                <input type="checkbox" className="checkbox checkbox-primary checkbox-sm"
+              <label>
+                <input type="checkbox" className="ita-checkbox ita-checkbox-sm"
                        checked={marked.has(i.value)} onChange={() => toggleMark(i.value)} />
                 {i.label}
               </label>
@@ -173,11 +162,11 @@ export function Transfer({ items, name, initial = [] }: { items: Item[]; name: s
     );
   };
   return (
-    <div className="grid items-center gap-4 md:grid-cols-[1fr_auto_1fr]">
+    <div className="ita-transfer-layout">
       {list("Disponibili", false)}
-      <div className="flex justify-center gap-2 md:flex-col">
-        <button type="button" className="btn btn-sm btn-square btn-outline btn-primary" aria-label="Sposta nei selezionati" onClick={() => move(true)}>→</button>
-        <button type="button" className="btn btn-sm btn-square btn-outline btn-primary" aria-label="Rimuovi dai selezionati" onClick={() => move(false)}>←</button>
+      <div className="ita-transfer-moves">
+        <button type="button" className="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs ita-btn-square" aria-label="Sposta nei selezionati" onClick={() => move(true)}>→</button>
+        <button type="button" className="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs ita-btn-square" aria-label="Rimuovi dai selezionati" onClick={() => move(false)}>←</button>
       </div>
       {list("Selezionati", true)}
       {[...selected].map((v) => <input key={v} type="hidden" name={\`\${name}[]\`} value={v} />)}
@@ -186,7 +175,7 @@ export function Transfer({ items, name, initial = [] }: { items: Item[]; name: s
 }`;
 
 const filterJs = `// Filter box for long lists: hides the rows that don't match.
-// <input type="search" class="input input-sm" data-filter="#my-transfer">
+// <input type="search" class="ita-input ita-input-sm" data-filter="#my-transfer">
 document.querySelectorAll("[data-filter]").forEach((box) => {
   const scope = document.querySelector(box.dataset.filter);
   box.addEventListener("input", () => {
@@ -203,9 +192,10 @@ export const doc: ComponentDoc = {
   replaces: "<it-transfer>",
   summary:
     "Spostare voci da un elenco «disponibili» a un elenco «selezionati». Nella versione solo CSS ogni voce è un checkbox che cambia colonna quando viene selezionato; la versione classica usa due elenchi e pulsanti di invio.",
+  classes: ["ita-transfer", "ita-transfer-grid", "ita-transfer-head", "ita-transfer-form", "ita-transfer-layout", "ita-transfer-box", "ita-transfer-moves", "ita-transfer-count", "ita-checkbox"],
   daisy: ["checkbox", "fieldset", "btn", "badge"],
   cssOnly:
-    "transfer(): un solo gruppo di checkbox su una griglia a due colonne. has-checked:col-start-2 porta la voce a destra e grid-flow-dense compatta le colonne dall'alto: clic o Spazio spostano la voce, il form invia i valori selezionati. transferForm(): la disposizione di bootstrap-italia con le frecce, che senza JavaScript inviano il form (name=\"azione\") e il server sposta le voci. Filtro di ricerca e spostamento lato client richiedono JavaScript: vedi sotto.",
+    "transfer(): un solo gruppo di checkbox su una griglia a due colonne. label:has(:checked) porta la voce a destra e grid-flow-dense compatta le colonne dall'alto: clic o Spazio spostano la voce, il form invia i valori selezionati. transferForm(): la disposizione di bootstrap-italia con le frecce, che senza JavaScript inviano il form (name=\"azione\") e il server sposta le voci. Filtro di ricerca e spostamento lato client richiedono JavaScript: vedi sotto.",
   examples: [
     {
       id: "base",

@@ -30,29 +30,22 @@ const defaultItems: BottomNavItem[] = [
 ];
 
 const item = (it: BottomNavItem) => {
-  const cls = cx(
-    "relative min-w-0 font-semibold",
-    it.active ? "dock-active text-primary" : "text-base-content/75 hover:text-primary",
-  );
   const mark = it.badge
-    ? `<span class="indicator-item badge badge-primary badge-xs h-4 min-w-4 rounded-full border-2 border-base-100 px-1 text-[0.625rem]" aria-hidden="true">${it.badge}</span>`
+    ? `<span class="indicator-item ita-indicator-count" aria-hidden="true">${it.badge}</span>`
     : it.alert
-      ? `<span class="indicator-item status status-error size-3 border-2 border-base-100" aria-hidden="true"></span>`
+      ? `<span class="indicator-item ita-indicator-dot" aria-hidden="true"></span>`
       : "";
   const sr = (it.badge || it.alert) && it.badgeLabel ? `<span class="sr-only">, ${it.badgeLabel}</span>` : "";
   const attrs = cx(it.active && ` aria-current="page"`, it.disabled && ` aria-disabled="true" tabindex="-1"`).replace(/ {2,}/g, " ");
-  return `<a href="${it.href ?? "#"}" class="${cls}"${attrs}>
-    <span class="indicator">${mark}${icon(it.icon, "size-6")}</span>
-    <span class="dock-label truncate">${it.label}</span>${sr}
+  return `<a href="${it.href ?? "#"}"${it.active ? ' class="dock-active"' : ""}${attrs}>
+    <span class="indicator">${mark}${icon(it.icon, "")}</span>
+    <span class="dock-label">${it.label}</span>${sr}
   </a>`;
 };
 
 export function bottomNav(a: BottomNavArgs = {}): string {
   const { items = defaultItems, label = "Navigazione principale", position = "fixed" } = a;
-  const cls = cx(
-    "dock dock-md border-t border-base-content/15 shadow-[0_-4px_12px_rgb(0_0_0/0.08)]",
-    position === "static" ? "relative" : "z-40",
-  );
+  const cls = cx("dock dock-md ita-bottom-nav", position === "static" && "ita-bottom-nav-static");
   return `<nav class="${cls}" aria-label="${label}">
   ${items.map(item).join("\n  ")}
 </nav>`;
@@ -64,6 +57,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-bottom-nav>",
   summary:
     "La barra di navigazione in fondo allo schermo delle app mobili: daisyUI dock con icona, etichetta, contatori e la voce corrente in colore primario.",
+  classes: ["ita-bottom-nav", "ita-bottom-nav-static", "ita-indicator-count", "ita-indicator-dot"],
   daisy: ["dock", "dock-md", "dock-active", "dock-label", "indicator", "indicator-item", "badge", "status"],
   cssOnly:
     "dock è fisso in fondo alla pagina e tiene conto della safe area di iOS (aggiungi viewport-fit=cover al meta viewport). La voce corrente usa sia dock-active sia aria-current=\"page\". I contatori sono nascosti ai lettori di schermo e ripetuti come testo.",

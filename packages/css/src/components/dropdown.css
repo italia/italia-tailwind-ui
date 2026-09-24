@@ -1,0 +1,106 @@
+/*
+ * Dropdown and menu (structural): daisyUI's dropdown on <details> and its menu
+ * list keep their structure classes; ita-dropdown, ita-menu and ita-chevron
+ * add the .italia look.
+ *   <details class="dropdown ita-dropdown">
+ *     <summary class="ita-btn ita-btn-primary gap-2">Apri <svg class="ita-chevron">…</svg></summary>
+ *     <ul class="dropdown-content menu ita-menu">
+ *       <li class="menu-title">Intestazione</li>
+ *       <li><a href="#">Voce</a></li>  <li><a href="#" aria-current="true">Attiva</a></li>
+ *       <li role="separator"></li>   <li class="menu-disabled"><a aria-disabled="true">…</a></li>
+ *     </ul>
+ *   </details>
+ *   menu modifiers: ita-menu-{end|top|top-end|left|right} (spacing and notch,
+ *   matching the dropdown-* alignment), ita-menu-accent (dark surface),
+ *   ita-menu-full, ita-menu-no-notch; ita-menu-item-lg on a taller item.
+ */
+@layer utilities {
+  .ita-chevron {
+    @apply size-4 shrink-0 fill-current transition-transform;
+    details[open] > summary & {
+      @apply -scale-y-100;
+    }
+  }
+  .ita-dropdown[aria-disabled="true"] {
+    @apply pointer-events-none opacity-50;
+  }
+
+  .ita-menu {
+    @apply z-30 mt-3 w-56 gap-0 rounded-sm bg-base-100 p-2 text-base-content shadow-[0_4px_12px_rgb(0_0_0/0.15)];
+    /* The notch: an 18px square rotated 45°, painted with the menu's own
+       background through bg-inherit, so every surface gets it for free. */
+    &::before {
+      @apply absolute -top-2 start-5 size-[1.125rem] rotate-45 rounded-[2px] bg-inherit content-[''];
+    }
+    /* The links carry no class, so base.css's a:not([class]) underline would
+       reach them: the menu sets its own decoration. */
+    & > li > a {
+      @apply rounded-sm px-4 py-2 text-sm text-primary no-underline hover:bg-primary/10;
+      & > svg {
+        @apply size-4 text-primary;
+      }
+    }
+    /* daisyUI fills [aria-current] items with --menu-active-bg; .italia marks
+       the active item with weight and an underline instead. */
+    & > li > a[aria-current] {
+      @apply bg-transparent font-bold underline underline-offset-2;
+    }
+    & > li > a[aria-disabled="true"] {
+      @apply pointer-events-none opacity-40;
+    }
+    & > li > .ita-menu-item-lg {
+      @apply py-3 text-base;
+    }
+    & > li > span {
+      @apply px-4 py-2 text-sm text-primary;
+    }
+    & > li[role="separator"] {
+      @apply pointer-events-none my-1 h-px bg-base-content/15;
+    }
+    & > .menu-title {
+      @apply px-4 py-2 text-sm font-semibold it-muted-70;
+    }
+  }
+  .ita-menu-end::before {
+    @apply start-auto end-3;
+  }
+  .ita-menu-top,
+  .ita-menu-top-end {
+    @apply mt-0 mb-3;
+    &::before {
+      @apply top-auto -bottom-2;
+    }
+  }
+  .ita-menu-top-end::before {
+    @apply start-auto end-3;
+  }
+  .ita-menu-left {
+    @apply mt-0 me-2;
+  }
+  .ita-menu-right {
+    @apply mt-0 ms-2;
+  }
+  .ita-menu-left::before,
+  .ita-menu-right::before,
+  .ita-menu-no-notch::before {
+    content: none;
+  }
+  .ita-menu-full {
+    @apply w-full;
+  }
+  .ita-menu-accent {
+    @apply bg-accent text-accent-content;
+    & > li > a {
+      @apply text-accent-content hover:bg-base-100/15;
+    }
+    & > li > span {
+      color: inherit;
+    }
+    & > li[role="separator"] {
+      @apply bg-base-100/25;
+    }
+    & > .menu-title {
+      @apply text-accent-content/80;
+    }
+  }
+}

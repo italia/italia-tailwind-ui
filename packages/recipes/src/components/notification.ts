@@ -23,19 +23,12 @@ export interface NotificationArgs {
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const bar: Record<NotificationVariant, string> = {
-  default: "border-s-primary",
-  success: "border-s-success",
-  error: "border-s-error",
-  info: "border-s-info",
-  warning: "border-s-warning",
-};
-const tint: Record<NotificationVariant, string> = {
-  default: "text-primary",
-  success: "text-success",
-  error: "text-error",
-  info: "text-info",
-  warning: "text-warning",
+const tones: Record<NotificationVariant, string> = {
+  default: "",
+  success: "ita-notification-success",
+  error: "ita-notification-error",
+  info: "ita-notification-info",
+  warning: "ita-notification-warning",
 };
 const defaultIcon: Record<NotificationVariant, IconName | undefined> = {
   default: undefined,
@@ -67,17 +60,13 @@ export function notification(a: NotificationArgs = {}): string {
   const close = !a.dismissible
     ? ""
     : popover
-      ? `<button type="button" class="btn btn-ghost btn-sm btn-square text-base-content/70 hover:text-base-content" popovertarget="${id}" popovertargetaction="hide" aria-label="${closeLabel}">${icon("it-close", "size-6")}</button>`
-      : `<label class="btn btn-ghost btn-sm btn-square text-base-content/70 hover:text-base-content has-focus-visible:ring-2 has-focus-visible:ring-base-content has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-base-100"><input type="checkbox" class="sr-only"><span class="sr-only">${closeLabel}</span>${icon("it-close", "size-6")}</label>`;
+      ? `<button type="button" class="ita-notification-close" popovertarget="${id}" popovertargetaction="hide" aria-label="${closeLabel}">${icon("it-close", "")}</button>`
+      : `<label class="ita-notification-close"><input type="checkbox" class="sr-only"><span class="sr-only">${closeLabel}</span>${icon("it-close", "")}</label>`;
 
-  const card = cx(
-    "alert w-full max-w-sm grid-cols-[1fr_auto] items-start gap-2 rounded-sm border-0 border-s-4 bg-base-100 p-4 text-start text-base-content shadow-[0_8px_24px_rgb(0_0_0/0.15)] sm:grid-cols-[1fr_auto]",
-    bar[variant],
-    !popover && a.dismissible && "has-checked:hidden",
-  );
-  const body = `<div class="flex flex-col gap-1">
-    <p id="${titleId}" class="flex items-center gap-2 text-lg font-semibold leading-tight">${ic ? icon(ic, cx("size-6 shrink-0", tint[variant])) : ""}<span>${title}</span></p>${
-      a.text ? `\n    <p class="text-sm text-base-content/75">${a.text}</p>` : ""
+  const card = cx("ita-notification", tones[variant]);
+  const body = `<div class="ita-notification-body">
+    <p id="${titleId}" class="ita-notification-title">${ic ? icon(ic, "") : ""}<span>${title}</span></p>${
+      a.text ? `\n    <p class="ita-notification-text">${a.text}</p>` : ""
     }
   </div>`;
   const role = variant === "error" || variant === "warning" ? "alert" : "status";
@@ -89,10 +78,7 @@ export function notification(a: NotificationArgs = {}): string {
 
   // The toast is the popover itself; daisyUI toast places it, and the
   // :not(:popover-open) rule restores the hidden state toast's display:flex overrides.
-  return `<div id="${id}" popover="manual" role="${role}" aria-labelledby="${titleId}" class="${cx(
-    "toast m-0 overflow-visible border-0 p-0 [&:not(:popover-open)]:hidden",
-    positions[a.position!],
-  )}">
+  return `<div id="${id}" popover="manual" role="${role}" aria-labelledby="${titleId}" class="toast ${positions[a.position!]} ita-toast">
   <div class="${card}">
   ${body}${close ? `\n  ${close}` : ""}
   </div>
@@ -112,6 +98,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-notification>",
   summary:
     "Notifiche brevi con titolo, icona e barra laterale colorata. Nel flusso della pagina, oppure in un angolo dello schermo come popover nativo posizionato da daisyUI toast.",
+  classes: ["ita-notification", "ita-notification-success", "ita-notification-error", "ita-notification-info", "ita-notification-warning", "ita-notification-body", "ita-notification-title", "ita-notification-text", "ita-notification-close", "ita-toast"],
   daisy: ["alert", "toast", "toast-top", "toast-bottom", "toast-start", "toast-center", "toast-end", "btn-ghost", "btn-square"],
   cssOnly:
     "Le notifiche posizionate sono popover=\"manual\": le mostra un pulsante con popovertarget e le chiude un pulsante con popovertargetaction=\"hide\", senza script. La chiusura automatica dopo qualche secondo richiede JavaScript. Errori e avvisi usano role=alert, gli altri role=status.",
@@ -183,7 +170,7 @@ ${allPositions
 type Toast = { id: number; title: string; variant?: "success" | "error" | "info" | "warning" };
 const Ctx = createContext<(t: Omit<Toast, "id">) => void>(() => {});
 export const useNotify = () => useContext(Ctx);
-const bar = { success: "border-s-success", error: "border-s-error", info: "border-s-info", warning: "border-s-warning" };
+const tone = { success: "ita-notification-success", error: "ita-notification-error", info: "ita-notification-info", warning: "ita-notification-warning" };
 
 export function Notifications({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<Toast[]>([]);
@@ -197,8 +184,8 @@ export function Notifications({ children }: { children: ReactNode }) {
       {children}
       <div className="toast toast-end" role="status" aria-live="polite">
         {items.map((t) => (
-          <div key={t.id} className={"alert w-full max-w-sm rounded-sm border-0 border-s-4 bg-base-100 shadow-lg " + (bar[t.variant ?? "info"])}>
-            <p className="font-semibold">{t.title}</p>
+          <div key={t.id} className={"ita-notification " + tone[t.variant ?? "info"]}>
+            <p className="ita-notification-title">{t.title}</p>
           </div>
         ))}
       </div>

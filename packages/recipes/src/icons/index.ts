@@ -9,5 +9,5 @@ export { icons, type IconName };
  */
 export function icon(name: IconName, className = "size-6", label?: string): string {
   const a11y = label ? `role="img" aria-label="${label}"` : `aria-hidden="true" focusable="false"`;
-  return `<svg class="${className} shrink-0 fill-current" viewBox="0 0 24 24" ${a11y}>${icons[name]}</svg>`;
+  return `<svg class="${className ? `${className} ` : ""}shrink-0 fill-current" viewBox="0 0 24 24" ${a11y}>${icons[name]}</svg>`;
 }

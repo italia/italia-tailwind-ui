@@ -1,0 +1,43 @@
+/*
+ * Thumbnav: a row of thumbnails, each a link to its slide (#galleria-3). The
+ * current one has a primary ring, live with :target-current (Chrome 140+,
+ * ita-thumbnav-spy) or from the server with aria-current.
+ *   Each thumbnail is a link, or a <button> when a script drives the gallery.
+ *   <nav class="ita-thumbnav" aria-label="Miniature"><ul>
+ *     <li><a href="#s1" aria-current="true"><img src="…" alt="…"></a></li> …
+ *   </ul></nav>
+ *   modifiers: ita-thumbnav-sm, ita-thumbnav-lg, ita-thumbnav-vertical, ita-thumbnav-spy
+ */
+@layer components {
+  .ita-thumbnav {
+    & > ul {
+      @apply flex snap-x gap-3 overflow-x-auto p-1;
+      & > li {
+        @apply shrink-0;
+      }
+    }
+    & :is(a, button) {
+      color: inherit;
+      @apply block size-20 shrink-0 snap-start overflow-hidden rounded-sm no-underline opacity-70 ring-offset-2 ring-offset-base-100 transition hover:opacity-100;
+      &:target-current,
+      &[aria-current="true"] {
+        @apply opacity-100 ring-2 ring-primary;
+      }
+      & > img {
+        @apply size-full object-cover;
+      }
+    }
+  }
+  .ita-thumbnav-sm :is(a, button) {
+    @apply size-12;
+  }
+  .ita-thumbnav-lg :is(a, button) {
+    @apply size-28;
+  }
+  .ita-thumbnav-vertical > ul {
+    @apply max-h-96 snap-y flex-col overflow-x-visible overflow-y-auto;
+  }
+  .ita-thumbnav-spy > ul {
+    @apply [scroll-target-group:auto];
+  }
+}

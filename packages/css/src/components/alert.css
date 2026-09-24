@@ -33,7 +33,7 @@
     color: var(--ita-tone);
   }
   .ita-alert-close {
-    @apply btn btn-ghost btn-sm btn-square text-base-content/70 hover:text-base-content has-focus-visible:ring-2 has-focus-visible:ring-base-content has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-base-100;
+    @apply btn btn-ghost btn-sm btn-square it-muted-70 hover:text-base-content has-focus-visible:ring-2 has-focus-visible:ring-base-content has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-base-100;
     & > svg {
       @apply size-6;
     }

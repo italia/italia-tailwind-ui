@@ -3,8 +3,9 @@
  * gap next to an icon.
  *   <button class="ita-btn ita-btn-primary">
  *   modifiers: ita-btn-{primary|secondary|success|danger|warning|link},
- *   ita-btn-outline, ita-btn-lg, ita-btn-xs, ita-btn-block; ita-btn-icon is the
- *   white circle around an icon.
+ *   ita-btn-outline, ita-btn-ghost, ita-btn-lg, ita-btn-xs, ita-btn-xxs,
+ *   ita-btn-block, ita-btn-square, ita-btn-circle; ita-btn-icon is the white
+ *   circle around an icon.
  * Anything the base sets directly (like --fontsize) the size modifiers set
  * directly too: a value only @applied from daisyUI sits in a nested layer and
  * would lose to it.
@@ -49,6 +50,31 @@
   .ita-btn-outline {
     @apply btn-outline border-2;
   }
+  .ita-btn-ghost {
+    @apply btn-ghost;
+    /* Same :not(.btn-ghost) exception as the link button. */
+    &:is(:disabled, [disabled], [aria-disabled="true"]) {
+      background-color: transparent;
+    }
+  }
+  /* Light button for a coloured band (primary section, hero). */
+  .ita-btn-inverse {
+    @apply border-0 bg-base-100 text-primary hover:bg-base-200;
+  }
+  /* A spinner inside a busy button, and the thin bar along its bottom edge. */
+  .ita-btn-loading {
+    @apply loading loading-spinner;
+    width: calc(var(--size-selector, 0.25rem) * 5); /* loading-sm, set directly */
+  }
+  .ita-btn-progress {
+    @apply progress absolute inset-x-0 bottom-0 h-1 w-full rounded-none bg-primary-content/30 text-primary-content;
+  }
+  .ita-btn-square {
+    @apply btn-square;
+  }
+  .ita-btn-circle {
+    @apply btn-circle;
+  }
   .ita-btn-lg {
     @apply btn-lg;
     --fontsize: 1.125rem;
@@ -60,6 +86,10 @@
       @apply size-5;
     }
   }
+  .ita-btn-xxs {
+    @apply btn-xs;
+    --fontsize: 0.6875rem;
+  }
   .ita-btn-block {
     @apply btn-block;
   }
@@ -68,6 +98,21 @@
     color: var(--btn-color, var(--color-primary));
     & > svg {
       @apply size-4;
+    }
+  }
+
+  /* daisy relies on source order for .btn-ghost / .btn-outline after .btn in
+     one nested layer; the minifier merges those blocks, so .ita-btn could land
+     after them. :root adds specificity instead, and daisy's hover and active
+     rules (outer layer) still win, as they do on .btn-ghost. */
+  @layer daisyui.l1.l2.l3 {
+    :root :is(.ita-btn-ghost, .ita-btn-outline) {
+      --btn-bg: #0000;
+      --btn-inset: 0 0 0 0 oklch(0% 0 0/0);
+      --btn-shadow: 0 0 0 0 oklch(0% 0 0/0);
+    }
+    :root .ita-btn-ghost {
+      --btn-border: #0000;
     }
   }
 }

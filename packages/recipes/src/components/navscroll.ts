@@ -32,21 +32,9 @@ const defaultLinks: NavscrollLink[] = [
   { label: "Contatti", href: "#ns-contatti" },
 ];
 
-// The current link: a thick primary bar over the list's thin rule. Written
-// twice, for :target-current (live scroll-spy) and aria-current (server).
-const current =
-  "[&:target-current]:border-primary [&:target-current]:font-bold [&:target-current]:text-base-content aria-[current=true]:border-primary aria-[current=true]:font-bold aria-[current=true]:text-base-content";
-
-const link = (l: NavscrollLink, depth: number): string => {
-  const cls = cx(
-    "-ms-[3px] block border-s-[3px] border-transparent py-2 text-primary hover:underline",
-    depth ? "ps-8 text-sm" : "ps-4",
-    current,
-  );
-  const kids = l.children?.length
-    ? `\n      <ul>\n        ${l.children.map((c) => link(c, depth + 1)).join("\n        ")}\n      </ul>\n    `
-    : "";
-  return `<li><a href="${l.href}" class="${cls}"${l.active ? ` aria-current="true"` : ""}>${l.label}</a>${kids}</li>`;
+const link = (l: NavscrollLink): string => {
+  const kids = l.children?.length ? `\n      <ul>\n        ${l.children.map(link).join("\n        ")}\n      </ul>\n    ` : "";
+  return `<li><a href="${l.href}"${l.active ? ` aria-current="true"` : ""}>${l.label}</a>${kids}</li>`;
 };
 
 /**
@@ -56,19 +44,17 @@ const link = (l: NavscrollLink, depth: number): string => {
  */
 export function navscroll(a: NavscrollArgs = {}): string {
   const { title = "Indice della pagina", links = defaultLinks, progress = true } = a;
-  return `<nav aria-label="${title}" class="w-full">
-  <details class="group rounded-box border border-base-content/15 bg-base-100 lg:border-0 lg:details-content:[content-visibility:visible]">
-    <summary class="flex cursor-pointer list-none items-center justify-between gap-2 p-4 font-semibold text-primary lg:hidden [&::-webkit-details-marker]:hidden">
-      <span>${title}</span>${icon("it-expand", "size-5 transition-transform group-open:rotate-180")}
+  return `<nav aria-label="${title}" class="ita-navscroll">
+  <details>
+    <summary>
+      <span>${title}</span>${icon("it-expand", "")}
     </summary>
-    <div class="px-4 pb-4 lg:p-0">
-      <p class="hidden pb-2 text-sm font-semibold uppercase tracking-wide text-base-content/70 lg:block" aria-hidden="true">${title}</p>${
-        progress
-          ? `\n      <div class="mb-4 h-1 overflow-hidden rounded-full bg-base-300" aria-hidden="true"><div class="it-scroll-progress h-full bg-primary"></div></div>`
-          : ""
+    <div>
+      <p class="ita-navscroll-title" aria-hidden="true">${title}</p>${
+        progress ? `\n      <div class="ita-navscroll-progress" aria-hidden="true"><div class="it-scroll-progress"></div></div>` : ""
       }
-      <ul class="border-s-[3px] border-base-300 [scroll-target-group:auto]">
-    ${links.map((l) => link(l, 0)).join("\n    ")}
+      <ul>
+    ${links.map(link).join("\n    ")}
       </ul>
     </div>
   </details>
@@ -88,6 +74,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-navscroll>",
   summary:
     "L'indice di pagina di bootstrap-italia: link ad ancora con la sezione corrente evidenziata durante lo scorrimento e una barra di avanzamento della lettura.",
+  classes: ["ita-navscroll", "ita-navscroll-title", "ita-navscroll-progress"],
   daisy: [],
   extensions: ["it-scroll-progress"],
   cssOnly:

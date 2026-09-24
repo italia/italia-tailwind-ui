@@ -50,35 +50,27 @@ function header(steps: Step[], current: number, kind: NonNullable<StepperArgs["h
   if (kind === "steps") {
     // daisyUI steps: the colour class marks done and current steps.
     const items = steps.map((s, i) => {
-      const cls = cx("step", i <= current && "step-primary", i === current && "font-semibold");
+      const cls = cx("step", i <= current && "step-primary");
       const content = i < current ? ` data-content="✓"` : "";
       return `<li class="${cls}"${content}${i === current ? ` aria-current="step"` : ""}>${s.label}${i < current ? '<span class="sr-only"> (completato)</span>' : ""}</li>`;
     });
-    return `<ol class="steps steps-vertical w-full sm:steps-horizontal">\n    ${items.join("\n    ")}\n  </ol>`;
+    return `<ol class="steps steps-vertical sm:steps-horizontal ita-steps">\n    ${items.join("\n    ")}\n  </ol>`;
   }
   const items = steps.map((s, i) => {
     const done = i < current;
     const active = i === current;
     const mark =
       kind === "number"
-        ? `<span class="${cx(
-            "grid size-8 shrink-0 place-items-center rounded-full border text-sm font-semibold",
-            done ? "border-success bg-success text-success-content" : active ? "border-primary bg-primary text-primary-content" : "border-base-content/30",
-          )}" aria-hidden="true">${done ? icon("it-check", "size-5") : i + 1}</span>`
+        ? `<span class="ita-stepper-mark" aria-hidden="true">${done ? icon("it-check", "") : i + 1}</span>`
         : kind === "icon" && s.icon
-          ? icon(s.icon, cx("size-6 shrink-0", active ? "text-primary" : done ? "text-success" : "text-base-content/60"))
+          ? icon(s.icon, "ita-stepper-icon")
           : "";
-    const check = done && kind !== "number" ? icon("it-check", "size-5 shrink-0 text-success ms-auto") : "";
-    const cls = cx(
-      "flex min-h-16 flex-1 items-center gap-3 border-b-2 px-3 text-base",
-      active ? "border-primary font-semibold text-primary" : "border-base-content/15 text-base-content/70",
-      !active && "max-lg:hidden",
-    );
-    return `<li class="${cls}"${active ? ` aria-current="step"` : ""}>${mark}<span>${s.label}</span>${done ? '<span class="sr-only"> (completato)</span>' : ""}${check}${
-      active ? `<span class="ms-auto text-sm font-normal text-base-content/70 lg:hidden" aria-hidden="true">${i + 1}/${steps.length}</span>` : ""
+    const check = done && kind !== "number" ? icon("it-check", "ita-stepper-check") : "";
+    return `<li${done ? ` class="ita-stepper-done"` : ""}${active ? ` aria-current="step"` : ""}>${mark}<span>${s.label}</span>${done ? '<span class="sr-only"> (completato)</span>' : ""}${check}${
+      active ? `<span class="ita-stepper-count" aria-hidden="true">${i + 1}/${steps.length}</span>` : ""
     }</li>`;
   });
-  return `<ol class="flex w-full">\n    ${items.join("\n    ")}\n  </ol>`;
+  return `<ol class="ita-stepper-header">\n    ${items.join("\n    ")}\n  </ol>`;
 }
 
 // data-stepper-* attributes are inert hooks for the optional JS snippet.
@@ -86,9 +78,10 @@ function progressNav(total: number, current: number, kind: NonNullable<StepperAr
   const sr = `<p class="sr-only" aria-live="polite" data-stepper-status>Passo ${current + 1} di ${total}</p>`;
   if (kind === "none") return sr;
   if (kind === "progress")
-    return `<div class="hidden flex-1 px-4 sm:block">${sr}<progress class="progress progress-primary h-1 w-full bg-base-300" value="${current + 1}" max="${total}" aria-hidden="true" data-stepper-progress></progress></div>`;
-  const dots = Array.from({ length: total }, (_, i) => `<li class="${cx("size-2 rounded-full", i <= current ? "bg-primary" : "bg-base-300")}"></li>`);
-  return `<div class="hidden sm:block">${sr}<ul class="flex items-center gap-2" aria-hidden="true" data-stepper-dots>${dots.join("")}</ul></div>`;
+    return `<div class="ita-stepper-progress">${sr}<progress value="${current + 1}" max="${total}" aria-hidden="true" data-stepper-progress></progress></div>`;
+  // The dots up to data-current are filled.
+  const dots = Array.from({ length: total }, (_, i) => `<li${i === current ? " data-current" : ""}></li>`);
+  return `<div class="ita-stepper-dots">${sr}<ul aria-hidden="true" data-stepper-dots>${dots.join("")}</ul></div>`;
 }
 
 export function stepper(a: StepperArgs = {}): string {
@@ -97,15 +90,15 @@ export function stepper(a: StepperArgs = {}): string {
   const last = current === steps.length - 1;
   // Both buttons submit: without JS each step is a round trip to the server
   // (name="passo" carries the step to show). Indietro skips validation.
-  const backBtn = `<button type="submit" name="passo" value="${Math.max(current - 1, 0)}" formnovalidate class="${buttonClass({ outline: true, size: "xs" })} gap-2"${current === 0 ? " disabled" : ""} data-stepper-back>${icon("it-chevron-left", "size-5")}<span>Indietro</span></button>`;
-  const nextBtn = `<button type="submit" name="passo" value="${last ? "invia" : current + 1}" class="${cx(buttonClass({ variant: last ? "success" : "primary", size: "xs" }), "gap-2")}" data-stepper-next data-confirm="${confirmLabel}"><span>${last ? confirmLabel : "Avanti"}</span>${icon("it-chevron-right", cx("size-5", last && "hidden"))}</button>`;
+  const backBtn = `<button type="submit" name="passo" value="${Math.max(current - 1, 0)}" formnovalidate class="${buttonClass({ outline: true, size: "xs" })}"${current === 0 ? " disabled" : ""} data-stepper-back>${icon("it-chevron-left", "")}<span>Indietro</span></button>`;
+  const nextBtn = `<button type="submit" name="passo" value="${last ? "invia" : current + 1}" class="${buttonClass({ variant: last ? "success" : "primary", size: "xs" })}" data-stepper-next data-confirm="${confirmLabel}"><span>${last ? confirmLabel : "Avanti"}</span>${icon("it-chevron-right", last ? "hidden" : "")}</button>`;
   const uid = `stepper-${++counter}`;
   const panels = a.panels
     ? `
   ${a.panels
         .map(
           (html, i) => `<section data-step aria-labelledby="${uid}-${i + 1}-title"${i === current ? "" : " hidden"}>
-    <h3 id="${uid}-${i + 1}-title" tabindex="-1" class="mb-4 text-2xl font-bold focus:outline-none">${steps[i]?.label ?? `Passo ${i + 1}`}</h3>
+    <h3 id="${uid}-${i + 1}-title" tabindex="-1" class="ita-stepper-title">${steps[i]?.label ?? `Passo ${i + 1}`}</h3>
     ${html}
   </section>`,
         )
@@ -115,26 +108,26 @@ export function stepper(a: StepperArgs = {}): string {
   <nav aria-label="${label}">
   ${header(steps, current, kind)}
   </nav>${panels}
-  <div class="flex items-center justify-between gap-4 border-t border-base-content/15 pt-4">
+  <div class="ita-stepper-nav">
     ${backBtn}
     ${progressNav(steps.length, current, nav)}
     ${nextBtn}
   </div>
 `;
   return a.panels
-    ? `<form action="${a.action ?? "#"}" method="post" class="flex w-full flex-col gap-6" data-stepper>${body}</form>`
-    : `<div class="flex w-full flex-col gap-6">${body}</div>`;
+    ? `<form action="${a.action ?? "#"}" method="post" class="ita-stepper" data-stepper>${body}</form>`
+    : `<div class="ita-stepper">${body}</div>`;
 }
 
 const demoPanels = [
   `<p class="mb-4">Prima di iniziare leggi l'informativa sul trattamento dei dati personali.</p>
-    <label class="flex cursor-pointer items-center gap-3"><input type="checkbox" name="informativa" required class="checkbox checkbox-primary"><span>Ho letto l'informativa</span></label>`,
+    <label class="flex cursor-pointer items-center gap-3"><input type="checkbox" name="informativa" required class="ita-checkbox"><span>Ho letto l'informativa</span></label>`,
   `<div class="grid max-w-2xl gap-4 md:grid-cols-2">
-      <div><label for="st-nome" class="mb-1 block font-semibold">Nome</label><input id="st-nome" name="nome" required autocomplete="given-name" class="input w-full"></div>
-      <div><label for="st-cognome" class="mb-1 block font-semibold">Cognome</label><input id="st-cognome" name="cognome" required autocomplete="family-name" class="input w-full"></div>
+      <div><label for="st-nome" class="mb-1 block font-semibold">Nome</label><input id="st-nome" name="nome" required autocomplete="given-name" class="ita-input"></div>
+      <div><label for="st-cognome" class="mb-1 block font-semibold">Cognome</label><input id="st-cognome" name="cognome" required autocomplete="family-name" class="ita-input"></div>
     </div>`,
   `<label for="st-doc" class="mb-1 block font-semibold">Documento d'identità</label>
-    <input id="st-doc" type="file" name="documento" class="file-input file-input-primary w-full max-w-md">`,
+    <input id="st-doc" type="file" name="documento" class="ita-file-input max-w-md">`,
   `<p>Il costo del servizio è di 16,00 €, pagabile con pagoPA al termine della domanda.</p>`,
   `<p>Controlla i dati inseriti, poi premi «Invia la domanda».</p>`,
 ];
@@ -145,6 +138,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-steppers>",
   summary:
     "L'intestazione dei moduli a più passaggi, con passi completati, passo corrente e navigazione Indietro/Avanti con punti o barra di avanzamento.",
+  classes: ["ita-stepper", "ita-stepper-header", "ita-stepper-done", "ita-stepper-mark", "ita-stepper-icon", "ita-stepper-check", "ita-stepper-count", "ita-stepper-nav", "ita-stepper-progress", "ita-stepper-dots", "ita-stepper-title", "ita-steps"],
   daisy: ["steps", "step", "step-primary", "steps-horizontal", "steps-vertical", "progress", "btn"],
   cssOnly:
     "Lo stato arriva dal server: current indica il passo attivo, i precedenti sono completati. Indietro e Avanti sono pulsanti di invio (name=\"passo\"): ogni passo è un giro dal server, e Indietro usa formnovalidate. Con panels il componente include i pannelli dei passi in un <form data-stepper>. Per cambiare passo nella pagina senza ricaricarla serve JavaScript: vedi sotto. Il passo corrente ha aria-current=\"step\". Sotto lg l'intestazione mostra solo il passo corrente e l'indice «2/5».",
@@ -200,7 +194,6 @@ export const doc: ComponentDoc = {
     // daisyUI steps header: step-primary up to the current step, a check on the done ones
     steps.forEach((li, k) => {
       li.classList.toggle("step-primary", k <= i);
-      li.classList.toggle("font-semibold", k === i);
       if (k < i) li.dataset.content = "✓";
       else delete li.dataset.content;
       li.querySelector(".sr-only")?.remove();
@@ -208,18 +201,15 @@ export const doc: ComponentDoc = {
       if (k === i) li.setAttribute("aria-current", "step");
       else li.removeAttribute("aria-current");
     });
-    dots.forEach((d, k) => {
-      d.classList.toggle("bg-primary", k <= i);
-      d.classList.toggle("bg-base-300", k > i);
-    });
+    dots.forEach((d, k) => d.toggleAttribute("data-current", k === i));
     if (bar) bar.value = i + 1;
     if (status) status.textContent = "Passo " + (i + 1) + " di " + panels.length;
     back.disabled = i === 0;
     const isLast = i === last;
     next.querySelector("span").textContent = isLast ? next.dataset.confirm : "Avanti";
     next.querySelector("svg")?.classList.toggle("hidden", isLast);
-    next.classList.toggle("btn-success", isLast);
-    next.classList.toggle("btn-primary", !isLast);
+    next.classList.toggle("ita-btn-success", isLast);
+    next.classList.toggle("ita-btn-primary", !isLast);
     if (focus) panels[i].querySelector("[tabindex='-1']")?.focus();
   }
 
@@ -272,13 +262,13 @@ export function StepperForm({ steps, onSubmit, confirmLabel = "Conferma" }: {
   };
 
   return (
-    <form onSubmit={submit} noValidate={current < last} className="flex w-full flex-col gap-6">
+    <form onSubmit={submit} noValidate={current < last} className="ita-stepper">
       <nav aria-label="Passaggi della domanda">
-        <ol className="steps steps-vertical w-full sm:steps-horizontal">
+        <ol className="steps steps-vertical sm:steps-horizontal ita-steps">
           {steps.map((s, i) => (
             <li key={s.label} aria-current={i === current ? "step" : undefined}
                 data-content={i < current ? "✓" : undefined}
-                className={"step" + (i <= current ? " step-primary" : "") + (i === current ? " font-semibold" : "")}>
+                className={"step" + (i <= current ? " step-primary" : "")}>
               {s.label}{i < current && <span className="sr-only"> (completato)</span>}
             </li>
           ))}
@@ -288,21 +278,21 @@ export function StepperForm({ steps, onSubmit, confirmLabel = "Conferma" }: {
       {steps.map((s, i) => (
         // Hidden steps stay mounted so their values are still posted.
         <fieldset key={s.label} ref={(el) => { panels.current[i] = el; }} hidden={i !== current}>
-          <h3 ref={(el) => { titles.current[i] = el; }} tabIndex={-1} className="mb-4 text-2xl font-bold focus:outline-none">{s.label}</h3>
+          <h3 ref={(el) => { titles.current[i] = el; }} tabIndex={-1} className="ita-stepper-title">{s.label}</h3>
           {s.content}
         </fieldset>
       ))}
 
-      <div className="flex items-center justify-between gap-4 border-t border-base-content/15 pt-4">
-        <button type="button" className="btn btn-sm btn-outline btn-primary border-2 font-semibold" disabled={current === 0} onClick={() => go(current - 1)}>
+      <div className="ita-stepper-nav">
+        <button type="button" className="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs" disabled={current === 0} onClick={() => go(current - 1)}>
           ‹ Indietro
         </button>
         <p className="sr-only" aria-live="polite">Passo {current + 1} di {steps.length}</p>
-        <progress className="progress progress-primary hidden h-1 max-w-xs flex-1 bg-base-300 sm:block" value={current + 1} max={steps.length} aria-hidden />
+        <div className="ita-stepper-progress"><progress value={current + 1} max={steps.length} aria-hidden /></div>
         {current < last ? (
-          <button type="button" className="btn btn-sm btn-primary font-semibold" onClick={next}>Avanti ›</button>
+          <button type="button" className="ita-btn ita-btn-primary ita-btn-xs" onClick={next}>Avanti ›</button>
         ) : (
-          <button type="submit" className="btn btn-sm btn-success font-semibold">{confirmLabel}</button>
+          <button type="submit" className="ita-btn ita-btn-success ita-btn-xs">{confirmLabel}</button>
         )}
       </div>
     </form>

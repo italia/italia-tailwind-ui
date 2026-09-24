@@ -20,16 +20,10 @@ export interface SectionArgs {
 
 // Literal class maps: Tailwind only sees classes written out in full.
 const surfaces: Record<SectionVariant, string> = {
-  default: "bg-base-100 text-base-content",
-  muted: "bg-base-200 text-base-content",
-  primary: "bg-primary text-primary-content",
-  emphasis: "bg-accent text-accent-content",
-};
-const leadTone: Record<SectionVariant, string> = {
-  default: "text-base-content/80",
-  muted: "text-base-content/80",
-  primary: "text-primary-content/90",
-  emphasis: "text-accent-content/90",
+  default: "",
+  muted: "ita-section-muted",
+  primary: "ita-section-primary",
+  emphasis: "ita-section-emphasis",
 };
 
 let counter = 0;
@@ -37,18 +31,12 @@ let counter = 0;
 export function section(a: SectionArgs = {}): string {
   const { title = "Titolo della sezione", variant = "default" } = a;
   const id = a.id ?? `section-${++counter}`;
-  const tone = a.image ? "primary" : variant;
-  const cls = cx(
-    "relative isolate",
-    a.large ? "py-16 lg:py-24" : "py-12 lg:py-16",
-    a.image ? "bg-cover bg-center text-neutral-content" : surfaces[variant],
-  );
-  const overlay = a.image ? `\n  <div class="absolute inset-0 -z-10 bg-neutral/70" aria-hidden="true"></div>` : "";
-  return `<section id="${id}" aria-labelledby="${id}-title" class="${cls}"${a.image ? ` style="background-image:url('${a.image}')"` : ""}>${overlay}
-  <div class="mx-auto max-w-6xl px-4 sm:px-8">
-    <h2 id="${id}-title" class="mb-2 text-3xl font-bold sm:text-4xl">${title}</h2>${
-      a.lead ? `\n    <p class="${cx("mb-8 max-w-3xl text-lg", a.image ? "text-neutral-content/90" : leadTone[tone])}">${a.lead}</p>` : ""
-    }${a.content ? `\n    ${a.content}` : ""}
+  const cls = cx("ita-section", a.image ? "ita-section-image" : surfaces[variant], a.large && "ita-section-lg");
+  return `<section id="${id}" aria-labelledby="${id}-title" class="${cls}"${a.image ? ` style="background-image:url('${a.image}')"` : ""}>
+  <div class="ita-section-container">
+    <h2 id="${id}-title" class="ita-section-title">${title}</h2>${a.lead ? `\n    <p class="ita-section-lead">${a.lead}</p>` : ""}${
+      a.content ? `\n    ${a.content}` : ""
+    }
   </div>
 </section>`;
 }
@@ -63,9 +51,10 @@ export const doc: ComponentDoc = {
   replaces: "<it-section>",
   summary:
     "Fasce di pagina a tutta larghezza con titolo, testo introduttivo e un contenitore centrato: sfondo neutro, grigio, primario, enfasi o immagine.",
+  classes: ["ita-section", "ita-section-muted", "ita-section-primary", "ita-section-emphasis", "ita-section-image", "ita-section-lg", "ita-section-container", "ita-section-title", "ita-section-lead"],
   daisy: [],
   cssOnly:
-    "Solo utility Tailwind sui token del tema: bg-base-200 per «muted», bg-primary, bg-accent per l'enfasi. Le card dentro una fascia colorata restano chiare perché usano bg-base-100.",
+    "Sui token del tema: base-200 per «muted», primary, accent per l'enfasi; il velo sull'immagine è un ::before. Le card dentro una fascia colorata restano chiare perché usano bg-base-100.",
   examples: [
     { id: "base", title: "Esempio base", fullBleed: true, html: section({ lead: "Un testo introduttivo che spiega il contenuto della sezione.", content: cards }) },
     { id: "grigia", title: "Sfondo grigio", fullBleed: true, html: section({ variant: "muted", title: "In evidenza", lead: "Le notizie più lette della settimana.", content: cards }) },
@@ -77,7 +66,7 @@ export const doc: ComponentDoc = {
         variant: "primary",
         title: "Iscriviti alla newsletter",
         lead: "Ricevi ogni mese gli aggiornamenti sui servizi del Comune.",
-        content: `<a href="#" class="btn border-0 bg-base-100 font-semibold text-primary hover:bg-base-200">Iscriviti</a>`,
+        content: `<a href="#" class="ita-btn ita-btn-inverse">Iscriviti</a>`,
       }),
     },
     {

@@ -22,40 +22,24 @@ export interface AvatarArgs {
 
 // bootstrap-italia sizes: 16, 24, 40, 56, 80, 112px.
 // Literal class maps: Tailwind only sees classes written out in full.
-const boxSize: Record<AvatarSize, string> = {
-  xs: "size-4 text-[0.625rem]",
-  sm: "size-6 text-xs",
-  md: "size-10 text-base",
-  lg: "size-14 text-xl",
-  xl: "size-20 text-3xl",
-  xxl: "size-28 text-5xl",
-};
-const iconSize: Record<AvatarSize, string> = {
-  xs: "size-2.5",
-  sm: "size-3.5",
-  md: "size-5",
-  lg: "size-7",
-  xl: "size-10",
-  xxl: "size-14",
-};
-const dotSize: Record<AvatarSize, string> = {
-  xs: "size-1.5 ring-1",
-  sm: "size-2 ring-1",
-  md: "size-3 ring-2",
-  lg: "size-3.5 ring-2",
-  xl: "size-4 ring-2",
-  xxl: "size-5 ring-2",
+const sizeClass: Record<AvatarSize, string> = {
+  xs: "ita-avatar-xs",
+  sm: "ita-avatar-sm",
+  md: "",
+  lg: "ita-avatar-lg",
+  xl: "ita-avatar-xl",
+  xxl: "ita-avatar-xxl",
 };
 const colors: Record<AvatarColor, string> = {
-  default: "bg-secondary/15 text-secondary",
-  primary: "bg-primary text-primary-content",
-  secondary: "bg-secondary text-secondary-content",
+  default: "",
+  primary: "ita-avatar-primary",
+  secondary: "ita-avatar-secondary",
 };
-const statusColor: Record<AvatarStatus, string> = {
-  online: "status-success",
-  busy: "status-error",
-  away: "status-warning",
-  offline: "bg-base-content/40",
+const statusClass: Record<AvatarStatus, string> = {
+  online: "ita-avatar-online",
+  busy: "ita-avatar-busy",
+  away: "ita-avatar-away",
+  offline: "ita-avatar-offline",
 };
 const statusLabel: Record<AvatarStatus, string> = {
   online: "in linea",
@@ -71,38 +55,28 @@ export function avatar(a: AvatarArgs = {}): string {
     ? `<img src="${a.src}" alt="${alt}">`
     : a.initials
       ? `<span${alt ? ` aria-hidden="true"` : ""}>${a.initials}</span>${alt ? `<span class="sr-only">${alt}</span>` : ""}`
-      : `${icon(a.icon ?? "it-user", iconSize[size])}<span class="sr-only">${alt}</span>`;
-  const box = cx(
-    // daisyUI styles only `.avatar > div`; a span keeps the markup valid inside links and summaries.
-    "flex items-center justify-center overflow-hidden rounded-full font-semibold leading-none",
-    boxSize[size],
-    !a.src && colors[color],
-    a.href && "transition group-hover:ring-2 group-hover:ring-primary group-hover:ring-offset-2 group-hover:ring-offset-base-100",
-  );
+      : `${icon(a.icon ?? "it-user", "")}<span class="sr-only">${alt}</span>`;
   const dot = a.status
-    ? `<span class="${cx("status absolute end-0 top-0 rounded-full ring-base-100", dotSize[size], statusColor[a.status])}"></span><span class="sr-only">, ${statusLabel[a.status]}</span>`
+    ? `<span class="ita-avatar-status ${statusClass[a.status]}"></span><span class="sr-only">, ${statusLabel[a.status]}</span>`
     : "";
-  const body = `<span class="${cx("avatar", !a.src && "avatar-placeholder", a.href && "group")}"><span class="${box}">${inner}</span>${dot}</span>`;
-  return a.href ? `<a href="${a.href}" class="inline-flex rounded-full">${body}</a>` : body;
+  const body = `<span class="${cx("ita-avatar", sizeClass[size], !a.src && colors[color])}"><span>${inner}</span>${dot}</span>`;
+  return a.href ? `<a href="${a.href}" class="ita-avatar-link">${body}</a>` : body;
 }
 
 /** Overlapping avatars, with an optional "+N" counter. */
 export function avatarGroup(items: AvatarArgs[], o: { size?: AvatarSize; more?: number; label?: string } = {}): string {
   const size = o.size ?? "md";
-  const faces = items.map((it) => `<li class="flex">${avatar({ ...it, size }).replace('class="avatar', 'class="avatar border-2 border-base-100')}</li>`);
-  if (o.more)
-    faces.push(
-      `<li class="flex">${avatar({ initials: `+${o.more}`, alt: `e altre ${o.more} persone`, size, color: "secondary" }).replace('class="avatar', 'class="avatar border-2 border-base-100')}</li>`,
-    );
-  return `<ul class="avatar-group -space-x-3 overflow-visible"${o.label ? ` aria-label="${o.label}"` : ""}>\n  ${faces.join("\n  ")}\n</ul>`;
+  const faces = items.map((it) => `<li>${avatar({ ...it, size })}</li>`);
+  if (o.more) faces.push(`<li>${avatar({ initials: `+${o.more}`, alt: `e altre ${o.more} persone`, size, color: "secondary" })}</li>`);
+  return `<ul class="ita-avatar-group"${o.label ? ` aria-label="${o.label}"` : ""}>\n  ${faces.join("\n  ")}\n</ul>`;
 }
 
 /** Avatar with a name and a second line beside it. */
 export function avatarWithText(a: AvatarArgs & { name: string; detail?: string }): string {
-  return `<div class="flex items-center gap-3">
+  return `<div class="ita-avatar-text">
   ${avatar({ ...a, alt: a.alt ?? "" })}
-  <div class="flex flex-col leading-tight">
-    <span class="font-semibold">${a.name}</span>${a.detail ? `\n    <span class="text-sm text-base-content/70">${a.detail}</span>` : ""}
+  <div>
+    <span class="ita-avatar-name">${a.name}</span>${a.detail ? `\n    <span class="ita-avatar-detail">${a.detail}</span>` : ""}
   </div>
 </div>`;
 }
@@ -115,9 +89,9 @@ export function avatarDropdown(a: AvatarArgs & { name: string; items?: DropdownI
     { separator: true },
     { label: "Esci", href: "#", icon: "it-logout" },
   ];
-  return `<details class="dropdown group">
-  <summary class="flex cursor-pointer list-none items-center gap-2 rounded-full pe-2 text-primary [&::-webkit-details-marker]:hidden">
-    ${avatar({ ...a, alt: "" })}<span class="font-semibold">${a.name}</span>${chevron()}
+  return `<details class="dropdown ita-dropdown">
+  <summary class="ita-avatar-toggle">
+    ${avatar({ ...a, alt: "" })}<span>${a.name}</span>${chevron()}
   </summary>
   ${dropdownMenu(items)}
 </details>`;
@@ -133,7 +107,8 @@ export const doc: ComponentDoc = {
   replaces: "<it-avatar>, <it-avatar-group>",
   summary:
     "Immagine, iniziali o icona dell'utente in un cerchio, nelle sei misure di bootstrap-italia (16–112px), con stato, gruppi sovrapposti e menu.",
-  daisy: ["avatar", "avatar-placeholder", "avatar-group", "status", "status-success", "dropdown"],
+  classes: ["ita-avatar", "ita-avatar-xs", "ita-avatar-sm", "ita-avatar-lg", "ita-avatar-xl", "ita-avatar-xxl", "ita-avatar-primary", "ita-avatar-secondary", "ita-avatar-status", "ita-avatar-online", "ita-avatar-busy", "ita-avatar-away", "ita-avatar-offline", "ita-avatar-link", "ita-avatar-group", "ita-avatar-text", "ita-avatar-name", "ita-avatar-detail", "ita-avatar-toggle"],
+  daisy: ["avatar", "avatar-group", "status", "dropdown"],
   cssOnly:
     "Lo stato è un daisyUI status posizionato sull'angolo, ripetuto in testo per i lettori di schermo. Il menu dell'avatar è lo stesso Dropdown su <details>.",
   examples: [

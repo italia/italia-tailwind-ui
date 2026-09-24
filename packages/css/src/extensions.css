@@ -261,8 +261,19 @@
   --it-primary: var(--color-primary);
   --it-primary-content: var(--color-primary-content);
 }
+/*
+ * it-muted-{n}: base-content text at n% (as text-base-content/{n}), which the
+ * primary surface below brings back to full strength through --it-muted. The
+ * component CSS uses it for every muted text, so the swap does not depend on
+ * class names in the markup.
+ */
+@utility it-muted-* {
+  color: color-mix(in oklab, var(--color-base-content) var(--it-muted, calc(--value(integer) * 1%)), transparent);
+}
+
 @layer utilities {
   .it-surface-primary {
+    --it-muted: 100%;
     --color-base-100: var(--it-primary);
     --color-base-200: color-mix(in oklab, var(--it-primary) 90%, var(--it-primary-content));
     --color-base-300: color-mix(in oklab, var(--it-primary) 80%, var(--it-primary-content));

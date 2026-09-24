@@ -1,0 +1,66 @@
+/*
+ * Notification: a short message with a title, an icon and a coloured bar,
+ * in the page flow or, as a manual popover, in a corner of the screen
+ * (daisyUI toast, structural: toast and toast-{top|bottom|start|center|end}
+ * stay in the markup).
+ *   <div role="status" aria-labelledby="n-title" class="ita-notification ita-notification-success">
+ *     <div class="ita-notification-body">
+ *       <p id="n-title" class="ita-notification-title">svg<span>Titolo</span></p>
+ *       <p class="ita-notification-text">Testo</p>
+ *     </div>
+ *     <label class="ita-notification-close"><input type="checkbox" class="sr-only">…</label>
+ *   </div>
+ *   variants: ita-notification-{success|error|info|warning}
+ *   positioned: <div id="n" popover="manual" class="toast toast-top toast-end ita-toast">…</div>
+ */
+@layer components {
+  .ita-notification {
+    --ita-tone: var(--color-primary);
+    @apply alert w-full max-w-sm grid-cols-[1fr_auto] items-start gap-2 rounded-sm border-0 border-s-4 bg-base-100 p-4 text-start text-base text-base-content shadow-[0_8px_24px_rgb(0_0_0/0.15)] sm:grid-cols-[1fr_auto];
+    border-inline-start-color: var(--ita-tone);
+    &:has(> .ita-notification-close input:checked) {
+      display: none;
+    }
+  }
+  .ita-notification-success {
+    --ita-tone: var(--color-success);
+  }
+  .ita-notification-error {
+    --ita-tone: var(--color-error);
+  }
+  .ita-notification-info {
+    --ita-tone: var(--color-info);
+  }
+  .ita-notification-warning {
+    --ita-tone: var(--color-warning);
+  }
+  .ita-notification-body {
+    @apply flex flex-col gap-1;
+  }
+  .ita-notification-title {
+    @apply flex items-center gap-2 text-lg leading-tight font-semibold;
+    & > svg {
+      @apply size-6 shrink-0;
+      color: var(--ita-tone);
+    }
+  }
+  .ita-notification-text {
+    @apply text-sm it-muted-75;
+  }
+  .ita-notification-close {
+    @apply btn btn-square btn-ghost btn-sm it-muted-70 hover:text-base-content has-focus-visible:ring-2 has-focus-visible:ring-base-content has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-base-100;
+    & > svg {
+      @apply size-6;
+    }
+  }
+}
+
+@layer utilities {
+  /* :not(:popover-open) restores the hidden state toast's display:flex overrides. */
+  .ita-toast {
+    @apply m-0 overflow-visible border-0 p-0;
+    &:not(:popover-open) {
+      display: none;
+    }
+  }
+}

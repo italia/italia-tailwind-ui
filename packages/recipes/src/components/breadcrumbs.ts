@@ -9,7 +9,7 @@ export interface BreadcrumbItem {
 
 export interface BreadcrumbsArgs {
   items?: BreadcrumbItem[];
-  /** "slash" = .italia "/" (it-slash extension), "chevron" = daisyUI default. */
+  /** "slash" = the .italia "/", "chevron" = daisyUI's arrow (ita-breadcrumbs-chevron). */
   separator?: "slash" | "chevron";
   /** Surface: "base" (default, the page) or "neutral", the dev-kit "dark" variant. */
   surface?: "base" | "neutral";
@@ -27,19 +27,14 @@ const defaultItems: BreadcrumbItem[] = [
 export function breadcrumbs(a: BreadcrumbsArgs = {}): string {
   const { items = defaultItems, separator = "slash", label = "Percorso di navigazione" } = a;
   const onNeutral = (a.surface ?? (a.dark ? "neutral" : "base")) === "neutral";
-  const cls = cx(
-    "breadcrumbs text-base",
-    separator === "slash" && "it-slash",
-    onNeutral ? "rounded-box bg-neutral px-4 text-neutral-content" : "",
-  );
-  const link = onNeutral ? "font-semibold underline underline-offset-2" : "font-semibold text-base-content/80 underline underline-offset-2 hover:text-base-content";
+  const cls = cx("ita-breadcrumbs", separator === "chevron" && "ita-breadcrumbs-chevron", onNeutral && "ita-breadcrumbs-neutral");
   const li = items
     .map((it, i) => {
-      const ic = it.icon ? icon(it.icon, "size-5 opacity-80") : "";
+      const ic = it.icon ? icon(it.icon, "") : "";
       const last = i === items.length - 1;
       return last || !it.href
-        ? `<li><span aria-current="page" class="${cx("inline-flex items-center gap-1", !onNeutral && "text-base-content")}">${ic}${it.label}</span></li>`
-        : `<li><a href="${it.href}" class="${link}">${ic}${it.label}</a></li>`;
+        ? `<li><span aria-current="page">${ic}${it.label}</span></li>`
+        : `<li><a href="${it.href}">${ic}${it.label}</a></li>`;
     })
     .join("\n    ");
   return `<nav class="${cls}" aria-label="${label}">
@@ -61,15 +56,16 @@ export const doc: ComponentDoc = {
   replaces: "<it-breadcrumbs>",
   summary:
     "Percorso di navigazione: daisyUI breadcrumbs su un elenco ordinato, con il separatore «/» di .italia o la freccia di daisyUI.",
+  classes: ["ita-breadcrumbs", "ita-breadcrumbs-chevron", "ita-breadcrumbs-neutral"],
   daisy: ["breadcrumbs"],
-  extensions: ["it-slash"],
+  extensions: [],
   examples: [
     { id: "base", title: "Base", html: breadcrumbs() },
     { id: "icona", title: "Con icona", html: breadcrumbs({ items: withIcons }) },
     {
       id: "separatore",
       title: "Separatore personalizzato",
-      description: "Senza it-slash resta la freccia di daisyUI.",
+      description: "Con ita-breadcrumbs-chevron resta la freccia di daisyUI.",
       html: breadcrumbs({ separator: "chevron" }),
     },
     {

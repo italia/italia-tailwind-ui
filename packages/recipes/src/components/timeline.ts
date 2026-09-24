@@ -31,40 +31,24 @@ const defaultEvents: TimelineEvent[] = [
   { date: "Giugno 2027", title: "Inaugurazione", icon: "it-calendar", when: "future" },
 ];
 
-// Literal class maps: Tailwind only sees classes written out in full.
-const pin: Record<NonNullable<TimelineEvent["when"]>, string> = {
-  past: "bg-accent text-accent-content",
-  now: "bg-primary text-primary-content ring-4 ring-primary/25",
-  future: "border-2 border-accent bg-base-100 text-accent",
-};
-// The line after a pin is solid up to "now", pale after it.
-const line: Record<NonNullable<TimelineEvent["when"]>, string> = {
-  past: "bg-accent",
-  now: "bg-base-content/20",
-  future: "bg-base-content/20",
-};
-
 export function timeline(a: TimelineArgs = {}): string {
   const { events = defaultEvents, nowLabel = "Oggi" } = a;
   const items = events.map((e, i) => {
     const when = e.when ?? "past";
-    const before = i > 0 ? `<hr class="${line[events[i - 1].when ?? "past"]}">` : "";
-    const after = i < events.length - 1 ? `<hr class="${line[when]}">` : "";
-    const mark = `<div class="timeline-middle"><span class="${cx("grid size-12 place-items-center rounded-full", pin[when])}">${icon(e.icon ?? "it-calendar", "size-6")}</span></div>`;
-    const date = `<div class="timeline-start mb-2 self-start md:mb-0 md:me-4 md:pt-3 md:text-end">
-      <p class="${cx("font-semibold uppercase tracking-wide", when === "now" ? "text-primary" : "text-base-content/70")}">${e.date}</p>${
-        when === "now" ? `\n      <span class="badge badge-primary badge-sm mt-1 font-semibold">${nowLabel}</span>` : ""
+    // The line after a pin is solid up to "now", pale after it: the CSS reads it from the item classes.
+    const before = i > 0 ? `<hr>` : "";
+    const after = i < events.length - 1 ? `<hr>` : "";
+    const mark = `<div class="timeline-middle"><span>${icon(e.icon ?? "it-calendar", "")}</span></div>`;
+    const date = `<div class="timeline-start">
+      <p>${e.date}</p>${when === "now" ? `\n      <span class="ita-timeline-badge">${nowLabel}</span>` : ""}
+    </div>`;
+    const card = `<div class="timeline-end">
+      <h3>${e.title}</h3>${e.text ? `\n      <p>${e.text}</p>` : ""}${
+        e.href ? `\n      <a href="${e.href}">${e.linkLabel ?? "Leggi di più"}${icon("it-arrow-right", "")}</a>` : ""
       }
     </div>`;
-    const card = `<div class="${cx(
-      "timeline-end mb-10 w-full max-w-md rounded-sm border bg-base-100 p-5 shadow-[0_2px_12px_rgb(0_0_0/0.08)] md:ms-4",
-      e.evidence ? "border-primary border-s-4" : "border-base-content/15",
-    )}">
-      <h3 class="mb-1 text-xl font-bold">${e.title}</h3>${e.text ? `\n      <p class="text-base-content/80">${e.text}</p>` : ""}${
-        e.href ? `\n      <a href="${e.href}" class="mt-3 inline-flex items-center gap-1 font-semibold text-primary underline underline-offset-2 hover:no-underline">${e.linkLabel ?? "Leggi di più"}${icon("it-arrow-right", "size-4")}</a>` : ""
-      }
-    </div>`;
-    return `  <li${when === "now" ? ` aria-current="step"` : ""}>
+    const cls = cx(when === "now" && "ita-timeline-now", when === "future" && "ita-timeline-future", e.evidence && "ita-timeline-evidence");
+    return `  <li${cls ? ` class="${cls}"` : ""}${when === "now" ? ` aria-current="step"` : ""}>
     ${before}
     ${date}
     ${mark}
@@ -72,7 +56,7 @@ export function timeline(a: TimelineArgs = {}): string {
     ${after}
   </li>`;
   });
-  const cls = cx("timeline timeline-vertical timeline-snap-icon", a.compact ? "timeline-compact" : "max-md:timeline-compact");
+  const cls = cx("timeline timeline-vertical timeline-snap-icon", a.compact ? "timeline-compact" : "max-md:timeline-compact", "ita-timeline");
   return `<ol class="${cls}">\n${items.join("\n")}\n</ol>`;
 }
 
@@ -82,6 +66,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-timeline>, <it-timeline-item>",
   summary:
     "La linea del tempo di bootstrap-italia: pin rotondi con icona, data accanto al pin, card con titolo e link, e l'indicatore «Oggi» fra passato e futuro. daisyUI timeline verticale.",
+  classes: ["ita-timeline", "ita-timeline-now", "ita-timeline-future", "ita-timeline-evidence", "ita-timeline-badge"],
   daisy: ["timeline", "timeline-vertical", "timeline-snap-icon", "timeline-compact", "timeline-start", "timeline-middle", "timeline-end", "badge"],
   cssOnly:
     "È un elenco ordinato: l'ordine è quello della lettura. La linea è piena fino all'evento corrente e chiara dopo; il presente ha aria-current=\"step\". Sotto md la timeline diventa compatta, con data e card sullo stesso lato.",

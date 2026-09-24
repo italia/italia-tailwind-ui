@@ -1,0 +1,86 @@
+/*
+ * Hero (structural): daisyUI hero, hero-content and hero-overlay stay in the
+ * markup; ita-hero gives the .italia look (primary surface, 300/400px tall,
+ * text block on the left, outlined call to action).
+ *   <section class="hero ita-hero ita-hero-neutral" aria-labelledby="t">
+ *     <img src="…" alt="">
+ *     <div class="hero-overlay"></div>
+ *     <div class="hero-content"><div>
+ *       <span class="ita-hero-kicker">Occhiello</span>
+ *       <h2 id="t" class="ita-hero-title">Titolo</h2>
+ *       <p class="ita-hero-text">Testo</p>
+ *       <div><a href="#" class="ita-btn ita-btn-xs ita-hero-cta">Azione</a></div>
+ *     </div></div>
+ *   </section>
+ *   overlay: ita-hero-neutral, ita-hero-primary, ita-hero-filter
+ *   modifiers: ita-hero-center, ita-hero-sm, ita-hero-overlap
+ */
+@layer utilities {
+  .ita-hero {
+    --ita-hero-fg: var(--color-primary-content);
+    --ita-hero-bg: var(--color-primary);
+    @apply relative w-full items-end justify-items-center bg-primary md:min-h-[300px] lg:min-h-[400px] lg:items-center;
+    color: var(--ita-hero-fg);
+    & > img {
+      @apply size-full object-cover;
+    }
+    & > .hero-content {
+      @apply w-full max-w-[1320px] flex-col items-start gap-0 px-4 py-12 text-start sm:px-6;
+      & > div {
+        @apply relative lg:max-w-[50vw];
+      }
+    }
+  }
+  .ita-hero-neutral {
+    --ita-hero-fg: var(--color-neutral-content);
+    --ita-hero-bg: var(--color-neutral);
+    & > .hero-overlay {
+      @apply bg-neutral/85;
+    }
+  }
+  .ita-hero-primary > .hero-overlay {
+    @apply bg-primary/85;
+  }
+  .ita-hero-filter > img {
+    @apply mix-blend-screen;
+  }
+  .ita-hero-sm {
+    @apply lg:min-h-[300px];
+  }
+  .ita-hero-center > .hero-content {
+    @apply items-center text-center;
+    & > div {
+      @apply lg:max-w-none;
+    }
+  }
+  .ita-hero-overlap {
+    @apply -mb-12 lg:-mb-10;
+    & > .hero-content {
+      @apply pt-12 pb-18 lg:pb-12;
+    }
+  }
+
+  .ita-hero-kicker {
+    @apply mb-1 block text-sm font-semibold tracking-wide uppercase;
+  }
+  .ita-hero-title {
+    @apply mb-4 text-3xl leading-tight font-bold lg:text-4xl;
+  }
+  .ita-hero-text {
+    @apply mb-4 font-serif leading-relaxed;
+  }
+}
+
+/* The call to action names the surface's own tokens: .btn sets its own color,
+   so currentColor inside it would be the button's, not the hero's. */
+@layer components {
+  .ita-hero-cta {
+    @apply border-2 bg-transparent;
+    border-color: var(--ita-hero-fg);
+    color: var(--ita-hero-fg);
+    &:hover {
+      background-color: var(--ita-hero-fg);
+      color: var(--ita-hero-bg);
+    }
+  }
+}

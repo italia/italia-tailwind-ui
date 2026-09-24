@@ -1,0 +1,82 @@
+/*
+ * Carousel (structural): daisyUI carousel and carousel-item stay in the
+ * markup, it-carousel adds the CSS buttons and dots (extensions.css).
+ *   <section class="ita-carousel" aria-roledescription="carosello" aria-label="…">
+ *     <h2 class="ita-carousel-title">…</h2>
+ *     <div><div class="carousel it-carousel" tabindex="0">
+ *       <div class="carousel-item" role="group" aria-roledescription="slide" aria-label="1 di 5">…card…</div>
+ *     </div></div>
+ *     <nav class="ita-carousel-pager" aria-label="Scegli la slide"><a href="#s1">1</a>…</nav>
+ *   </section>
+ *   types: cards (default, 3/2/1 per view), ita-carousel-image (one image with
+ *   ita-carousel-caption), ita-carousel-peek (the next slide peeks in)
+ */
+@layer utilities {
+  .ita-carousel {
+    @apply w-full;
+    & > div {
+      @apply relative;
+    }
+    & .carousel {
+      @apply w-full gap-6 scroll-smooth rounded-box py-2;
+    }
+    & .carousel-item {
+      @apply w-full md:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)];
+      & > .ita-card {
+        @apply w-full;
+      }
+    }
+    /* Cards: the CSS buttons sit in a gutter instead of over the titles, only
+       where the browser draws them. */
+    & .it-carousel {
+      @apply supports-[selector(::scroll-button(*))]:px-14 supports-[selector(::scroll-button(*))]:scroll-px-14;
+    }
+  }
+  .ita-carousel-image {
+    & .carousel {
+      @apply gap-4 py-0;
+    }
+    & .carousel-item {
+      @apply relative w-full overflow-hidden rounded-box md:w-full lg:w-full;
+      & > img {
+        @apply aspect-[2/1] w-full object-cover;
+      }
+    }
+    & .it-carousel {
+      @apply supports-[selector(::scroll-button(*))]:px-0 supports-[selector(::scroll-button(*))]:scroll-px-0;
+    }
+  }
+  .ita-carousel-peek {
+    & .carousel {
+      @apply px-[7.5%] scroll-px-[7.5%] md:px-[20%] md:scroll-px-[20%];
+    }
+    & .carousel-item {
+      @apply w-[85%] snap-center md:w-[60%] lg:w-[60%];
+    }
+    & .it-carousel {
+      @apply supports-[selector(::scroll-button(*))]:px-[7.5%] supports-[selector(::scroll-button(*))]:scroll-px-[7.5%] md:supports-[selector(::scroll-button(*))]:px-[20%] md:supports-[selector(::scroll-button(*))]:scroll-px-[20%];
+    }
+  }
+  .ita-carousel-caption {
+    @apply absolute inset-x-0 bottom-0 bg-gradient-to-t from-neutral/90 to-transparent p-6 pt-16 text-neutral-content;
+    & > p:first-child {
+      @apply text-xl font-bold sm:text-2xl;
+      & > a {
+        color: inherit;
+        @apply no-underline underline-offset-2 hover:underline;
+      }
+    }
+    & > p + p {
+      @apply mt-1 max-w-2xl;
+    }
+  }
+  .ita-carousel-title {
+    @apply mb-4 text-3xl font-bold;
+  }
+  .ita-carousel-pager {
+    @apply mt-4 flex justify-center gap-2;
+    & > a {
+      @apply btn btn-xs btn-outline btn-primary min-w-8 no-underline;
+    }
+  }
+}

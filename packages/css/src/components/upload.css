@@ -1,0 +1,145 @@
+/*
+ * Upload: the native file input (daisyUI file-input), a drop zone that is the
+ * file input stretched over the whole area, the list of uploaded files and
+ * the profile photo changer.
+ *   <input type="file" class="ita-file-input [ita-file-input-sm|lg]">
+ *   <div class="ita-dropzone"><svg…/><p class="ita-dropzone-title">…</p>
+ *     <p class="ita-dropzone-text">oppure <span>selezionali</span></p><p class="ita-dropzone-hint">…</p>
+ *     <input type="file" …></div>
+ *     With a required input, :valid shows the ita-dropzone-done parts and turns
+ *     the zone green; a script can add ita-dropzone-over while dragging.
+ *   <ul class="ita-upload-list"><li [class="ita-upload-error"]><div>
+ *     svg.ita-upload-file <div><p>nome.pdf</p><p>1,2 MB</p></div>
+ *     svg.ita-upload-status | <span class="ita-upload-percent">64%</span>
+ *     <button class="ita-upload-remove">…</button></div><progress …></li></ul>
+ *   <div class="ita-upload-avatar"><span class="avatar"><span><img …></span></span>
+ *     <div><label class="ita-btn … ita-upload-button"><input type="file" class="sr-only">…</label><p>…</p></div></div>
+ */
+@layer components {
+  /* 1rem as the other fields; the sizes set theirs directly too, or this
+     direct value would beat daisy's nested one. */
+  .ita-file-input {
+    @apply file-input file-input-primary w-full;
+    font-size: 1rem;
+  }
+  .ita-file-input-sm {
+    @apply file-input-sm;
+    font-size: 0.75rem;
+  }
+  .ita-file-input-lg {
+    @apply file-input-lg;
+    font-size: 1.125rem;
+  }
+
+  .ita-dropzone {
+    @apply relative flex w-full max-w-xl flex-col items-center gap-2 rounded-box border-2 border-dashed border-base-content/30 bg-base-200 px-6 py-10 text-center transition-colors hover:border-primary hover:bg-primary/5 has-focus-visible:border-primary has-focus-visible:ring-2 has-focus-visible:ring-base-content has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-base-100;
+    & > svg {
+      @apply size-10 text-primary;
+    }
+    & > input {
+      @apply absolute inset-0 cursor-pointer opacity-0;
+    }
+    &:has(> input:disabled) {
+      @apply pointer-events-none opacity-50;
+    }
+    &:has(> input:required:valid) {
+      @apply border-solid border-success bg-success/5;
+      & > svg:first-child {
+        @apply hidden;
+      }
+      & svg.ita-dropzone-done {
+        @apply block;
+      }
+      & span.ita-dropzone-done {
+        @apply inline;
+      }
+    }
+  }
+  .ita-dropzone-done {
+    @apply hidden text-success;
+  }
+  .ita-dropzone > svg.ita-dropzone-done {
+    @apply text-success;
+  }
+  .ita-dropzone-over {
+    @apply border-primary bg-primary/10;
+  }
+  .ita-dropzone-title {
+    @apply text-lg font-semibold;
+  }
+  .ita-dropzone-text {
+    @apply it-muted-80;
+    & > span {
+      @apply font-semibold text-primary underline underline-offset-2;
+    }
+  }
+  .ita-dropzone-hint {
+    @apply text-sm it-muted-70;
+  }
+
+  .ita-upload-list {
+    @apply w-full max-w-xl border-t border-base-content/15;
+    & > li {
+      @apply flex flex-col gap-2 border-b border-base-content/15 py-3;
+      & > div {
+        @apply flex items-center gap-3;
+        & > div {
+          @apply min-w-0 flex-1;
+          & > p:first-child {
+            @apply truncate font-semibold;
+          }
+          & > p + p {
+            @apply text-sm it-muted-70;
+          }
+        }
+      }
+      & > progress {
+        @apply progress progress-primary h-1 w-full bg-base-300;
+      }
+    }
+  }
+  .ita-upload-file {
+    @apply size-8 shrink-0 text-primary;
+  }
+  .ita-upload-status {
+    @apply size-6 text-success;
+  }
+  .ita-upload-percent {
+    @apply text-sm it-muted-70;
+  }
+  .ita-upload-list > li.ita-upload-error {
+    @apply text-error;
+    & :is(.ita-upload-file, .ita-upload-status) {
+      @apply text-error;
+    }
+    & > div > div > p + p {
+      @apply text-error;
+    }
+  }
+  .ita-upload-remove {
+    @apply btn btn-square btn-ghost btn-sm it-muted-70 hover:text-error;
+    & > svg {
+      @apply size-5;
+    }
+  }
+
+  .ita-upload-avatar {
+    @apply flex items-center gap-4;
+    & > .avatar > span {
+      @apply block size-20 overflow-hidden rounded-full bg-base-200;
+      & > svg {
+        @apply m-5 size-10 text-base-content/50;
+      }
+    }
+    & > div {
+      @apply flex flex-col gap-1;
+      & > p {
+        @apply text-sm it-muted-70;
+      }
+    }
+  }
+  /* A <label> button: the ring shows when its hidden input has keyboard focus. */
+  .ita-btn.ita-upload-button {
+    @apply gap-1.5 has-focus-visible:ring-2 has-focus-visible:ring-base-content has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-base-100;
+  }
+}

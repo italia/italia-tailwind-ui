@@ -40,10 +40,10 @@ export interface ModalArgs {
 
 // Literal class maps: Tailwind only sees classes written out in full.
 const sizes: Record<ModalSize, string> = {
-  sm: "max-w-sm",
+  sm: "ita-modal-sm",
   default: "",
-  lg: "max-w-2xl",
-  xl: "max-w-5xl",
+  lg: "ita-modal-lg",
+  xl: "ita-modal-xl",
 };
 const positions: Record<ModalPosition, string> = {
   center: "",
@@ -51,10 +51,10 @@ const positions: Record<ModalPosition, string> = {
   right: "modal-end",
 };
 const iconColors: Record<NonNullable<ModalArgs["iconColor"]>, string> = {
-  primary: "text-primary",
-  warning: "text-warning",
-  danger: "text-error",
-  success: "text-success",
+  primary: "ita-modal-icon-primary",
+  warning: "",
+  danger: "ita-modal-icon-danger",
+  success: "ita-modal-icon-success",
 };
 
 let counter = 0;
@@ -75,22 +75,15 @@ export function modal(a: ModalArgs = {}): string {
   const descId = `${id}-desc`;
   const popconfirm = variant === "popconfirm";
 
-  const box = cx(
-    "modal-box rounded-sm",
-    popconfirm ? "max-w-xs p-4" : "p-6",
-    sizes[size],
-    variant === "alert" && "text-center",
-    a.scrollable && "flex max-h-[70vh] flex-col overflow-hidden",
-  );
-
+  const x = icon("it-close-big", "");
   const closeButton =
     a.hideCloseButton || popconfirm
       ? ""
       : trigger === "command"
-        ? `<button type="button" command="close" commandfor="${id}" class="btn btn-sm btn-circle btn-ghost absolute end-3 top-3 text-base-content" aria-label="${closeLabel}">${icon("it-close-big", "size-5")}</button>`
+        ? `<button type="button" command="close" commandfor="${id}" class="ita-modal-close" aria-label="${closeLabel}">${x}</button>`
         : trigger === "target"
-          ? `<a href="#" class="btn btn-sm btn-circle btn-ghost absolute end-3 top-3 text-base-content" aria-label="${closeLabel}">${icon("it-close-big", "size-5")}</a>`
-          : `<label for="${id}" class="btn btn-sm btn-circle btn-ghost absolute end-3 top-3 text-base-content" aria-label="${closeLabel}">${icon("it-close-big", "size-5")}</label>`;
+          ? `<a href="#" class="ita-modal-close" aria-label="${closeLabel}">${x}</a>`
+          : `<label for="${id}" class="ita-modal-close" aria-label="${closeLabel}">${x}</label>`;
 
   const closeAttrs =
     trigger === "command"
@@ -107,26 +100,33 @@ export function modal(a: ModalArgs = {}): string {
 
   const head =
     variant === "alert"
-      ? `${a.icon ? `<div class="mb-3 flex justify-center">${icon(a.icon, `size-12 ${iconColors[a.iconColor ?? "warning"]}`)}</div>` : ""}
-      <h2 id="${titleId}" class="text-2xl font-bold leading-tight">${title}</h2>`
+      ? `${a.icon ? `<div class="${cx("ita-modal-icon", iconColors[a.iconColor ?? "warning"])}">${icon(a.icon, "")}</div>` : ""}
+      <h2 id="${titleId}" class="ita-modal-title">${title}</h2>`
       : popconfirm && !a.title
         ? ""
-        : `<h2 id="${titleId}" class="pe-8 text-2xl font-bold leading-tight">${title}</h2>`;
+        : `<h2 id="${titleId}" class="ita-modal-title">${title}</h2>`;
 
-  const body = `<div class="${cx("py-4 leading-relaxed", a.scrollable && "grow overflow-y-auto")}">${content}</div>`;
+  const body = `<div class="ita-modal-body">${content}</div>`;
   const footer = a.footer ?? `${closeTag("Annulla", false)}${closeTag("Conferma", true)}`;
 
-  const inner = `<div class="${box}">
+  const inner = `<div class="modal-box">
       ${closeButton}
       ${head}
       ${body}
-      <div class="modal-action ${popconfirm ? "mt-2" : ""}">${footer}</div>
+      <div class="modal-action">${footer}</div>
     </div>`;
 
   const labelled = head ? ` aria-labelledby="${titleId}"` : ` aria-label="${title}"`;
   const described = a.description ? ` aria-describedby="${descId}"` : "";
   const srDescription = a.description ? `\n    <p id="${descId}" class="sr-only">${a.description}</p>` : "";
-  const modalCls = cx("modal", positions[position]);
+  const modalCls = cx(
+    "modal ita-modal",
+    positions[position],
+    sizes[size],
+    variant === "alert" && "ita-modal-alert",
+    popconfirm && "ita-modal-popconfirm",
+    a.scrollable && "ita-modal-scroll",
+  );
 
   if (trigger === "command") {
     const backdrop = a.staticBackdrop
@@ -164,6 +164,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-modal>",
   summary:
     "Finestre modali su daisyUI modal. Tre aperture senza JavaScript d'autore: <dialog> con command/commandfor, :target e la checkbox modal-toggle.",
+  classes: ["ita-modal", "ita-modal-sm", "ita-modal-lg", "ita-modal-xl", "ita-modal-alert", "ita-modal-popconfirm", "ita-modal-scroll", "ita-modal-title", "ita-modal-body", "ita-modal-icon", "ita-modal-icon-primary", "ita-modal-icon-danger", "ita-modal-icon-success", "ita-modal-close"],
   daisy: ["modal", "modal-box", "modal-action", "modal-backdrop", "modal-toggle", "modal-start", "modal-end", "btn"],
   cssOnly:
     "command/commandfor è HTML nativo (Chrome 135+, Safari 26+, Firefox 141+) e dà le vere semantiche di dialogo: focus trap, sfondo inerte, Esc. Dove serve più compatibilità, :target e modal-toggle funzionano ovunque ma non spostano il focus né rendono inerte la pagina: aggiungi tu il focus iniziale se ti serve.",
@@ -205,7 +206,7 @@ export const doc: ComponentDoc = {
         title: "Con footer personalizzato",
         content: lorem,
         footer: `<div class="flex w-full items-center justify-between gap-2">
-        <a href="#" class="link link-primary">Link di supporto</a>
+        <a href="#" class="ita-link">Link di supporto</a>
         <div class="flex gap-2">${button({ label: "Annulla", outline: true })}${button({ label: "Conferma" })}</div>
       </div>`,
       }),

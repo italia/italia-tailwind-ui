@@ -1,0 +1,51 @@
+/*
+ * Toolbar: a row (or column) of actions with icon and label, dividers,
+ * counters and a "more" menu (Dropdown on <details>).
+ *   <nav class="ita-toolbar" aria-label="…"><ul>
+ *     <li><a href="#" class="ita-toolbar-item"><span class="indicator">svg</span><span class="ita-toolbar-label">Condividi</span></a></li>
+ *     <li role="separator"></li> …
+ *   </ul></nav>
+ *   modifiers: ita-toolbar-lg, ita-toolbar-sm (icons only), ita-toolbar-vertical
+ *   item states: aria-current="page", aria-disabled="true"
+ */
+@layer components {
+  .ita-toolbar > ul {
+    @apply inline-flex flex-row flex-wrap items-stretch gap-1 rounded-box border border-base-content/10 bg-base-100 p-2 shadow-[0_4px_12px_rgb(0_0_0/0.1)];
+    & > li[role="separator"] {
+      @apply mx-1 w-px self-stretch bg-base-content/15;
+    }
+  }
+  .ita-toolbar-vertical > ul {
+    @apply flex-col flex-nowrap items-stretch;
+    & > li[role="separator"] {
+      @apply mx-2 my-1 h-px w-auto self-auto;
+    }
+  }
+  .ita-toolbar-item {
+    @apply flex min-w-16 cursor-pointer list-none flex-col items-center justify-center gap-1 rounded-field px-2 py-2 it-muted-80 transition-colors hover:bg-primary/10 hover:text-primary;
+    &::-webkit-details-marker {
+      display: none;
+    }
+    & svg {
+      @apply size-6;
+    }
+    &[aria-current="page"] {
+      @apply bg-primary/10 text-primary;
+    }
+    &[aria-disabled="true"] {
+      @apply pointer-events-none;
+    }
+  }
+  .ita-toolbar-label {
+    @apply text-xs font-semibold;
+  }
+  .ita-toolbar-lg .ita-toolbar-item {
+    @apply min-w-20 px-3;
+    & svg {
+      @apply size-8;
+    }
+  }
+  .ita-toolbar-sm .ita-toolbar-item {
+    @apply size-11 min-w-0 p-0;
+  }
+}

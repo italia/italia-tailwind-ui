@@ -1,0 +1,45 @@
+/*
+ * Tabs (structural): daisyUI radio tabs with the .italia look — every tab in
+ * primary (daisyUI greys inactive ones below 4.5:1), semibold, 48px high,
+ * a top rule over the panel.
+ *   <div role="group" class="tabs tabs-border ita-tabs" aria-label="…">
+ *     <label class="tab"><input type="radio" name="t" checked> Scheda 1</label>
+ *     <div class="tab-content">…</div> …
+ *   </div>
+ *   modifiers: ita-tabs-card (with tabs-lift), ita-tabs-fill (tabs share the
+ *   row), ita-tabs-stacked (icon above the label), ita-tabs-nav (link tabs)
+ */
+@layer utilities {
+  .ita-tabs {
+    & > .tab {
+      @apply h-auto min-h-12 gap-2 font-semibold text-primary;
+      & > svg {
+        @apply size-6 shrink-0;
+      }
+    }
+    & > .tab:hover {
+      @apply underline;
+    }
+    & > .tab-disabled {
+      @apply text-base-content/40;
+    }
+    & > .tab-content {
+      @apply py-6;
+    }
+    &:not(.ita-tabs-card) > .tab-content {
+      @apply rounded-none border-0 border-t border-base-content/15 px-1;
+    }
+  }
+  .ita-tabs-card > .tab-content {
+    @apply border-base-300 bg-base-100 px-6;
+  }
+  .ita-tabs-fill > .tab {
+    @apply flex-1;
+  }
+  .ita-tabs-stacked > .tab {
+    @apply flex-col py-2;
+  }
+  .ita-tabs-nav {
+    @apply border-b border-base-content/15;
+  }
+}

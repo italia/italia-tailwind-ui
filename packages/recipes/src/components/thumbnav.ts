@@ -22,12 +22,7 @@ export interface ThumbnavArgs {
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const sizes: Record<ThumbnavSize, string> = { sm: "size-12", md: "size-20", lg: "size-28" };
-
-// Current thumbnail: ring in primary. Written for :target-current (live,
-// when the links point at slides) and aria-current (server).
-const current =
-  "[&:target-current]:ring-2 [&:target-current]:ring-primary [&:target-current]:opacity-100 aria-[current=true]:ring-2 aria-[current=true]:ring-primary aria-[current=true]:opacity-100";
+const sizes: Record<ThumbnavSize, string> = { sm: "ita-thumbnav-sm", md: "", lg: "ita-thumbnav-lg" };
 
 const pic = (n: number) => `https://picsum.photos/id/${n}/1200/675`;
 const thumb = (n: number) => `https://picsum.photos/id/${n}/200/200`;
@@ -37,22 +32,13 @@ const defaultItems: ThumbnavItem[] = ids.map((n, i) => ({ src: thumb(n), alt: `P
 
 export function thumbnav(a: ThumbnavArgs = {}): string {
   const { items = defaultItems, label = "Miniature", size = "md" } = a;
-  const list = cx(
-    "flex gap-3 p-1",
-    a.spy && "[scroll-target-group:auto]",
-    a.vertical ? "max-h-96 flex-col overflow-y-auto snap-y" : "overflow-x-auto snap-x",
-  );
-  const link = cx(
-    "block shrink-0 snap-start overflow-hidden rounded-sm opacity-70 ring-offset-2 ring-offset-base-100 transition hover:opacity-100",
-    sizes[size],
-    current,
-  );
-  return `<nav aria-label="${label}">
-  <ul class="${list}">
+  const cls = cx("ita-thumbnav", sizes[size], a.vertical && "ita-thumbnav-vertical", a.spy && "ita-thumbnav-spy");
+  return `<nav aria-label="${label}" class="${cls}">
+  <ul>
     ${items
       .map(
         (it) =>
-          `<li class="shrink-0"><a href="${it.href ?? "#"}" class="${link}"${it.active ? ` aria-current="true"` : ""}><img src="${it.src}" alt="${it.alt}" class="size-full object-cover" loading="lazy"></a></li>`,
+          `<li><a href="${it.href ?? "#"}"${it.active ? ` aria-current="true"` : ""}><img src="${it.src}" alt="${it.alt}" loading="lazy"></a></li>`,
       )
       .join("\n    ")}
   </ul>
@@ -115,13 +101,12 @@ export function Gallery({ photos }: { photos: Photo[] }) {
           <img key={p.src} src={p.src} alt={p.alt} className="carousel-item aspect-video w-full object-cover" />
         ))}
       </div>
-      <nav aria-label="Scegli l'immagine">
-        <ul className="flex gap-3 overflow-x-auto p-1">
+      <nav aria-label="Scegli l'immagine" className="ita-thumbnav">
+        <ul>
           {photos.map((p, i) => (
             <li key={p.thumb}>
-              <button type="button" onClick={() => show(i)} aria-current={i === current || undefined}
-                      className="block size-20 overflow-hidden rounded-sm opacity-70 ring-offset-2 aria-[current=true]:opacity-100 aria-[current=true]:ring-2 aria-[current=true]:ring-primary">
-                <img src={p.thumb} alt={p.alt} className="size-full object-cover" />
+              <button type="button" onClick={() => show(i)} aria-current={i === current || undefined}>
+                <img src={p.thumb} alt={p.alt} />
               </button>
             </li>
           ))}
@@ -137,6 +122,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-thumbnav>",
   summary:
     "Una fila di miniature per scegliere un'immagine: link ad ancora verso le slide di un carosello, con la miniatura corrente evidenziata durante lo scorrimento.",
+  classes: ["ita-thumbnav", "ita-thumbnav-sm", "ita-thumbnav-lg", "ita-thumbnav-vertical", "ita-thumbnav-spy"],
   daisy: ["carousel", "carousel-item"],
   cssOnly:
     "Ogni miniatura è un link alla sua slide (#galleria-3): il browser scorre il carosello fino all'immagine. La miniatura corrente usa scroll-target-group e :target-current (Chrome 140+), altrimenti aria-current dal server. Il salto dell'ancora può scorrere anche la pagina e aggiorna l'hash: il frammento JavaScript sotto lo evita.",

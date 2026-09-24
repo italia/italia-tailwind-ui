@@ -1,14 +1,14 @@
 # Italia daisy
 
 A **CSS-only** alternative to [dev-kit-italia](https://github.com/italia/dev-kit-italia): the components of the
-.italia design system rewritten as plain HTML **recipes** built from **daisyUI 5** classes and **Tailwind CSS 4**
-utilities. It has no web components and no Bootstrap. Every colour comes from a daisyUI theme token, so changing
+.italia design system rewritten as plain HTML **recipes**, with semantic `ita-*` classes built on **daisyUI 5** and
+**Tailwind CSS 4**. It has no web components and no Bootstrap. Every colour comes from a daisyUI theme token, so changing
 `data-theme` re-themes every component.
 
 ```
 italia-daisy/
 ├─ packages/
-│  ├─ css/        @italia-daisy/css      daisyUI themes + foundations + a thin it-* extension layer
+│  ├─ css/        @italia-daisy/css      daisyUI themes + foundations + ita-* components + it-* extensions
 │  └─ recipes/    @italia-daisy/recipes  HTML recipe functions, docs metadata, bootstrap-italia icons
 └─ apps/
    ├─ docs/       Astro site: one page per component, live preview and code, theme switcher
@@ -180,12 +180,13 @@ With Tailwind 4:
 ```css
 @import "tailwindcss";
 @import "@italia-daisy/css";
-/* only if you call the recipe helpers, so Tailwind sees their classes: */
+/* only if you call the recipe helpers, so Tailwind sees the daisyUI and utility classes they still use: */
 @source "../node_modules/@italia-daisy/recipes/src";
 ```
 
-Without Tailwind, link the prebuilt `packages/css/dist/italia-daisy.css` (about 140 KB minified). It contains every
-class the recipes use.
+Without Tailwind, link the prebuilt `packages/css/dist/italia-daisy.css` (about 490 KB minified, 56 KB gzipped). It
+contains every `ita-*` class and every class the recipes use. The `ita-*` classes need no `@source`: they are plain
+CSS, always in the stylesheet.
 
 Fonts:
 - **Titillium Sans Pro**, the typeface of dev-kit-italia and bootstrap-italia 3, ships with the package:
@@ -246,40 +247,87 @@ real colour depends on the theme (in `italia-dark` the "base" surface is navy).
 The old names still work as deprecated aliases: `theme: "light"`, `dark: true`, `overlay: "dark"`, `tone: "black"`,
 `variant: "dark"`, and `inverse` on Back to top and Forward.
 
-## How a recipe is written
+## The `ita-*` classes
 
-The rules:
+Every component is written with its own semantic classes, prefixed `ita-`: `ita-btn ita-btn-primary`,
+`ita-alert ita-alert-success`, `ita-card`, `ita-header-nav`… They are built on daisyUI with `@apply`, one file per
+component in `packages/css/src/components/`. Three reasons:
 
-1. **Start from daisyUI.** Use the closest daisyUI component (`btn`, `alert`, `badge`, `card`, `collapse`,
-   `breadcrumbs`…).
-2. **Add the .italia look with Tailwind utilities on theme tokens.** For example `border-l-8 border-l-success` gives
-   the alert its bar, and `font-semibold` gives buttons their weight.
-3. **Never use a literal palette colour.** Borders and muted text use `base-content/20`, `base-content/70` and so on,
-   so they work in dark themes.
-4. **Behaviour is native HTML.**
-   - `<details>`/`<summary>` for accordion and "Leggi tutto".
-   - The shared `name` attribute for exclusive accordions.
-   - A checkbox plus `has-checked:hidden` for dismissible alerts and chips.
-   - Real links for pagination.
-5. **Use an `it-*` extension class only when utilities cannot do it.** There are seven today, all in
-   `packages/css/src/extensions.css`:
-   - `it-fold-corner`: the callout's folded corner
-   - `it-plus-minus`: the +/– glyph
-   - `it-slash`: the "/" breadcrumb separator
-   - `it-scroll-reveal`: fades the back-to-top button in after scrolling (scroll-driven animation)
-   - `it-scroll-progress`: the navscroll reading-progress bar (scroll-driven animation)
-   - `it-carousel`: CSS carousel buttons and dots (`::scroll-button`, `::scroll-marker`)
-   - `it-surface-primary`: a band in the primary colour. Inside it the tokens swap (base becomes primary, primary
-     and accent become primary-content), so any component works on it with no option: `btn-primary` turns light,
-     `text-primary` links turn light, muted text goes back to full strength to keep 4.5:1
-6. **Write class maps out literally** (`{ danger: "btn-error" }`, never `` `btn-${v}` ``). Tailwind only generates
-   classes it can read in the source.
+1. **The markup says where it comes from.** A page built with italia-daisy is recognisable from its classes
+   (`ita-*`), distinct from dev-kit-italia (`it-*` web components) and bootstrap-italia.
+2. **daisyUI updates still arrive.** The classes `@apply` daisyUI's own components, so a new daisyUI version flows
+   through without touching the markup.
+3. **Shorter HTML.** Across the 241 documented examples the HTML is 28% smaller and the `class` attributes 71%
+   smaller than with daisyUI classes plus utilities.
+
+The `ita-*` classes are plain CSS, not Tailwind utilities: they are always in the stylesheet, whatever Tailwind
+scans. Each component page (and each Storybook story) lists them under **Classi**.
+
+### Two kinds of component
+
+- **Atomic** (button, alert, chip, badge, form fields, pagination, progress, section, avatar, toolbar,
+  notification, upload…): the markup carries only `ita-*` classes (plus layout helpers such as `join`, `join-item`,
+  `sr-only`). The rules live in `@layer components`.
+  ```html
+  <a href="#" class="ita-btn ita-btn-primary ita-btn-outline">Scopri</a>
+  ```
+- **Structural** (tabs, dropdown and menu, accordion and collapse, card, modal, hero, header, footer, megamenu,
+  steps, timeline, bottom navigation, carousel, tooltip, popover, rating): daisyUI's structure classes stay in the
+  markup (`tabs`/`tab`/`tab-content`, `dropdown`/`dropdown-content`/`menu`, `card`/`card-body`/`card-title`,
+  `modal`/`modal-box`…), because daisyUI's behaviour depends on them. An `ita-*` class on the root adds the .italia
+  look. These rules live in `@layer utilities`, so they win over daisyUI's own.
+  ```html
+  <article class="card ita-card ita-card-primary">
+    <div class="card-body"><h3 class="card-title"><a href="#">Titolo</a></h3>…</div>
+  </article>
+  ```
+
+### Writing one: the traps
+
+- **daisyUI's nested layers.** `@apply btn` copies daisyUI's rules inside its nested layers
+  (`daisyui.l1.l2.l3`…), where a value the component sets directly beats them. When a base class sets something
+  directly (`--fontsize` on `ita-btn`), every modifier must set it directly too. And inside a daisyUI sub-layer,
+  never rely on source order: the minifier merges blocks of the same layer and may reorder them, so use
+  specificity (`:root .ita-btn-ghost { … }`), as `button.css` and `input.css` do.
+- **daisyUI selectors on its own class names** (`:not(.btn-link, .btn-ghost)`, `fieldset:disabled .input`,
+  `.validator:user-invalid ~ .validator-hint`) no longer match `ita-*` markup: mirror them explicitly.
+- **Classless links** get the base style (`a:not([class])`: primary, underlined). A component that styles the links
+  inside it sets `color` and `text-decoration` itself.
+- **Muted text** uses `it-muted-{n}` (`@apply it-muted-70`), not `text-base-content/70`: `it-surface-primary`
+  brings it back to full strength through `--it-muted`, whatever the class names in the markup. Disabled states
+  keep `text-base-content/{n}`, so they stay faded on the band.
+- **Behaviour is native HTML**: `<details>`/`<summary>`, the `name` attribute for exclusive accordions, a checkbox
+  and `:has(:checked)` for dismissible alerts and chips, the popover API, `command`/`commandfor` for dialogs, real
+  links for pagination.
+
+### `it-*` extensions
+
+When CSS needs something daisyUI and Tailwind do not have, it is an `it-*` extension in
+`packages/css/src/extensions.css`. They work on daisyUI's raw classes too:
+- `it-fold-corner`: the callout's folded corner
+- `it-plus-minus`: the +/– glyph
+- `it-slash`: the "/" separator for daisyUI's `breadcrumbs` (`ita-breadcrumbs` has it built in)
+- `it-scroll-reveal`: fades the back-to-top button in after scrolling (scroll-driven animation)
+- `it-scroll-progress`: the navscroll reading-progress bar (scroll-driven animation)
+- `it-carousel`: CSS carousel buttons and dots (`::scroll-button`, `::scroll-marker`)
+- `it-surface-primary`: a band in the primary colour. Inside it the tokens swap (base becomes primary, primary
+  and accent become primary-content), so any component works on it with no option, and muted text goes back to
+  full strength to keep 4.5:1
+- `it-muted-{n}`: base-content text at n%, the muted text that `it-surface-primary` restores
+
+extensions.css also gives daisyUI's raw classes the .italia defaults (1rem text on `btn`, `badge`, `alert`,
+`file-input`; the field border), so raw daisyUI markup next to `ita-*` markup matches it.
+
+### Recipes
 
 Each file in `packages/recipes/src/components/` exports:
 - a builder (`button(args)`), whose output is an HTML string
-- `doc` (`ComponentDoc`): the summary, the daisyUI classes used, CSS-only notes and the examples
+- `doc` (`ComponentDoc`): the summary, the `ita-*` classes (`classes`), the daisyUI classes underneath (`daisy`),
+  CSS-only notes, the examples and the JS/React snippets
 
-The Astro pages and the Storybook stories are both generated from `doc`, so a recipe is documented in one place.
+Class maps are written out literally (`{ danger: "ita-btn-danger" }`, never `` `ita-btn-${v}` ``), so the classes
+can be found by searching the source. The Astro pages and the Storybook stories are both generated from `doc`, so a
+recipe is documented in one place.
 
 ## Components
 

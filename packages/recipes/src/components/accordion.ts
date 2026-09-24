@@ -35,25 +35,18 @@ export function accordion(a: AccordionArgs = {}): string {
   const { items = defaultItems, headingLevel = 2 } = a;
   const name = a.single ? (a.name ?? `accordion-${++counter}`) : undefined;
   const h = `h${headingLevel}`;
-  const details = cx(
-    "collapse rounded-none border-b border-base-content/20",
-    !a.leftIcon && "collapse-arrow",
-    a.backgroundActive && "[&[open]>summary]:bg-primary [&[open]>summary]:text-primary-content",
-  );
-  const summary = cx(
-    "collapse-title flex items-center gap-4 px-6 py-4 text-primary",
-    !a.leftIcon && "pe-12",
-    a.backgroundHover ? "hover:bg-primary hover:text-primary-content" : "hover:underline",
-  );
+  // daisyUI's collapse classes stay; ita-accordion on the wrapper adds the .italia look.
+  const details = cx("collapse", !a.leftIcon && "collapse-arrow");
+  const root = cx("ita-accordion", a.backgroundActive && "ita-accordion-active", a.backgroundHover && "ita-accordion-hover");
   const body = items
     .map(
       (it) => `  <details class="${details}"${name ? ` name="${name}"` : ""}${it.open ? " open" : ""}>
-    <summary class="${summary}">${a.leftIcon ? `<span class="it-plus-minus" aria-hidden="true"></span>` : ""}<${h} class="text-base font-semibold leading-tight sm:text-lg">${it.title}</${h}></summary>
-    <div class="collapse-content px-6 text-base text-base-content sm:text-lg">${it.content.trimStart().startsWith("<") ? it.content : `<p class="pt-2">${it.content}</p>`}</div>
+    <summary class="collapse-title">${a.leftIcon ? `<span class="it-plus-minus" aria-hidden="true"></span>` : ""}<${h}>${it.title}</${h}></summary>
+    <div class="collapse-content">${it.content.trimStart().startsWith("<") ? it.content : `<p>${it.content}</p>`}</div>
   </details>`,
     )
     .join("\n");
-  return `<div class="border-t border-base-content/20">\n${body}\n</div>`;
+  return `<div class="${root}">\n${body}\n</div>`;
 }
 
 export const doc: ComponentDoc = {
@@ -62,6 +55,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-accordion>, <it-accordion-item>",
   summary:
     "Elementi richiudibili su <details>/<summary> nativi con daisyUI collapse: apertura, chiusura e tastiera funzionano senza JavaScript.",
+  classes: ["ita-accordion", "ita-accordion-active", "ita-accordion-hover"],
   daisy: ["collapse", "collapse-arrow", "collapse-title", "collapse-content"],
   extensions: ["it-plus-minus"],
   cssOnly:

@@ -26,7 +26,7 @@ export interface UploadedFile {
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const sizes = { sm: "file-input-sm", default: "", lg: "file-input-lg" } as const;
+const sizes = { sm: "ita-file-input-sm", default: "", lg: "ita-file-input-lg" } as const;
 
 let counter = 0;
 
@@ -42,9 +42,9 @@ export function upload(a: UploadArgs = {}): string {
     a.required && "required",
     a.disabled && "disabled",
   );
-  return `<div class="w-full max-w-md">
+  return `<div class="ita-field">
   ${fieldLabel(id, label, { required: a.required })}
-  <input type="file" id="${id}" class="${cx("file-input file-input-primary w-full", sizes[size])}"${attrs ? ` ${attrs}` : ""}${describedBy(hintId)}>${
+  <input type="file" id="${id}" class="${cx("ita-file-input", sizes[size])}"${attrs ? ` ${attrs}` : ""}${describedBy(hintId)}>${
     hintId ? `\n  ${fieldHint(hintId, a.hint!)}` : ""
   }
 </div>`;
@@ -65,17 +65,12 @@ export function uploadDropzone(a: UploadArgs = {}): string {
     a.required && "required",
     a.disabled && "disabled",
   );
-  return `<div class="${cx(
-    "group relative flex w-full max-w-xl flex-col items-center gap-2 rounded-box border-2 border-dashed border-base-content/30 bg-base-200 px-6 py-10 text-center transition-colors",
-    "hover:border-primary hover:bg-primary/5 has-focus-visible:border-primary has-focus-visible:ring-2 has-focus-visible:ring-base-content has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-base-100",
-    a.required && "has-valid:border-solid has-valid:border-success has-valid:bg-success/5",
-    a.disabled && "pointer-events-none opacity-50",
-  )}">
-  ${icon("it-upload", cx("size-10 text-primary", a.required && "group-has-valid:hidden"))}${a.required ? icon("it-check-circle", "hidden size-10 text-success group-has-valid:block") : ""}
-  <p class="text-lg font-semibold">${label}${a.required ? `<span class="hidden text-success group-has-valid:inline"> — file selezionato</span>` : ""}</p>
-  <p class="text-base-content/80">oppure <span class="font-semibold text-primary underline underline-offset-2">selezionali dal dispositivo</span></p>
-  <p id="${id}-hint" class="text-sm text-base-content/70">${hint}</p>
-  <input type="file" id="${id}" class="absolute inset-0 cursor-pointer opacity-0" aria-label="${label}, oppure selezionali dal dispositivo" aria-describedby="${id}-hint"${attrs ? ` ${attrs}` : ""}>
+  return `<div class="ita-dropzone">
+  ${icon("it-upload", "")}${a.required ? icon("it-check-circle", "ita-dropzone-done") : ""}
+  <p class="ita-dropzone-title">${label}${a.required ? `<span class="ita-dropzone-done"> — file selezionato</span>` : ""}</p>
+  <p class="ita-dropzone-text">oppure <span>selezionali dal dispositivo</span></p>
+  <p id="${id}-hint" class="ita-dropzone-hint">${hint}</p>
+  <input type="file" id="${id}" aria-label="${label}, oppure selezionali dal dispositivo" aria-describedby="${id}-hint"${attrs ? ` ${attrs}` : ""}>
 </div>`;
 }
 
@@ -94,28 +89,28 @@ export function uploadList(files: UploadedFile[], o: { formAction?: string } = {
     const status = f.status ?? "success";
     const tail =
       status === "uploading"
-        ? `<span class="text-sm text-base-content/70">${f.progress ?? 0}%</span>`
+        ? `<span class="ita-upload-percent">${f.progress ?? 0}%</span>`
         : status === "success"
-          ? `${icon("it-check-circle", "size-6 text-success")}<span class="sr-only">Caricato</span>`
-          : `${icon("it-error", "size-6 text-error")}<span class="sr-only">Errore</span>`;
-    const remove = `<button type="submit" name="elimina" value="${i}" formaction="${o.formAction ?? "#"}" class="btn btn-ghost btn-sm btn-square text-base-content/70 hover:text-error" aria-label="Elimina ${f.name}">${icon("it-delete", "size-5")}</button>`;
-    return `<li class="${cx("flex flex-col gap-2 border-b border-base-content/15 py-3", status === "error" && "text-error")}">
-      <div class="flex items-center gap-3">
-        ${icon(fileIcon(f.name), cx("size-8 shrink-0", status === "error" ? "text-error" : "text-primary"))}
-        <div class="min-w-0 flex-1">
-          <p class="truncate font-semibold">${f.name}</p>
-          <p class="${cx("text-sm", status === "error" ? "text-error" : "text-base-content/70")}">${status === "error" ? (f.message ?? "Caricamento non riuscito") : f.size}</p>
+          ? `${icon("it-check-circle", "ita-upload-status")}<span class="sr-only">Caricato</span>`
+          : `${icon("it-error", "ita-upload-status")}<span class="sr-only">Errore</span>`;
+    const remove = `<button type="submit" name="elimina" value="${i}" formaction="${o.formAction ?? "#"}" class="ita-upload-remove" aria-label="Elimina ${f.name}">${icon("it-delete", "")}</button>`;
+    return `<li${status === "error" ? ' class="ita-upload-error"' : ""}>
+      <div>
+        ${icon(fileIcon(f.name), "ita-upload-file")}
+        <div>
+          <p>${f.name}</p>
+          <p>${status === "error" ? (f.message ?? "Caricamento non riuscito") : f.size}</p>
         </div>
         ${tail}
         ${remove}
       </div>${
         status === "uploading"
-          ? `\n      <progress class="progress progress-primary h-1 w-full bg-base-300" value="${f.progress ?? 0}" max="100" aria-label="Caricamento di ${f.name}"></progress>`
+          ? `\n      <progress value="${f.progress ?? 0}" max="100" aria-label="Caricamento di ${f.name}"></progress>`
           : ""
       }
     </li>`;
   };
-  return `<ul class="w-full max-w-xl border-t border-base-content/15" aria-label="File allegati">
+  return `<ul class="ita-upload-list" aria-label="File allegati">
     ${files.map(row).join("\n    ")}
   </ul>`;
 }
@@ -123,13 +118,11 @@ export function uploadList(files: UploadedFile[], o: { formAction?: string } = {
 /** Avatar photo with a "change" button that is the file input's label. */
 export function uploadAvatar(o: { src?: string; id?: string } = {}): string {
   const id = o.id ?? `avatar-upload-${++counter}`;
-  return `<div class="flex items-center gap-4">
-  <span class="avatar"><span class="block size-20 overflow-hidden rounded-full bg-base-200">${
-    o.src ? `<img src="${o.src}" alt="Foto del profilo attuale">` : icon("it-user", "m-5 size-10 text-base-content/50")
-  }</span></span>
-  <div class="flex flex-col gap-1">
-    <label class="btn btn-outline btn-primary btn-sm border-2 font-semibold has-focus-visible:ring-2 has-focus-visible:ring-base-content has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-base-100"><input type="file" id="${id}" accept="image/*" class="sr-only">${icon("it-camera", "size-5")}Cambia foto</label>
-    <p class="text-sm text-base-content/70">JPG o PNG, almeno 200×200 px</p>
+  return `<div class="ita-upload-avatar">
+  <span class="avatar"><span>${o.src ? `<img src="${o.src}" alt="Foto del profilo attuale">` : icon("it-user", "")}</span></span>
+  <div>
+    <label class="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs ita-upload-button"><input type="file" id="${id}" accept="image/*" class="sr-only">${icon("it-camera", "")}Cambia foto</label>
+    <p>JPG o PNG, almeno 200×200 px</p>
   </div>
 </div>`;
 }
@@ -157,10 +150,10 @@ document.querySelectorAll("input[type=file][data-list]").forEach((input) => {
 
 const dragJs = `// Highlight the dropzone while a file is dragged over it
 // (CSS cannot see a drag in progress).
-document.querySelectorAll("input[type=file].absolute").forEach((input) => {
+document.querySelectorAll(".ita-dropzone > input[type=file]").forEach((input) => {
   const zone = input.parentElement;
-  const on = () => zone.classList.add("border-primary", "bg-primary/10");
-  const off = () => zone.classList.remove("border-primary", "bg-primary/10");
+  const on = () => zone.classList.add("ita-dropzone-over");
+  const off = () => zone.classList.remove("ita-dropzone-over");
   input.addEventListener("dragenter", on);
   input.addEventListener("dragleave", off);
   input.addEventListener("drop", off);
@@ -209,18 +202,17 @@ export function FileUpload({ url, accept }: { url: string; accept?: string }) {
     <div className="flex max-w-xl flex-col gap-4">
       <div onDragOver={(e) => drag(e, true)} onDragLeave={(e) => drag(e, false)}
            onDrop={(e) => { drag(e, false); send(e.dataTransfer.files); }}
-           className={\`relative flex flex-col items-center gap-2 rounded-box border-2 border-dashed px-6 py-10 text-center \${over ? "border-primary bg-primary/10" : "border-base-content/30 bg-base-200"}\`}>
-        <p className="text-lg font-semibold">Trascina qui i file</p>
-        <p>oppure <span className="font-semibold text-primary underline">selezionali dal dispositivo</span></p>
-        <input type="file" multiple accept={accept} aria-label="Scegli i file" className="absolute inset-0 cursor-pointer opacity-0"
+           className={"ita-dropzone" + (over ? " ita-dropzone-over" : "")}>
+        <p className="ita-dropzone-title">Trascina qui i file</p>
+        <p className="ita-dropzone-text">oppure <span>selezionali dal dispositivo</span></p>
+        <input type="file" multiple accept={accept} aria-label="Scegli i file"
                onChange={(e) => send(e.currentTarget.files)} />
       </div>
-      <ul aria-label="File allegati" aria-live="polite">
+      <ul className="ita-upload-list" aria-label="File allegati" aria-live="polite">
         {rows.map(({ file, progress, error }) => (
-          <li key={file.name + file.lastModified} className="border-b border-base-content/15 py-3">
-            <p className="font-semibold">{file.name}</p>
-            {error ? <p className="text-sm text-error">{error}</p>
-                   : <progress className="progress progress-primary h-1 w-full" value={progress} max={100} aria-label={\`Caricamento di \${file.name}\`} />}
+          <li key={file.name + file.lastModified} className={error ? "ita-upload-error" : undefined}>
+            <div><div><p>{file.name}</p>{error && <p>{error}</p>}</div></div>
+            {!error && <progress value={progress} max={100} aria-label={\`Caricamento di \${file.name}\`} />}
           </li>
         ))}
       </ul>
@@ -234,6 +226,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-upload>",
   summary:
     "Caricamento di file: daisyUI file-input, un'area di trascinamento dove si rilasciano i file direttamente sul campo nativo, l'elenco dei file allegati con stato e avanzamento, e il cambio della foto profilo.",
+  classes: ["ita-file-input", "ita-file-input-sm", "ita-file-input-lg", "ita-dropzone", "ita-dropzone-title", "ita-dropzone-text", "ita-dropzone-hint", "ita-dropzone-done", "ita-dropzone-over", "ita-upload-list", "ita-upload-file", "ita-upload-status", "ita-upload-percent", "ita-upload-error", "ita-upload-remove", "ita-upload-avatar", "ita-upload-button"],
   daisy: ["file-input", "file-input-primary", "progress", "avatar", "btn"],
   cssOnly:
     "L'area di trascinamento è il campo file stesso, trasparente e steso su tutta l'area: il rilascio di un file è un rilascio nativo sul campo, senza script. Con required, :valid dice al CSS che un file è stato scelto e l'area diventa verde. Elenco dei file scelti, anteprime, evidenziazione durante il trascinamento e invio con barra di avanzamento richiedono JavaScript: vedi sotto. L'elenco dei file già caricati è HTML reso dal server, e il cestino è un pulsante di invio.",

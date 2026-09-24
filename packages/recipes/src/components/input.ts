@@ -54,35 +54,32 @@ export interface InputArgs {
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const inputSizes: Record<FieldSize, string> = { sm: "input-sm", default: "", lg: "input-lg text-lg" };
-const textareaSizes: Record<FieldSize, string> = { sm: "textarea-sm", default: "", lg: "textarea-lg text-lg" };
-const inputStates: Record<FieldState, string> = { valid: "input-success", invalid: "input-error" };
-const textareaStates: Record<FieldState, string> = { valid: "textarea-success", invalid: "textarea-error" };
-const feedbackColor: Record<FieldState, string> = { valid: "text-success", invalid: "text-error" };
+const inputSizes: Record<FieldSize, string> = { sm: "ita-input-sm", default: "", lg: "ita-input-lg" };
+const textareaSizes: Record<FieldSize, string> = { sm: "ita-textarea-sm", default: "", lg: "ita-textarea-lg" };
+/** Server-side state, shared by every field kind. */
+export const fieldStates: Record<FieldState, string> = { valid: "ita-valid", invalid: "ita-invalid" };
+const feedbackColor: Record<FieldState, string> = { valid: "ita-feedback-valid", invalid: "ita-feedback-invalid" };
 const feedbackIcon: Record<FieldState, IconName> = { valid: "it-check-circle", invalid: "it-error" };
 
 /** The .italia field label: above the control, semibold. */
-export const labelClass = "mb-1 block text-base font-semibold text-base-content";
+export const labelClass = "ita-label";
 /** Help text under a control. */
-export const hintClass = "mt-1 text-sm text-base-content/70";
+export const hintClass = "ita-hint";
+
+export const requiredMark = ` <span class="ita-required" aria-hidden="true">*</span>`;
 
 export const fieldLabel = (id: string, text: string, o: { required?: boolean; hidden?: boolean } = {}) =>
-  `<label for="${id}" class="${o.hidden ? "sr-only" : labelClass}">${text}${
-    o.required ? ` <span class="text-error" aria-hidden="true">*</span>` : ""
-  }</label>`;
+  `<label for="${id}" class="${o.hidden ? "sr-only" : labelClass}">${text}${o.required ? requiredMark : ""}</label>`;
 
 export const fieldHint = (id: string, text: string) => `<p id="${id}" class="${hintClass}">${text}</p>`;
 
 /** Validation message with its icon; role is left off so it is read with the field, not on page load. */
 export const fieldFeedback = (id: string, state: FieldState, text: string) =>
-  `<p id="${id}" class="${cx("mt-1 flex items-center gap-1 text-sm font-semibold", feedbackColor[state])}">${icon(
-    feedbackIcon[state],
-    "size-4",
-  )}<span>${text}</span></p>`;
+  `<p id="${id}" class="ita-feedback ${feedbackColor[state]}">${icon(feedbackIcon[state], "")}<span>${text}</span></p>`;
 
 /** The native-validation message: hidden until :user-invalid, then red. */
 export const validatorHint = (id: string, text: string) =>
-  `<p id="${id}" class="validator-hint mt-1 text-sm">${text}</p>`;
+  `<p id="${id}" class="ita-validate-hint">${text}</p>`;
 
 /** aria-describedby value from the ids that exist. */
 export const describedBy = (...ids: Array<string | false | undefined>) => {
@@ -104,12 +101,11 @@ export function input(a: InputArgs = {}): string {
   // With an icon or a prefix, daisyUI puts .input on the wrapper and the
   // <input> inside it goes borderless; otherwise .input is on the control.
   const box = cx(
-    area ? "textarea" : "input",
-    "w-full",
+    area ? "ita-textarea" : "ita-input",
     area ? textareaSizes[size] : inputSizes[size],
-    a.state && (area ? textareaStates[a.state] : inputStates[a.state]),
-    a.validator && "validator",
-    a.plaintext && "border-transparent bg-transparent px-0 shadow-none",
+    a.state && fieldStates[a.state],
+    a.validator && "ita-validate",
+    a.plaintext && "ita-input-plaintext",
   );
   const attrs = cx(
     a.name && `name="${a.name}"`,
@@ -138,17 +134,17 @@ export function input(a: InputArgs = {}): string {
   let field = control;
   if (wrapped) {
     const pre = [
-      a.icon ? icon(a.icon, "size-5 shrink-0 text-base-content/70") : "",
-      a.prefix ? `<span class="text-base-content/70" aria-hidden="true">${a.prefix}</span>` : "",
+      a.icon ? icon(a.icon, "") : "",
+      a.prefix ? `<span class="ita-input-affix" aria-hidden="true">${a.prefix}</span>` : "",
     ].join("");
-    const post = a.suffix ? `<span class="text-base-content/70" aria-hidden="true">${a.suffix}</span>` : "";
+    const post = a.suffix ? `<span class="ita-input-affix" aria-hidden="true">${a.suffix}</span>` : "";
     field = `<div class="${box}">${pre}${control}${post}</div>`;
   }
   if (a.floating) {
     // The floating label wraps the control, so it needs no for/id pairing.
-    field = `<label class="floating-label w-full">${field}<span>${label}</span></label>`;
+    field = `<label class="ita-floating-label">${field}<span>${label}</span></label>`;
   }
-  if (a.button) field = `<div class="join w-full">${field.replace(/class="(input|textarea)/, 'class="join-item $1')}${a.button.replace(/class="/, 'class="join-item ')}</div>`;
+  if (a.button) field = `<div class="join w-full">${field.replace(/class="(ita-input|ita-textarea)/, 'class="join-item $1')}${a.button.replace(/class="/, 'class="join-item ')}</div>`;
 
   const parts = [
     a.floating ? "" : fieldLabel(id, label, { required: a.required, hidden: a.labelHidden }),
@@ -157,7 +153,7 @@ export function input(a: InputArgs = {}): string {
     fbId && a.state ? fieldFeedback(fbId, a.state, a.feedback!) : "",
     hintId ? fieldHint(hintId, a.hint!) : "",
   ];
-  return `<div class="w-full max-w-md">\n  ${parts.filter(Boolean).join("\n  ")}\n</div>`;
+  return `<div class="ita-field">\n  ${parts.filter(Boolean).join("\n  ")}\n</div>`;
 }
 
 const stack = (items: string[]) => `<div class="flex flex-col gap-6">\n${items.join("\n")}\n</div>`;
@@ -169,7 +165,8 @@ export const doc: ComponentDoc = {
   replaces: "<it-input>",
   summary:
     "Campi di testo .italia: etichetta sopra, bordo ardesia, testo di aiuto e messaggi di validazione legati con aria-describedby. daisyUI input, textarea, floating-label e validator.",
-  daisy: ["input", "textarea", "input-sm", "input-lg", "input-error", "input-success", "floating-label", "validator", "validator-hint", "join"],
+  classes: ["ita-field", "ita-label", "ita-required", "ita-hint", "ita-input", "ita-textarea", "ita-input-sm", "ita-input-lg", "ita-textarea-sm", "ita-textarea-lg", "ita-input-plaintext", "ita-input-affix", "ita-floating-label", "ita-valid", "ita-invalid", "ita-feedback", "ita-validate", "ita-validate-hint"],
+  daisy: ["input", "textarea", "floating-label", "validator", "join"],
   cssOnly:
     "Il bordo ardesia (contrasto 3:1) è una regola di @italia-daisy/css nello stesso sotto-layer di daisyUI, quindi input-error, validator e :focus lo sostituiscono. La validazione nativa usa :user-invalid tramite daisyUI validator: il messaggio compare solo dopo che l'utente ha modificato il campo. Mostra/nascondi password e contatore di caratteri richiedono JavaScript e non sono inclusi: il campo password resta type=password.",
   examples: [
@@ -279,7 +276,7 @@ export const doc: ComponentDoc = {
     { title: "Mostra / nascondi password", lang: "js", description: "Aggiunge un pulsante accanto ai campi password; aria-pressed dice lo stato.", code: `document.querySelectorAll("input[type=password]").forEach((field) => {
   const btn = document.createElement("button");
   btn.type = "button";
-  btn.className = "btn btn-ghost btn-sm join-item";
+  btn.className = "join-item ita-btn ita-btn-ghost ita-btn-xs";
   btn.textContent = "Mostra";
   btn.setAttribute("aria-pressed", "false");
   btn.setAttribute("aria-controls", field.id);
@@ -310,8 +307,8 @@ export function PasswordInput({ label }: { label: string }) {
     <div className="w-full max-w-md">
       <label htmlFor={id} className="mb-1 block font-semibold">{label}</label>
       <div className="join w-full">
-        <input id={id} type={show ? "text" : "password"} autoComplete="current-password" className="input join-item w-full" />
-        <button type="button" className="btn join-item" aria-pressed={show} aria-controls={id} onClick={() => setShow(!show)}>
+        <input id={id} type={show ? "text" : "password"} autoComplete="current-password" className="join-item ita-input" />
+        <button type="button" className="join-item ita-btn" aria-pressed={show} aria-controls={id} onClick={() => setShow(!show)}>
           {show ? "Nascondi" : "Mostra"}
         </button>
       </div>

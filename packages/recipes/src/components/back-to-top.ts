@@ -19,13 +19,13 @@ export interface BackToTopArgs {
 export function backToTop(a: BackToTopArgs = {}): string {
   const { label = "Torna su", position = "fixed" } = a;
   const cls = cx(
-    "btn btn-circle border-0",
-    a.large ? "size-14" : "size-10",
-    a.inverse ? "bg-base-100 text-primary hover:bg-base-200" : "btn-primary",
-    a.shadow && "shadow-lg",
-    position === "fixed" && (a.large ? "fixed end-8 bottom-8 z-40 it-scroll-reveal" : "fixed end-4 bottom-4 z-40 it-scroll-reveal"),
+    "ita-back-to-top",
+    a.large && "ita-back-to-top-lg",
+    a.inverse && "ita-back-to-top-inverse",
+    a.shadow && "ita-back-to-top-shadow",
+    position === "fixed" && "ita-back-to-top-fixed it-scroll-reveal",
   );
-  return `<a href="#top" class="${cls}" aria-label="${label}">${icon("it-arrow-up", a.large ? "size-7" : "size-5")}</a>`;
+  return `<a href="#top" class="${cls}" aria-label="${label}">${icon("it-arrow-up", "")}</a>`;
 }
 
 const row = (items: string[]) => `<div class="flex flex-wrap items-center gap-6">\n  ${items.join("\n  ")}\n</div>`;
@@ -36,6 +36,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-back-to-top>",
   summary:
     "Il pulsante rotondo che riporta in cima alla pagina: un link a #top, fisso in basso a destra, che compare dopo lo scorrimento.",
+  classes: ["ita-back-to-top", "ita-back-to-top-lg", "ita-back-to-top-shadow", "ita-back-to-top-fixed"],
   daisy: ["btn", "btn-circle", "btn-primary"],
   extensions: ["it-scroll-reveal"],
   cssOnly:

@@ -44,9 +44,9 @@ export interface DropdownArgs {
   role?: "menu";
 }
 
-/** The toggle chevron, flipped by `details[open]` through the `group` class. */
-export const chevron = (cls = "size-4") =>
-  `<svg class="${cls} shrink-0 fill-current transition-transform group-open:-scale-y-100" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15.5 5.5 9 7 7.5l5 5 5-5L18.5 9z"/></svg>`;
+/** The toggle chevron, flipped when its <details> opens (ita-chevron). */
+export const chevron = (cls = "") =>
+  `<svg class="${cx("ita-chevron", cls)}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15.5 5.5 9 7 7.5l5 5 5-5L18.5 9z"/></svg>`;
 
 // Literal class maps: Tailwind only sees classes written out in full.
 const alignment: Record<DropdownAlign, string> = {
@@ -57,64 +57,30 @@ const alignment: Record<DropdownAlign, string> = {
   left: "dropdown-left",
   right: "dropdown-right",
 };
-const spacing: Record<DropdownAlign, string> = {
-  start: "mt-3",
-  end: "mt-3",
-  top: "mb-3",
-  "top-end": "mb-3",
-  left: "me-2",
-  right: "ms-2",
-};
-// The notch is a 18px square rotated 45°, taking the menu's own background
-// through bg-inherit, so the base and accent menus need no separate rule.
-const notchBase =
-  "before:absolute before:size-[1.125rem] before:rotate-45 before:rounded-[2px] before:bg-inherit before:content-['']";
-const notchPosition: Record<DropdownAlign, string> = {
-  start: "before:-top-2 before:start-5",
-  end: "before:-top-2 before:end-3",
-  top: "before:-bottom-2 before:start-5",
-  "top-end": "before:-bottom-2 before:end-3",
-  left: "",
-  right: "",
-};
-const surface: Record<DropdownSurface, string> = {
-  base: "bg-base-100 text-base-content",
-  accent: "bg-accent text-accent-content",
-};
-const linkColor: Record<DropdownSurface, string> = {
-  base: "text-primary hover:bg-primary/10",
-  accent: "text-accent-content hover:bg-base-100/15",
-};
-// daisyUI's menu fills any [aria-current] item with --menu-active-bg; .italia
-// marks the active voice with weight and an underline instead.
-const linkActive: Record<DropdownSurface, string> = {
-  base: "bg-transparent font-bold text-primary underline underline-offset-2",
-  accent: "bg-transparent font-bold text-accent-content underline underline-offset-2",
+const menuAlign: Record<DropdownAlign, string> = {
+  start: "",
+  end: "ita-menu-end",
+  top: "ita-menu-top",
+  "top-end": "ita-menu-top-end",
+  left: "ita-menu-left",
+  right: "ita-menu-right",
 };
 
-const dropdownItem = (it: DropdownItem, tone: DropdownSurface) => {
-  if (it.separator)
-    return `<li class="pointer-events-none my-1 h-px ${tone === "accent" ? "bg-base-100/25" : "bg-base-content/15"}" role="separator"></li>`;
-  const glyph = it.icon ? icon(it.icon, "size-4 text-primary") : "";
+const dropdownItem = (it: DropdownItem) => {
+  if (it.separator) return `<li role="separator"></li>`;
+  const glyph = it.icon ? icon(it.icon, "") : "";
   const inner = cx(
     it.iconPosition === "right" ? "" : glyph,
     `<span>${it.label ?? ""}${it.active ? '<span class="sr-only"> attivo</span>' : ""}</span>`,
     it.iconPosition === "right" ? glyph : "",
   );
-  const cls = cx(
-    "rounded-sm px-4",
-    it.large ? "py-3 text-base" : "py-2 text-sm",
-    linkColor[tone],
-    it.active && linkActive[tone],
-    it.disabled && "pointer-events-none opacity-40",
-  );
-  if (it.text) return `<li><span class="${cx("px-4 py-2 text-sm", tone === "accent" ? "" : "text-primary")}">${it.label ?? ""}</span></li>`;
+  if (it.text) return `<li><span>${it.label ?? ""}</span></li>`;
   const attrs = cx(
-    it.active ? ' aria-current="true"' : "",
-    it.disabled ? ' aria-disabled="true" tabindex="-1"' : "",
-    " ",
-  ).trim();
-  return `<li${it.disabled ? ' class="menu-disabled"' : ""}><a href="${it.href ?? "#"}" class="${cls}"${attrs ? ` ${attrs}` : ""}>${inner}</a></li>`;
+    it.large ? 'class="ita-menu-item-lg"' : "",
+    it.active ? 'aria-current="true"' : "",
+    it.disabled ? 'aria-disabled="true" tabindex="-1"' : "",
+  );
+  return `<li${it.disabled ? ' class="menu-disabled"' : ""}><a href="${it.href ?? "#"}"${attrs ? ` ${attrs}` : ""}>${inner}</a></li>`;
 };
 
 /** The menu panel on its own, so the header and the megamenu can reuse it. */
@@ -125,17 +91,15 @@ export function dropdownMenu(
   const align = o.align ?? "start";
   const tone: DropdownSurface = o.surface ?? (o.dark ? "accent" : "base");
   const cls = cx(
-    "dropdown-content menu z-30 gap-0 rounded-sm p-2 shadow-[0_4px_12px_rgb(0_0_0/0.15)]",
-    surface[tone],
-    spacing[align],
-    o.fullWidth ? "w-full" : "w-56",
-    o.notch !== false && notchPosition[align] && `${notchBase} ${notchPosition[align]}`,
+    "dropdown-content menu ita-menu",
+    menuAlign[align],
+    tone === "accent" && "ita-menu-accent",
+    o.fullWidth && "ita-menu-full",
+    o.notch === false && "ita-menu-no-notch",
   );
-  const head = o.header
-    ? `<li class="menu-title px-4 py-2 text-sm font-semibold ${tone === "accent" ? "text-accent-content/80" : "text-base-content/70"}">${o.header}</li>`
-    : "";
+  const head = o.header ? `<li class="menu-title">${o.header}</li>` : "";
   return `<ul class="${cls}"${o.role ? ` role="${o.role}"` : ""}>
-    ${head}${head ? "\n    " : ""}${items.map((i) => dropdownItem(i, tone)).join("\n    ")}
+    ${head}${head ? "\n    " : ""}${items.map(dropdownItem).join("\n    ")}
   </ul>`;
 }
 
@@ -150,7 +114,7 @@ export function dropdown(a: DropdownArgs = {}): string {
   const toggle = `<summary class="${buttonClass({ variant, size, outline: a.outline })} gap-2"${
     a.ariaLabel ? ` aria-label="${a.ariaLabel}"` : ""
   }><span>${label}</span>${chevron()}</summary>`;
-  const cls = cx("dropdown group", alignment[align], a.fullWidth && "w-full", a.disabled && "pointer-events-none opacity-50");
+  const cls = cx("dropdown ita-dropdown", alignment[align], a.fullWidth && "w-full");
   return `<details class="${cls}"${a.disabled ? " aria-disabled=\"true\"" : ""}>
   ${toggle}
   ${dropdownMenu(items, { header: a.header, align, surface: a.surface, dark: a.dark, fullWidth: a.fullWidth, notch: a.notch, role: a.role })}
@@ -167,7 +131,8 @@ export const doc: ComponentDoc = {
   replaces: "<it-dropdown>, <it-dropdown-item>",
   summary:
     "Menu a tendina su <details>/<summary> nativi con daisyUI dropdown e menu: apertura, chiusura con Esc e tastiera senza JavaScript. La tacca .italia è una pseudo-classe before che eredita lo sfondo del menu.",
-  daisy: ["dropdown", "dropdown-content", "dropdown-end", "dropdown-top", "dropdown-left", "dropdown-right", "menu", "menu-title", "btn"],
+  classes: ["ita-dropdown", "ita-menu", "ita-menu-end", "ita-menu-top", "ita-menu-top-end", "ita-menu-left", "ita-menu-right", "ita-menu-accent", "ita-menu-full", "ita-menu-no-notch", "ita-menu-item-lg", "ita-chevron"],
+  daisy: ["dropdown", "dropdown-content", "dropdown-end", "dropdown-top", "dropdown-left", "dropdown-right", "menu", "menu-title", "menu-disabled"],
   cssOnly:
     "Niente Floating UI: il posizionamento è quello di daisyUI (dropdown-end, dropdown-top, dropdown-left, dropdown-right), quindi non c'è flip automatico. La tacca usa before:bg-inherit, così segue da sola il menu chiaro o scuro.",
   examples: [

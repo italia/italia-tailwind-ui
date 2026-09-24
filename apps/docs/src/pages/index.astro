@@ -15,7 +15,7 @@ const sample = [
 const cssUsage = `@import "tailwindcss";
 @import "@italia-daisy/css";`;
 const htmlUsage = `<html data-theme="italia-original">
-  <button class="btn btn-primary font-semibold">Invia</button>
+  <button class="ita-btn ita-btn-primary">Invia</button>
 
   <!-- i temi si annidano -->
   <section data-theme="italia-dark"> … </section>
@@ -28,14 +28,14 @@ const htmlUsage = `<html data-theme="italia-original">
     I componenti del design system .italia come ricette daisyUI
   </h1>
   <p class="mb-8 max-w-3xl text-lg text-base-content/85">
-    Ogni componente è HTML con classi daisyUI e utility Tailwind: nessun web component, nessun Bootstrap.
+    Ogni componente è HTML con classi ita-* costruite su daisyUI e Tailwind: nessun web component, nessun Bootstrap.
     I colori arrivano tutti dai token del tema, quindi cambiando <code class="font-mono">data-theme</code> cambia tutto.
   </p>
   <div class="mb-14 flex flex-wrap gap-3">
-    <a href={`${base}components/button/`} class="btn btn-primary font-semibold gap-3">
+    <a href={`${base}components/button/`} class="ita-btn ita-btn-primary">
       Vedi i componenti <Fragment set:html={icon("it-arrow-right", "size-5")} />
     </a>
-    <a href={storybookUrl} class="btn btn-outline btn-primary border-2 font-semibold">Apri Storybook</a>
+    <a href={storybookUrl} class="ita-btn ita-btn-primary ita-btn-outline">Apri Storybook</a>
   </div>
 
   <h2 class="mb-2 text-3xl font-bold">Stesso markup, un tema per riquadro</h2>

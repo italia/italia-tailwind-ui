@@ -1,5 +1,5 @@
 import { cx, type ComponentDoc } from "../types";
-import { describedBy, fieldFeedback, hintClass, type FieldState } from "./input";
+import { describedBy, fieldFeedback, requiredMark, type FieldState } from "./input";
 
 export type ChoiceKind = "checkbox" | "radio" | "toggle";
 
@@ -37,14 +37,14 @@ export interface ChoiceGroupArgs {
 
 // Literal class maps: Tailwind only sees classes written out in full.
 const control: Record<ChoiceKind, string> = {
-  checkbox: "checkbox checkbox-primary",
-  radio: "radio radio-primary",
-  toggle: "toggle toggle-primary",
+  checkbox: "ita-checkbox",
+  radio: "ita-radio",
+  toggle: "ita-toggle",
 };
 const sizes: Record<ChoiceKind, Record<NonNullable<ChoiceArgs["size"]>, string>> = {
-  checkbox: { sm: "checkbox-sm", default: "", lg: "checkbox-lg" },
-  radio: { sm: "radio-sm", default: "", lg: "radio-lg" },
-  toggle: { sm: "toggle-sm", default: "", lg: "toggle-lg" },
+  checkbox: { sm: "ita-checkbox-sm", default: "", lg: "ita-checkbox-lg" },
+  radio: { sm: "ita-radio-sm", default: "", lg: "ita-radio-lg" },
+  toggle: { sm: "ita-toggle-sm", default: "", lg: "ita-toggle-lg" },
 };
 
 let counter = 0;
@@ -54,7 +54,7 @@ export function choice(kind: ChoiceKind, a: ChoiceArgs = {}): string {
   const { label = "Etichetta", size = "default" } = a;
   const id = a.id ?? `${kind}-${++counter}`;
   const hintId = a.hint && `${id}-hint`;
-  const cls = cx(control[kind], sizes[kind][size], "shrink-0", a.validator && "validator", a.hint && "mt-0.5");
+  const cls = cx(control[kind], sizes[kind][size], a.validator && "ita-validate");
   const attrs = cx(
     a.name && `name="${a.name}"`,
     a.value !== undefined && `value="${a.value}"`,
@@ -64,15 +64,10 @@ export function choice(kind: ChoiceKind, a: ChoiceArgs = {}): string {
     kind === "toggle" && `role="switch"`,
   );
   const inputHtml = `<input type="${kind === "radio" ? "radio" : "checkbox"}" id="${id}" class="${cls}"${attrs ? ` ${attrs}` : ""}${describedBy(hintId)}>`;
-  const text = `<span class="flex flex-col"><span>${label}</span>${
-    hintId ? `<span id="${hintId}" class="${cx(hintClass, "mt-0")}">${a.hint}</span>` : ""
+  const text = `<span class="ita-choice-text"><span>${label}</span>${
+    hintId ? `<span id="${hintId}" class="ita-choice-hint">${a.hint}</span>` : ""
   }</span>`;
-  const row = cx(
-    "flex gap-3 text-base",
-    a.hint ? "items-start" : "items-center",
-    a.disabled ? "cursor-not-allowed text-base-content/50" : "cursor-pointer",
-    a.labelFirst && "w-full justify-between",
-  );
+  const row = cx("ita-choice", a.labelFirst && "ita-choice-end");
   return a.labelFirst
     ? `<label for="${id}" class="${row}">${text}${inputHtml}</label>`
     : `<label for="${id}" class="${row}">${inputHtml}${text}</label>`;
@@ -84,19 +79,15 @@ export function choiceGroup(kind: ChoiceKind, a: ChoiceGroupArgs = {}): string {
   const gid = `${kind}-group-${++counter}`;
   const hintId = a.hint && `${gid}-hint`;
   const fbId = a.state && a.feedback && `${gid}-feedback`;
-  const list = cx(
-    "flex gap-x-6",
-    a.inline ? "flex-row flex-wrap gap-y-2" : "flex-col",
-    kind === "toggle" && !a.inline ? "gap-y-4" : "gap-y-3",
-  );
+  const list = cx("ita-choice-list", a.inline && "ita-choice-list-inline");
   const itemsHtml = items.map((it) => choice(kind, { ...it, disabled: it.disabled || a.disabled })).join("\n    ");
-  return `<fieldset class="fieldset gap-0 p-0"${describedBy(hintId, fbId)}>
-  <legend class="${a.legendHidden ? "sr-only" : "fieldset-legend mb-2 p-0 text-base font-semibold text-base-content"}">${legend}${
-    a.required ? ` <span class="text-error" aria-hidden="true">*</span>` : ""
-  }</legend>${hintId ? `\n  <p id="${hintId}" class="${cx(hintClass, "mt-0 mb-3")}">${a.hint}</p>` : ""}
+  return `<fieldset class="ita-choice-group"${describedBy(hintId, fbId)}>
+  <legend class="${a.legendHidden ? "sr-only" : "ita-legend"}">${legend}${a.required ? requiredMark : ""}</legend>${
+    hintId ? `\n  <p id="${hintId}" class="ita-hint">${a.hint}</p>` : ""
+  }
   <div class="${list}">
     ${itemsHtml}
-  </div>${fbId && a.state ? `\n  ${fieldFeedback(fbId, a.state, a.feedback!).replace('class="mt-1', 'class="mt-3')}` : ""}
+  </div>${fbId && a.state ? `\n  ${fieldFeedback(fbId, a.state, a.feedback!)}` : ""}
 </fieldset>`;
 }
 
@@ -115,7 +106,8 @@ export const doc: ComponentDoc = {
   replaces: "<it-checkbox>",
   summary:
     "Caselle di controllo native con daisyUI checkbox nel colore primario, raggruppate in un fieldset con legenda, testo di aiuto e messaggio di errore.",
-  daisy: ["checkbox", "checkbox-primary", "checkbox-sm", "checkbox-lg", "fieldset", "fieldset-legend", "validator"],
+  classes: ["ita-checkbox", "ita-checkbox-sm", "ita-checkbox-lg", "ita-choice", "ita-choice-end", "ita-choice-text", "ita-choice-hint", "ita-choice-group", "ita-legend", "ita-choice-list", "ita-choice-list-inline", "ita-validate"],
+  daisy: ["checkbox", "fieldset", "validator"],
   cssOnly:
     "Lo stato indeterminato esiste solo come proprietà DOM (el.indeterminate = true): non ha un attributo HTML, quindi serve una riga di JavaScript. L'etichetta avvolge il controllo, così tutta la riga è cliccabile.",
   examples: [
@@ -177,7 +169,7 @@ ${checkboxGroup({ legend: "Privacy", required: true, items: [{ label: "Ho letto 
     },
   ],
   snippets: [
-    { title: "«Seleziona tutti» con stato indeterminato", lang: "js", description: "indeterminate esiste solo come proprietà DOM: una casella padre che riflette le figlie.", code: `// <input type="checkbox" class="checkbox checkbox-primary" data-all="interessi"> + children name="interessi"
+    { title: "«Seleziona tutti» con stato indeterminato", lang: "js", description: "indeterminate esiste solo come proprietà DOM: una casella padre che riflette le figlie.", code: `// <input type="checkbox" class="ita-checkbox" data-all="interessi"> + children name="interessi"
 document.querySelectorAll("input[data-all]").forEach((all) => {
   const kids = [...document.querySelectorAll('input[name="' + all.dataset.all + '"]')];
   const sync = () => {
@@ -196,7 +188,7 @@ export function Checkbox({ indeterminate = false, label, ...rest }: InputHTMLAtt
   useEffect(() => { if (ref.current) ref.current.indeterminate = indeterminate; }, [indeterminate]);
   return (
     <label className="flex cursor-pointer items-center gap-3">
-      <input ref={ref} type="checkbox" className="checkbox checkbox-primary" {...rest} />
+      <input ref={ref} type="checkbox" className="ita-checkbox" {...rest} />
       <span>{label}</span>
     </label>
   );

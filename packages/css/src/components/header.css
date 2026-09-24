@@ -1,0 +1,218 @@
+/*
+ * Header (structural): the three .italia bands — slim, center, nav — on
+ * daisyUI menu and dropdown (menu, menu-vertical, lg:menu-horizontal,
+ * dropdown, dropdown-content stay in the markup). The mobile menu opens with
+ * a checkbox, no script.
+ *   <header class="ita-header [ita-header-shadow]">
+ *     <div class="ita-header-slim"><div class="ita-header-container">
+ *       <a class="ita-header-owner">…</a><nav class="ita-header-links"><ul>…</ul></nav>
+ *       <div class="ita-header-tools"><details class="dropdown dropdown-end ita-header-lang">…</details>
+ *         <a class="ita-btn ita-btn-inverse ita-btn-xs">Accedi</a></div></div></div>
+ *     <div class="ita-header-center"><div class="ita-header-container">
+ *       <div class="ita-header-brand"><a href="#">svg<span><span class="ita-header-name">…</span>
+ *         <span class="ita-header-tagline">…</span></span></a></div>
+ *       <div class="ita-header-tools"><div class="ita-header-socials">…</div>
+ *         <div class="ita-header-search"><span>Cerca</span><a href="#">svg</a></div>
+ *         <input id="n" type="checkbox" class="sr-only"><label for="n" class="ita-header-burger">svg</label>
+ *       </div></div></div>
+ *     <div class="ita-header-collapse"><div class="ita-header-nav"><nav><div>
+ *       <ul class="menu menu-vertical lg:menu-horizontal">…</ul>
+ *       <ul class="menu menu-vertical lg:menu-horizontal ita-header-secondary">…</ul>
+ *     </div></nav></div></div>
+ *   </header>
+ *   ita-header-base on a band: the page background with primary text.
+ *   ita-header-compact on the center band: 64/104px instead of 72/120px.
+ */
+@layer utilities {
+  .ita-header {
+    @apply relative;
+  }
+  .ita-header-shadow {
+    @apply shadow-[0_8px_16px_rgb(0_0_0/0.1)];
+  }
+  .ita-header-collapse {
+    @apply hidden lg:block;
+    .ita-header:has(:checked) > & {
+      @apply block;
+    }
+  }
+  .ita-header-container {
+    @apply mx-auto flex w-full max-w-[1320px] items-center gap-4 px-4;
+  }
+  .ita-header-tools {
+    @apply flex shrink-0 items-center gap-3;
+  }
+
+  /* Band 1: slim. */
+  .ita-header-slim {
+    @apply bg-accent text-accent-content;
+    &.ita-header-base {
+      @apply border-b border-primary/20 bg-base-100 text-primary;
+    }
+    & > .ita-header-container {
+      @apply h-12 justify-between;
+    }
+  }
+  .ita-header-owner {
+    @apply min-w-0 truncate text-sm font-semibold hover:underline;
+  }
+  .ita-header-links {
+    @apply hidden grow lg:block;
+    & > ul {
+      @apply flex items-center justify-end border-x border-current/20 px-1;
+    }
+    & a {
+      @apply px-3 py-2 text-sm no-underline hover:underline;
+      color: inherit;
+      &[aria-current="page"] {
+        @apply font-semibold shadow-[inset_0_-2px_0_currentColor];
+      }
+    }
+  }
+  .ita-header-lang {
+    & > summary {
+      @apply btn btn-ghost btn-sm gap-1 text-sm font-normal text-current uppercase hover:bg-current/10;
+    }
+    & > .dropdown-content {
+      @apply z-40 mt-1 w-32 rounded-box bg-base-100 p-2 text-base-content shadow-lg;
+    }
+  }
+  .ita-header-login {
+    @apply gap-2 px-2 md:px-3;
+    & > span:first-child {
+      @apply grid size-6 place-items-center rounded-full bg-primary text-primary-content;
+      & > svg {
+        @apply size-4;
+      }
+    }
+    & > span:last-child {
+      @apply hidden lg:block;
+    }
+  }
+
+  /* Band 2: center. */
+  .ita-header-center {
+    @apply bg-primary text-primary-content;
+    &.ita-header-base {
+      @apply bg-base-100 text-primary;
+    }
+    & > .ita-header-container {
+      @apply h-18 justify-between lg:h-30;
+    }
+    & .ita-header-tools {
+      @apply gap-2 md:gap-4;
+    }
+  }
+  .ita-header-compact > .ita-header-container {
+    @apply h-16 lg:h-26;
+  }
+  .ita-header-brand {
+    @apply min-w-0;
+    & > a {
+      @apply flex min-w-0 items-center gap-2 no-underline hover:no-underline;
+      color: inherit;
+      & > svg {
+        @apply size-10 shrink-0 md:size-14 lg:size-18;
+      }
+      & > span {
+        @apply min-w-0;
+      }
+    }
+  }
+  .ita-header-compact .ita-header-brand > a > svg {
+    @apply md:size-12 lg:size-14;
+  }
+  .ita-header-name {
+    @apply block truncate text-xl leading-tight font-bold lg:text-3xl;
+  }
+  .ita-header-tagline {
+    @apply hidden truncate text-base md:block;
+  }
+  .ita-header-socials {
+    @apply hidden items-center gap-1 text-xs md:flex;
+    & > ul {
+      @apply flex items-center;
+    }
+    & a {
+      @apply grid size-8 place-items-center no-underline hover:opacity-80;
+      color: inherit;
+      & > svg {
+        @apply size-5;
+      }
+    }
+  }
+  .ita-header-search {
+    @apply flex items-center gap-2 text-xs md:ms-6;
+    & > span {
+      @apply hidden md:block;
+    }
+    & > a {
+      color: inherit;
+      @apply grid size-12 place-items-center rounded-full no-underline md:bg-base-100 md:text-primary lg:size-14 lg:hover:bg-base-200;
+      & > svg {
+        @apply size-6;
+      }
+    }
+    .ita-header-base & > a {
+      @apply md:bg-primary md:text-primary-content lg:hover:bg-accent;
+    }
+  }
+  .ita-header-burger {
+    @apply btn btn-square btn-ghost text-current lg:hidden;
+    & > svg {
+      @apply size-6;
+    }
+    input:focus-visible + & {
+      @apply outline-2 outline-offset-2;
+      outline-style: solid;
+    }
+  }
+
+  /* Band 3: nav. daisyUI's menu paints [aria-current] with --menu-active-bg:
+     the active item keeps the .italia underline instead. */
+  .ita-header-nav {
+    @apply border-t border-current/20 bg-primary text-primary-content lg:relative lg:border-t-0;
+    &.ita-header-base {
+      @apply bg-base-100 text-primary lg:border-b lg:border-primary/20;
+    }
+    & > nav {
+      @apply mx-auto w-full max-w-[1320px] px-4;
+      & > div {
+        @apply flex flex-col justify-between gap-0 lg:flex-row lg:items-end;
+      }
+    }
+    & .menu {
+      @apply w-full gap-0 p-0 lg:w-auto lg:items-end;
+      & > li > a,
+      & > li > details > summary {
+        @apply rounded-none px-3 py-3 font-semibold no-underline hover:bg-current/10;
+        color: inherit;
+        &[aria-current="page"] {
+          @apply bg-transparent lg:border-b-4 lg:border-current;
+        }
+        &[aria-disabled="true"] {
+          @apply pointer-events-none opacity-50;
+        }
+      }
+      & > li > details {
+        @apply relative;
+      }
+    }
+    & .ita-header-secondary {
+      @apply lg:justify-end;
+      & > li > a {
+        @apply text-sm font-normal;
+      }
+    }
+  }
+  /* Specific enough to beat the .menu > li > details rule above. */
+  .ita-header-nav .menu > li.ita-header-mega {
+    @apply lg:static;
+    & > details {
+      @apply lg:static lg:overflow-visible;
+    }
+  }
+  .ita-header-submenu {
+    @apply w-56 text-base-content;
+  }
+}

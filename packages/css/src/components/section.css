@@ -1,0 +1,53 @@
+/*
+ * Section: a full-width band with a centred container, title and lead.
+ *   <section class="ita-section ita-section-muted" aria-labelledby="s1">
+ *     <div class="ita-section-container">
+ *       <h2 id="s1" class="ita-section-title">Titolo</h2>
+ *       <p class="ita-section-lead">Introduzione</p> …
+ *     </div>
+ *   </section>
+ *   modifiers: ita-section-{muted|primary|emphasis|image}, ita-section-lg
+ *   (ita-section-image takes the picture from an inline background-image and
+ *   darkens it with a neutral veil)
+ */
+@layer components {
+  .ita-section {
+    @apply relative isolate bg-base-100 py-12 text-base-content lg:py-16;
+  }
+  .ita-section-lg {
+    @apply py-16 lg:py-24;
+  }
+  .ita-section-muted {
+    @apply bg-base-200 text-base-content;
+  }
+  .ita-section-primary {
+    @apply bg-primary text-primary-content;
+  }
+  .ita-section-emphasis {
+    @apply bg-accent text-accent-content;
+  }
+  .ita-section-image {
+    @apply bg-cover bg-center text-neutral-content;
+    &::before {
+      @apply absolute inset-0 -z-10 bg-neutral/70 content-[''];
+    }
+  }
+  .ita-section-container {
+    @apply mx-auto max-w-6xl px-4 sm:px-8;
+  }
+  .ita-section-title {
+    @apply mb-2 text-3xl font-bold sm:text-4xl;
+  }
+  .ita-section-lead {
+    @apply mb-8 max-w-3xl text-lg it-muted-80;
+    .ita-section-primary & {
+      @apply text-primary-content/90;
+    }
+    .ita-section-emphasis & {
+      @apply text-accent-content/90;
+    }
+    .ita-section-image & {
+      @apply text-neutral-content/90;
+    }
+  }
+}

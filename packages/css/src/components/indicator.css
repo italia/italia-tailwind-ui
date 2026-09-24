@@ -1,0 +1,15 @@
+/*
+ * Counter and dot on an icon (toolbar, bottom navigation), placed by daisyUI
+ * indicator (structural: indicator and indicator-item stay in the markup).
+ *   <span class="indicator"><span class="indicator-item ita-indicator-count" aria-hidden="true">3</span>svg</span>
+ *   <span class="indicator"><span class="indicator-item ita-indicator-dot" aria-hidden="true"></span>svg</span>
+ */
+@layer components {
+  .ita-indicator-count {
+    @apply badge badge-xs h-4 min-w-4 rounded-full border-2 border-base-100 bg-primary px-1 text-[0.625rem] text-primary-content;
+  }
+  /* Colour set directly: daisy's status-* share a nested layer with status. */
+  .ita-indicator-dot {
+    @apply status size-3 border-2 border-base-100 bg-error text-error;
+  }
+}

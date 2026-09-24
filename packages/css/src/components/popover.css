@@ -1,0 +1,47 @@
+/*
+ * Popover (structural): the native popover API plus daisyUI dropdown's anchor
+ * positioning; dropdown, dropdown-{top|bottom|left|right} and dropdown-center
+ * stay in the markup.
+ *   <button popovertarget="p" style="anchor-name:--p" …>Apri</button>
+ *   <div id="p" popover role="dialog" class="dropdown dropdown-bottom dropdown-center ita-popover"
+ *        style="position-anchor:--p" aria-labelledby="p-title">
+ *     <div class="ita-popover-header"><p id="p-title">Titolo</p>
+ *       <button class="ita-popover-close" popovertarget="p" popovertargetaction="hide" aria-label="Chiudi">…</button></div>
+ *     <div class="ita-popover-body">…</div>
+ *   </div>
+ */
+@layer utilities {
+  .ita-popover {
+    @apply w-72 max-w-[calc(100vw-2rem)] rounded-sm border border-base-content/15 bg-base-100 p-0 text-base-content shadow-[0_8px_24px_rgb(0_0_0/0.15)];
+    &.dropdown-bottom {
+      @apply mt-2;
+    }
+    &.dropdown-top {
+      @apply mb-2;
+    }
+    &.dropdown-left {
+      @apply me-2;
+    }
+    &.dropdown-right {
+      @apply ms-2;
+    }
+  }
+  .ita-popover-header {
+    @apply flex items-center justify-between gap-2 border-b border-base-content/15 px-4 py-2;
+    & > p {
+      @apply font-semibold;
+    }
+  }
+  .ita-popover-body {
+    @apply px-4 py-3 text-sm leading-relaxed;
+  }
+}
+
+@layer components {
+  .ita-popover-close {
+    @apply btn btn-square btn-ghost btn-xs -me-1 it-muted-70;
+    & > svg {
+      @apply size-5;
+    }
+  }
+}

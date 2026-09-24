@@ -1,0 +1,28 @@
+/*
+ * Bottom navigation (structural): daisyUI dock, dock-md, dock-active and
+ * dock-label stay in the markup.
+ *   <nav class="dock dock-md ita-bottom-nav" aria-label="…">
+ *     <a href="#" class="dock-active" aria-current="page"><span class="indicator">svg</span><span class="dock-label">Home</span></a> …
+ *   </nav>
+ *   ita-bottom-nav-static: shown in place instead of fixed to the viewport.
+ */
+@layer utilities {
+  .ita-bottom-nav {
+    @apply z-40 border-t border-base-content/15 shadow-[0_-4px_12px_rgb(0_0_0/0.08)];
+    & > a {
+      @apply relative min-w-0 font-semibold it-muted-75 no-underline hover:text-primary;
+      &[aria-current="page"] {
+        @apply text-primary;
+      }
+      & svg {
+        @apply size-6;
+      }
+      & > .dock-label {
+        @apply truncate;
+      }
+    }
+  }
+  .ita-bottom-nav-static {
+    @apply relative z-auto;
+  }
+}

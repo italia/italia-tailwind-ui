@@ -257,7 +257,7 @@ export const specs: Spec[] = [
     example: "validazione-nativa",
     name: "Un valore non valido mostra il messaggio, collegato al campo",
     async run({ page, root, expect }) {
-      const field = root.locator("input.validator").first();
+      const field = root.locator("input.ita-validate").first();
       await field.focus();
       await page.keyboard.type("non-valido");
       await page.keyboard.press("Tab");

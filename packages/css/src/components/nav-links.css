@@ -1,0 +1,72 @@
+/*
+ * Small navigation controls.
+ *   Back:        <a class="ita-back" href="..">‹ Torna indietro</a>
+ *                (as a button: ita-btn ita-btn-primary ita-btn-outline ita-btn-xs)
+ *   Forward:     <a class="ita-forward" href="#next" aria-label="…">↓</a>; ita-forward-lg
+ *   Back to top: <a class="ita-back-to-top ita-back-to-top-fixed it-scroll-reveal" href="#top">
+ *                ita-back-to-top-lg, ita-back-to-top-shadow, ita-back-to-top-fixed
+ *   Skip links:  <nav class="ita-skiplinks"><a href="#main">Vai al contenuto</a></nav>
+ *                (hidden until one link has focus); ita-skiplinks-bar always shows them
+ * On a primary band (it-surface-primary) forward and back to top invert on their own.
+ */
+@layer components {
+  .ita-back {
+    @apply inline-flex items-center gap-2 font-semibold text-primary underline-offset-2 hover:underline;
+    & > svg {
+      @apply size-5 shrink-0;
+    }
+  }
+
+  .ita-forward {
+    @apply btn btn-circle btn-ghost text-primary hover:bg-primary/10 motion-safe:animate-bounce;
+    & > svg {
+      @apply size-6;
+    }
+  }
+  .ita-forward-lg {
+    @apply btn-lg;
+    & > svg {
+      @apply size-8;
+    }
+  }
+  /* Deprecated: use it-surface-primary on the container. */
+  .ita-forward-inverse {
+    @apply text-primary-content hover:bg-primary-content/15;
+  }
+
+  .ita-back-to-top {
+    @apply btn btn-circle btn-primary size-10 border-0;
+    & > svg {
+      @apply size-5;
+    }
+  }
+  .ita-back-to-top-lg {
+    @apply size-14;
+    & > svg {
+      @apply size-7;
+    }
+  }
+  .ita-back-to-top-shadow {
+    @apply shadow-lg;
+  }
+  /* Deprecated: use it-surface-primary on the container. */
+  .ita-back-to-top-inverse {
+    @apply bg-base-100 text-primary hover:bg-base-200;
+  }
+  .ita-back-to-top-fixed {
+    @apply fixed end-4 bottom-4 z-40;
+    &.ita-back-to-top-lg {
+      @apply end-8 bottom-8;
+    }
+  }
+
+  .ita-skiplinks {
+    @apply sr-only focus-within:not-sr-only focus-within:absolute focus-within:inset-x-0 focus-within:top-0 focus-within:z-50 focus-within:flex focus-within:flex-wrap focus-within:gap-2 focus-within:bg-base-100 focus-within:p-2 focus-within:shadow-lg;
+  }
+  .ita-skiplinks-bar {
+    @apply flex flex-wrap gap-2 bg-base-100 p-2 shadow-lg;
+  }
+  :is(.ita-skiplinks, .ita-skiplinks-bar) > a {
+    @apply rounded-field px-4 py-2 font-bold text-primary underline underline-offset-2 hover:no-underline focus:bg-primary focus:text-primary-content;
+  }
+}

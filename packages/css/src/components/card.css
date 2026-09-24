@@ -1,0 +1,123 @@
+/*
+ * Card (structural): daisyUI card, card-body, card-title and card-actions stay
+ * in the markup; ita-card gives the .italia look (thin border, design-tokens
+ * shadow, big title as a link).
+ *   <article class="card ita-card">
+ *     <figure><img src="…" alt=""></figure>
+ *     <div class="card-body">
+ *       <h3 class="card-title"><a href="#">Titolo</a></h3>
+ *       <p class="ita-card-text">Testo</p>
+ *       <footer class="ita-card-footer"><div><a class="ita-card-category" href="#">Categoria</a></div><time>…</time></footer>
+ *     </div>
+ *   </article>
+ *   modifiers: ita-card-{primary|secondary|success|danger|warning} (top
+ *   border), ita-card-shadow-{none|md|lg}, ita-card-borderless,
+ *   ita-card-inline (image beside text from md), ita-card-reverse,
+ *   ita-card-profile, ita-card-banner
+ *   parts: ita-card-subtitle, ita-card-text, ita-card-footer, ita-card-tags,
+ *   ita-card-category; <address> is the signature
+ */
+@layer utilities {
+  .ita-card {
+    @apply border border-base-content/20 bg-base-100 it-muted-85 shadow-[0_4px_4px_rgb(0_0_0/0.05)];
+    border-width: var(--border);
+    & > figure {
+      @apply aspect-video bg-base-300;
+      & > img {
+        @apply size-full object-cover;
+      }
+    }
+    & > .card-body {
+      @apply gap-2 p-4;
+    }
+    & .card-title {
+      @apply flex items-start justify-between gap-3 text-2xl leading-tight font-bold;
+      & > a {
+        @apply link link-primary underline-offset-2;
+      }
+      & > svg {
+        @apply size-8 text-secondary;
+      }
+    }
+    & address {
+      @apply font-mono not-italic;
+    }
+    & .card-actions {
+      @apply mt-4 border-t border-base-content/20 pt-4;
+    }
+  }
+  .ita-card-borderless {
+    border-width: 0;
+  }
+  .ita-card-primary {
+    @apply border-t-6 border-t-primary;
+  }
+  .ita-card-secondary {
+    @apply border-t-6 border-t-secondary;
+  }
+  .ita-card-success {
+    @apply border-t-6 border-t-success;
+  }
+  .ita-card-danger {
+    @apply border-t-6 border-t-error;
+  }
+  .ita-card-warning {
+    @apply border-t-6 border-t-warning;
+  }
+  .ita-card-shadow-none {
+    @apply shadow-none;
+  }
+  .ita-card-shadow-md {
+    @apply shadow-[0_8px_16px_rgb(0_0_0/0.1)];
+  }
+  .ita-card-shadow-lg {
+    @apply shadow-[0_16px_48px_rgb(0_0_0/0.15)];
+  }
+  .ita-card-inline {
+    @apply md:card-side;
+    & > figure {
+      @apply md:aspect-auto md:w-1/2 md:shrink-0;
+    }
+  }
+  .ita-card-reverse {
+    @apply md:flex-row-reverse;
+  }
+  .ita-card-profile > .card-body {
+    @apply gap-4;
+  }
+  .ita-card-banner > .card-body {
+    @apply items-center gap-4 p-6 text-center lg:p-10;
+  }
+  /* Profile and banner: full-strength text, plain title, no actions divider. */
+  :is(.ita-card-profile, .ita-card-banner) {
+    @apply text-base-content;
+    & .card-title {
+      display: block;
+    }
+    & .card-actions {
+      @apply mt-0 border-t-0 pt-0;
+    }
+  }
+
+  .ita-card-subtitle {
+    @apply text-xl leading-tight font-semibold text-base-content;
+  }
+  .ita-card-text {
+    @apply leading-normal;
+  }
+  .ita-card-footer {
+    @apply mt-auto flex flex-wrap items-end justify-end gap-4 pt-4 it-muted-70;
+    & > div {
+      @apply grow;
+    }
+    & > time {
+      @apply text-sm;
+    }
+  }
+  .ita-card-tags {
+    @apply flex flex-wrap gap-2;
+  }
+  .ita-card-category {
+    @apply link link-hover text-base font-semibold uppercase it-muted-70;
+  }
+}

@@ -30,8 +30,7 @@ export interface ToolbarArgs {
 
 // bootstrap-italia: large shows 32px icons with labels, medium 24px with
 // labels, small 24px icons only. Literal class maps for Tailwind.
-const iconSize: Record<ToolbarSize, string> = { lg: "size-8", md: "size-6", sm: "size-6" };
-const itemPad: Record<ToolbarSize, string> = { lg: "min-w-20 px-3 py-2", md: "min-w-16 px-2 py-2", sm: "size-11 p-0" };
+const sizes: Record<ToolbarSize, string> = { lg: "ita-toolbar-lg", md: "", sm: "ita-toolbar-sm" };
 
 const defaultItems: ToolbarItem[] = [
   { label: "Condividi", icon: "it-share", href: "#" },
@@ -53,27 +52,20 @@ const defaultItems: ToolbarItem[] = [
 ];
 
 function toolbarItem(it: ToolbarItem, size: ToolbarSize, vertical: boolean): string {
-  if (it.divider)
-    return `<li role="separator" class="${vertical ? "mx-2 my-1 h-px bg-base-content/15" : "mx-1 w-px self-stretch bg-base-content/15"}"></li>`;
+  if (it.divider) return `<li role="separator"></li>`;
   const showLabel = size !== "sm";
   const mark = it.badge
-    ? `<span class="indicator-item badge badge-primary badge-xs h-4 min-w-4 rounded-full border-2 border-base-100 px-1 text-[0.625rem]" aria-hidden="true">${it.badge}</span>`
+    ? `<span class="indicator-item ita-indicator-count" aria-hidden="true">${it.badge}</span>`
     : it.alert
-      ? `<span class="indicator-item status status-error size-3 border-2 border-base-100" aria-hidden="true"></span>`
+      ? `<span class="indicator-item ita-indicator-dot" aria-hidden="true"></span>`
       : "";
   const sr = (it.badge || it.alert) && it.badgeLabel ? `<span class="sr-only">, ${it.badgeLabel}</span>` : "";
-  const inner = `<span class="indicator">${mark}${icon(it.icon ?? "it-more-items", iconSize[size])}</span>${
-    showLabel ? `<span class="text-xs font-semibold">${it.label ?? ""}</span>` : `<span class="sr-only">${it.label ?? ""}</span>`
+  const inner = `<span class="indicator">${mark}${icon(it.icon ?? "it-more-items", "")}</span>${
+    showLabel ? `<span class="ita-toolbar-label">${it.label ?? ""}</span>` : `<span class="sr-only">${it.label ?? ""}</span>`
   }${sr}`;
-  const cls = cx(
-    "flex flex-col items-center justify-center gap-1 rounded-field transition-colors",
-    itemPad[size],
-    it.active ? "bg-primary/10 text-primary" : "text-base-content/80 hover:bg-primary/10 hover:text-primary",
-    it.disabled && "pointer-events-none text-base-content/35",
-  );
   if (it.menu) {
-    return `<li><details class="${cx("dropdown group", vertical ? "dropdown-right" : "dropdown-end")}">
-      <summary class="${cls} cursor-pointer list-none [&::-webkit-details-marker]:hidden">${inner}</summary>
+    return `<li><details class="dropdown ${vertical ? "dropdown-right" : "dropdown-end"}">
+      <summary class="ita-toolbar-item">${inner}</summary>
       ${dropdownMenu(it.menu, { align: vertical ? "right" : "end" })}
     </details></li>`;
   }
@@ -82,17 +74,13 @@ function toolbarItem(it: ToolbarItem, size: ToolbarSize, vertical: boolean): str
     it.disabled && ` aria-disabled="true" tabindex="-1"`,
     !showLabel && it.label && ` title="${it.label}"`,
   ).replace(/ {2,}/g, " ");
-  return `<li><a href="${it.href ?? "#"}" class="${cls}"${attrs}>${inner}</a></li>`;
+  return `<li><a href="${it.href ?? "#"}" class="ita-toolbar-item"${attrs}>${inner}</a></li>`;
 }
 
 export function toolbar(a: ToolbarArgs = {}): string {
   const { items = defaultItems, size = "md", vertical = false, label = "Barra degli strumenti" } = a;
-  const list = cx(
-    "inline-flex gap-1 rounded-box border border-base-content/10 bg-base-100 p-2 shadow-[0_4px_12px_rgb(0_0_0/0.1)]",
-    vertical ? "flex-col" : "flex-row flex-wrap items-stretch",
-  );
-  return `<nav aria-label="${label}">
-  <ul class="${list}">
+  return `<nav aria-label="${label}" class="${cx("ita-toolbar", sizes[size], vertical && "ita-toolbar-vertical")}">
+  <ul>
     ${items.map((it) => toolbarItem(it, size, vertical)).join("\n    ")}
   </ul>
 </nav>`;
@@ -104,6 +92,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-toolbar>",
   summary:
     "Barra di azioni con icone ed etichette, divisori, contatori e un menu «Altro»: una lista di link con utility Tailwind, daisyUI indicator per i badge e Dropdown per il menu.",
+  classes: ["ita-toolbar", "ita-toolbar-lg", "ita-toolbar-sm", "ita-toolbar-vertical", "ita-toolbar-item", "ita-toolbar-label", "ita-indicator-count", "ita-indicator-dot"],
   daisy: ["indicator", "indicator-item", "badge", "status", "dropdown", "menu"],
   cssOnly:
     "Il menu «Altro» è lo stesso Dropdown su <details>. Nella misura piccola le etichette restano per i lettori di schermo e in title. Le frecce fra le voci (roving tabindex di role=toolbar) richiedono JavaScript: qui si naviga con Tab, per questo è un <nav> di link e non role=toolbar.",

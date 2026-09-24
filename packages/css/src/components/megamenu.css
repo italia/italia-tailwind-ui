@@ -1,0 +1,105 @@
+/*
+ * Megamenu (structural): the wide panel of the main navigation, a <details>
+ * inside daisyUI menu; menu and menu-horizontal stay in the markup.
+ *   <details class="ita-megamenu-item"><summary>Sezione</summary>
+ *     <div class="ita-megamenu"><div class="ita-megamenu-grid">
+ *       <div class="ita-megamenu-side"><div><img …></div><p>…</p></div>
+ *       <div class="ita-megamenu-main">
+ *         <div class="ita-megamenu-header"><a href="#">svg<span>Esplora la sezione</span></a></div>
+ *         <ul class="ita-megamenu-list"><li><a href="#">svg<span>Link</span></a></li></ul>
+ *       </div>
+ *     </div>
+ *     <div class="ita-megamenu-footer">…call to action…</div></div>
+ *   </details>
+ *   modifiers: ita-megamenu-full (panel as wide as its container),
+ *   ita-megamenu-cols-{1|3|4} on the list (2 is the default),
+ *   ita-megamenu-footer-end (aligned right), ita-megamenu-footer-side
+ *   (a column on the right, inside the grid);
+ *   ita-megamenu-active / ita-megamenu-disabled on the <details>.
+ */
+@layer utilities {
+  .ita-megamenu {
+    @apply z-30 w-full rounded-sm bg-base-100 p-6 text-base-content shadow-[0_4px_12px_rgb(0_0_0/0.15)] lg:absolute lg:start-0 lg:top-full lg:w-[min(56rem,calc(100vw-2rem))];
+  }
+  .ita-megamenu-full {
+    @apply lg:w-full;
+  }
+  .ita-megamenu-grid {
+    @apply grid gap-6;
+    &:has(> .ita-megamenu-side) {
+      @apply lg:grid-cols-[1fr_2fr];
+    }
+    &:has(> .ita-megamenu-footer-side) {
+      @apply lg:grid-cols-[1fr_auto];
+    }
+    &:has(> .ita-megamenu-side):has(> .ita-megamenu-footer-side) {
+      @apply lg:grid-cols-[1fr_2fr_auto];
+    }
+  }
+  .ita-megamenu-side {
+    @apply text-base-content;
+    & > div {
+      @apply mb-4 aspect-[21/9] w-full rounded-sm bg-base-300;
+      &:has(> img) {
+        @apply overflow-hidden;
+      }
+      & > img {
+        @apply size-full object-cover;
+      }
+    }
+    & > p {
+      @apply text-sm leading-relaxed;
+    }
+  }
+  .ita-megamenu-main {
+    @apply min-w-0;
+  }
+  .ita-megamenu-header {
+    @apply mb-3 border-b border-base-content/15 pb-3;
+    & > a {
+      @apply inline-flex items-center gap-2 font-semibold text-primary no-underline hover:underline;
+    }
+  }
+  :is(.ita-megamenu-header, .ita-megamenu-list) svg {
+    @apply size-4 text-primary;
+  }
+  /* Inside daisyUI menu, any <ul> in an <li> picks up the submenu indent and
+     its guide line: ms-0 ps-0 before:hidden take them back off. */
+  .ita-megamenu-list {
+    @apply ms-0 grid w-full list-none gap-1 p-0 ps-0 before:hidden lg:grid-cols-2;
+    & > li > a {
+      @apply flex items-center gap-2 rounded-sm px-2 py-2 text-sm text-primary no-underline hover:bg-primary/10;
+    }
+  }
+  .ita-megamenu-cols-1 {
+    @apply lg:grid-cols-1;
+  }
+  .ita-megamenu-cols-3 {
+    @apply lg:grid-cols-3;
+  }
+  .ita-megamenu-cols-4 {
+    @apply lg:grid-cols-4;
+  }
+  .ita-megamenu-footer {
+    @apply mt-4 flex justify-start gap-2 border-t border-base-content/15 pt-4;
+  }
+  .ita-megamenu-footer-end {
+    @apply justify-end;
+  }
+  .ita-megamenu-footer-side {
+    @apply mt-0 flex-col border-s border-t-0 ps-4 pt-0;
+  }
+
+  .ita-megamenu-item {
+    @apply relative lg:overflow-visible;
+    & > summary {
+      @apply rounded-none px-3 py-3 font-semibold;
+    }
+  }
+  .ita-megamenu-active > summary {
+    @apply border-b-4 border-current;
+  }
+  .ita-megamenu-disabled {
+    @apply pointer-events-none opacity-50;
+  }
+}

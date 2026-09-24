@@ -1,6 +1,6 @@
 import { icon, type IconName } from "../icons";
 import { cx, type ComponentDoc } from "../types";
-import { button, type ButtonVariant } from "./button";
+import { button, buttonClass, type ButtonVariant } from "./button";
 
 export type TooltipPlacement = "top" | "bottom" | "left" | "right";
 export type TooltipColor = "neutral" | "primary" | "secondary" | "success" | "warning" | "danger" | "info";
@@ -31,24 +31,21 @@ const colors: Record<TooltipColor, string> = {
   danger: "tooltip-error",
   info: "tooltip-info",
 };
-// The described variant paints the bubble itself, so it needs the token pair.
-const bubble: Record<TooltipColor, string> = {
-  neutral: "bg-neutral text-neutral-content",
-  primary: "bg-primary text-primary-content",
-  secondary: "bg-secondary text-secondary-content",
-  success: "bg-success text-success-content",
-  warning: "bg-warning text-warning-content",
-  danger: "bg-error text-error-content",
-  info: "bg-info text-info-content",
+// The described variant paints the bubble itself.
+const tipColors: Record<TooltipColor, string> = {
+  neutral: "",
+  primary: "ita-tip-primary",
+  secondary: "ita-tip-secondary",
+  success: "ita-tip-success",
+  warning: "ita-tip-warning",
+  danger: "ita-tip-danger",
+  info: "ita-tip-info",
 };
-const arrowColor: Record<TooltipColor, string> = {
-  neutral: "bg-neutral",
-  primary: "bg-primary",
-  secondary: "bg-secondary",
-  success: "bg-success",
-  warning: "bg-warning",
-  danger: "bg-error",
-  info: "bg-info",
+const tipPlacements: Record<TooltipPlacement, string> = {
+  top: "",
+  bottom: "ita-tip-bottom",
+  left: "ita-tip-left",
+  right: "ita-tip-right",
 };
 
 /**
@@ -58,24 +55,11 @@ const arrowColor: Record<TooltipColor, string> = {
  */
 export function tooltip(a: TooltipArgs = {}): string {
   const { text = "Testo del tooltip", placement = "top", color = "neutral" } = a;
-  const cls = cx("tooltip max-w-[32em]", placements[placement], colors[color], a.open && "tooltip-open");
+  const cls = cx("tooltip ita-tooltip", placements[placement], colors[color], a.open && "tooltip-open");
   return `<span class="${cls}" data-tip="${text}">${a.trigger ?? button({ label: "Mostra tooltip" })}</span>`;
 }
 
 let counter = 0;
-
-const arrowPosition: Record<TooltipPlacement, string> = {
-  top: "-bottom-1 left-1/2 -translate-x-1/2",
-  bottom: "-top-1 left-1/2 -translate-x-1/2",
-  left: "-right-1 top-1/2 -translate-y-1/2",
-  right: "-left-1 top-1/2 -translate-y-1/2",
-};
-const panelPosition: Record<TooltipPlacement, string> = {
-  top: "bottom-full left-1/2 mb-2 -translate-x-1/2",
-  bottom: "top-full left-1/2 mt-2 -translate-x-1/2",
-  left: "right-full top-1/2 me-2 -translate-y-1/2",
-  right: "left-full top-1/2 ms-2 -translate-y-1/2",
-};
 
 /**
  * The accessible variant: a real element with role="tooltip", tied to the
@@ -88,14 +72,9 @@ export function tooltipDescribed(a: TooltipArgs = {}): string {
     /^<(button|a)\s/,
     `<$1 aria-describedby="${id}" `,
   );
-  return `<span class="group relative inline-block">
+  return `<span class="ita-tip">
   ${trigger}
-  <span role="tooltip" id="${id}" class="${cx(
-    "pointer-events-none absolute z-20 w-max max-w-[32em] rounded-sm px-2 py-1 text-sm opacity-0 transition-opacity",
-    "group-hover:opacity-100 group-focus-within:opacity-100",
-    bubble[color],
-    panelPosition[placement],
-  )}">${text}<span class="${cx("absolute size-2 rotate-45", arrowColor[color], arrowPosition[placement])}" aria-hidden="true"></span></span>
+  <span role="tooltip" id="${id}" class="${cx("ita-tip-panel", tipPlacements[placement], tipColors[color])}">${text}<span aria-hidden="true"></span></span>
 </span>`;
 }
 
@@ -108,6 +87,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-tooltip>",
   summary:
     "Suggerimenti al passaggio del mouse e al focus da tastiera. daisyUI tooltip per il caso rapido, oppure un elemento reale con role=tooltip e aria-describedby quando il testo deve essere annunciato.",
+  classes: ["ita-tooltip", "ita-tip", "ita-tip-panel", "ita-tip-bottom", "ita-tip-left", "ita-tip-right", "ita-tip-primary", "ita-tip-secondary", "ita-tip-success", "ita-tip-warning", "ita-tip-danger", "ita-tip-info"],
   daisy: ["tooltip", "tooltip-top", "tooltip-bottom", "tooltip-left", "tooltip-right", "tooltip-open", "tooltip-primary"],
   cssOnly:
     "Niente Floating UI: le quattro posizioni sono quelle di daisyUI, senza flip automatico vicino ai bordi. Il tooltip di daisyUI è uno pseudo-elemento e non entra nell'albero di accessibilità: per un testo che deve essere letto usa la variante con aria-describedby, che compare anche con :focus-visible.",
@@ -115,7 +95,7 @@ export const doc: ComponentDoc = {
     {
       id: "base",
       title: "Esempio base",
-      html: row([tooltip(), tooltip({ trigger: `<button type="button" class="btn btn-outline btn-primary border-2 font-semibold">Su un pulsante outline</button>` })]),
+      html: row([tooltip(), tooltip({ trigger: `<button type="button" class="${buttonClass({ outline: true })}">Su un pulsante outline</button>` })]),
     },
     {
       id: "posizione",
@@ -147,7 +127,7 @@ export const doc: ComponentDoc = {
           placement: "bottom",
           color: "primary",
           text: "Anche in basso",
-          trigger: `<button type="button" class="btn btn-circle btn-outline btn-primary border-2" aria-label="Informazioni">${icon("it-info-circle", "size-5")}</button>`,
+          trigger: `<button type="button" class="${buttonClass({ outline: true })} ita-btn-circle" aria-label="Informazioni">${icon("it-info-circle", "size-5")}</button>`,
         }),
       ], "py-16"),
     },
@@ -157,11 +137,11 @@ export const doc: ComponentDoc = {
       html: row([
         tooltip({
           text: "Testo del tooltip",
-          trigger: `<a href="#" class="link link-primary font-semibold">Un link con tooltip</a>`,
+          trigger: `<a href="#" class="ita-link font-semibold">Un link con tooltip</a>`,
         }),
         tooltipDescribed({
           text: "Spiegazione dell'acronimo",
-          trigger: `<button type="button" class="link link-primary font-semibold">Acronimo</button>`,
+          trigger: `<button type="button" class="ita-link font-semibold">Acronimo</button>`,
         }),
       ]),
     },

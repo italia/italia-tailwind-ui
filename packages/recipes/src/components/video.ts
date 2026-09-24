@@ -21,10 +21,10 @@ export interface VideoArgs {
 
 // Literal class maps: Tailwind only sees classes written out in full.
 const ratios: Record<VideoRatio, string> = {
-  "16/9": "aspect-video",
-  "4/3": "aspect-[4/3]",
-  "1/1": "aspect-square",
-  "21/9": "aspect-[21/9]",
+  "16/9": "",
+  "4/3": "ita-video-4-3",
+  "1/1": "ita-video-1-1",
+  "21/9": "ita-video-21-9",
 };
 
 const flowerMp4 = "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
@@ -34,9 +34,9 @@ const flowerVtt =
   "data:text/vtt;charset=utf-8," +
   encodeURIComponent("WEBVTT\n\n00:00.000 --> 00:02.500\nUn fiore si apre al sole.\n\n00:02.500 --> 00:05.000\nUn'ape si posa sui petali.\n");
 
-const transcriptPanel = (text: string) => `<details class="collapse collapse-arrow mt-2 rounded-none border-b border-base-content/20">
-    <summary class="collapse-title px-0 font-semibold text-primary">Trascrizione</summary>
-    <div class="collapse-content px-0">${text.trimStart().startsWith("<") ? text : `<p>${text}</p>`}</div>
+const transcriptPanel = (text: string) => `<details class="collapse collapse-arrow ita-video-transcript">
+    <summary class="collapse-title">Trascrizione</summary>
+    <div class="collapse-content">${text.trimStart().startsWith("<") ? text : `<p>${text}</p>`}</div>
   </details>`;
 
 /** Native <video> with controls, captions track and transcript: no player library. */
@@ -46,13 +46,13 @@ export function video(a: VideoArgs = {}): string {
   const track = a.captions
     ? `\n    <track kind="captions" src="${a.captions}" srclang="${captionsLang}" label="Italiano" default>`
     : "";
-  return `<figure class="w-full max-w-3xl">
-  <video controls preload="metadata" playsinline class="${cx("w-full rounded-box bg-neutral object-contain", ratios[ratio])}"${a.poster ? ` poster="${a.poster}"` : ""}${
+  return `<figure class="${cx("ita-video", ratios[ratio])}">
+  <video controls preload="metadata" playsinline${a.poster ? ` poster="${a.poster}"` : ""}${
     a.title ? ` aria-label="${a.title}"` : ""
   }${a.captions?.startsWith("http") ? ` crossorigin="anonymous"` : ""}>
     ${sources.map((s) => `<source src="${s.src}" type="${s.type}">`).join("\n    ")}${sources.length ? "\n    " : ""}<source src="${src}" type="video/mp4">${track}
     <p>Il tuo browser non riproduce video: <a href="${src}">scarica il video</a>.</p>
-  </video>${a.title ? `\n  <figcaption class="mt-2 font-semibold">${a.title}</figcaption>` : ""}${a.transcript ? `\n  ${transcriptPanel(a.transcript)}` : ""}
+  </video>${a.title ? `\n  <figcaption>${a.title}</figcaption>` : ""}${a.transcript ? `\n  ${transcriptPanel(a.transcript)}` : ""}
 </figure>`;
 }
 
@@ -78,23 +78,22 @@ export function videoEmbed(a: VideoEmbedArgs = {}): string {
   const { youtubeId = "_0j7ZQ67KtY", title = "Centrato l'obiettivo PNRR: le PA locali verso il cloud", ratio = "16/9" } = a;
   const poster = a.poster ?? `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
   const watch = `https://www.youtube.com/watch?v=${youtubeId}`;
-  const box = cx("relative w-full overflow-hidden rounded-box bg-neutral", ratios[ratio]);
-  const player = `<iframe class="absolute inset-0 size-full" src="https://www.youtube-nocookie.com/embed/${youtubeId}" title="${title}" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
-  const overlay = `<div class="absolute inset-0 grid place-items-center bg-cover bg-center" style="background-image:url('${poster}')" data-video-consent data-youtube-id="${youtubeId}" data-title="${title}">
-      <div class="m-4 max-w-md rounded-box bg-base-100/95 p-5 text-center text-base-content shadow-lg">
-        <p class="mb-1 font-semibold">Contenuto di terze parti</p>
-        <p class="mb-4 text-sm">Il video è ospitato da YouTube, che potrebbe raccogliere dati sulla tua navigazione. Per vederlo qui accetta i cookie di YouTube, oppure aprilo sul sito originale.</p>
-        <div class="flex flex-wrap justify-center gap-2">
+  const player = `<iframe src="https://www.youtube-nocookie.com/embed/${youtubeId}" title="${title}" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+  const overlay = `<div class="ita-video-consent" style="background-image:url('${poster}')" data-video-consent data-youtube-id="${youtubeId}" data-title="${title}">
+      <div>
+        <p>Contenuto di terze parti</p>
+        <p>Il video è ospitato da YouTube, che potrebbe raccogliere dati sulla tua navigazione. Per vederlo qui accetta i cookie di YouTube, oppure aprilo sul sito originale.</p>
+        <div>
           <button type="button" class="${buttonClass({ size: "xs" })}" data-video-accept>Accetta e guarda</button>
-          <a href="${watch}" class="${buttonClass({ size: "xs", outline: true })} gap-2" target="_blank" rel="noopener">Guarda su YouTube${icon("it-external-link", "size-4")}<span class="sr-only"> (si apre in una nuova scheda)</span></a>
+          <a href="${watch}" class="${buttonClass({ size: "xs", outline: true })}" target="_blank" rel="noopener">Guarda su YouTube${icon("it-external-link", "")}<span class="sr-only"> (si apre in una nuova scheda)</span></a>
         </div>
       </div>
     </div>`;
-  return `<figure class="w-full max-w-3xl">
-  <div class="${box}">
+  return `<figure class="${cx("ita-video", ratios[ratio])}">
+  <div class="ita-video-embed">
     ${a.consented ? player : overlay}
   </div>
-  <figcaption class="mt-2 font-semibold">${title}</figcaption>${a.transcript ? `\n  ${transcriptPanel(a.transcript)}` : ""}
+  <figcaption>${title}</figcaption>${a.transcript ? `\n  ${transcriptPanel(a.transcript)}` : ""}
 </figure>`;
 }
 
@@ -102,7 +101,6 @@ const consentJs = `// "Accetta e guarda": swap the overlay for the iframe, and r
 const KEY = "consenso-youtube";
 function loadVideo(overlay) {
   const iframe = document.createElement("iframe");
-  iframe.className = "absolute inset-0 size-full";
   iframe.src = \`https://www.youtube-nocookie.com/embed/\${overlay.dataset.youtubeId}?autoplay=1\`;
   iframe.title = overlay.dataset.title;
   iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
@@ -127,23 +125,24 @@ export function ConsentVideo({ youtubeId, title }: { youtubeId: string; title: s
   useEffect(() => setOk(localStorage.getItem(KEY) === "si"), []);
   const accept = () => { localStorage.setItem(KEY, "si"); setOk(true); };
   return (
-    <figure className="w-full max-w-3xl">
-      <div className="relative aspect-video w-full overflow-hidden rounded-box bg-neutral">
+    <figure className="ita-video">
+      <div className="ita-video-embed">
         {ok ? (
-          <iframe className="absolute inset-0 size-full" title={title} allowFullScreen
+          <iframe title={title} allowFullScreen
                   src={\`https://www.youtube-nocookie.com/embed/\${youtubeId}\`}
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" />
         ) : (
-          <div className="absolute inset-0 grid place-items-center bg-cover bg-center"
+          <div className="ita-video-consent"
                style={{ backgroundImage: \`url(https://i.ytimg.com/vi/\${youtubeId}/hqdefault.jpg)\` }}>
-            <div className="m-4 max-w-md rounded-box bg-base-100/95 p-5 text-center shadow-lg">
-              <p className="mb-4 text-sm">Il video è ospitato da YouTube, che potrebbe raccogliere dati sulla tua navigazione.</p>
-              <button type="button" className="btn btn-primary btn-sm" onClick={accept}>Accetta e guarda</button>
+            <div>
+              <p>Contenuto di terze parti</p>
+              <p>Il video è ospitato da YouTube, che potrebbe raccogliere dati sulla tua navigazione.</p>
+              <div><button type="button" className="ita-btn ita-btn-primary ita-btn-xs" onClick={accept}>Accetta e guarda</button></div>
             </div>
           </div>
         )}
       </div>
-      <figcaption className="mt-2 font-semibold">{title}</figcaption>
+      <figcaption>{title}</figcaption>
     </figure>
   );
 }`;
@@ -154,9 +153,10 @@ export const doc: ComponentDoc = {
   replaces: "<it-video>",
   summary:
     "Video nativi con controlli del browser, sottotitoli WebVTT e trascrizione in un pannello richiudibile; video di YouTube dietro l'avviso di consenso di bootstrap-italia.",
+  classes: ["ita-video", "ita-video-4-3", "ita-video-1-1", "ita-video-21-9", "ita-video-embed", "ita-video-consent", "ita-video-transcript"],
   daisy: ["collapse", "collapse-arrow", "btn"],
   cssOnly:
-    "Il player è il <video> nativo: controlli, tastiera, schermo intero e sottotitoli (<track kind=\"captions\">) sono del browser, senza librerie (dev-kit-italia usa video.js). Le proporzioni vengono da aspect-video e aspect-[4/3]. Per i video di terze parti l'iframe non è nella pagina finché l'utente non accetta: senza JavaScript l'avviso offre il link al sito originale, oppure il server rende l'iframe se il consenso è già in un cookie. Il pulsante «Accetta» richiede JavaScript: vedi sotto.",
+    "Il player è il <video> nativo: controlli, tastiera, schermo intero e sottotitoli (<track kind=\"captions\">) sono del browser, senza librerie (dev-kit-italia usa video.js). Le proporzioni sono 16:9, oppure ita-video-4-3, -1-1, -21-9. Per i video di terze parti l'iframe non è nella pagina finché l'utente non accetta: senza JavaScript l'avviso offre il link al sito originale, oppure il server rende l'iframe se il consenso è già in un cookie. Il pulsante «Accetta» richiede JavaScript: vedi sotto.",
   examples: [
     {
       id: "base",

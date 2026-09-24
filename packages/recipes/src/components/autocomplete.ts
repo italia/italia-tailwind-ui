@@ -75,6 +75,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-autocomplete>",
   summary:
     "Campo con suggerimenti mentre si scrive: input daisyUI legato a un <datalist> nativo. Filtraggio, frecce e Invio li gestisce il browser.",
+  classes: ["ita-field", "ita-label", "ita-input", "ita-hint"],
   daisy: ["input", "join"],
   cssOnly:
     "Il pannello dei suggerimenti è quello del browser e non si può stilare. Il filtro lavora sulle opzioni già nella pagina: per cercare su un server serve JavaScript (o un form che ricarica la pagina con i risultati). Il valore resta libero: per obbligare una voce dell'elenco usa Select.",

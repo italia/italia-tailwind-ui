@@ -1,5 +1,5 @@
 import { cx, type ComponentDoc } from "../types";
-import { describedBy, fieldFeedback, fieldHint, fieldLabel, validatorHint, type FieldSize, type FieldState } from "./input";
+import { describedBy, fieldFeedback, fieldHint, fieldLabel, fieldStates, validatorHint, type FieldSize, type FieldState } from "./input";
 
 export interface SelectOption {
   value?: string;
@@ -35,8 +35,7 @@ export interface SelectArgs {
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const sizes: Record<FieldSize, string> = { sm: "select-sm", default: "", lg: "select-lg text-lg" };
-const states: Record<FieldState, string> = { valid: "select-success", invalid: "select-error" };
+const sizes: Record<FieldSize, string> = { sm: "ita-select-sm", default: "", lg: "ita-select-lg" };
 
 const regioni: SelectOption[] = [
   { value: "abruzzo", label: "Abruzzo" },
@@ -60,12 +59,12 @@ export function select(a: SelectArgs = {}): string {
   const fbId = a.state && a.feedback && `${id}-feedback`;
   const vhId = a.validator && `${id}-vhint`;
   const cls = cx(
-    "select w-full",
+    "ita-select",
     sizes[size],
-    a.state && states[a.state],
-    a.validator && "validator",
+    a.state && fieldStates[a.state],
+    a.validator && "ita-validate",
     // daisyUI's select is one row tall; a list box needs its height back.
-    a.multiple && "h-auto bg-none py-1 [&>option]:rounded-sm [&>option]:px-2 [&>option]:py-1",
+    a.multiple && "ita-select-multiple",
   );
   const body = options
     .map((o) =>
@@ -95,7 +94,7 @@ export function select(a: SelectArgs = {}): string {
     fbId && a.state ? fieldFeedback(fbId, a.state, a.feedback!) : "",
     hintId ? fieldHint(hintId, a.hint!) : "",
   ];
-  return `<div class="w-full max-w-md">\n  ${parts.filter(Boolean).join("\n  ")}\n</div>`;
+  return `<div class="ita-field">\n  ${parts.filter(Boolean).join("\n  ")}\n</div>`;
 }
 
 const grid = (items: string[]) => `<div class="grid gap-6 md:grid-cols-2">\n${items.join("\n")}\n</div>`;
@@ -106,7 +105,8 @@ export const doc: ComponentDoc = {
   replaces: "<it-select>",
   summary:
     "Menu di selezione su <select> nativo con daisyUI select: tastiera, lettori di schermo e selettore del sistema su mobile funzionano senza script.",
-  daisy: ["select", "select-sm", "select-lg", "select-error", "select-success", "validator", "validator-hint"],
+  classes: ["ita-select", "ita-select-sm", "ita-select-lg", "ita-select-multiple", "ita-field", "ita-label", "ita-hint", "ita-valid", "ita-invalid", "ita-feedback", "ita-validate", "ita-validate-hint"],
+  daisy: ["select", "validator"],
   cssOnly:
     "È il controllo nativo: niente ricerca dentro la lista (per quella c'è Autocomplete) e l'aspetto della lista aperta è quello del sistema operativo. Nei browser che supportano appearance: base-select daisyUI stila anche il pannello.",
   examples: [

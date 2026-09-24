@@ -1,0 +1,36 @@
+/*
+ * Badge: a small label whose text is 0.75em, so it scales with the text
+ * around it (a badge inside an h1 is bigger than one in a paragraph).
+ *   <span class="ita-badge ita-badge-secondary">New</span>
+ *   colours: ita-badge-{primary|secondary|success|danger|warning|inverse};
+ *   ita-badge-pill; an <a class="ita-badge"> darkens on hover.
+ */
+@layer components {
+  .ita-badge {
+    @apply badge h-auto rounded-sm border-0 px-3 py-1 text-[0.75em] leading-none font-semibold;
+    &:is(a):hover {
+      @apply brightness-90;
+    }
+  }
+  .ita-badge-primary {
+    @apply badge-primary;
+  }
+  .ita-badge-secondary {
+    @apply badge-secondary;
+  }
+  .ita-badge-success {
+    @apply badge-success;
+  }
+  .ita-badge-danger {
+    @apply badge-error;
+  }
+  .ita-badge-warning {
+    @apply badge-warning;
+  }
+  .ita-badge-inverse {
+    @apply border-base-100 bg-base-100 text-primary;
+  }
+  .ita-badge-pill {
+    @apply rounded-full;
+  }
+}

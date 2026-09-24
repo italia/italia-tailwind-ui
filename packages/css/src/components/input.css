@@ -1,0 +1,88 @@
+/*
+ * Text fields: daisyUI input, textarea and select with the .italia slate
+ * border (60% base-content, 3:1) and text at the body size (16px, 18px from
+ * 576px).
+ *   <input class="ita-input">   <textarea class="ita-textarea">   <select class="ita-select">
+ *   sizes: ita-{input|textarea|select}-{sm|lg}; ita-input-plaintext;
+ *   ita-select-multiple; ita-input-affix for "€" or "%" inside a wrapped input;
+ *   ita-floating-label around an input with a placeholder.
+ * The border and size defaults sit in daisyUI's innermost sub-layer, like
+ * daisyUI's own: the size modifiers, :focus and the ita-valid / ita-invalid /
+ * ita-validate states (outer) still win.
+ */
+@layer components {
+  .ita-input {
+    @apply input w-full;
+    & > svg {
+      @apply size-5 shrink-0 it-muted-70;
+    }
+  }
+  .ita-textarea {
+    @apply textarea w-full;
+  }
+  .ita-select {
+    @apply select w-full;
+  }
+  /* Same sub-layer as daisyUI's own --input-color; the minifier merges layer
+     blocks, so order cannot be relied on: :root adds the specificity instead.
+     :focus, the size modifiers and the ita-valid / ita-invalid / ita-validate
+     states still win (higher specificity, or an outer layer). */
+  @layer daisyui.l1.l2.l3 {
+    :root :is(.ita-input, .ita-textarea, .ita-select) {
+      --input-color: color-mix(in oklab, var(--color-base-content) 60%, #0000);
+      --font-size-min: var(--it-font-size-body, 1rem);
+    }
+    :root :is(.ita-input, .ita-textarea, .ita-select):is(:focus, :focus-within) {
+      --input-color: var(--color-base-content);
+    }
+  }
+  /* daisyUI styles fields inside a disabled fieldset with `fieldset:disabled .input`. */
+  fieldset:disabled :is(.ita-input, .ita-textarea, .ita-select) {
+    cursor: not-allowed;
+    border-color: var(--color-base-200);
+    background-color: var(--color-base-200);
+    color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+  }
+  .ita-input-sm {
+    @apply input-sm;
+  }
+  .ita-input-lg {
+    @apply input-lg text-lg;
+  }
+  .ita-textarea-sm {
+    @apply textarea-sm;
+  }
+  .ita-textarea-lg {
+    @apply textarea-lg text-lg;
+  }
+  .ita-select-sm {
+    @apply select-sm;
+  }
+  .ita-select-lg {
+    @apply select-lg text-lg;
+  }
+  .ita-select-multiple {
+    @apply h-auto bg-none py-1;
+    & > option {
+      @apply rounded-sm px-2 py-1;
+    }
+  }
+  .ita-input-plaintext {
+    @apply border-transparent bg-transparent px-0 shadow-none;
+  }
+  .ita-input-affix {
+    @apply it-muted-70;
+  }
+  .ita-floating-label {
+    @apply floating-label w-full;
+    /* daisyUI sizes the floating label with :has(.input-lg): repeated for ita-*. */
+    &:has(.ita-input-sm, .ita-textarea-sm) {
+      --top-mul: 4;
+      --font-size: 0.75rem;
+    }
+    &:has(.ita-input-lg, .ita-textarea-lg) {
+      --top-mul: 6;
+      --font-size: 1.125rem;
+    }
+  }
+}

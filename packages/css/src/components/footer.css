@@ -1,0 +1,97 @@
+/*
+ * Footer (structural): the institutional footer in two bands. daisyUI footer
+ * and footer-title stay in the markup; links inside the lists are classless.
+ *   <footer class="ita-footer [ita-footer-base]">
+ *     <div class="ita-footer-main"><div class="ita-footer-container">
+ *       <section class="ita-footer-brand"><a href="#">svg<span>
+ *         <h2 class="ita-footer-name">Ente</h2><span class="ita-footer-tagline">…</span></span></a></section>
+ *       <section class="footer ita-footer-columns"><nav>
+ *         <h3 class="footer-title">Servizi</h3><ul class="ita-footer-list"><li><a href="#">…</a></li></ul>
+ *       </nav>…</section>
+ *       <section class="footer ita-footer-contacts">…<ul class="ita-footer-socials">…</ul></section>
+ *     </div></div>
+ *     <div class="ita-footer-legal"><ul class="ita-footer-container">…</ul></div>
+ *   </footer>
+ *   ita-footer-base: the bands on the page background with primary text.
+ */
+@layer utilities {
+  .ita-footer-container {
+    @apply mx-auto w-full max-w-[1320px] px-4;
+  }
+  .ita-footer-main {
+    @apply bg-primary text-primary-content;
+    & > .ita-footer-container {
+      @apply py-8;
+    }
+  }
+  .ita-footer-legal {
+    @apply bg-accent text-accent-content;
+    & > ul {
+      @apply flex flex-col gap-3 py-4 text-xs md:flex-row md:flex-wrap md:gap-6;
+    }
+  }
+  .ita-footer-base {
+    & > .ita-footer-main {
+      @apply border-t border-primary/20 bg-base-100 text-primary;
+    }
+    & > .ita-footer-legal {
+      @apply border-t border-primary/20 bg-base-200 text-primary;
+    }
+  }
+
+  .ita-footer-brand {
+    @apply pb-8;
+    & > a {
+      @apply flex items-center gap-4 no-underline hover:no-underline;
+      color: inherit;
+      & > svg {
+        @apply size-12 lg:size-14;
+      }
+    }
+  }
+  .ita-footer-name {
+    @apply text-xl leading-tight font-normal lg:text-2xl;
+  }
+  .ita-footer-tagline {
+    @apply hidden text-base md:block;
+  }
+
+  .ita-footer-columns {
+    @apply grid gap-10 border-t border-current/40 py-8 sm:grid-cols-2 lg:grid-cols-4;
+    & > nav {
+      @apply gap-0;
+    }
+  }
+  .ita-footer-contacts {
+    @apply grid gap-10 border-t border-current/40 py-8 md:grid-cols-3;
+    & > div {
+      @apply gap-0;
+    }
+    & > div:last-child {
+      @apply md:col-start-3;
+    }
+    & p {
+      @apply mb-3 text-sm leading-relaxed;
+    }
+  }
+  .ita-footer .footer-title {
+    @apply mb-3 text-sm font-semibold uppercase opacity-100;
+  }
+  .ita-footer-list {
+    @apply flex flex-col gap-3;
+  }
+  .ita-footer :is(.ita-footer-list, .ita-footer-legal, .footer-title) a {
+    @apply text-sm underline decoration-current/50 decoration-1 underline-offset-[3px] hover:decoration-current;
+    color: inherit;
+  }
+  .ita-footer-socials {
+    @apply flex flex-wrap items-center gap-1;
+    & a {
+      @apply grid size-9 place-items-center rounded-full hover:bg-current/15;
+      color: inherit;
+    }
+    & svg {
+      @apply size-5;
+    }
+  }
+}

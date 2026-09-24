@@ -16,20 +16,20 @@ export interface ProgressArgs {
 
 // Literal class maps: Tailwind only sees classes written out in full.
 const colors: Record<ProgressColor, string> = {
-  primary: "progress-primary",
-  success: "progress-success",
-  warning: "progress-warning",
-  danger: "progress-error",
-  info: "progress-info",
+  primary: "",
+  success: "ita-progress-success",
+  warning: "ita-progress-warning",
+  danger: "ita-progress-danger",
+  info: "ita-progress-info",
 };
-const text: Record<ProgressColor, string> = {
-  primary: "text-primary",
-  success: "text-success",
-  warning: "text-warning",
-  danger: "text-error",
-  info: "text-info",
+const tones: Record<ProgressColor, string> = {
+  primary: "",
+  success: "ita-tone-success",
+  warning: "ita-tone-warning",
+  danger: "ita-tone-danger",
+  info: "ita-tone-info",
 };
-const heights = { default: "h-1", md: "h-2", lg: "h-4" } as const;
+const heights = { default: "", md: "ita-progress-md", lg: "ita-progress-lg" } as const;
 
 let counter = 0;
 
@@ -37,12 +37,12 @@ let counter = 0;
 export function progress(a: ProgressArgs = {}): string {
   const { color = "primary", size = "default" } = a;
   const id = `progress-${++counter}`;
-  const bar = `<progress id="${id}" class="${cx("progress w-full rounded-full bg-base-300", colors[color], heights[size])}"${
+  const bar = `<progress id="${id}" class="${cx("ita-progress", colors[color], heights[size])}"${
     a.value !== undefined ? ` value="${a.value}" max="100"` : ""
   }${a.label ? "" : ` aria-label="Avanzamento"`}></progress>`;
   if (!a.label) return bar;
-  return `<div class="flex w-full flex-col gap-1">
-  <div class="flex items-baseline justify-between text-sm font-semibold">
+  return `<div class="ita-progress-field">
+  <div class="ita-progress-label">
     <label for="${id}">${a.label}</label>${a.showValue && a.value !== undefined ? `<span aria-hidden="true">${a.value}%</span>` : ""}
   </div>
   ${bar}
@@ -52,25 +52,24 @@ export function progress(a: ProgressArgs = {}): string {
 /** The .italia donut: daisyUI radial-progress, thin ring, value in the middle. */
 export function progressDonut(a: { value?: number; label?: string; color?: ProgressColor; size?: "sm" | "lg" } = {}): string {
   const { value = 60, label = "Completamento", color = "primary", size = "lg" } = a;
-  const dims = size === "sm" ? "--size:4rem;--thickness:0.25rem" : "--size:8rem;--thickness:0.375rem";
-  return `<div class="${cx("radial-progress font-bold", text[color], size === "sm" ? "text-sm" : "text-2xl")}" style="--value:${value};${dims}" role="progressbar" aria-valuenow="${value}" aria-valuemin="0" aria-valuemax="100" aria-label="${label}"><span class="text-base-content">${value}%</span></div>`;
+  return `<div class="${cx("ita-donut", size === "sm" && "ita-donut-sm", tones[color])}" style="--value:${value}" role="progressbar" aria-valuenow="${value}" aria-valuemin="0" aria-valuemax="100" aria-label="${label}"><span>${value}%</span></div>`;
 }
 
 /** A spinner with a status role and a hidden label. */
 export function spinner(a: { size?: "sm" | "md" | "lg"; label?: string; color?: ProgressColor } = {}): string {
   const { size = "md", label = "Caricamento in corso", color = "primary" } = a;
-  const sizes = { sm: "loading-sm", md: "loading-md", lg: "loading-lg" } as const;
-  return `<span role="status" class="inline-flex"><span class="${cx("loading loading-spinner", sizes[size], text[color])}" aria-hidden="true"></span><span class="sr-only">${label}</span></span>`;
+  const sizes = { sm: "ita-spinner-sm", md: "", lg: "ita-spinner-lg" } as const;
+  return `<span role="status" class="${cx("ita-spinner", sizes[size], tones[color])}"><span aria-hidden="true"></span><span class="sr-only">${label}</span></span>`;
 }
 
 /** A button busy with a task: spinner inside, or a thin bar along its bottom edge. */
 export function progressButton(a: { label?: string; value?: number } = {}): string {
   const { label = "Caricamento" } = a;
   if (a.value === undefined)
-    return `<button type="button" class="${buttonClass()} gap-2" disabled><span class="loading loading-spinner loading-sm" aria-hidden="true"></span><span>${label}…</span></button>`;
+    return `<button type="button" class="${buttonClass()} gap-2" disabled><span class="ita-btn-loading" aria-hidden="true"></span><span>${label}…</span></button>`;
   return `<button type="button" class="${buttonClass()} relative overflow-hidden" aria-busy="true">
   <span>${label}</span>
-  <progress class="progress absolute inset-x-0 bottom-0 h-1 w-full rounded-none bg-primary-content/30 text-primary-content" value="${a.value}" max="100" aria-label="${label}"></progress>
+  <progress class="ita-btn-progress" value="${a.value}" max="100" aria-label="${label}"></progress>
 </button>`;
 }
 
@@ -83,7 +82,8 @@ export const doc: ComponentDoc = {
   replaces: "<it-progress>, <it-progress-donut>, <it-spinner>",
   summary:
     "Indicatori di avanzamento: barra sottile su <progress> nativo, ciambella daisyUI radial-progress, spinner e pulsante in caricamento.",
-  daisy: ["progress", "progress-primary", "radial-progress", "loading", "loading-spinner", "btn"],
+  classes: ["ita-progress", "ita-progress-success", "ita-progress-warning", "ita-progress-danger", "ita-progress-info", "ita-progress-md", "ita-progress-lg", "ita-progress-field", "ita-progress-label", "ita-donut", "ita-donut-sm", "ita-spinner", "ita-spinner-sm", "ita-spinner-lg", "ita-tone-success", "ita-btn-loading", "ita-btn-progress"],
+  daisy: ["progress", "radial-progress", "loading", "btn"],
   cssOnly:
     "Senza value la barra è indeterminata e daisyUI la anima. Per aggiornare il valore nel tempo serve JavaScript (o una nuova pagina dal server). Lo spinner è dentro role=status con un testo nascosto, così viene annunciato.",
   examples: [

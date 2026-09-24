@@ -13,12 +13,8 @@ export interface ForwardArgs {
 
 export function forward(a: ForwardArgs = {}): string {
   const { href = "#contenuto", label = "Vai al contenuto successivo", size = "default" } = a;
-  const cls = cx(
-    "btn btn-circle btn-ghost motion-safe:animate-bounce",
-    size === "lg" ? "btn-lg" : "",
-    a.inverse ? "text-primary-content hover:bg-primary-content/15" : "text-primary hover:bg-primary/10",
-  );
-  return `<a href="${href}" class="${cls}" aria-label="${label}">${icon("it-arrow-down", size === "lg" ? "size-8" : "size-6")}</a>`;
+  const cls = cx("ita-forward", size === "lg" && "ita-forward-lg", a.inverse && "ita-forward-inverse");
+  return `<a href="${href}" class="${cls}" aria-label="${label}">${icon("it-arrow-down", "")}</a>`;
 }
 
 export const doc: ComponentDoc = {
@@ -27,7 +23,8 @@ export const doc: ComponentDoc = {
   replaces: "<it-forward>",
   summary:
     "La freccia che porta alla sezione successiva, di solito in fondo a un hero: un link ad ancora con scorrimento fluido del browser.",
-  daisy: ["btn", "btn-circle", "btn-ghost", "btn-lg"],
+  classes: ["ita-forward", "ita-forward-lg"],
+  daisy: ["btn", "btn-circle", "btn-ghost"],
   cssOnly:
     "Lo scorrimento fluido viene da scroll-behavior: smooth (classe scroll-smooth su <html>), che il browser disattiva da solo con «riduci movimento». Il rimbalzo usa motion-safe:, quindi rispetta la stessa preferenza.",
   examples: [

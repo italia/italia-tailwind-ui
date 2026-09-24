@@ -1,0 +1,39 @@
+/*
+ * Breadcrumbs: daisyUI breadcrumbs with the .italia "/" separator.
+ *   <nav class="ita-breadcrumbs" aria-label="…"><ol>
+ *     <li><a href="/">Home</a></li> <li><span aria-current="page">Qui</span></li>
+ *   </ol></nav>
+ *   modifiers: ita-breadcrumbs-chevron (daisyUI's arrow), ita-breadcrumbs-neutral
+ * Links and the current page are styled through the list, so they need no class.
+ */
+@layer components {
+  .ita-breadcrumbs {
+    @apply breadcrumbs text-base;
+    & a {
+      @apply font-semibold it-muted-80 underline underline-offset-2 hover:text-base-content;
+    }
+    & [aria-current="page"] {
+      @apply inline-flex items-center gap-1 text-base-content;
+    }
+    & svg {
+      @apply size-5 opacity-80;
+    }
+    /* The "/" separator (the it-slash extension, written for the ita-* name). */
+    &:not(.ita-breadcrumbs-chevron) > ol > li + *::before {
+      content: "/";
+      rotate: none;
+      border: 0;
+      inline-size: auto;
+      block-size: auto;
+      margin-inline: 0.5rem;
+      opacity: 0.7;
+    }
+  }
+  .ita-breadcrumbs-neutral {
+    @apply rounded-box bg-neutral px-4 text-neutral-content;
+    & a,
+    & [aria-current="page"] {
+      color: inherit;
+    }
+  }
+}

@@ -29,8 +29,8 @@ export function rating(a: RatingArgs = {}): string {
   const step = a.half ? 0.5 : 1;
   const steps = Array.from({ length: max / step }, (_, i) => (i + 1) * step);
   const star = (v: number) =>
-    cx("mask bg-primary", a.half ? (v % 1 ? "mask-star-2 mask-half-1" : "mask-star-2 mask-half-2") : "mask-star-2");
-  const cls = cx("rating", sizes[size], a.half && "rating-half");
+    cx("mask", a.half ? (v % 1 ? "mask-star-2 mask-half-1" : "mask-star-2 mask-half-2") : "mask-star-2");
+  const cls = cx("rating ita-rating", sizes[size], a.half && "rating-half");
 
   if (a.readonly) {
     // role="img" + a label: the stars are one picture of the value.
@@ -45,8 +45,8 @@ export function rating(a: RatingArgs = {}): string {
         `<input type="radio" name="${name}" value="${v}" class="${star(v)}" aria-label="${stars(v)} su ${max}"${v === value ? " checked" : ""}${a.disabled ? " disabled" : ""}>`,
     )
     .join("\n    ");
-  return `<fieldset class="fieldset p-0"${a.disabled ? " disabled" : ""}>
-  <legend class="${a.legendHidden ? "sr-only" : "fieldset-legend p-0 text-base font-semibold text-base-content"}">${legend}</legend>
+  return `<fieldset class="ita-rating-group"${a.disabled ? " disabled" : ""}>
+  <legend${a.legendHidden ? ` class="sr-only"` : ""}>${legend}</legend>
   <div class="${cls}">
     <input type="radio" name="${name}" value="0" class="rating-hidden" aria-label="Nessuna valutazione"${value ? "" : " checked"}${a.disabled ? " disabled" : ""}>
     ${inputs}
@@ -62,6 +62,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-rating>",
   summary:
     "Valutazione a stelle nel colore primario: un gruppo di radio daisyUI rating per votare, o una sola immagine etichettata per mostrare un voto.",
+  classes: ["ita-rating", "ita-rating-group"],
   daisy: ["rating", "rating-half", "rating-hidden", "rating-sm", "rating-lg", "mask", "mask-star-2", "mask-half-1", "mask-half-2", "fieldset"],
   cssOnly:
     "Sono radio button: frecce per cambiare voto, valore inviato col form. Il primo radio nascosto (rating-hidden) vale zero e permette di non votare. In sola lettura le stelle sono un'unica immagine con role=img e un'etichetta che dice il voto.",

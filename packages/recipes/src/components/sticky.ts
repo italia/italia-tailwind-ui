@@ -14,22 +14,19 @@ export interface StickyArgs {
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const offsets: Record<StickyEdge, Record<NonNullable<StickyArgs["offset"]>, string>> = {
-  top: { none: "top-0", sm: "top-2", md: "top-4", lg: "top-16" },
-  bottom: { none: "bottom-0", sm: "bottom-2", md: "bottom-4", lg: "bottom-16" },
-};
-// The query styles the child: a scroll-state container cannot style itself.
-const stuck: Record<StickyEdge, string> = {
-  top: "[@container_scroll-state(stuck:top)]:shadow-lg [@container_scroll-state(stuck:top)]:bg-base-100",
-  bottom: "[@container_scroll-state(stuck:bottom)]:shadow-[0_-8px_16px_rgb(0_0_0/0.1)] [@container_scroll-state(stuck:bottom)]:bg-base-100",
+const offsets: Record<NonNullable<StickyArgs["offset"]>, string> = {
+  none: "",
+  sm: "ita-sticky-offset-sm",
+  md: "ita-sticky-offset-md",
+  lg: "ita-sticky-offset-lg",
 };
 
 export function sticky(a: StickyArgs = {}): string {
   const { edge = "top", offset = "none", content = `<p class="font-semibold">Elemento fisso</p>` } = a;
-  const outer = cx("sticky z-20", offsets[edge][offset], a.stuckShadow && "[container-type:scroll-state]");
-  const inner = cx("transition-shadow", a.stuckShadow && stuck[edge]);
-  return `<div class="${outer}">
-  <div class="${inner}">${content}</div>
+  // The shadow styles the child: a scroll-state container cannot style itself.
+  const cls = cx("ita-sticky", edge === "bottom" && "ita-sticky-bottom", offsets[offset], a.stuckShadow && "ita-sticky-shadow");
+  return `<div class="${cls}">
+  <div>${content}</div>
 </div>`;
 }
 
@@ -43,6 +40,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-sticky>",
   summary:
     "Elementi che restano attaccati al bordo durante lo scorrimento: position: sticky di Tailwind, con ombra solo quando l'elemento è davvero bloccato grazie alle scroll-state container query.",
+  classes: ["ita-sticky", "ita-sticky-bottom", "ita-sticky-offset-sm", "ita-sticky-offset-md", "ita-sticky-offset-lg", "ita-sticky-shadow"],
   daisy: [],
   cssOnly:
     "<it-sticky> osserva lo scorrimento in JavaScript per aggiungere la classe is-sticky. Qui lo fa container-type: scroll-state con @container scroll-state(stuck: top) (Chrome 133+): l'ombra compare solo a elemento bloccato. Negli altri browser l'elemento resta sticky, senza ombra. Ricorda che sticky smette di funzionare se un antenato ha overflow: hidden.",
@@ -78,7 +76,7 @@ export const doc: ComponentDoc = {
       id: "laterale",
       title: "Colonna laterale",
       html: box(`<div class="grid grid-cols-[10rem_1fr] gap-6 p-4">
-    <div class="sticky top-4 self-start">
+    <div class="ita-sticky ita-sticky-offset-md self-start">
       <div class="rounded-box bg-base-200 p-4 text-sm font-semibold">Resto sempre visibile</div>
     </div>
     <div>

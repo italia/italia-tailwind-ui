@@ -1,0 +1,120 @@
+/*
+ * Overlay: the .italia panel over an image, and the dimmer that covers a
+ * container with a message and actions (opened by a checkbox, no script).
+ *   <figure class="ita-overlay"><img src="…" alt="…">
+ *     <figcaption class="ita-overlay-panel"><span>Titolo</span></figcaption></figure>
+ *   (or <a class="ita-overlay" href="#"><figure>…</figure></a>)
+ *   modifiers: ita-overlay-neutral, ita-overlay-full, ita-overlay-hover
+ *
+ *   <div class="ita-dimmer [ita-dimmer-primary]">
+ *     <input type="checkbox" id="d" class="sr-only" aria-label="Mostra">
+ *     <label for="d" class="ita-btn ita-btn-primary ita-dimmer-toggle">Mostra</label>
+ *     <div class="relative">…covered content…
+ *       <div class="ita-dimmer-panel" role="group" aria-labelledby="d-title"><div>
+ *         <div class="ita-dimmer-icon">svg</div><h4 id="d-title" class="ita-dimmer-title">…</h4>
+ *         <p class="ita-dimmer-text">…</p>
+ *         <div class="ita-dimmer-actions"><button class="ita-btn ita-dimmer-action">…</button></div>
+ *       </div></div>
+ *     </div>
+ *   </div>
+ *   ita-dimmer-action-primary is the solid action.
+ */
+@layer components {
+  .ita-overlay {
+    @apply relative m-0 block w-full max-w-sm overflow-hidden no-underline;
+    & > figure {
+      @apply relative m-0;
+    }
+    & img {
+      @apply block size-full object-cover;
+    }
+  }
+  .ita-overlay-panel {
+    @apply absolute inset-x-0 bottom-0 bg-primary/85 px-4 py-3 text-sm font-semibold text-primary-content md:text-base;
+    & > span {
+      @apply block min-w-0 truncate;
+    }
+    & > svg {
+      @apply size-8;
+    }
+  }
+  .ita-overlay-neutral .ita-overlay-panel {
+    @apply bg-neutral/60 text-neutral-content;
+  }
+  .ita-overlay-full .ita-overlay-panel {
+    @apply top-0 flex items-end;
+    &:has(> svg) {
+      @apply items-center justify-center;
+    }
+  }
+  .ita-overlay-hover {
+    & .ita-overlay-panel {
+      @apply opacity-0 transition-opacity duration-200;
+    }
+    &:is(:hover, :focus-within) .ita-overlay-panel {
+      @apply opacity-100;
+    }
+  }
+
+  .ita-dimmer {
+    --ita-veil-bg: var(--color-neutral);
+    --ita-veil-fg: var(--color-neutral-content);
+    @apply relative;
+    & > input:focus-visible + .ita-dimmer-toggle {
+      @apply outline-2 outline-offset-2;
+      outline-style: solid;
+    }
+  }
+  .ita-dimmer-primary {
+    --ita-veil-bg: var(--color-primary);
+    --ita-veil-fg: var(--color-primary-content);
+  }
+  .ita-dimmer-toggle {
+    @apply mb-4;
+  }
+  .ita-dimmer-panel {
+    @apply pointer-events-none absolute inset-0 z-10 flex flex-wrap items-start justify-center p-8 opacity-0 transition-opacity lg:items-center;
+    background-color: color-mix(in oklab, var(--ita-veil-bg) 90%, transparent);
+    color: var(--ita-veil-fg);
+    .ita-dimmer:has(> input:checked) & {
+      @apply pointer-events-auto opacity-100;
+    }
+    & > div {
+      @apply w-full max-w-[480px] text-center;
+    }
+  }
+  .ita-dimmer-icon {
+    @apply mb-4 flex justify-center;
+    & > svg {
+      @apply size-12;
+    }
+  }
+  .ita-dimmer-title {
+    @apply mb-4 text-2xl font-bold;
+  }
+  .ita-dimmer-text {
+    @apply font-serif leading-relaxed;
+  }
+  .ita-dimmer-actions {
+    @apply mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center;
+  }
+  /* .btn sets its own color, so an action names the veil's tokens. */
+  .ita-dimmer-action {
+    border-width: 2px;
+    border-color: var(--ita-veil-fg);
+    background-color: transparent;
+    color: var(--ita-veil-fg);
+    &:hover {
+      background-color: var(--ita-veil-fg);
+      color: var(--ita-veil-bg);
+    }
+  }
+  .ita-dimmer-action-primary {
+    border-color: var(--btn-border);
+    background-color: var(--ita-veil-fg);
+    color: var(--ita-veil-bg);
+    &:hover {
+      background-color: color-mix(in oklab, var(--ita-veil-fg) 90%, transparent);
+    }
+  }
+}

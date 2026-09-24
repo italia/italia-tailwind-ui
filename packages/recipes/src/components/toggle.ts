@@ -15,7 +15,8 @@ export const doc: ComponentDoc = {
   replaces: "<it-toggle>",
   summary:
     "Interruttori acceso/spento: checkbox nativo con role=switch e daisyUI toggle nel colore primario. L'etichetta sta a sinistra e l'interruttore sul bordo destro, come in bootstrap-italia.",
-  daisy: ["toggle", "toggle-primary", "toggle-sm", "toggle-lg", "fieldset", "fieldset-legend"],
+  classes: ["ita-toggle", "ita-toggle-sm", "ita-toggle-lg", "ita-choice", "ita-choice-end", "ita-choice-text", "ita-choice-hint", "ita-choice-group", "ita-legend", "ita-choice-list"],
+  daisy: ["toggle", "fieldset"],
   cssOnly: "È un checkbox: Spazio lo attiva, il valore viaggia col form. role=switch fa annunciare «attivo/disattivo» invece di «selezionato».",
   examples: [
     {

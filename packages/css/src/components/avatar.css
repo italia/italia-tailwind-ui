@@ -1,0 +1,148 @@
+/*
+ * Avatar: image, initials or icon in a circle, in bootstrap-italia's six
+ * sizes (16–112px). Built on daisyUI avatar; the inner box is a span so the
+ * markup stays valid inside links and summaries.
+ *   <span class="ita-avatar"><span><img src="…" alt="Mario Rossi"></span></span>
+ *   <span class="ita-avatar ita-avatar-primary"><span aria-hidden="true">MR</span>…</span>
+ *   sizes: ita-avatar-{xs|sm|lg|xl|xxl} (md is the default)
+ *   colours (initials, icon): ita-avatar-primary, ita-avatar-secondary
+ *   status dot: <span class="ita-avatar-status ita-avatar-online"></span>,
+ *     also -busy, -away, -offline
+ *   ita-avatar-link (the <a> around it), ita-avatar-group (<ul> of <li>),
+ *   ita-avatar-text + ita-avatar-name / ita-avatar-detail, ita-avatar-toggle
+ *   (the <summary> of a dropdown)
+ */
+@layer components {
+  .ita-avatar {
+    @apply avatar;
+    & > span:first-child {
+      @apply flex size-10 items-center justify-center overflow-hidden rounded-full text-base leading-none font-semibold;
+      & > svg {
+        @apply size-5;
+      }
+    }
+    & > span:first-child:not(:has(> img)) {
+      @apply bg-secondary/15 text-secondary;
+    }
+  }
+  .ita-avatar-primary > span:first-child:not(:has(> img)) {
+    @apply bg-primary text-primary-content;
+  }
+  .ita-avatar-secondary > span:first-child:not(:has(> img)) {
+    @apply bg-secondary text-secondary-content;
+  }
+
+  /* Sizes: box and text, icon, status dot. */
+  .ita-avatar-xs {
+    & > span:first-child {
+      @apply size-4 text-[0.625rem];
+      & > svg {
+        @apply size-2.5;
+      }
+    }
+    & > .ita-avatar-status {
+      @apply size-1.5 ring-1;
+    }
+  }
+  .ita-avatar-sm {
+    & > span:first-child {
+      @apply size-6 text-xs;
+      & > svg {
+        @apply size-3.5;
+      }
+    }
+    & > .ita-avatar-status {
+      @apply size-2 ring-1;
+    }
+  }
+  .ita-avatar-lg {
+    & > span:first-child {
+      @apply size-14 text-xl;
+      & > svg {
+        @apply size-7;
+      }
+    }
+    & > .ita-avatar-status {
+      @apply size-3.5;
+    }
+  }
+  .ita-avatar-xl {
+    & > span:first-child {
+      @apply size-20 text-3xl;
+      & > svg {
+        @apply size-10;
+      }
+    }
+    & > .ita-avatar-status {
+      @apply size-4;
+    }
+  }
+  .ita-avatar-xxl {
+    & > span:first-child {
+      @apply size-28 text-5xl;
+      & > svg {
+        @apply size-14;
+      }
+    }
+    & > .ita-avatar-status {
+      @apply size-5;
+    }
+  }
+
+  /* Colours set directly: daisy's status-* share a nested layer with status. */
+  .ita-avatar-status {
+    @apply status absolute end-0 top-0 size-3 rounded-full ring-2 ring-base-100;
+  }
+  .ita-avatar-online {
+    @apply bg-success text-success;
+  }
+  .ita-avatar-busy {
+    @apply bg-error text-error;
+  }
+  .ita-avatar-away {
+    @apply bg-warning text-warning;
+  }
+  .ita-avatar-offline {
+    @apply bg-base-content/40;
+  }
+
+  .ita-avatar-link {
+    @apply inline-flex rounded-full;
+    & > .ita-avatar > span:first-child {
+      @apply transition;
+    }
+    &:hover > .ita-avatar > span:first-child {
+      @apply ring-2 ring-primary ring-offset-2 ring-offset-base-100;
+    }
+  }
+
+  .ita-avatar-group {
+    @apply avatar-group -space-x-3 overflow-visible;
+    & > li {
+      @apply flex;
+    }
+    & > li > .ita-avatar {
+      @apply overflow-hidden rounded-full border-2 border-base-100;
+    }
+  }
+
+  .ita-avatar-text {
+    @apply flex items-center gap-3;
+    & > div {
+      @apply flex flex-col leading-tight;
+    }
+  }
+  .ita-avatar-name {
+    @apply font-semibold;
+  }
+  .ita-avatar-detail {
+    @apply text-sm it-muted-70;
+  }
+
+  .ita-avatar-toggle {
+    @apply flex cursor-pointer list-none items-center gap-2 rounded-full pe-2 font-semibold text-primary;
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,66 @@
+/*
+ * Accordion and collapse (structural): daisyUI collapse on <details>, whose
+ * collapse / collapse-title / collapse-content classes stay in the markup.
+ *   <div class="ita-accordion">
+ *     <details class="collapse collapse-arrow" name="g" open>
+ *       <summary class="collapse-title"><h2>Titolo</h2></summary>
+ *       <div class="collapse-content"><p>Testo</p></div>
+ *     </details> …
+ *   </div>
+ *   modifiers: ita-accordion-active (primary fill on the open item),
+ *   ita-accordion-hover (primary fill on hover). Without collapse-arrow the
+ *   item takes an it-plus-minus glyph on the left instead.
+ *   <details class="collapse ita-collapse"> is a single disclosure whose summary
+ *   holds an ita-btn or ita-collapse-link; ita-collapse-bordered boxes the panel.
+ * Selectors reach direct children only, so a nested accordion keeps its own look.
+ */
+@layer utilities {
+  .ita-accordion {
+    @apply border-t border-base-content/20;
+    & > .collapse {
+      @apply rounded-none border-b border-base-content/20;
+    }
+    & > .collapse > .collapse-title {
+      @apply flex items-center gap-4 px-6 py-4 text-primary hover:underline;
+    }
+    & > .collapse-arrow > .collapse-title {
+      @apply pe-12;
+    }
+    & > .collapse > .collapse-title > :is(h2, h3, h4, h5, h6) {
+      @apply text-base leading-tight font-semibold sm:text-lg;
+    }
+    & > .collapse > .collapse-content {
+      @apply px-6 text-base text-base-content sm:text-lg;
+      & > p:first-child {
+        @apply pt-2;
+      }
+    }
+  }
+  .ita-accordion-active > .collapse[open] > .collapse-title {
+    @apply bg-primary text-primary-content;
+  }
+  .ita-accordion-hover > .collapse > .collapse-title {
+    @apply hover:bg-primary hover:text-primary-content hover:no-underline;
+  }
+
+  .ita-collapse {
+    @apply w-full overflow-visible rounded-none;
+    & > .collapse-title {
+      @apply min-h-0 w-fit rounded-field p-0;
+    }
+    & > .collapse-content {
+      @apply px-0 text-base;
+    }
+  }
+  .ita-collapse-bordered {
+    & > .collapse-content {
+      @apply rounded-box border-base-content/20;
+    }
+    &[open] > .collapse-content {
+      @apply mt-3 border p-4;
+    }
+  }
+  .ita-collapse-link {
+    @apply inline-flex items-center gap-1 font-semibold text-primary underline underline-offset-2 hover:no-underline;
+  }
+}

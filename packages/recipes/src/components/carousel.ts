@@ -35,11 +35,7 @@ export interface CarouselArgs {
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const itemWidth: Record<CarouselType, string> = {
-  cards: "w-full md:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]",
-  image: "w-full",
-  peek: "w-[85%] md:w-[60%]",
-};
+const types: Record<CarouselType, string> = { cards: "", image: "ita-carousel-image", peek: "ita-carousel-peek" };
 
 const img = (n: number, w = 800, h = 450) => `https://picsum.photos/id/${n}/${w}/${h}`;
 
@@ -62,40 +58,31 @@ export function carousel(a: CarouselArgs = {}): string {
   const slide = (s: CarouselSlide, i: number) => {
     const attrs = `id="${id}-${i + 1}" role="group" aria-roledescription="slide" aria-label="${i + 1} di ${total}"`;
     if (type === "image")
-      return `<figure ${attrs} class="${cx("carousel-item relative overflow-hidden rounded-box", itemWidth[type])}">
-      <img src="${s.image ?? img(1031, 1200, 600)}" alt="${s.imageAlt ?? ""}" class="aspect-[2/1] w-full object-cover" loading="lazy">
-      <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-neutral/90 to-transparent p-6 pt-16 text-neutral-content">
-        <p class="text-xl font-bold sm:text-2xl">${s.href ? `<a href="${s.href}" class="underline-offset-2 hover:underline">${s.title}</a>` : s.title}</p>${
-          s.text ? `\n        <p class="mt-1 max-w-2xl">${s.text}</p>` : ""
+      return `<figure ${attrs} class="carousel-item">
+      <img src="${s.image ?? img(1031, 1200, 600)}" alt="${s.imageAlt ?? ""}" loading="lazy">
+      <figcaption class="ita-carousel-caption">
+        <p>${s.href ? `<a href="${s.href}">${s.title}</a>` : s.title}</p>${s.text ? `\n        <p>${s.text}</p>` : ""
         }
       </figcaption>
     </figure>`;
-    return `<div ${attrs} class="${cx("carousel-item", itemWidth[type])}">
-      ${card({ title: s.title, text: s.text, href: s.href ?? "#", image: s.image, imageAlt: s.imageAlt, category: s.category, date: s.date, shadow: "sm", headingLevel: 3 }).replace(/^<article class="/, '<article class="w-full ')}
+    return `<div ${attrs} class="carousel-item">
+      ${card({ title: s.title, text: s.text, href: s.href ?? "#", image: s.image, imageAlt: s.imageAlt, category: s.category, date: s.date, shadow: "sm", headingLevel: 3 })}
     </div>`;
   };
 
-  const scroller = cx(
-    "carousel w-full scroll-smooth rounded-box",
-    type === "image" ? "gap-4" : "gap-6 py-2",
-    type === "peek" && "px-[7.5%] scroll-px-[7.5%] md:px-[20%] md:scroll-px-[20%] [&>.carousel-item]:snap-center",
-    controls === "css" && "it-carousel",
-    // Cards: keep the CSS buttons in a gutter instead of over the titles,
-    // only where the browser draws them.
-    controls === "css" && type === "cards" && "supports-[selector(::scroll-button(*))]:px-14 supports-[selector(::scroll-button(*))]:scroll-px-14",
-  );
+  const scroller = cx("carousel", controls === "css" && "it-carousel");
   const links =
     controls === "links"
-      ? `\n  <nav class="mt-4 flex justify-center gap-2" aria-label="Scegli la slide">
-    ${slides.map((_, i) => `<a href="#${id}-${i + 1}" class="btn btn-xs btn-outline btn-primary min-w-8">${i + 1}</a>`).join("\n    ")}
+      ? `\n  <nav class="ita-carousel-pager" aria-label="Scegli la slide">
+    ${slides.map((_, i) => `<a href="#${id}-${i + 1}">${i + 1}</a>`).join("\n    ")}
   </nav>`
       : "";
   const heading = a.title
-    ? `\n  <h2 id="${id}-title" class="mb-4 text-3xl font-bold">${a.title}</h2>`
+    ? `\n  <h2 id="${id}-title" class="ita-carousel-title">${a.title}</h2>`
     : "";
   const named = a.title ? `aria-labelledby="${id}-title"` : `aria-label="${label}"`;
-  return `<section class="w-full" aria-roledescription="carosello" ${named}>${heading}
-  <div class="relative">
+  return `<section class="${cx("ita-carousel", types[type])}" aria-roledescription="carosello" ${named}>${heading}
+  <div>
     <div class="${scroller}" tabindex="0">
     ${slides.map(slide).join("\n    ")}
     </div>
@@ -127,7 +114,7 @@ if (!CSS.supports("selector(::scroll-button(*))")) {
     const make = (dir, label, glyph) => {
       const b = document.createElement("button");
       b.type = "button";
-      b.className = \`btn btn-circle btn-primary absolute top-1/2 -translate-y-1/2 \${dir < 0 ? "start-2" : "end-2"}\`;
+      b.className = \`ita-btn ita-btn-primary ita-btn-circle absolute top-1/2 -translate-y-1/2 \${dir < 0 ? "start-2" : "end-2"}\`;
       b.setAttribute("aria-label", label);
       b.textContent = glyph;
       b.addEventListener("click", () => track.scrollBy({ left: dir * track.clientWidth }));
@@ -144,18 +131,18 @@ export function Carousel({ label, children }: { label: string; children: ReactNo
   const track = useRef<HTMLDivElement>(null);
   const go = (dir: 1 | -1) => track.current?.scrollBy({ left: dir * track.current.clientWidth });
   return (
-    <section className="w-full" aria-roledescription="carosello" aria-label={label}>
-      <div className="relative">
-        <div ref={track} className="carousel w-full gap-6 scroll-smooth rounded-box py-2" tabIndex={0}>
+    <section className="ita-carousel" aria-roledescription="carosello" aria-label={label}>
+      <div>
+        <div ref={track} className="carousel" tabIndex={0}>
           {children.map((child, i) => (
             <div key={i} role="group" aria-roledescription="slide" aria-label={\`\${i + 1} di \${children.length}\`}
-                 className="carousel-item w-full md:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]">
+                 className="carousel-item">
               {child}
             </div>
           ))}
         </div>
-        <button type="button" className="btn btn-circle btn-primary absolute start-2 top-1/2 -translate-y-1/2" aria-label="Precedente" onClick={() => go(-1)}>‹</button>
-        <button type="button" className="btn btn-circle btn-primary absolute end-2 top-1/2 -translate-y-1/2" aria-label="Successivo" onClick={() => go(1)}>›</button>
+        <button type="button" className="ita-btn ita-btn-primary ita-btn-circle absolute start-2 top-1/2 -translate-y-1/2" aria-label="Precedente" onClick={() => go(-1)}>‹</button>
+        <button type="button" className="ita-btn ita-btn-primary ita-btn-circle absolute end-2 top-1/2 -translate-y-1/2" aria-label="Successivo" onClick={() => go(1)}>›</button>
       </div>
     </section>
   );
@@ -167,6 +154,7 @@ export const doc: ComponentDoc = {
   replaces: "<it-carousel>, <it-carousel-item>",
   summary:
     "Caroselli di card o immagini su daisyUI carousel (scroll-snap). Pulsanti avanti/indietro e punti di navigazione sono pseudo-elementi CSS (::scroll-button, ::scroll-marker): nessuno script.",
+  classes: ["ita-carousel", "ita-carousel-image", "ita-carousel-peek", "ita-carousel-caption", "ita-carousel-title", "ita-carousel-pager"],
   daisy: ["carousel", "carousel-item", "card"],
   extensions: ["it-carousel"],
   cssOnly:

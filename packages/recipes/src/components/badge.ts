@@ -9,23 +9,19 @@ export interface BadgeArgs {
   href?: string;
 }
 
+// Literal class maps: Tailwind only sees classes written out in full.
 const color: Record<BadgeVariant, string> = {
-  primary: "badge-primary",
-  secondary: "badge-secondary",
-  success: "badge-success",
-  danger: "badge-error",
-  warning: "badge-warning",
-  inverse: "bg-base-100 text-primary border-base-100",
+  primary: "ita-badge-primary",
+  secondary: "ita-badge-secondary",
+  success: "ita-badge-success",
+  danger: "ita-badge-danger",
+  warning: "ita-badge-warning",
+  inverse: "ita-badge-inverse",
 };
 
 export function badge(a: BadgeArgs = {}): string {
   const { label = "New", variant = "secondary" } = a;
-  const cls = cx(
-    "badge h-auto border-0 px-3 py-1 text-[0.75em] font-semibold leading-none",
-    a.pill ? "rounded-full" : "rounded-sm",
-    color[variant],
-    a.href && "hover:brightness-90",
-  );
+  const cls = cx("ita-badge", color[variant], a.pill && "ita-badge-pill");
   return a.href ? `<a href="${a.href}" class="${cls}">${label}</a>` : `<span class="${cls}">${label}</span>`;
 }
 
@@ -38,6 +34,7 @@ export const doc: ComponentDoc = {
   replaces: ".badge (bootstrap-italia)",
   summary:
     "Piccole etichette di conteggio o stato. Il testo è 0.75em, quindi il badge scala con il testo che lo contiene.",
+  classes: ["ita-badge", "ita-badge-primary", "ita-badge-secondary", "ita-badge-success", "ita-badge-danger", "ita-badge-warning", "ita-badge-inverse", "ita-badge-pill"],
   daisy: ["badge", "badge-primary", "badge-secondary"],
   examples: [
     {

@@ -40,32 +40,12 @@ export interface DimmerArgs {
   id?: string;
 }
 
-// Literal class maps: Tailwind only sees classes written out in full.
-// overlay-background-primary is the primary at 85%, overlay-background-light
-// black at 50%: both read as a token plus an alpha step.
-const tones: Record<Exclude<OverlayTone, "black">, string> = {
-  primary: "bg-primary/85 text-primary-content",
-  neutral: "bg-neutral/60 text-neutral-content",
-};
-const dimmerTone: Record<Veil, string> = {
-  neutral: "bg-neutral/90 text-neutral-content",
-  primary: "bg-primary/90 text-primary-content",
-};
-// daisyUI's .btn sets its own color, so a button on the veil cannot inherit it:
-// each action names the token pair of the veil it sits on.
-const actionSolid: Record<Veil, string> = {
-  neutral: "border-0 bg-neutral-content text-neutral hover:bg-neutral-content/90",
-  primary: "border-0 bg-primary-content text-primary hover:bg-primary-content/90",
-};
-const actionOutline: Record<Veil, string> = {
-  neutral: "bg-transparent border-neutral-content text-neutral-content hover:bg-neutral-content hover:text-neutral",
-  primary: "bg-transparent border-primary-content text-primary-content hover:bg-primary-content hover:text-primary",
-};
-
-/** A button readable on the dimmer's veil, whichever variant it uses. */
+/**
+ * A button readable on the dimmer's veil: it takes the veil's colours from the
+ * enclosing ita-dimmer, so `variant` is no longer needed (kept for compatibility).
+ */
 export function dimmerAction(label: string, o: { primary?: boolean; variant?: DimmerVariant } = {}): string {
-  const v = veilOf(o.variant ?? "neutral");
-  return `<button type="button" class="btn border-2 font-semibold ${o.primary ? actionSolid[v] : actionOutline[v]}">${label}</button>`;
+  return `<button type="button" class="${cx("ita-btn ita-dimmer-action", o.primary && "ita-dimmer-action-primary")}">${label}</button>`;
 }
 
 let counter = 0;
@@ -78,26 +58,22 @@ export function overlay(a: OverlayArgs = {}): string {
     text = "Titolo del contenuto",
     tone = "primary",
     height = "band",
-    width = "w-full max-w-sm",
   } = a;
-  const panel = cx(
-    "absolute inset-x-0 bottom-0 px-4 py-3 text-sm font-semibold md:text-base",
-    tones[tone === "black" ? "neutral" : tone],
-    height === "full" && "top-0 flex",
-    height === "full" && (a.icon ? "items-center justify-center" : "items-end"),
-    a.onHover && "opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100",
+  const body = a.icon ? icon(a.icon, "", text) : `<span>${text}</span>`;
+  const inner = `<img src="${image}" alt="${imageAlt}" loading="lazy">
+  <figcaption class="ita-overlay-panel">${body}</figcaption>`;
+  // The frame is whatever can take focus, so :focus-within reveals a hover
+  // panel when the link is reached with the keyboard.
+  const frame = cx(
+    "ita-overlay",
+    tone !== "primary" && "ita-overlay-neutral",
+    height === "full" && "ita-overlay-full",
+    a.onHover && "ita-overlay-hover",
+    a.width,
   );
-  const body = a.icon
-    ? icon(a.icon, "size-8", text)
-    : `<span class="block min-w-0 truncate">${text}</span>`;
-  const inner = `<img src="${image}" alt="${imageAlt}" class="block size-full object-cover" loading="lazy">
-  <figcaption class="${panel}">${body}</figcaption>`;
-  // The group has to sit on whatever can take focus, so group-focus-within
-  // reveals a hover panel when the link is reached with the keyboard.
-  const frame = cx("group relative block overflow-hidden", width);
-  if (!a.href) return `<figure class="${frame} m-0">\n  ${inner}\n</figure>`;
-  return `<a href="${a.href}" class="${frame} no-underline">
-  <figure class="relative m-0">
+  if (!a.href) return `<figure class="${frame}">\n  ${inner}\n</figure>`;
+  return `<a href="${a.href}" class="${frame}">
+  <figure>
   ${inner}
   </figure>
 </a>`;
@@ -116,22 +92,17 @@ export function dimmer(a: DimmerArgs = {}): string {
   } = a;
   const variant = veilOf(requested);
   const id = a.id ?? `dimmer-${++counter}`;
-  const panel = cx(
-    "pointer-events-none absolute inset-0 z-10 flex flex-wrap items-start justify-center p-8 opacity-0 transition-opacity",
-    "group-has-checked/dimmer:pointer-events-auto group-has-checked/dimmer:opacity-100 lg:items-center",
-    dimmerTone[variant],
-  );
-  return `<div class="group/dimmer relative">
-  <input type="checkbox" id="${id}" class="peer sr-only"${a.active ? " checked" : ""} aria-label="${toggleLabel}">
-  <label for="${id}" class="btn btn-primary mb-4 font-semibold peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2">${toggleLabel}</label>
+  return `<div class="${cx("ita-dimmer", variant === "primary" && "ita-dimmer-primary")}">
+  <input type="checkbox" id="${id}" class="sr-only"${a.active ? " checked" : ""} aria-label="${toggleLabel}">
+  <label for="${id}" class="ita-btn ita-btn-primary ita-dimmer-toggle">${toggleLabel}</label>
   <div class="relative">
     ${children}
-    <div class="${panel}" role="group" aria-labelledby="${id}-title">
-      <div class="w-full max-w-[480px] text-center">
-        ${a.icon ? `<div class="mb-4 flex justify-center">${icon(a.icon, "size-12")}</div>` : ""}
-        ${a.title ? `<h4 id="${id}-title" class="mb-4 text-2xl font-bold">${a.title}</h4>` : `<span id="${id}-title" class="sr-only">${toggleLabel}</span>`}
-        <p class="font-serif leading-relaxed">${text}</p>
-        ${a.actions ? `<div class="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">${a.actions}</div>` : ""}
+    <div class="ita-dimmer-panel" role="group" aria-labelledby="${id}-title">
+      <div>
+        ${a.icon ? `<div class="ita-dimmer-icon">${icon(a.icon, "")}</div>` : ""}
+        ${a.title ? `<h4 id="${id}-title" class="ita-dimmer-title">${a.title}</h4>` : `<span id="${id}-title" class="sr-only">${toggleLabel}</span>`}
+        <p class="ita-dimmer-text">${text}</p>
+        ${a.actions ? `<div class="ita-dimmer-actions">${a.actions}</div>` : ""}
       </div>
     </div>
   </div>
@@ -141,7 +112,7 @@ export function dimmer(a: DimmerArgs = {}): string {
 const sampleCard = (seed: string) => `<article class="card card-border border-base-content/20 bg-base-100">
       <figure class="aspect-video bg-base-300"><img src="https://picsum.photos/seed/${seed}/800/600" alt="" class="size-full object-cover" loading="lazy"></figure>
       <div class="card-body gap-2 p-4">
-        <h3 class="card-title text-xl font-bold"><a href="#" class="link link-primary">Titolo del contenuto</a></h3>
+        <h3 class="card-title text-xl font-bold"><a href="#" class="ita-link">Titolo del contenuto</a></h3>
         <p class="text-sm">Questo è un testo breve che riassume il contenuto della pagina di destinazione.</p>
       </div>
     </article>`;
@@ -157,9 +128,10 @@ export const doc: ComponentDoc = {
   replaces: "<it-dimmer>, .overlay-panel (bootstrap-italia)",
   summary:
     "Due sovrapposizioni: il pannello sopra un'immagine (didascalia, icona, a tutta altezza) e il dimmer che copre un contenitore con messaggio e azioni. Il dimmer si apre con una checkbox, senza JavaScript.",
+  classes: ["ita-overlay", "ita-overlay-panel", "ita-overlay-neutral", "ita-overlay-full", "ita-overlay-hover", "ita-dimmer", "ita-dimmer-primary", "ita-dimmer-toggle", "ita-dimmer-panel", "ita-dimmer-icon", "ita-dimmer-title", "ita-dimmer-text", "ita-dimmer-actions", "ita-dimmer-action", "ita-dimmer-action-primary"],
   daisy: ["card", "btn"],
   cssOnly:
-    "Il dimmer usa una checkbox sr-only con peer-checked al posto dei metodi show()/hide()/toggle() del web component. Il pannello in hover compare anche con group-focus-within, così è raggiungibile da tastiera quando l'immagine è dentro un link.",
+    "Il dimmer usa una checkbox sr-only (ita-dimmer:has(> input:checked)) al posto dei metodi show()/hide()/toggle() del web component. Il pannello in hover compare anche con :focus-within, così è raggiungibile da tastiera quando l'immagine è dentro un link.",
   examples: [
     {
       id: "pannello",
