@@ -24,6 +24,15 @@ export function describe(doc: ComponentDoc): string {
     doc.daisy.length ? `**Classi daisyUI:** ${doc.daisy.map((c) => `\`${c}\``).join(", ")}` : "",
     doc.extensions?.length ? `**Estensioni @italia-daisy/css:** ${doc.extensions.map((c) => `\`${c}\``).join(", ")}` : "",
     doc.cssOnly ? `**Solo CSS:** ${doc.cssOnly}` : "",
+    ...(doc.snippets?.length
+      ? [
+          "### Con JavaScript (opzionale)",
+          "La ricetta è solo CSS. Questi frammenti aggiungono il comportamento che richiede uno script.",
+          ...doc.snippets.map(
+            (s) => `#### ${s.title}\n\n${s.description ? `${s.description}\n\n` : ""}\`\`\`${s.lang}\n${s.code.trim()}\n\`\`\``,
+          ),
+        ]
+      : []),
   ];
   return parts.filter(Boolean).join("\n\n");
 }

@@ -70,3 +70,148 @@
     opacity: 0.7;
   }
 }
+
+/*
+ * Form fields: .italia draws inputs with a slate border (bootstrap-italia v3
+ * color-border-secondary, ~5:1), daisyUI with base-content at 20% (~1.5:1,
+ * below the 3:1 WCAG asks of a field boundary). The rule sits in daisyUI's own
+ * innermost sub-layer, so it replaces only the default: input-error, validator,
+ * :focus and :disabled live in outer sub-layers and still win.
+ */
+@layer utilities {
+  @layer daisyui.l1.l2.l3 {
+    .input,
+    .select,
+    .textarea {
+      --input-color: color-mix(in oklab, var(--color-base-content) 60%, #0000);
+    }
+  }
+}
+
+/*
+ * Back to top: hidden at the top of the page, fades in once the page has
+ * scrolled 20% of the viewport. A scroll-driven animation, so no JS; browsers
+ * without animation-timeline just show the button all the time.
+ */
+@keyframes it-reveal {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    translate: 0 1rem;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    translate: 0 0;
+  }
+}
+@layer utilities {
+  @supports (animation-timeline: scroll()) {
+    .it-scroll-reveal {
+      animation: it-reveal linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 20vh;
+    }
+  }
+
+  /* Reading progress bar (navscroll): scaleX tracks the nearest scroller, the page in a real layout. */
+  .it-scroll-progress {
+    transform-origin: 0 50%;
+    scale: 0 1;
+  }
+  @supports (animation-timeline: scroll()) {
+    .it-scroll-progress {
+      animation: it-grow-x linear both;
+      animation-timeline: scroll(nearest);
+    }
+  }
+}
+@keyframes it-grow-x {
+  to {
+    scale: 1 1;
+  }
+}
+
+/*
+ * Carousel controls without JS: CSS carousel pseudo-elements (Chrome 135+).
+ * ::scroll-button(left|right) are real, focusable buttons that scroll by one
+ * page; ::scroll-marker on every slide builds the dot navigation, and the
+ * current dot matches :target-current. Browsers without them keep a plain
+ * swipeable scroll-snap strip. Put .it-carousel on the scroller and give its
+ * wrapper `relative` so the buttons sit over the slides and the dots below.
+ */
+@layer utilities {
+  .it-carousel {
+    scroll-marker-group: after;
+  }
+  /* The dot row is absolutely placed under the slides; the scroller keeps
+     room for it only where markers exist, and drops its scrollbar there. */
+  @supports selector(::scroll-marker) {
+    .it-carousel {
+      margin-block-end: 2.5rem;
+      scrollbar-width: none;
+    }
+  }
+  .it-carousel::scroll-marker-group {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: calc(100% + 1rem);
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  /* Each dot is named after its slide's aria-label ("2 di 5"). */
+  .it-carousel > *::scroll-marker {
+    content: "" / attr(aria-label);
+    inline-size: 0.75rem;
+    block-size: 0.75rem;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--color-base-content) 25%, transparent);
+    transition: background-color 0.2s, inline-size 0.2s;
+  }
+  .it-carousel > *::scroll-marker:target-current {
+    inline-size: 1.75rem;
+    background: var(--color-primary);
+  }
+  .it-carousel > *::scroll-marker:focus-visible {
+    outline: 2px solid var(--color-base-content);
+    outline-offset: 2px;
+  }
+  .it-carousel::scroll-button(*) {
+    position: absolute;
+    inset-block-start: calc(50% - 1.25rem);
+    display: grid;
+    place-items: center;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    border: 2px solid var(--color-base-100);
+    border-radius: 9999px;
+    background: var(--color-primary);
+    color: var(--color-primary-content);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    padding-block-end: 0.15em;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+    z-index: 1;
+  }
+  .it-carousel::scroll-button(*):disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+  .it-carousel::scroll-button(*):focus-visible {
+    outline: 3px solid transparent;
+    box-shadow:
+      0 0 0 2px var(--color-base-100),
+      0 0 0 5px var(--color-base-content);
+  }
+  .it-carousel::scroll-button(left) {
+    content: "‹" / "Precedente";
+    inset-inline-start: 0.5rem;
+  }
+  .it-carousel::scroll-button(right) {
+    content: "›" / "Successivo";
+    inset-inline-end: 0.5rem;
+  }
+}

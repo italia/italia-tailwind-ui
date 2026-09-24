@@ -1,0 +1,105 @@
+import { icon, type IconName } from "../icons";
+import { cx, type ComponentDoc } from "../types";
+
+export interface BottomNavItem {
+  label: string;
+  href?: string;
+  icon: IconName;
+  active?: boolean;
+  disabled?: boolean;
+  /** Counter badge on the icon. */
+  badge?: number;
+  /** Plain dot on the icon, for "something new". */
+  alert?: boolean;
+  /** What the badge or dot means, for screen readers. */
+  badgeLabel?: string;
+}
+
+export interface BottomNavArgs {
+  items?: BottomNavItem[];
+  label?: string;
+  /** "fixed" pins it to the bottom of the viewport; "static" shows it in place, for docs. */
+  position?: "fixed" | "static";
+}
+
+const defaultItems: BottomNavItem[] = [
+  { label: "Home", href: "#", icon: "it-pa", active: true },
+  { label: "Messaggi", href: "#", icon: "it-mail", badge: 3, badgeLabel: "3 messaggi non letti" },
+  { label: "Pagamenti", href: "#", icon: "it-card", alert: true, badgeLabel: "avviso in scadenza" },
+  { label: "Profilo", href: "#", icon: "it-user" },
+];
+
+const item = (it: BottomNavItem) => {
+  const cls = cx(
+    "relative min-w-0 font-semibold",
+    it.active ? "dock-active text-primary" : "text-base-content/75 hover:text-primary",
+  );
+  const mark = it.badge
+    ? `<span class="indicator-item badge badge-primary badge-xs h-4 min-w-4 rounded-full border-2 border-base-100 px-1 text-[0.625rem]" aria-hidden="true">${it.badge}</span>`
+    : it.alert
+      ? `<span class="indicator-item status status-error size-3 border-2 border-base-100" aria-hidden="true"></span>`
+      : "";
+  const sr = (it.badge || it.alert) && it.badgeLabel ? `<span class="sr-only">, ${it.badgeLabel}</span>` : "";
+  const attrs = cx(it.active && ` aria-current="page"`, it.disabled && ` aria-disabled="true" tabindex="-1"`).replace(/ {2,}/g, " ");
+  return `<a href="${it.href ?? "#"}" class="${cls}"${attrs}>
+    <span class="indicator">${mark}${icon(it.icon, "size-6")}</span>
+    <span class="dock-label truncate">${it.label}</span>${sr}
+  </a>`;
+};
+
+export function bottomNav(a: BottomNavArgs = {}): string {
+  const { items = defaultItems, label = "Navigazione principale", position = "fixed" } = a;
+  const cls = cx(
+    "dock dock-md border-t border-base-content/15 shadow-[0_-4px_12px_rgb(0_0_0/0.08)]",
+    position === "static" ? "relative" : "z-40",
+  );
+  return `<nav class="${cls}" aria-label="${label}">
+  ${items.map(item).join("\n  ")}
+</nav>`;
+}
+
+export const doc: ComponentDoc = {
+  slug: "bottom-nav",
+  name: "Bottom navigation",
+  replaces: "<it-bottom-nav>",
+  summary:
+    "La barra di navigazione in fondo allo schermo delle app mobili: daisyUI dock con icona, etichetta, contatori e la voce corrente in colore primario.",
+  daisy: ["dock", "dock-md", "dock-active", "dock-label", "indicator", "indicator-item", "badge", "status"],
+  cssOnly:
+    "dock è fisso in fondo alla pagina e tiene conto della safe area di iOS (aggiungi viewport-fit=cover al meta viewport). La voce corrente usa sia dock-active sia aria-current=\"page\". I contatori sono nascosti ai lettori di schermo e ripetuti come testo.",
+  examples: [
+    {
+      id: "base",
+      title: "Esempio base",
+      description: "Mostrata sul posto; nella pagina reale è fissa in fondo.",
+      html: `<div class="mx-auto max-w-sm overflow-hidden rounded-box border border-base-content/15">
+  <div class="h-40 bg-base-200"></div>
+  ${bottomNav({ position: "static" })}
+</div>`,
+    },
+    {
+      id: "cinque-voci",
+      title: "Cinque voci e voce disabilitata",
+      html: `<div class="mx-auto max-w-md overflow-hidden rounded-box border border-base-content/15">
+  ${bottomNav({
+    position: "static",
+    items: [
+      { label: "Home", icon: "it-pa" },
+      { label: "Cerca", icon: "it-search", active: true },
+      { label: "Servizi", icon: "it-list" },
+      { label: "Documenti", icon: "it-files", disabled: true },
+      { label: "Impostazioni", icon: "it-settings", badge: 1, badgeLabel: "1 aggiornamento" },
+    ],
+  })}
+</div>`,
+    },
+    {
+      id: "scuro",
+      title: "Tema scuro",
+      html: `<div data-theme="italia-dark" class="mx-auto max-w-sm overflow-hidden rounded-box">
+  <div class="h-24 bg-base-200"></div>
+  ${bottomNav({ position: "static" })}
+</div>`,
+    },
+  ],
+};

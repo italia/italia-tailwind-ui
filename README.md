@@ -74,11 +74,14 @@ The rules:
    - The shared `name` attribute for exclusive accordions.
    - A checkbox plus `has-checked:hidden` for dismissible alerts and chips.
    - Real links for pagination.
-5. **Use an `it-*` extension class only when utilities cannot do it.** There are three today, all in
+5. **Use an `it-*` extension class only when utilities cannot do it.** There are six today, all in
    `packages/css/src/extensions.css`:
    - `it-fold-corner`: the callout's folded corner
    - `it-plus-minus`: the +/– glyph
    - `it-slash`: the "/" breadcrumb separator
+   - `it-scroll-reveal`: fades the back-to-top button in after scrolling (scroll-driven animation)
+   - `it-scroll-progress`: the navscroll reading-progress bar (scroll-driven animation)
+   - `it-carousel`: CSS carousel buttons and dots (`::scroll-button`, `::scroll-marker`)
 6. **Write class maps out literally** (`{ danger: "btn-error" }`, never `` `btn-${v}` ``). Tailwind only generates
    classes it can read in the source.
 
@@ -98,31 +101,40 @@ bootstrap-italia's `.it-footer`, which is what the web-component kit still expec
 Done (overlays and menus): **Dropdown, Megamenu, Modal, Tooltip, Overlay**. The header's megamenu nav item and the
 standalone Megamenu are the same recipe. Overlay covers both bootstrap-italia's `.overlay-panel` and `<it-dimmer>`.
 
-Remaining dev-kit-italia packages, with the daisyUI starting point for each:
+Done (forms): **Input, Select, Autocomplete, Checkbox, Radio, Toggle**. Labels sit above the field. A rule in
+`extensions.css`, placed in daisyUI's own innermost sub-layer, darkens the field border to 60% base-content (3:1
+contrast); daisyUI's `input-error`, `validator` and `:focus` states still override it. Native validation uses daisyUI
+`validator` (`:user-invalid`), and autocomplete is an `<input list>` + `<datalist>`.
 
-| dev-kit-italia | daisyUI base | CSS-only approach |
-|---|---|---|
-| avatar | `avatar`, `avatar-group` | – |
-| back, forward, back-to-top | `btn`, `link` | `href="#top"` + `scroll-behavior` |
-| bottom-nav | `dock` | – |
-| carousel, thumbnav | `carousel` | scroll-snap + anchor links |
-| checkbox, radio, toggle | `checkbox`, `radio`, `toggle`, `fieldset` | native inputs |
-| input, select, autocomplete | `input`, `select`, `validator` | `<datalist>` for autocomplete |
-| collapse | `collapse` | `<details>` |
-| navscroll, sticky | `menu` + `sticky` utilities | anchor links |
-| notification | `toast` + `alert` | checkbox dismiss |
-| popover | `dropdown` | popover API |
-| progress | `progress`, `radial-progress`, `loading` | – |
-| rating | `rating` | radio group |
-| section | utilities on `base-200`/`neutral` | – |
-| skiplinks | `sr-only focus:not-sr-only` | – |
-| stepper | `steps` | – |
-| tabs | `tabs`, `tab-content` | radio tabs |
-| timeline | `timeline` | – |
-| toolbar | `join`, `btn` | – |
-| transfer | two `menu` lists + `join` | form submit |
-| upload | `file-input` | – |
-| video | `aspect-video` utilities | native `<video>` |
+Done (navigation and feedback): **Avatar, Back, Forward, Back to top, Bottom navigation, Collapse, Navscroll, Sticky,
+Notification, Popover, Progress, Rating, Section, Skiplinks, Stepper, Tabs, Timeline, Toolbar**. Newer platform
+features, each with a fallback:
+- Popover and positioned notifications use the popover API (`popovertarget`), and popover adds CSS anchor
+  positioning.
+- Navscroll marks the current section with `scroll-target-group` + `:target-current`; elsewhere it falls back to
+  `aria-current`.
+- Sticky adds its shadow only when stuck, with `scroll-state` container queries.
+- Back to top and the navscroll progress bar use scroll-driven animations (`it-scroll-reveal`,
+  `it-scroll-progress`).
+
+Done (media and data entry): **Carousel, Thumbnav, Transfer, Upload, Video**. Every dev-kit-italia package now has a
+recipe.
+- **Carousel:** daisyUI `carousel` (scroll-snap). The `it-carousel` extension adds prev/next buttons and dots with
+  `::scroll-button` / `::scroll-marker` (Chrome 135+); other browsers keep native swiping, or you can use the
+  anchor-link controls.
+- **Thumbnav:** thumbnails are anchor links to the carousel's slides.
+- **Transfer:** a single checkbox list on a two-column `grid-flow-dense` grid. `has-checked:col-start-2` moves a
+  checked item to the "selected" column. There is also a form version where the server moves the items.
+- **Upload:** the drop zone is the native file input, stretched and transparent over the whole area.
+- **Video:** the native `<video>` with WebVTT captions, plus a YouTube embed behind a consent overlay.
+
+### JavaScript and React snippets
+
+The recipes ship no JavaScript. When a behaviour needs a script (autoplay, upload progress, video consent, a real
+ARIA tablist, roving tabindex, `indeterminate`, show/hide password…), the component's `doc.snippets` holds an
+optional plain-JS enhancement and a React equivalent. They appear in a "Con JavaScript" section on the docs page and
+in the Storybook description. Components with snippets: back, carousel, checkbox, input, notification, tabs,
+thumbnav, toolbar, transfer, upload, video.
 
 ## Credits
 

@@ -10,6 +10,17 @@ export interface Example {
   fullBleed?: boolean;
 }
 
+/**
+ * Code the recipe does NOT ship: the few lines of JavaScript (or a React
+ * component) needed for behaviour CSS cannot provide. Shown in the docs only.
+ */
+export interface Snippet {
+  title: string;
+  lang: "js" | "ts" | "tsx" | "html" | "css";
+  code: string;
+  description?: string;
+}
+
 /** Documentation for one component recipe. */
 export interface ComponentDoc {
   slug: string;
@@ -24,6 +35,8 @@ export interface ComponentDoc {
   /** Notes on how JS behaviour of the web component is handled CSS-only. */
   cssOnly?: string;
   examples: Example[];
+  /** Optional JS / React snippets for behaviour that needs a script. */
+  snippets?: Snippet[];
 }
 
 /** Joins class names, skipping falsy values. */

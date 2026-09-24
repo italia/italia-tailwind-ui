@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Example from "../../components/Example.astro";
+import { Code } from "astro:components";
 import { components, type ComponentDoc } from "@italia-daisy/recipes";
 
 export function getStaticPaths() {
@@ -46,10 +47,33 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
   <nav aria-label="Esempi" class="mb-10">
     <ul class="flex flex-wrap gap-2">
       {doc.examples.map((ex) => <li><a href={`#${ex.id}`} class="badge badge-lg badge-outline border-base-content/25 font-semibold hover:bg-base-200">{ex.title}</a></li>)}
+      {doc.snippets?.length && <li><a href="#javascript" class="badge badge-lg badge-outline border-primary/40 font-semibold text-primary hover:bg-base-200">Con JavaScript</a></li>}
     </ul>
   </nav>
 
   <div class="flex flex-col gap-14">
     {doc.examples.map((ex) => <Example example={ex} />)}
   </div>
+
+  {doc.snippets?.length && (
+    <section id="javascript" class="mt-16 scroll-mt-20">
+      <h2 class="mb-1 text-2xl font-bold">Con JavaScript (opzionale)</h2>
+      <p class="mb-6 max-w-3xl text-base-content/75">
+        La ricetta è solo CSS e funziona così com'è. Questi frammenti non sono inclusi nel pacchetto: mostrano come aggiungere
+        il comportamento che richiede uno script, in JavaScript semplice o in React.
+      </p>
+      <div class="flex flex-col gap-8">
+        {doc.snippets.map((s) => (
+          <div>
+            <h3 class="mb-1 flex items-center gap-2 text-lg font-bold">
+              {s.title}
+              <span class="badge badge-sm badge-outline border-base-content/25 font-mono">{s.lang}</span>
+            </h3>
+            {s.description && <p class="mb-2 text-base-content/75">{s.description}</p>}
+            <div class="max-h-[32rem] overflow-auto rounded-box text-sm [&_pre]:p-4"><Code code={s.code.trim()} lang={s.lang} theme="github-dark" /></div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
 </Base>
