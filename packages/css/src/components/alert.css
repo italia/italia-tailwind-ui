@@ -1,0 +1,41 @@
+/*
+ * Alert: daisyUI alert with the .italia 8px coloured bar on the left.
+ *   <div role="alert" class="ita-alert ita-alert-success">
+ *     <svg class="ita-alert-icon">…</svg> <div>testo</div>
+ *     <label class="ita-alert-close"><input type="checkbox" class="sr-only">…</label>
+ *   </div>
+ *   modifiers: ita-alert-{primary|secondary|success|warning|danger}
+ * The close label hides the alert when its checkbox is checked: no JS.
+ */
+@layer components {
+  .ita-alert {
+    @apply alert items-center rounded-none border-l-8 border-base-content/40 bg-base-100 p-4 text-base text-base-content shadow-none;
+    --ita-tone: var(--color-primary);
+    border-left-color: var(--ita-tone);
+    &:has(> .ita-alert-close input:checked) {
+      display: none;
+    }
+  }
+  .ita-alert-secondary {
+    --ita-tone: var(--color-secondary);
+  }
+  .ita-alert-success {
+    --ita-tone: var(--color-success);
+  }
+  .ita-alert-warning {
+    --ita-tone: var(--color-warning);
+  }
+  .ita-alert-danger {
+    --ita-tone: var(--color-error);
+  }
+  .ita-alert-icon {
+    @apply size-8;
+    color: var(--ita-tone);
+  }
+  .ita-alert-close {
+    @apply btn btn-ghost btn-sm btn-square text-base-content/70 hover:text-base-content has-focus-visible:ring-2 has-focus-visible:ring-base-content has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-base-100;
+    & > svg {
+      @apply size-6;
+    }
+  }
+}

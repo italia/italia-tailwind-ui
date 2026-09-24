@@ -1,0 +1,6 @@
+/* Link: daisyUI link in the primary colour. <a class="ita-link"> */
+@layer components {
+  .ita-link {
+    @apply link link-primary;
+  }
+}

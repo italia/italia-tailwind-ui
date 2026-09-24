@@ -1,5 +1,5 @@
 import { icon, type IconName } from "../icons";
-import { cx, type ComponentDoc } from "../types";
+import type { ComponentDoc } from "../types";
 
 export type AlertVariant = "primary" | "secondary" | "success" | "warning" | "danger";
 
@@ -12,19 +12,13 @@ export interface AlertArgs {
   dismissible?: boolean;
 }
 
-const bar: Record<AlertVariant, string> = {
-  primary: "border-l-primary",
-  secondary: "border-l-secondary",
-  success: "border-l-success",
-  warning: "border-l-warning",
-  danger: "border-l-error",
-};
-const tint: Record<AlertVariant, string> = {
-  primary: "text-primary",
-  secondary: "text-secondary",
-  success: "text-success",
-  warning: "text-warning",
-  danger: "text-error",
+// Literal class maps: Tailwind only sees classes written out in full.
+const variants: Record<AlertVariant, string> = {
+  primary: "ita-alert-primary",
+  secondary: "ita-alert-secondary",
+  success: "ita-alert-success",
+  warning: "ita-alert-warning",
+  danger: "ita-alert-danger",
 };
 const defaultIcon: Record<AlertVariant, IconName> = {
   primary: "it-info-circle",
@@ -36,24 +30,20 @@ const defaultIcon: Record<AlertVariant, IconName> = {
 
 export function alert(a: AlertArgs = {}): string {
   const variant = a.variant ?? "primary";
-  const ic = a.icon === false ? "" : icon(a.icon ?? defaultIcon[variant], cx("size-8", tint[variant]));
-  const cls = cx(
-    "alert items-center rounded-none border-base-content/40 border-l-8 bg-base-100 p-4 text-base-content shadow-none",
-    bar[variant],
-    a.dismissible && "has-checked:hidden",
-  );
+  const ic = a.icon === false ? "" : icon(a.icon ?? defaultIcon[variant], "ita-alert-icon");
+  // The close label hides the alert through ita-alert:has(… input:checked).
   const close = a.dismissible
-    ? `\n  <label class="btn btn-ghost btn-sm btn-square text-base-content/70 hover:text-base-content has-focus-visible:ring-2 has-focus-visible:ring-base-content has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-base-100">
-    <input type="checkbox" class="sr-only"><span class="sr-only">Chiudi avviso</span>${icon("it-close", "size-6")}
+    ? `\n  <label class="ita-alert-close">
+    <input type="checkbox" class="sr-only"><span class="sr-only">Chiudi avviso</span>${icon("it-close", "")}
   </label>`
     : "";
-  return `<div role="alert" class="${cls}">
+  return `<div role="alert" class="ita-alert ${variants[variant]}">
   ${ic}
-  <div class="text-base">${a.content ?? `Questo è un alert di tipo "<strong>${variant}</strong>".`}</div>${close}
+  <div>${a.content ?? `Questo è un alert di tipo "<strong>${variant}</strong>".`}</div>${close}
 </div>`;
 }
 
-const variants: AlertVariant[] = ["primary", "secondary", "success", "warning", "danger"];
+const allVariants: AlertVariant[] = ["primary", "secondary", "success", "warning", "danger"];
 
 export const doc: ComponentDoc = {
   slug: "alert",
@@ -61,14 +51,15 @@ export const doc: ComponentDoc = {
   replaces: "<it-alert>",
   summary:
     "Messaggi di stato con la barra sinistra .italia: daisyUI alert, con bordo sinistro da 8px nel colore della variante e icona colorata.",
+  classes: ["ita-alert", "ita-alert-primary", "ita-alert-secondary", "ita-alert-success", "ita-alert-warning", "ita-alert-danger", "ita-alert-icon", "ita-alert-close"],
   daisy: ["alert", "btn-ghost", "btn-square"],
   cssOnly:
-    "La chiusura usa un checkbox dentro una label e la variante Tailwind has-checked:hidden sull'alert: niente JavaScript.",
+    "La chiusura usa un checkbox dentro la label ita-alert-close: quando è selezionato, ita-alert:has(… input:checked) nasconde l'alert. Niente JavaScript.",
   examples: [
     {
       id: "esempi",
       title: "Esempi",
-      html: `<div class="flex flex-col gap-4">\n${variants.map((v) => alert({ variant: v })).join("\n")}\n</div>`,
+      html: `<div class="flex flex-col gap-4">\n${allVariants.map((v) => alert({ variant: v })).join("\n")}\n</div>`,
     },
     {
       id: "link-evidenziato",

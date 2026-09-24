@@ -1,0 +1,73 @@
+/*
+ * Button: daisyUI btn with the .italia weight (600), 16px text and a wider
+ * gap next to an icon.
+ *   <button class="ita-btn ita-btn-primary">
+ *   modifiers: ita-btn-{primary|secondary|success|danger|warning|link},
+ *   ita-btn-outline, ita-btn-lg, ita-btn-xs, ita-btn-block; ita-btn-icon is the
+ *   white circle around an icon.
+ * Anything the base sets directly (like --fontsize) the size modifiers set
+ * directly too: a value only @applied from daisyUI sits in a nested layer and
+ * would lose to it.
+ */
+@layer components {
+  .ita-btn {
+    @apply btn font-semibold;
+    --fontsize: 1rem;
+    & > svg {
+      @apply size-6;
+    }
+    &:has(> svg, > .ita-btn-icon) {
+      @apply gap-3;
+    }
+    &:is(a)[aria-disabled="true"] {
+      @apply btn-disabled;
+    }
+  }
+  .ita-btn-primary {
+    @apply btn-primary;
+  }
+  .ita-btn-secondary {
+    @apply btn-secondary;
+  }
+  .ita-btn-success {
+    @apply btn-success;
+  }
+  .ita-btn-danger {
+    @apply btn-error;
+  }
+  .ita-btn-warning {
+    @apply btn-warning;
+  }
+  .ita-btn-link {
+    @apply btn-link;
+    /* daisyUI greys disabled buttons with :not(.btn-link, .btn-ghost): that
+       check reads its own class name, so the exception is repeated here. */
+    &:is(:disabled, [disabled], [aria-disabled="true"]) {
+      background-color: transparent;
+    }
+  }
+  .ita-btn-outline {
+    @apply btn-outline border-2;
+  }
+  .ita-btn-lg {
+    @apply btn-lg;
+    --fontsize: 1.125rem;
+  }
+  .ita-btn-xs {
+    @apply btn-sm;
+    --fontsize: 0.75rem;
+    & > svg {
+      @apply size-5;
+    }
+  }
+  .ita-btn-block {
+    @apply btn-block;
+  }
+  .ita-btn-icon {
+    @apply grid size-7 place-items-center rounded-full bg-base-100;
+    color: var(--btn-color, var(--color-primary));
+    & > svg {
+      @apply size-4;
+    }
+  }
+}

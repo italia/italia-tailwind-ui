@@ -213,7 +213,7 @@ export const specs: Spec[] = [
     },
   },
   dismiss("alert", "chiusura", '[role="alert"]'),
-  dismiss("chip", "chiusura", ".badge"),
+  dismiss("chip", "chiusura", ".ita-chip"),
   dismiss("notification", "chiusura", '[role="status"], [role="alert"]'),
   {
     component: "skiplinks",

@@ -5,7 +5,7 @@
     - /placeholder: input-sm
   - text: Campo standard
   - textbox "Campo standard":
-    - /placeholder: 40px, come bootstrap-italia
+    - /placeholder: 44px (--size-field del tema)
   - text: Campo grande
   - textbox "Campo grande":
     - /placeholder: input-lg

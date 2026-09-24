@@ -20,63 +20,38 @@ export interface ButtonArgs {
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const solid: Record<ButtonVariant, string> = {
-  primary: "btn-primary",
-  secondary: "btn-secondary",
-  success: "btn-success",
-  danger: "btn-error",
-  warning: "btn-warning",
-  link: "btn-link",
-};
-const outline: Record<ButtonVariant, string> = {
-  primary: "btn-outline btn-primary border-2",
-  secondary: "btn-outline btn-secondary border-2",
-  success: "btn-outline btn-success border-2",
-  danger: "btn-outline btn-error border-2",
-  warning: "btn-outline btn-warning border-2",
-  link: "btn-link",
-};
-const text: Record<ButtonVariant, string> = {
-  primary: "text-primary",
-  secondary: "text-secondary",
-  success: "text-success",
-  danger: "text-error",
-  warning: "text-warning",
-  link: "text-primary",
+const colors: Record<ButtonVariant, string> = {
+  primary: "ita-btn-primary",
+  secondary: "ita-btn-secondary",
+  success: "ita-btn-success",
+  danger: "ita-btn-danger",
+  warning: "ita-btn-warning",
+  link: "ita-btn-link",
 };
 const sizes: Record<ButtonSize, string> = {
-  lg: "btn-lg",
+  lg: "ita-btn-lg",
   default: "",
-  xs: "btn-sm",
+  xs: "ita-btn-xs",
 };
-const iconSizes: Record<ButtonSize, string> = { lg: "size-6", default: "size-6", xs: "size-5" };
 
 /** The class list of a button, so other recipes can put it on a different tag. */
 export function buttonClass(a: ButtonArgs = {}): string {
   const { variant = "primary", size = "default" } = a;
   return cx(
-    "btn font-semibold",
-    a.outline ? outline[variant] : solid[variant],
+    "ita-btn",
+    colors[variant],
+    a.outline && variant !== "link" && "ita-btn-outline",
     sizes[size],
-    a.block && "btn-block",
-    a.icon && "gap-3",
-    a.href && a.disabled && "btn-disabled",
+    a.block && "ita-btn-block",
   );
 }
 
 export function button(a: ButtonArgs = {}): string {
-  const {
-    label = "Pulsante",
-    variant = "primary",
-    size = "default",
-    type = "button",
-  } = a;
+  const { label = "Pulsante", type = "button" } = a;
   const cls = buttonClass(a);
   let iconHtml = "";
   if (a.icon) {
-    iconHtml = a.roundedIcon
-      ? `<span class="grid size-7 place-items-center rounded-full bg-base-100 ${text[variant]}">${icon(a.icon, "size-4")}</span>`
-      : icon(a.icon, iconSizes[size]);
+    iconHtml = a.roundedIcon ? `<span class="ita-btn-icon">${icon(a.icon, "")}</span>` : icon(a.icon, "");
   }
   const inner = `${iconHtml}<span>${label}</span>`;
   if (a.href) {
@@ -96,7 +71,8 @@ export const doc: ComponentDoc = {
   name: "Button",
   replaces: "<it-button>",
   summary:
-    "Pulsanti per azioni: una classe daisyUI btn più la variante di colore. Il peso 600 e il gap per le icone arrivano da utility Tailwind.",
+    "Pulsanti per azioni: ita-btn più la variante di colore. Sotto c'è daisyUI btn, con il peso 600, il testo a 16px e lo spazio per le icone di .italia.",
+  classes: ["ita-btn", "ita-btn-primary", "ita-btn-secondary", "ita-btn-success", "ita-btn-danger", "ita-btn-warning", "ita-btn-link", "ita-btn-outline", "ita-btn-lg", "ita-btn-xs", "ita-btn-block", "ita-btn-icon"],
   daisy: ["btn", "btn-primary", "btn-outline", "btn-link", "btn-lg", "btn-sm", "btn-block", "badge"],
   examples: [
     {
@@ -150,7 +126,7 @@ export const doc: ComponentDoc = {
     {
       id: "badge",
       title: "Con badge",
-      html: `<button type="button" class="btn btn-primary font-semibold gap-2">
+      html: `<button type="button" class="ita-btn ita-btn-primary gap-2">
   Notifiche <span class="badge badge-sm rounded-sm bg-base-100 text-primary border-0 font-semibold">4</span>
   <span class="sr-only">Messaggi non letti</span>
 </button>`,

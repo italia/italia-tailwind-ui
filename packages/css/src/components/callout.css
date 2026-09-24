@@ -1,0 +1,86 @@
+/*
+ * Callout: boxed or "highlight" note with an uppercase title and an icon.
+ *   <section class="ita-callout ita-callout-success" aria-labelledby="t">
+ *     <div class="ita-callout-header"><svg class="ita-callout-icon">…</svg>
+ *       <h2 id="t" class="ita-callout-title">Titolo</h2></div>
+ *     <div class="ita-callout-body"><p>…</p></div>
+ *   </section>
+ *   modifiers: ita-callout-{primary|success|warning|danger}, ita-callout-highlight,
+ *   ita-callout-big
+ * "Approfondimento": ita-callout-more (with the it-fold-corner extension),
+ * ita-callout-more-footer and ita-callout-more-toggle, whose [data-closed] and
+ * [data-open] labels swap when the <details> opens.
+ */
+@layer components {
+  .ita-callout {
+    @apply my-8 border-2 border-base-content/60 bg-base-100 p-6 text-base text-base-content/85;
+    --ita-tone: color-mix(in oklab, var(--color-base-content) 70%, transparent);
+  }
+  .ita-callout-primary {
+    border-color: var(--color-primary);
+    --ita-tone: var(--color-primary);
+  }
+  .ita-callout-success {
+    border-color: var(--color-success);
+    --ita-tone: var(--color-success);
+  }
+  .ita-callout-warning {
+    border-color: var(--color-warning);
+    --ita-tone: var(--color-warning);
+  }
+  .ita-callout-danger {
+    border-color: var(--color-error);
+    --ita-tone: var(--color-error);
+  }
+  .ita-callout-highlight {
+    border-width: 0;
+    border-left-width: 2px;
+    background-color: transparent;
+    padding-block: 0;
+  }
+  .ita-callout-big {
+    @apply text-xl;
+  }
+  .ita-callout-header {
+    @apply mb-4 flex items-center gap-2;
+  }
+  .ita-callout-icon {
+    @apply size-8;
+    color: var(--ita-tone);
+  }
+  .ita-callout-title {
+    @apply text-base font-semibold uppercase text-base-content sm:text-lg;
+  }
+  .ita-callout-body {
+    & > p {
+      @apply mb-4;
+    }
+    & > p:last-child {
+      @apply mb-0;
+    }
+  }
+  .ita-callout-more {
+    @apply my-8 bg-base-200 p-8 text-base-content/85;
+    & > p {
+      @apply mb-4;
+    }
+  }
+  .ita-callout-more-footer {
+    @apply flex items-start gap-4 border-t border-base-content/20 pt-6;
+  }
+  .ita-callout-more-toggle {
+    @apply inline-flex cursor-pointer list-none items-center gap-2 text-primary hover:underline;
+    &::-webkit-details-marker {
+      display: none;
+    }
+    & > [data-open] {
+      display: none;
+    }
+    details[open] > & > [data-open] {
+      display: inline;
+    }
+    details[open] > & > [data-closed] {
+      display: none;
+    }
+  }
+}

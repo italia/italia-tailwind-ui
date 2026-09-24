@@ -1,0 +1,107 @@
+/*
+ * Chip: daisyUI badge enlarged to 32/40px, neutral or outlined in a colour,
+ * with optional icon, avatar and a CSS-only close button.
+ *   <span class="ita-chip ita-chip-primary">…</span>   (an <a> for link chips)
+ *   modifiers: ita-chip-{primary|secondary|success|danger|warning}, ita-chip-lg
+ *   parts: ita-chip-avatar, ita-chip-close; aria-disabled="true" greys it out
+ * Colours go through daisyUI's own badge variables (--badge-color, --badge-bg,
+ * --badge-fg) and --ita-fill, the solid colour used on hover and by the avatar.
+ */
+@layer components {
+  .ita-chip {
+    @apply badge h-auto min-h-8 gap-2 rounded-selector px-3 py-1 text-base font-semibold leading-tight;
+    --badge-color: color-mix(in oklab, var(--color-base-content) 25%, transparent);
+    --badge-bg: var(--color-base-200);
+    --badge-fg: color-mix(in oklab, var(--color-base-content) 80%, transparent);
+    --ita-fill: var(--color-base-content);
+    --ita-fill-fg: var(--color-base-100);
+    --ita-avatar-bg: var(--color-neutral);
+    --ita-avatar-fg: var(--color-neutral-content);
+    & > svg {
+      @apply size-4;
+    }
+    &:is(a) {
+      @apply underline underline-offset-2;
+    }
+    &:is(a):hover {
+      --badge-color: var(--ita-fill);
+      --badge-bg: var(--ita-fill);
+      --badge-fg: var(--ita-fill-fg);
+    }
+    &[aria-disabled="true"] {
+      --badge-color: var(--color-base-300);
+      --badge-bg: var(--color-base-300);
+      --badge-fg: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+      --ita-avatar-bg: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+      --ita-avatar-fg: var(--color-base-100);
+    }
+    &:has(> .ita-chip-close input:checked) {
+      display: none;
+    }
+  }
+  .ita-chip-primary {
+    --badge-color: var(--color-primary);
+    --badge-bg: transparent;
+    --badge-fg: var(--color-primary);
+    --ita-fill: var(--color-primary);
+    --ita-fill-fg: var(--color-primary-content);
+    --ita-avatar-bg: var(--color-primary);
+    --ita-avatar-fg: var(--color-primary-content);
+  }
+  .ita-chip-secondary {
+    --badge-color: var(--color-secondary);
+    --badge-bg: transparent;
+    --badge-fg: var(--color-secondary);
+    --ita-fill: var(--color-secondary);
+    --ita-fill-fg: var(--color-secondary-content);
+    --ita-avatar-bg: var(--color-secondary);
+    --ita-avatar-fg: var(--color-secondary-content);
+  }
+  .ita-chip-success {
+    --badge-color: var(--color-success);
+    --badge-bg: transparent;
+    --badge-fg: var(--color-success);
+    --ita-fill: var(--color-success);
+    --ita-fill-fg: var(--color-success-content);
+    --ita-avatar-bg: var(--color-success);
+    --ita-avatar-fg: var(--color-success-content);
+  }
+  .ita-chip-danger {
+    --badge-color: var(--color-error);
+    --badge-bg: transparent;
+    --badge-fg: var(--color-error);
+    --ita-fill: var(--color-error);
+    --ita-fill-fg: var(--color-error-content);
+    --ita-avatar-bg: var(--color-error);
+    --ita-avatar-fg: var(--color-error-content);
+  }
+  .ita-chip-warning {
+    --badge-color: var(--color-warning);
+    --badge-bg: transparent;
+    --badge-fg: var(--color-warning);
+    --ita-fill: var(--color-warning);
+    --ita-fill-fg: var(--color-warning-content);
+    --ita-avatar-bg: var(--color-warning);
+    --ita-avatar-fg: var(--color-warning-content);
+  }
+  .ita-chip-lg {
+    @apply min-h-10 px-4 text-lg;
+    & > svg {
+      @apply size-6;
+    }
+  }
+  .ita-chip-avatar {
+    @apply grid size-6 place-items-center rounded-full text-xs leading-none;
+    background-color: var(--ita-avatar-bg);
+    color: var(--ita-avatar-fg);
+    .ita-chip-lg > & {
+      @apply size-7 text-sm;
+    }
+  }
+  .ita-chip-close {
+    @apply -me-1 grid cursor-pointer place-items-center rounded-full has-focus-visible:ring-2 has-focus-visible:ring-base-content has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-base-100;
+    & > svg {
+      @apply size-6;
+    }
+  }
+}

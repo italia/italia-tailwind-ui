@@ -22,9 +22,15 @@ const { doc } = Astro.props;
   <dl class="mb-10 grid gap-x-8 gap-y-3 rounded-box bg-base-200 p-5 text-sm sm:grid-cols-[max-content_1fr]">
     <dt class="font-semibold">Sostituisce</dt>
     <dd><code class="font-mono">{doc.replaces}</code></dd>
+    {doc.classes?.length && (
+      <>
+        <dt class="font-semibold">Classi</dt>
+        <dd class="flex flex-wrap gap-1.5">{doc.classes.map((c) => <code class="rounded-sm bg-primary/10 px-1.5 py-0.5 font-mono text-primary">{c}</code>)}</dd>
+      </>
+    )}
     {doc.daisy.length > 0 && (
       <>
-        <dt class="font-semibold">Classi daisyUI</dt>
+        <dt class="font-semibold">{doc.classes?.length ? "Basato su (daisyUI)" : "Classi daisyUI"}</dt>
         <dd class="flex flex-wrap gap-1.5">{doc.daisy.map((c) => <code class="rounded-sm bg-base-100 px-1.5 py-0.5 font-mono">{c}</code>)}</dd>
       </>
     )}

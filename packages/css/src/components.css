@@ -1,0 +1,16 @@
+/*
+ * The public .italia classes (ita-*), one file per component. Each composes
+ * daisyUI classes and Tailwind utilities with @apply, so the HTML carries one
+ * to three classes and daisyUI stays an internal dependency: its class names
+ * never appear in the markup. They sit in the components layer, so any
+ * utility in the markup still overrides them.
+ *
+ * Watch for daisyUI selectors that test its own class names, such as
+ * .btn:disabled:not(.btn-link, .btn-ghost): with ita-* names in the markup
+ * they no longer match, and the exception has to be written again here.
+ */
+@import "./components/link.css";
+@import "./components/button.css";
+@import "./components/alert.css";
+@import "./components/chip.css";
+@import "./components/callout.css";

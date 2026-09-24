@@ -28,6 +28,8 @@ export interface ComponentDoc {
   /** The dev-kit-italia web component this recipe replaces. */
   replaces: string;
   summary: string;
+  /** The public ita-* classes of the component, when it has them (packages/css/src/components). */
+  classes?: string[];
   /** daisyUI component classes the recipe is built on. */
   daisy: string[];
   /** it-* extension classes it needs from @italia-daisy/css, if any. */
