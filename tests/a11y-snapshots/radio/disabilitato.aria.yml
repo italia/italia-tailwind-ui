@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Radio: Gruppo disabilitato" [level=1]'
+  - group "Fascia oraria":
+    - text: Fascia oraria
+    - radio "Mattina" [checked] [disabled]
+    - text: Mattina
+    - radio "Pomeriggio" [disabled]
+    - text: Pomeriggio

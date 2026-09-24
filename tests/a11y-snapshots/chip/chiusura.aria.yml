@@ -1,0 +1,9 @@
+- main:
+  - 'heading "Chip: Chip con chiusura" [level=1]'
+  - text: Etichetta
+  - checkbox "Elimina etichetta"
+  - text: Elimina etichetta Etichetta
+  - checkbox "Elimina etichetta"
+  - text: Elimina etichetta Etichetta
+  - checkbox "Elimina etichetta"
+  - text: Elimina etichetta

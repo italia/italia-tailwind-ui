@@ -124,9 +124,10 @@ ${toolbar({ size: "sm", items: defaultItems.slice(0, 5) })}
       html: `<div class="h-96">${toolbar({ vertical: true, items: defaultItems.filter((i) => !i.disabled) })}</div>`,
     },
     {
-      id: "scuro",
-      title: "Tema scuro",
-      html: `<div data-theme="italia-dark" class="h-56 rounded-box bg-base-200 p-6">${toolbar()}</div>`,
+      id: "sfondo-primario",
+      title: "Su sfondo primario",
+      description: "Il contenitore ha la classe it-surface-primary: i token si scambiano (base diventa primary, primary diventa primary-content) e il componente si adatta senza opzioni.",
+      html: `<div class="it-surface-primary h-56 rounded-box p-6">${toolbar()}</div>`,
     },
   ],
   snippets: [

@@ -94,9 +94,10 @@ export const doc: ComponentDoc = {
 </div>`,
     },
     {
-      id: "scuro",
-      title: "Tema scuro",
-      html: `<div data-theme="italia-dark" class="mx-auto max-w-sm overflow-hidden rounded-box">
+      id: "sfondo-primario",
+      title: "Su sfondo primario",
+      description: "Il contenitore ha la classe it-surface-primary: i token si scambiano (base diventa primary, primary diventa primary-content) e il componente si adatta senza opzioni.",
+      html: `<div class="it-surface-primary mx-auto max-w-sm overflow-hidden rounded-box">
   <div class="h-24 bg-base-200"></div>
   ${bottomNav({ position: "static" })}
 </div>`,

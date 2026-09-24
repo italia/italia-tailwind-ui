@@ -1,0 +1,54 @@
+- main:
+  - 'heading "Thumbnav: Dimensioni" [level=1]'
+  - navigation "Miniature piccole":
+    - list:
+      - listitem:
+        - link "Paesaggio 1":
+          - /url: "#"
+          - img "Paesaggio 1"
+      - listitem:
+        - link "Paesaggio 2":
+          - /url: "#"
+          - img "Paesaggio 2"
+      - listitem:
+        - link "Paesaggio 3":
+          - /url: "#"
+          - img "Paesaggio 3"
+      - listitem:
+        - link "Paesaggio 4":
+          - /url: "#"
+          - img "Paesaggio 4"
+      - listitem:
+        - link "Paesaggio 5":
+          - /url: "#"
+          - img "Paesaggio 5"
+      - listitem:
+        - link "Paesaggio 6":
+          - /url: "#"
+          - img "Paesaggio 6"
+      - listitem:
+        - link "Paesaggio 7":
+          - /url: "#"
+          - img "Paesaggio 7"
+  - navigation "Miniature grandi":
+    - list:
+      - listitem:
+        - link "Paesaggio 1":
+          - /url: "#"
+          - img "Paesaggio 1"
+      - listitem:
+        - link "Paesaggio 2":
+          - /url: "#"
+          - img "Paesaggio 2"
+      - listitem:
+        - link "Paesaggio 3":
+          - /url: "#"
+          - img "Paesaggio 3"
+      - listitem:
+        - link "Paesaggio 4":
+          - /url: "#"
+          - img "Paesaggio 4"
+      - listitem:
+        - link "Paesaggio 5":
+          - /url: "#"
+          - img "Paesaggio 5"

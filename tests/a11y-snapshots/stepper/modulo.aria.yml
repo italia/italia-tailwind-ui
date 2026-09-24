@@ -1,0 +1,17 @@
+- main:
+  - 'heading "Stepper: Modulo a passi" [level=1]'
+  - navigation "Passaggi della domanda":
+    - list:
+      - listitem: Informativa
+      - listitem: Dati personali
+      - listitem: Documenti
+      - listitem: Pagamento
+      - listitem: Riepilogo
+  - region "Informativa":
+    - heading "Informativa" [level=3]
+    - paragraph: Prima di iniziare leggi l'informativa sul trattamento dei dati personali.
+    - checkbox "Ho letto l'informativa"
+    - text: Ho letto l'informativa
+  - button "Indietro" [disabled]
+  - paragraph: Passo 1 di 5
+  - button "Avanti"

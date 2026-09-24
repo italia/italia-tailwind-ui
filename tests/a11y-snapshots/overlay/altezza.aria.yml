@@ -1,0 +1,11 @@
+- main:
+  - 'heading "Overlay: Pannello a tutta altezza e con icona" [level=1]'
+  - figure "Pannello a tutta altezza":
+    - img "Breve descrizione immagine"
+    - text: Pannello a tutta altezza
+  - figure "Ingrandisci l'immagine":
+    - img "Breve descrizione immagine"
+    - img "Ingrandisci l'immagine"
+  - figure "Riproduci il video":
+    - img "Breve descrizione immagine"
+    - img "Riproduci il video"

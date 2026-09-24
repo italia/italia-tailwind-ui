@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Toggle: Disabilitato" [level=1]'
+  - text: Interruttore disabilitato
+  - switch "Interruttore disabilitato" [disabled]
+  - text: Interruttore attivo e disabilitato
+  - switch "Interruttore attivo e disabilitato" [checked] [disabled]

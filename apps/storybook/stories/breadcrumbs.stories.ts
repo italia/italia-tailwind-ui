@@ -6,8 +6,8 @@ const meta: Meta<BreadcrumbsArgs> = {
   title: "Componenti/Breadcrumbs",
   tags: ["autodocs"],
   render: (args) => breadcrumbs(args),
-  args: {"separator": "slash", "dark": false},
-  argTypes: {"separator": {"control": "select", "options": ["slash", "chevron"]}},
+  args: {"separator": "slash", "surface": "base"},
+  argTypes: {"surface": {"control": "inline-radio", "options": ["base", "neutral"]}, "separator": {"control": "select", "options": ["slash", "chevron"]}},
   parameters: { docs: { description: { component: describe(doc) } } },
 };
 export default meta;
@@ -18,4 +18,4 @@ export const Playground: Story = {};
 export const Base: Story = example(doc, "base");
 export const Icona: Story = example(doc, "icona");
 export const Separatore: Story = example(doc, "separatore");
-export const Scuro: Story = example(doc, "scuro");
+export const SfondoNeutral: Story = example(doc, "sfondo-neutral");

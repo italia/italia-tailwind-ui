@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Input: Etichetta flottante" [level=1]'
+  - textbox "Nome"
+  - text: Nome
+  - textbox "Città"
+  - text: Città

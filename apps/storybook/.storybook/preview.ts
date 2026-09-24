@@ -1,6 +1,6 @@
 import type { Preview } from "@storybook/html-vite";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
-import { themes } from "@italia-daisy/recipes";
+import { themes, defaultTheme } from "@italia-daisy/recipes";
 import "./preview.css";
 
 const preview: Preview = {
@@ -14,7 +14,7 @@ const preview: Preview = {
   decorators: [
     withThemeByDataAttribute({
       themes: Object.fromEntries(themes.map((t) => [t.label, t.id])),
-      defaultTheme: "Italia",
+      defaultTheme: defaultTheme.label,
       attributeName: "data-theme",
     }),
     // Paint the story surface with the active theme's base colour.

@@ -1,0 +1,21 @@
+- main:
+  - 'heading "Breadcrumbs: Su sfondo neutral" [level=1]'
+  - navigation "Percorso di navigazione":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: "#"
+      - listitem:
+        - text: /
+        - link "Sezione":
+          - /url: "#"
+      - listitem: / Voce corrente
+  - navigation "Percorso di navigazione":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: "#"
+      - listitem:
+        - link "Sezione":
+          - /url: "#"
+      - listitem: Voce corrente

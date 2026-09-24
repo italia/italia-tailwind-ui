@@ -6,7 +6,7 @@ const meta: Meta<BackToTopArgs> = {
   title: "Componenti/Back to top",
   tags: ["autodocs"],
   render: (args) => backToTop(args),
-  args: {"label":"Torna su","large":false,"inverse":false,"shadow":false,"position":"static"},
+  args: {"label":"Torna su","large":false,"shadow":false,"position":"static"},
   argTypes: {"position":{"control":"inline-radio","options":["static","fixed"]}},
   parameters: { docs: { description: { component: describe(doc) } } },
 };

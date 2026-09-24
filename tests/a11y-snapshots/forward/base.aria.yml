@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Forward: Esempio base" [level=1]'
+  - paragraph: Prima sezione
+  - link "Vai al contenuto successivo":
+    - /url: "#contenuto-forward"
+  - paragraph: Sezione successiva

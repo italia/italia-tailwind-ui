@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Video: Video con sottotitoli" [level=1]'
+  - figure "Un fiore in primavera":
+    - text: Un fiore in primavera
+    - group: Trascrizione

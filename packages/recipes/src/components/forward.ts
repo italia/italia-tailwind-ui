@@ -7,7 +7,7 @@ export interface ForwardArgs {
   /** Accessible name; the link shows only the arrow. */
   label?: string;
   size?: "default" | "lg";
-  /** Light arrow for a dark background. */
+  /** @deprecated Put the arrow inside an it-surface-primary container instead. */
   inverse?: boolean;
 }
 
@@ -47,10 +47,11 @@ export const doc: ComponentDoc = {
     },
     {
       id: "hero",
-      title: "Su sfondo scuro",
-      html: `<div class="flex flex-col items-center gap-4 rounded-box bg-primary p-10 text-primary-content">
+      title: "Su sfondo primario",
+      description: "Dentro it-surface-primary la freccia prende da sola il colore del testo della fascia.",
+      html: `<div class="it-surface-primary flex flex-col items-center gap-4 rounded-box p-10">
   <p class="text-2xl font-bold">Benvenuti nel portale del Comune</p>
-  ${forward({ inverse: true, size: "lg" })}
+  ${forward({ size: "lg" })}
 </div>`,
     },
   ],

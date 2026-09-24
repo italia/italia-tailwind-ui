@@ -1,0 +1,23 @@
+- main:
+  - 'heading "Carousel: Immagini a tutta larghezza" [level=1]'
+  - region "Galleria del territorio":
+    - group "1 di 5":
+      - img "Edificio comunale"
+      - paragraph: Nuovo sportello digitale
+      - paragraph: Prenota un appuntamento con l'anagrafe direttamente online.
+    - group "2 di 5":
+      - img "Strada cittadina"
+      - paragraph: Mobilità sostenibile
+      - paragraph: Quaranta nuove stazioni di bike sharing in tutta la città.
+    - group "3 di 5":
+      - img "Aula scolastica"
+      - paragraph: Scuole aperte
+      - paragraph: Iscrizioni ai servizi di mensa e trasporto fino al 30 settembre.
+    - group "4 di 5":
+      - img "Parco cittadino"
+      - paragraph: Estate in città
+      - paragraph: Il programma completo degli eventi culturali nei parchi.
+    - group "5 di 5":
+      - img "Paesaggio verde"
+      - paragraph: Raccolta differenziata
+      - paragraph: Cambiano i giorni di ritiro nei quartieri nord.

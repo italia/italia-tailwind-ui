@@ -1,0 +1,18 @@
+- main:
+  - 'heading "Card: Card per profili personali" [level=1]'
+  - article:
+    - text: NP
+    - heading "Nome Personale" [level=3]:
+      - link "Nome Personale":
+        - /url: "#"
+    - paragraph: Ruolo nell'organizzazione
+    - term: "Area:"
+    - definition: Nome dell'area di appartenenza
+  - article:
+    - text: MV
+    - heading "Maria Verde" [level=3]:
+      - link "Maria Verde":
+        - /url: "#"
+    - paragraph: Responsabile comunicazione
+    - term: "Area:"
+    - definition: Nome dell'area di appartenenza

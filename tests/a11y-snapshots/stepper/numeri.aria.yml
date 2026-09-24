@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Stepper: Con numeri" [level=1]'
+  - navigation "Passaggi della domanda":
+    - list:
+      - listitem: Informativa (completato)
+      - listitem: Dati personali (completato)
+      - listitem: Documenti
+      - listitem: Pagamento
+      - listitem: Riepilogo
+  - button "Indietro"
+  - paragraph: Passo 3 di 5
+  - button "Avanti"

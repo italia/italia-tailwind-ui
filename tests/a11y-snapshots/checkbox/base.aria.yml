@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Checkbox: Esempio base" [level=1]'
+  - checkbox "Accetto i termini del servizio"
+  - text: Accetto i termini del servizio
+  - checkbox "Iscrivimi alla newsletter" [checked]
+  - text: Iscrivimi alla newsletter

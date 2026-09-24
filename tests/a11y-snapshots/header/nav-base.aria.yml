@@ -1,0 +1,14 @@
+- main:
+  - 'heading "Header: Header nav - sfondo base" [level=1]'
+  - navigation "Navigazione principale":
+    - list:
+      - listitem:
+        - link "Link attivo":
+          - /url: "#"
+      - listitem:
+        - link "Link disabilitato" [disabled]:
+          - /url: "#"
+      - listitem:
+        - group: Dropdown
+      - listitem:
+        - group: Megamenu

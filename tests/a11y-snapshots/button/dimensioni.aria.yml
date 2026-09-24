@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Button: Varianti di dimensione" [level=1]'
+  - button "Primary Large"
+  - button "Secondary Large"
+  - button "Primary Default"
+  - button "Primary Extra Small"
+  - button "Primary Block"
+  - button "Secondary Block"

@@ -1,0 +1,4 @@
+- main:
+  - 'heading "Hero: Con overlay e filtro di colore primario" [level=1]'
+  - region "In evidenza":
+    - img "Veduta di montagna"

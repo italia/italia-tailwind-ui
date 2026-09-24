@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Hero: Con contenuti sovrapposti" [level=1]'
+  - region "Titolo della sezione":
+    - img "Veduta di montagna"
+    - text: Titolo occhiello
+    - heading "Titolo della sezione" [level=2]
+    - paragraph: Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut.
+    - link "Azione primaria":
+      - /url: "#"
+  - article:
+    - heading "Titolo del contenuto" [level=3]
+    - paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

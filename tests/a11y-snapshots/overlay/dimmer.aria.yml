@@ -1,0 +1,19 @@
+- main:
+  - 'heading "Overlay: Dimmer" [level=1]'
+  - checkbox "Toggle dimmer"
+  - text: Toggle dimmer
+  - article:
+    - figure
+    - heading "Titolo del contenuto" [level=3]:
+      - link "Titolo del contenuto":
+        - /url: "#"
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione.
+  - article:
+    - figure
+    - heading "Titolo del contenuto" [level=3]:
+      - link "Titolo del contenuto":
+        - /url: "#"
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione.
+  - group "Toggle dimmer":
+    - text: Toggle dimmer
+    - paragraph: Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras.

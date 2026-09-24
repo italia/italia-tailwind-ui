@@ -1,0 +1,23 @@
+- main:
+  - 'heading "Select: Validazione" [level=1]'
+  - text: Regione
+  - combobox "Regione" [invalid]:
+    - option "Scegli un'opzione" [selected]
+    - option "Abruzzo"
+    - option "Basilicata"
+    - option "Calabria"
+    - option "Campania"
+    - option "Lazio"
+    - option "Lombardia"
+    - option "Toscana"
+  - paragraph: Seleziona una regione
+  - text: Regione
+  - combobox "Regione":
+    - option "Scegli un'opzione" [selected]
+    - option "Abruzzo"
+    - option "Basilicata"
+    - option "Calabria"
+    - option "Campania"
+    - option "Lazio"
+    - option "Lombardia"
+    - option "Toscana"

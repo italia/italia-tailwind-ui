@@ -1,0 +1,13 @@
+- main:
+  - 'heading "Card: Card banner" [level=1]'
+  - article:
+    - heading "Titolo del contenuto" [level=3]:
+      - link "Titolo del contenuto":
+        - /url: "#"
+    - paragraph: Scopri maggiori informazioni
+  - article:
+    - heading "Titolo del contenuto" [level=3]:
+      - link "Titolo del contenuto":
+        - /url: "#"
+    - paragraph: Scopri maggiori informazioni
+    - button "Apri il form di iscrizione"

@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Back to top: Fisso nella pagina" [level=1]'
+  - paragraph: Scorri la pagina verso il basso.
+  - link "Torna su":
+    - /url: "#top"

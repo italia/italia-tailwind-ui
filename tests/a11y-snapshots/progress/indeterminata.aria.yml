@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Progress: Indeterminata" [level=1]'
+  - text: Ricerca in corso
+  - progressbar "Ricerca in corso"
+  - text: Verifica dei dati
+  - progressbar "Verifica dei dati"

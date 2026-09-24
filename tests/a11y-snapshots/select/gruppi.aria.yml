@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Select: Gruppi di opzioni" [level=1]'
+  - text: Servizio
+  - combobox "Servizio":
+    - option "Scegli un servizio" [selected]

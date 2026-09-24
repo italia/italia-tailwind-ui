@@ -1,0 +1,10 @@
+- main:
+  - 'heading "Input: Tipologie di campo" [level=1]'
+  - text: Password
+  - textbox "Password"
+  - text: Numero
+  - spinbutton "Numero": "3"
+  - text: Data
+  - textbox "Data"
+  - text: Ora
+  - textbox "Ora"

@@ -1,0 +1,10 @@
+- main:
+  - 'heading "Checkbox: Con descrizione" [level=1]'
+  - group "Notifiche":
+    - text: Notifiche
+    - checkbox "Email Ricevi un riepilogo settimanale all'indirizzo registrato." [checked]
+    - text: Email Ricevi un riepilogo settimanale all'indirizzo registrato.
+    - checkbox "SMS Solo per scadenze e pagamenti."
+    - text: SMS Solo per scadenze e pagamenti.
+    - checkbox "App IO Messaggi e avvisi sull'app dei servizi pubblici."
+    - text: App IO Messaggi e avvisi sull'app dei servizi pubblici.

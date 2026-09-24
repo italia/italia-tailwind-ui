@@ -1,0 +1,9 @@
+- main:
+  - 'heading "Skiplinks: Esempio base" [level=1]'
+  - navigation "Scorciatoie di navigazione":
+    - link "Vai al contenuto principale":
+      - /url: "#skip-main"
+    - link "Vai al piè di pagina":
+      - /url: "#skip-footer"
+  - paragraph: Contenuto principale
+  - paragraph: Piè di pagina

@@ -7,7 +7,7 @@ const meta: Meta<HeroArgs> = {
   tags: ["autodocs"],
   render: (args) => hero(args),
   args: {"category": "Titolo occhiello", "title": "Titolo della sezione", "text": "Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut.", "ctaLabel": "Azione primaria", "image": "https://picsum.photos/seed/hero-italia/1600/700", "overlay": "dark", "center": false, "overlap": false, "small": false},
-  argTypes: {"overlay": {"control": "select", "options": ["none", "dark", "primary", "filter"]}, "headingLevel": {"control": "select", "options": [1, 2, 3]}},
+  argTypes: {"overlay": {"control": "select", "options": ["none", "neutral", "primary", "filter"]}, "headingLevel": {"control": "select", "options": [1, 2, 3]}},
   parameters: { layout: "fullscreen", docs: { description: { component: describe(doc) } } },
 };
 export default meta;

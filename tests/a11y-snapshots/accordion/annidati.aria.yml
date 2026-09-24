@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Accordion: Accordion annidati" [level=1]'
+  - group:
+    - 'heading "Elemento richiudibile #1" [level=2]'
+    - group:
+      - 'heading "Elemento richiudibile annidato #1" [level=3]'
+    - group:
+      - 'heading "Elemento richiudibile annidato #2" [level=3]'
+    - group:
+      - 'heading "Elemento richiudibile annidato #3" [level=3]'
+  - group:
+    - 'heading "Elemento richiudibile #2" [level=2]'

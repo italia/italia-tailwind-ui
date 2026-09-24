@@ -1,0 +1,47 @@
+- main:
+  - 'heading "Toolbar: Dimensioni" [level=1]'
+  - navigation "Barra degli strumenti":
+    - list:
+      - listitem:
+        - link "Condividi":
+          - /url: "#"
+      - listitem:
+        - link "Scarica":
+          - /url: "#"
+      - listitem:
+        - link "Stampa":
+          - /url: "#"
+      - separator
+      - listitem:
+        - link "Commenti , 4 nuovi commenti":
+          - /url: "#"
+  - navigation "Barra degli strumenti":
+    - list:
+      - listitem:
+        - link "Condividi":
+          - /url: "#"
+      - listitem:
+        - link "Scarica":
+          - /url: "#"
+      - listitem:
+        - link "Stampa":
+          - /url: "#"
+      - separator
+      - listitem:
+        - link "Commenti , 4 nuovi commenti":
+          - /url: "#"
+  - navigation "Barra degli strumenti":
+    - list:
+      - listitem:
+        - link "Condividi":
+          - /url: "#"
+      - listitem:
+        - link "Scarica":
+          - /url: "#"
+      - listitem:
+        - link "Stampa":
+          - /url: "#"
+      - separator
+      - listitem:
+        - link "Commenti , 4 nuovi commenti":
+          - /url: "#"

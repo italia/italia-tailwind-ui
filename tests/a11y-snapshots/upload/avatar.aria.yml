@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Upload: Foto del profilo" [level=1]'
+  - img "Foto del profilo attuale"
+  - button "Cambia foto"
+  - text: Cambia foto
+  - paragraph: JPG o PNG, almeno 200×200 px

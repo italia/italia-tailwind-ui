@@ -1,0 +1,3 @@
+- main:
+  - 'heading "Badge: Badge arrotondati" [level=1]'
+  - text: Primary Secondary Success Danger Warning

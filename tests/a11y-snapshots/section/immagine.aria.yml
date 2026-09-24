@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Section: Con immagine" [level=1]'
+  - region "Scopri il territorio":
+    - heading "Scopri il territorio" [level=2]
+    - paragraph: Itinerari, musei ed eventi in città.
+    - link "Esplora":
+      - /url: "#"

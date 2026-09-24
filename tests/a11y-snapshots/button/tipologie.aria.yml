@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Button: Tipologie" [level=1]'
+  - button "Button - Primary"
+  - button "Submit - Primary"
+  - button "Reset - Secondary"
+  - link "Link come pulsante":
+    - /url: "#"

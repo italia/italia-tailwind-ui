@@ -1,0 +1,20 @@
+- main:
+  - 'heading "Section: Sfondo di enfasi" [level=1]'
+  - region "Numeri utili":
+    - heading "Numeri utili" [level=2]
+    - paragraph: Pronto intervento, uffici e servizi attivi 24 ore su 24.
+    - article:
+      - heading "Servizio 1" [level=3]:
+        - link "Servizio 1":
+          - /url: "#"
+      - paragraph: Breve descrizione del servizio, di una o due righe.
+    - article:
+      - heading "Servizio 2" [level=3]:
+        - link "Servizio 2":
+          - /url: "#"
+      - paragraph: Breve descrizione del servizio, di una o due righe.
+    - article:
+      - heading "Servizio 3" [level=3]:
+        - link "Servizio 3":
+          - /url: "#"
+      - paragraph: Breve descrizione del servizio, di una o due righe.

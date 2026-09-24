@@ -1,0 +1,20 @@
+- main:
+  - 'heading "Section: Sfondo grigio" [level=1]'
+  - region "In evidenza":
+    - heading "In evidenza" [level=2]
+    - paragraph: Le notizie più lette della settimana.
+    - article:
+      - heading "Servizio 1" [level=3]:
+        - link "Servizio 1":
+          - /url: "#"
+      - paragraph: Breve descrizione del servizio, di una o due righe.
+    - article:
+      - heading "Servizio 2" [level=3]:
+        - link "Servizio 2":
+          - /url: "#"
+      - paragraph: Breve descrizione del servizio, di una o due righe.
+    - article:
+      - heading "Servizio 3" [level=3]:
+        - link "Servizio 3":
+          - /url: "#"
+      - paragraph: Breve descrizione del servizio, di una o due righe.

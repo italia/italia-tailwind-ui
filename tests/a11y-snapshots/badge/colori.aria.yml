@@ -1,0 +1,3 @@
+- main:
+  - 'heading "Badge: Variazioni di colore" [level=1]'
+  - text: Primary Secondary Success Danger Warning

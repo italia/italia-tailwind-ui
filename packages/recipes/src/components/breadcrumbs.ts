@@ -11,7 +11,9 @@ export interface BreadcrumbsArgs {
   items?: BreadcrumbItem[];
   /** "slash" = .italia "/" (it-slash extension), "chevron" = daisyUI default. */
   separator?: "slash" | "chevron";
-  /** Inverted surface (bg-neutral), the dev-kit "dark" variant. */
+  /** Surface: "base" (default, the page) or "neutral", the dev-kit "dark" variant. */
+  surface?: "base" | "neutral";
+  /** @deprecated Use `surface: "neutral"`. */
   dark?: boolean;
   label?: string;
 }
@@ -24,18 +26,19 @@ const defaultItems: BreadcrumbItem[] = [
 
 export function breadcrumbs(a: BreadcrumbsArgs = {}): string {
   const { items = defaultItems, separator = "slash", label = "Percorso di navigazione" } = a;
+  const onNeutral = (a.surface ?? (a.dark ? "neutral" : "base")) === "neutral";
   const cls = cx(
     "breadcrumbs text-base",
     separator === "slash" && "it-slash",
-    a.dark ? "rounded-box bg-neutral px-4 text-neutral-content" : "",
+    onNeutral ? "rounded-box bg-neutral px-4 text-neutral-content" : "",
   );
-  const link = a.dark ? "font-semibold underline underline-offset-2" : "font-semibold text-base-content/80 underline underline-offset-2 hover:text-base-content";
+  const link = onNeutral ? "font-semibold underline underline-offset-2" : "font-semibold text-base-content/80 underline underline-offset-2 hover:text-base-content";
   const li = items
     .map((it, i) => {
       const ic = it.icon ? icon(it.icon, "size-5 opacity-80") : "";
       const last = i === items.length - 1;
       return last || !it.href
-        ? `<li><span aria-current="page" class="${cx("inline-flex items-center gap-1", !a.dark && "text-base-content")}">${ic}${it.label}</span></li>`
+        ? `<li><span aria-current="page" class="${cx("inline-flex items-center gap-1", !onNeutral && "text-base-content")}">${ic}${it.label}</span></li>`
         : `<li><a href="${it.href}" class="${link}">${ic}${it.label}</a></li>`;
     })
     .join("\n    ");
@@ -70,9 +73,10 @@ export const doc: ComponentDoc = {
       html: breadcrumbs({ separator: "chevron" }),
     },
     {
-      id: "scuro",
-      title: "Sfondo scuro",
-      html: `<div class="flex flex-col gap-4">\n${breadcrumbs({ dark: true })}\n${breadcrumbs({ dark: true, separator: "chevron", items: withIcons })}\n</div>`,
+      id: "sfondo-neutral",
+      title: "Su sfondo neutral",
+      description: "surface: \"neutral\" è la variante scura di Dev Kit Italia; il colore reale lo decide il tema.",
+      html: `<div class="flex flex-col gap-4">\n${breadcrumbs({ surface: "neutral" })}\n${breadcrumbs({ surface: "neutral", separator: "chevron", items: withIcons })}\n</div>`,
     },
   ],
 };

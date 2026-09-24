@@ -1,0 +1,4 @@
+- main:
+  - 'heading "Autocomplete: Senza icona" [level=1]'
+  - text: Linguaggio di programmazione
+  - combobox "Linguaggio di programmazione"

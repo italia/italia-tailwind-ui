@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Megamenu: Con call to action in basso" [level=1]'
+  - navigation "Navigazione principale":
+    - list:
+      - listitem:
+        - group: Megamenu

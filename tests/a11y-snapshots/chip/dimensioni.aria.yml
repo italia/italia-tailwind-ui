@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Chip: Varianti di dimensione" [level=1]'
+  - text: Etichetta sm
+  - checkbox "Elimina etichetta"
+  - text: Elimina etichetta Etichetta lg
+  - checkbox "Elimina etichetta"
+  - text: Elimina etichetta

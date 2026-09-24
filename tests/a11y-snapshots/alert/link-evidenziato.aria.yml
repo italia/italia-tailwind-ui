@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Alert: Link evidenziato" [level=1]'
+  - alert:
+    - text: Questo è un alert con un esempio di
+    - link "link evidenziato":
+      - /url: "#"
+    - text: .

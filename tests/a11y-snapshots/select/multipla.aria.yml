@@ -1,0 +1,11 @@
+- main:
+  - 'heading "Select: Selezione multipla" [level=1]'
+  - text: Regioni di interesse
+  - listbox "Regioni di interesse":
+    - option "Abruzzo"
+    - option "Basilicata" [selected]
+    - option "Calabria"
+    - option "Campania"
+    - option "Lazio" [selected]
+    - option "Lombardia"
+    - option "Toscana"

@@ -7,7 +7,7 @@ const meta: Meta<OverlayArgs> = {
   tags: ["autodocs"],
   render: (args) => overlay(args),
   args: {"text": "Titolo del contenuto", "tone": "primary", "height": "band", "onHover": false},
-  argTypes: {"tone": {"control": "inline-radio", "options": ["primary", "black"]}, "height": {"control": "inline-radio", "options": ["band", "full"]}, "icon": {"control": "select", "options": ["it-zoom-in", "it-video", "it-camera", "it-external-link"]}},
+  argTypes: {"tone": {"control": "inline-radio", "options": ["primary", "neutral"]}, "height": {"control": "inline-radio", "options": ["band", "full"]}, "icon": {"control": "select", "options": ["it-zoom-in", "it-video", "it-camera", "it-external-link"]}},
   parameters: { docs: { description: { component: describe(doc) } } },
 };
 export default meta;

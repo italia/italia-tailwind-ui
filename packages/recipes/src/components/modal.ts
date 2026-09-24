@@ -173,7 +173,7 @@ export const doc: ComponentDoc = {
       title: "Tre modi di aprirla",
       description: "Stesso markup del corpo, tre inneschi diversi.",
       html: row([
-        modal({ triggerLabel: "Con <dialog> e command", title: "Aperta con command" }),
+        modal({ triggerLabel: "Con &lt;dialog&gt; e command", title: "Aperta con command" }),
         modal({ triggerLabel: "Con :target", title: "Aperta con :target", trigger: "target" }),
         modal({ triggerLabel: "Con checkbox", title: "Aperta con checkbox", trigger: "checkbox" }),
       ]),

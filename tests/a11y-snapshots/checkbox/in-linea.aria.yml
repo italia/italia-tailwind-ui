@@ -1,0 +1,14 @@
+- main:
+  - 'heading "Checkbox: In linea" [level=1]'
+  - group "Giorni di reperibilità":
+    - text: Giorni di reperibilità
+    - checkbox "Lun" [checked]
+    - text: Lun
+    - checkbox "Mar" [checked]
+    - text: Mar
+    - checkbox "Mer"
+    - text: Mer
+    - checkbox "Gio"
+    - text: Gio
+    - checkbox "Ven"
+    - text: Ven

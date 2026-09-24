@@ -1,6 +1,8 @@
 import { cx, type ComponentDoc } from "../types";
 
-export type HeroOverlay = "none" | "dark" | "primary" | "filter";
+/** Overlay on the image. "dark" is the deprecated name of "neutral". */
+export type HeroOverlay = "none" | "neutral" | "primary" | "filter" | "dark";
+type Overlay = Exclude<HeroOverlay, "dark">;
 
 export interface HeroArgs {
   /** Occhiello: the small uppercase label above the title. */
@@ -11,7 +13,7 @@ export interface HeroArgs {
   imageAlt?: string;
   /** Centre the text block. */
   center?: boolean;
-  /** Overlay on top of the background image. Defaults to "dark" when there are both an image and text. */
+  /** Overlay on top of the background image. Defaults to "neutral" when there are both an image and text. */
   overlay?: HeroOverlay;
   /** Negative bottom margin, so the block after the hero overlaps it. */
   overlap?: boolean;
@@ -25,23 +27,23 @@ export interface HeroArgs {
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const overlayFill: Record<HeroOverlay, string> = {
+const overlayFill: Record<Overlay, string> = {
   none: "",
-  dark: "hero-overlay bg-neutral/85",
+  neutral: "hero-overlay bg-neutral/85",
   primary: "hero-overlay bg-primary/85",
   filter: "",
 };
-const overlayText: Record<HeroOverlay, string> = {
+const overlayText: Record<Overlay, string> = {
   none: "text-primary-content",
-  dark: "text-neutral-content",
+  neutral: "text-neutral-content",
   primary: "text-primary-content",
   filter: "text-primary-content",
 };
 // daisyUI's .btn sets its own color, so currentColor inside it is the button's,
 // not the hero's: the CTA names the same token the surface uses.
-const ctaColor: Record<HeroOverlay, string> = {
+const ctaColor: Record<Overlay, string> = {
   none: "border-primary-content text-primary-content hover:bg-primary-content hover:text-primary",
-  dark: "border-neutral-content text-neutral-content hover:bg-neutral-content hover:text-neutral",
+  neutral: "border-neutral-content text-neutral-content hover:bg-neutral-content hover:text-neutral",
   primary: "border-primary-content text-primary-content hover:bg-primary-content hover:text-primary",
   filter: "border-primary-content text-primary-content hover:bg-primary-content hover:text-primary",
 };
@@ -52,8 +54,9 @@ export function hero(a: HeroArgs = {}): string {
   const {
     title = "Titolo della sezione",
     headingLevel = 2,
-    overlay = a.image && (a.title !== "" || a.text) ? "dark" : "none",
+    overlay: requested = a.image && (a.title !== "" || a.text) ? "neutral" : "none",
   } = a;
+  const overlay: Overlay = requested === "dark" ? "neutral" : requested;
   const h = `h${headingLevel}`;
   const id = `hero-${++counter}-title`;
   const hasText = Boolean(a.category || title || a.text || a.ctaLabel);

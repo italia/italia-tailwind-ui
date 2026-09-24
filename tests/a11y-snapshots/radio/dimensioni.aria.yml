@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Radio: Dimensioni" [level=1]'
+  - radio "Piccolo" [checked]
+  - text: Piccolo
+  - radio "Standard"
+  - text: Standard
+  - radio "Grande"
+  - text: Grande

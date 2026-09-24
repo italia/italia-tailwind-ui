@@ -1,0 +1,10 @@
+- main:
+  - 'heading "Radio: Esempio base" [level=1]'
+  - group "Modalità di ritiro":
+    - text: Modalità di ritiro
+    - radio "Presso lo sportello" [checked]
+    - text: Presso lo sportello
+    - radio "Spedizione a domicilio"
+    - text: Spedizione a domicilio
+    - radio "Download dal fascicolo online"
+    - text: Download dal fascicolo online

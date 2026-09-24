@@ -1,0 +1,76 @@
+- main:
+  - 'heading "Pagination: Allineamento" [level=1]'
+  - navigation "Paginazione":
+    - list:
+      - listitem:
+        - link "Pagina precedente":
+          - /url: "?page=2"
+      - listitem:
+        - link "1":
+          - /url: "?page=1"
+      - listitem:
+        - link "2":
+          - /url: "?page=2"
+      - listitem:
+        - link "3":
+          - /url: "?page=3"
+      - listitem:
+        - link "4":
+          - /url: "?page=4"
+      - listitem:
+        - link "5":
+          - /url: "?page=5"
+      - listitem:
+        - link "Pagina successiva":
+          - /url: "?page=4"
+    - paragraph: Totale 300 elementi
+  - separator
+  - navigation "Paginazione":
+    - list:
+      - listitem:
+        - link "Pagina precedente":
+          - /url: "?page=2"
+      - listitem:
+        - link "1":
+          - /url: "?page=1"
+      - listitem:
+        - link "2":
+          - /url: "?page=2"
+      - listitem:
+        - link "3":
+          - /url: "?page=3"
+      - listitem:
+        - link "4":
+          - /url: "?page=4"
+      - listitem:
+        - link "5":
+          - /url: "?page=5"
+      - listitem:
+        - link "Pagina successiva":
+          - /url: "?page=4"
+    - paragraph: Totale 300 elementi
+  - separator
+  - navigation "Paginazione":
+    - list:
+      - listitem:
+        - link "Pagina precedente":
+          - /url: "?page=2"
+      - listitem:
+        - link "1":
+          - /url: "?page=1"
+      - listitem:
+        - link "2":
+          - /url: "?page=2"
+      - listitem:
+        - link "3":
+          - /url: "?page=3"
+      - listitem:
+        - link "4":
+          - /url: "?page=4"
+      - listitem:
+        - link "5":
+          - /url: "?page=5"
+      - listitem:
+        - link "Pagina successiva":
+          - /url: "?page=4"
+    - paragraph: Totale 300 elementi

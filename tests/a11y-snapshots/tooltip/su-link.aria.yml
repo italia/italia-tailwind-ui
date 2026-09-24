@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Tooltip: Su link e testo" [level=1]'
+  - text: Testo del tooltip
+  - link "Un link con tooltip":
+    - /url: "#"
+  - button "Acronimo"
+  - tooltip "Spiegazione dell'acronimo"

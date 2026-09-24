@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Megamenu: Megamenu base" [level=1]'
+  - navigation "Navigazione principale":
+    - list:
+      - listitem:
+        - group: Megamenu

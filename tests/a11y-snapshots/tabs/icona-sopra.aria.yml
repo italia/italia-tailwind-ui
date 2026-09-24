@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Tabs: Icona sopra l''etichetta" [level=1]'
+  - group "Schede":
+    - radio "Documenti" [checked]
+    - text: Documenti
+    - paragraph: Contenuto della scheda 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    - radio "Messaggi"
+    - text: Messaggi
+    - radio "Pagamenti"
+    - text: Pagamenti
+    - radio "Archivio" [disabled]
+    - text: Archivio

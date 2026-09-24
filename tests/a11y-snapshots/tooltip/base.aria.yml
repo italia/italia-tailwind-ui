@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Tooltip: Esempio base" [level=1]'
+  - text: Testo del tooltip
+  - button "Mostra tooltip"
+  - text: Testo del tooltip
+  - button "Su un pulsante outline"

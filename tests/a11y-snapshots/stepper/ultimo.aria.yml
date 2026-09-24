@@ -1,0 +1,10 @@
+- main:
+  - 'heading "Stepper: Ultimo passo" [level=1]'
+  - navigation "Passaggi della domanda":
+    - list:
+      - listitem: Dati (completato)
+      - listitem: Allegati (completato)
+      - listitem: Riepilogo
+  - button "Indietro"
+  - paragraph: Passo 3 di 3
+  - button "Invia la domanda"

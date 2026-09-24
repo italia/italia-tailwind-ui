@@ -1,6 +1,7 @@
 ---
+import { storybookUrl } from "../lib/storybook";
 import "../styles/global.css";
-import { components, themes, icon } from "@italia-daisy/recipes";
+import { components, themes, defaultTheme, icon } from "@italia-daisy/recipes";
 
 interface Props {
   title: string;
@@ -15,7 +16,7 @@ const path = Astro.url.pathname;
 ---
 
 <!doctype html>
-<html lang='it' data-theme='italia'>
+<html lang='it' data-theme={defaultTheme.id}>
   <head>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -30,7 +31,10 @@ const path = Astro.url.pathname;
     <script is:inline>
       // Restore the theme picked last time (the switcher itself is CSS-only daisyUI theme-controller).
       try {
-        const t = localStorage.getItem("italia-daisy-theme");
+        let t = localStorage.getItem("italia-daisy-theme");
+        // renamed themes: italia-v3 -> italia-original, italia -> italia-custom
+        const renamed = { "italia-v3": "italia-original", italia: "italia-custom" };
+        if (renamed[t]) localStorage.setItem("italia-daisy-theme", (t = renamed[t]));
         if (t) document.documentElement.dataset.theme = t;
       } catch {}
     </script>
@@ -61,7 +65,7 @@ const path = Astro.url.pathname;
           >
           <div class='flex-1'></div>
           <a
-            href={`${base}storybook/`}
+            href={storybookUrl}
             class='btn btn-ghost btn-sm font-semibold'>Storybook</a
           >
           <div class='dropdown dropdown-end'>
@@ -87,7 +91,7 @@ const path = Astro.url.pathname;
                         value={t.id}
                         aria-label={t.label}
                         class='theme-controller radio radio-sm radio-primary'
-                        checked={t.id === "italia"}
+                        checked={t.id === defaultTheme.id}
                       />
                       <span
                         data-theme={t.id}
@@ -150,6 +154,11 @@ const path = Astro.url.pathname;
             <li>
               <a href={base} class:list={["", { "menu-active": path === base }]}
                 >Introduzione</a
+              >
+            </li>
+            <li>
+              <a href={`${base}accessibilita/`} class:list={["", { "menu-active": path.startsWith(`${base}accessibilita`) }]}
+                >Accessibilità</a
               >
             </li>
             <li class='menu-title mt-4'>Componenti</li>

@@ -1,0 +1,11 @@
+- main:
+  - 'heading "Bottom navigation: Esempio base" [level=1]'
+  - navigation "Navigazione principale":
+    - link "Home":
+      - /url: "#"
+    - link "Messaggi , 3 messaggi non letti":
+      - /url: "#"
+    - link "Pagamenti , avviso in scadenza":
+      - /url: "#"
+    - link "Profilo":
+      - /url: "#"

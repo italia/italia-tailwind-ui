@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Avatar: Come link" [level=1]'
+  - link "Profilo di Mario Rossi":
+    - /url: "#"
+    - img "Profilo di Mario Rossi"
+  - link "Profilo di Anna Verdi":
+    - /url: "#"

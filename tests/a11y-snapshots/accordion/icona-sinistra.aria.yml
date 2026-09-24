@@ -1,0 +1,9 @@
+- main:
+  - 'heading "Accordion: Icona a sinistra" [level=1]'
+  - group:
+    - 'heading "Elemento richiudibile #1" [level=2]'
+    - paragraph: Vestibulum hendrerit ultrices nibh, sed pharetra lacus ultrices eget. Morbi et ipsum et sapien dapibus facilisis. Integer eget semper nibh. Proin enim nulla, egestas ac rutrum eget, ullamcorper nec turpis.
+  - group:
+    - 'heading "Elemento richiudibile #2" [level=2]'
+  - group:
+    - 'heading "Elemento richiudibile #3" [level=2]'

@@ -1,9 +1,13 @@
 import { icon, type IconName } from "../icons";
 import { cx, type ComponentDoc } from "../types";
 
-export type OverlayTone = "primary" | "black";
+/** Panel colour. "black" is the deprecated name of "neutral". */
+export type OverlayTone = "primary" | "neutral" | "black";
 export type OverlayHeight = "band" | "full";
-export type DimmerVariant = "dark" | "primary";
+/** Veil colour. "dark" is the deprecated name of "neutral". */
+export type DimmerVariant = "neutral" | "primary" | "dark";
+type Veil = Exclude<DimmerVariant, "dark">;
+const veilOf = (v: DimmerVariant): Veil => (v === "dark" ? "neutral" : v);
 
 export interface OverlayArgs {
   image?: string;
@@ -39,28 +43,28 @@ export interface DimmerArgs {
 // Literal class maps: Tailwind only sees classes written out in full.
 // overlay-background-primary is the primary at 85%, overlay-background-light
 // black at 50%: both read as a token plus an alpha step.
-const tones: Record<OverlayTone, string> = {
+const tones: Record<Exclude<OverlayTone, "black">, string> = {
   primary: "bg-primary/85 text-primary-content",
-  black: "bg-neutral/60 text-neutral-content",
+  neutral: "bg-neutral/60 text-neutral-content",
 };
-const dimmerTone: Record<DimmerVariant, string> = {
-  dark: "bg-neutral/90 text-neutral-content",
+const dimmerTone: Record<Veil, string> = {
+  neutral: "bg-neutral/90 text-neutral-content",
   primary: "bg-primary/90 text-primary-content",
 };
 // daisyUI's .btn sets its own color, so a button on the veil cannot inherit it:
 // each action names the token pair of the veil it sits on.
-const actionSolid: Record<DimmerVariant, string> = {
-  dark: "border-0 bg-neutral-content text-neutral hover:bg-neutral-content/90",
+const actionSolid: Record<Veil, string> = {
+  neutral: "border-0 bg-neutral-content text-neutral hover:bg-neutral-content/90",
   primary: "border-0 bg-primary-content text-primary hover:bg-primary-content/90",
 };
-const actionOutline: Record<DimmerVariant, string> = {
-  dark: "bg-transparent border-neutral-content text-neutral-content hover:bg-neutral-content hover:text-neutral",
+const actionOutline: Record<Veil, string> = {
+  neutral: "bg-transparent border-neutral-content text-neutral-content hover:bg-neutral-content hover:text-neutral",
   primary: "bg-transparent border-primary-content text-primary-content hover:bg-primary-content hover:text-primary",
 };
 
 /** A button readable on the dimmer's veil, whichever variant it uses. */
 export function dimmerAction(label: string, o: { primary?: boolean; variant?: DimmerVariant } = {}): string {
-  const v = o.variant ?? "dark";
+  const v = veilOf(o.variant ?? "neutral");
   return `<button type="button" class="btn border-2 font-semibold ${o.primary ? actionSolid[v] : actionOutline[v]}">${label}</button>`;
 }
 
@@ -78,7 +82,7 @@ export function overlay(a: OverlayArgs = {}): string {
   } = a;
   const panel = cx(
     "absolute inset-x-0 bottom-0 px-4 py-3 text-sm font-semibold md:text-base",
-    tones[tone],
+    tones[tone === "black" ? "neutral" : tone],
     height === "full" && "top-0 flex",
     height === "full" && (a.icon ? "items-center justify-center" : "items-end"),
     a.onHover && "opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100",
@@ -107,9 +111,10 @@ export function dimmer(a: DimmerArgs = {}): string {
   const {
     children = "",
     text = "Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras.",
-    variant = "dark",
+    variant: requested = "neutral",
     toggleLabel = "Toggle dimmer",
   } = a;
+  const variant = veilOf(requested);
   const id = a.id ?? `dimmer-${++counter}`;
   const panel = cx(
     "pointer-events-none absolute inset-0 z-10 flex flex-wrap items-start justify-center p-8 opacity-0 transition-opacity",
@@ -161,7 +166,7 @@ export const doc: ComponentDoc = {
       title: "Pannello sull'immagine",
       html: row([
         overlay({ text: "Titolo del contenuto" }),
-        overlay({ text: "Versione scura", tone: "black" }),
+        overlay({ text: "Pannello neutral", tone: "neutral" }),
       ]),
     },
     {
@@ -170,7 +175,7 @@ export const doc: ComponentDoc = {
       html: row([
         overlay({ height: "full", text: "Pannello a tutta altezza" }),
         overlay({ height: "full", icon: "it-zoom-in", text: "Ingrandisci l'immagine" }),
-        overlay({ height: "full", tone: "black", icon: "it-video", text: "Riproduci il video" }),
+        overlay({ height: "full", tone: "neutral", icon: "it-video", text: "Riproduci il video" }),
       ]),
     },
     {

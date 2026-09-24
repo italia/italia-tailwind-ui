@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Notification: Solo titolo" [level=1]'
+  - status "Modifiche salvate":
+    - paragraph: Modifiche salvate
+  - status "Senza icona":
+    - paragraph: Senza icona

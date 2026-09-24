@@ -1,0 +1,22 @@
+- main:
+  - 'heading "Alert: Esempi" [level=1]'
+  - alert:
+    - text: Questo è un alert di tipo "
+    - strong: primary
+    - text: "\"."
+  - alert:
+    - text: Questo è un alert di tipo "
+    - strong: secondary
+    - text: "\"."
+  - alert:
+    - text: Questo è un alert di tipo "
+    - strong: success
+    - text: "\"."
+  - alert:
+    - text: Questo è un alert di tipo "
+    - strong: warning
+    - text: "\"."
+  - alert:
+    - text: Questo è un alert di tipo "
+    - strong: danger
+    - text: "\"."

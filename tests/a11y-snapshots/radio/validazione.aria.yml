@@ -1,0 +1,9 @@
+- main:
+  - 'heading "Radio: Validazione" [level=1]'
+  - group "Sei residente nel comune?":
+    - text: Sei residente nel comune?
+    - radio "Sì"
+    - text: Sì
+    - radio "No"
+    - text: "No"
+    - paragraph: Scegli una delle due risposte

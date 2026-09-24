@@ -1,0 +1,9 @@
+- main:
+  - 'heading "Skiplinks: Aspetto" [level=1]'
+  - navigation "Scorciatoie di navigazione":
+    - link "Vai al contenuto principale":
+      - /url: "#main"
+    - link "Vai alla navigazione":
+      - /url: "#nav"
+    - link "Vai al piè di pagina":
+      - /url: "#footer"

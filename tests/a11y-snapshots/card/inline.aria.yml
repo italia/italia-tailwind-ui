@@ -1,0 +1,22 @@
+- main:
+  - 'heading "Card: Card inline" [level=1]'
+  - article:
+    - figure:
+      - img "Città"
+    - heading "Titolo del contenuto" [level=3]:
+      - link "Titolo del contenuto":
+        - /url: "#"
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.
+    - link "Categoria":
+      - /url: "#"
+    - time: 22 aprile 2026
+  - article:
+    - figure:
+      - img "Natura"
+    - heading "Titolo del contenuto" [level=3]:
+      - link "Titolo del contenuto":
+        - /url: "#"
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.
+    - link "Categoria":
+      - /url: "#"
+    - time: 22 aprile 2026

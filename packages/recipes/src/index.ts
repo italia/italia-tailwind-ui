@@ -99,13 +99,20 @@ export { video, videoEmbed } from "./components/video";
 export const components = [accordionDoc, alertDoc, autocompleteDoc, avatarDoc, backDoc, backToTopDoc, badgeDoc, bottomNavDoc, breadcrumbsDoc, buttonDoc, calloutDoc, cardDoc, carouselDoc, checkboxDoc, chipDoc, collapseDoc, dropdownDoc, footerDoc, forwardDoc, headerDoc, heroDoc, inputDoc, megamenuDoc, modalDoc, navscrollDoc, notificationDoc, overlayDoc, paginationDoc, popoverDoc, progressDoc, radioDoc, ratingDoc, sectionDoc, selectDoc, skiplinksDoc, stepperDoc, stickyDoc, tabsDoc, thumbnavDoc, timelineDoc, toggleDoc, toolbarDoc, tooltipDoc, transferDoc, uploadDoc, videoDoc];
 export { accordionDoc, alertDoc, autocompleteDoc, avatarDoc, backDoc, backToTopDoc, badgeDoc, bottomNavDoc, breadcrumbsDoc, buttonDoc, calloutDoc, cardDoc, carouselDoc, checkboxDoc, chipDoc, collapseDoc, dropdownDoc, footerDoc, forwardDoc, headerDoc, heroDoc, inputDoc, megamenuDoc, modalDoc, navscrollDoc, notificationDoc, overlayDoc, paginationDoc, popoverDoc, progressDoc, radioDoc, ratingDoc, sectionDoc, selectDoc, skiplinksDoc, stepperDoc, stickyDoc, tabsDoc, thumbnavDoc, timelineDoc, toggleDoc, toolbarDoc, tooltipDoc, transferDoc, uploadDoc, videoDoc };
 
-/** Themes shipped by @italia-daisy/css, in switcher order. */
+/**
+ * Themes shipped by @italia-daisy/css, in switcher order: light themes first,
+ * then dark ones. The first entry is the default (default: true in themes.css).
+ */
 export const themes = [
-  { id: "italia", label: "Italia" },
-  { id: "italia-v3", label: "Italia v3" },
-  { id: "italia-dark", label: "Italia dark" },
+  { id: "italia-original", label: "Italia original" },
+  { id: "italia-custom", label: "Italia custom" },
   { id: "light", label: "daisyUI light" },
+  { id: "lofi", label: "lofi" },
+  { id: "italia-dark", label: "Italia dark" },
+  { id: "italia-darker", label: "Italia darker" },
   { id: "dark", label: "daisyUI dark" },
   { id: "dracula", label: "dracula" },
-  { id: "lofi", label: "lofi" },
 ] as const;
+
+/** The theme pages start with. */
+export const defaultTheme = themes[0];

@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Autocomplete: Ricerca con pulsante" [level=1]'
+  - text: Cerca un servizio
+  - combobox "Cerca un servizio"
+  - button "Cerca"

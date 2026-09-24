@@ -1,0 +1,33 @@
+- main:
+  - 'heading "Timeline: Esempio base" [level=1]'
+  - list:
+    - listitem:
+      - paragraph: Gennaio 2024
+      - heading "Avvio del progetto" [level=3]
+      - paragraph: Approvato il piano di rinnovo della rete dei servizi digitali.
+      - separator
+    - listitem:
+      - separator
+      - paragraph: Maggio 2024
+      - heading "Consultazione pubblica" [level=3]
+      - paragraph: Cittadini e associazioni hanno inviato oltre 1.200 contributi.
+      - link "Leggi il report":
+        - /url: "#"
+      - separator
+    - listitem:
+      - separator
+      - paragraph: Settembre 2026
+      - text: Oggi
+      - heading "Apertura del cantiere" [level=3]
+      - paragraph: I lavori sono in corso nei quartieri nord.
+      - separator
+    - listitem:
+      - separator
+      - paragraph: Marzo 2027
+      - heading "Collaudo" [level=3]
+      - paragraph: Verifica tecnica delle nuove infrastrutture.
+      - separator
+    - listitem:
+      - separator
+      - paragraph: Giugno 2027
+      - heading "Inaugurazione" [level=3]

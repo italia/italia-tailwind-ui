@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Tooltip: Sempre visibile" [level=1]'
+  - text: Tooltip sempre visibile
+  - button "Mostra tooltip"
+  - text: Colore primario
+  - button "Primary"
+  - text: Colore danger
+  - button "Danger"

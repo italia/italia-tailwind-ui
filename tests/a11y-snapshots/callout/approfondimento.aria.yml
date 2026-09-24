@@ -1,0 +1,9 @@
+- main:
+  - 'heading "Callout: Approfondimento" [level=1]'
+  - region "Approfondimento":
+    - heading "Approfondimento" [level=2]
+    - paragraph: Quisque suscipit interdum augue non volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec ut libero eget nisl dignissim fermentum ut ut nisi. Aliquam erat volutpat.
+    - paragraph: Quisque suscipit interdum augue non volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec ut libero eget nisl dignissim fermentum ut ut nisi. Aliquam erat volutpat.
+    - group: Leggi tutto
+    - link "Download":
+      - /url: "#"

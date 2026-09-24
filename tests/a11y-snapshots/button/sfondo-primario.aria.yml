@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Button: Su sfondo primario" [level=1]'
+  - button "Primary"
+  - button "Secondary"
+  - button "Primary outline"
+  - button "Link"

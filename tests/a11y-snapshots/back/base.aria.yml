@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Back: Esempio base" [level=1]'
+  - link "Torna indietro":
+    - /url: "#"
+  - link "Torna all'elenco dei servizi":
+    - /url: "#"

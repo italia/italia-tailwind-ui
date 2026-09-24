@@ -1,0 +1,11 @@
+- main:
+  - 'heading "Tabs: Schede come link" [level=1]'
+  - navigation "Sezioni":
+    - link "Panoramica":
+      - /url: "#"
+    - link "Documenti":
+      - /url: "#"
+    - link "Storico":
+      - /url: "#"
+    - link "Non disponibile" [disabled]:
+      - /url: "#"

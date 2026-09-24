@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Breadcrumbs: Con icona" [level=1]'
+  - navigation "Percorso di navigazione":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: "#"
+      - listitem:
+        - text: /
+        - link "Sezione":
+          - /url: "#"
+      - listitem: / Voce corrente

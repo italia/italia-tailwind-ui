@@ -19,4 +19,4 @@ export const Playground: Story = {};
 export const Base: Story = example(doc, "base");
 export const Dimensioni: Story = example(doc, "dimensioni");
 export const Verticale: Story = example(doc, "verticale");
-export const Scuro: Story = example(doc, "scuro");
+export const SfondoPrimario: Story = example(doc, "sfondo-primario");

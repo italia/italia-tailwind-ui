@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Button: Stato disabilitato" [level=1]'
+  - button "Primary" [disabled]
+  - button "Secondary" [disabled]
+  - button "Success" [disabled]
+  - button "Danger" [disabled]
+  - button "Warning" [disabled]
+  - button "Pulsante link" [disabled]

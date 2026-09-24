@@ -1,0 +1,38 @@
+- main:
+  - 'heading "Pagination: Con selettore pagine e salto a pagina" [level=1]'
+  - navigation "Paginazione":
+    - list:
+      - listitem:
+        - link "Pagina precedente":
+          - /url: "?page=1"
+      - listitem:
+        - link "1":
+          - /url: "?page=1"
+      - listitem:
+        - link "2":
+          - /url: "?page=2"
+      - listitem:
+        - link "3":
+          - /url: "?page=3"
+      - listitem:
+        - link "4":
+          - /url: "?page=4"
+      - listitem:
+        - link "5":
+          - /url: "?page=5"
+      - listitem
+      - listitem:
+        - link "10":
+          - /url: "?page=10"
+      - listitem:
+        - link "Pagina successiva":
+          - /url: "?page=3"
+  - text: "Elementi per pagina:"
+  - combobox "Elementi per pagina:":
+    - option "10/pagina" [selected]
+    - option "20/pagina"
+    - option "50/pagina"
+    - option "100/pagina"
+  - text: Vai alla pagina
+  - spinbutton "Vai alla pagina"
+  - button "Vai"

@@ -1,0 +1,19 @@
+- main:
+  - 'heading "Timeline: Compatta" [level=1]'
+  - list:
+    - listitem:
+      - paragraph: 3 marzo
+      - heading "Domanda inviata" [level=3]
+      - paragraph: Protocollo n. 2026/1234.
+      - separator
+    - listitem:
+      - separator
+      - paragraph: 10 marzo
+      - text: Oggi
+      - heading "Istruttoria" [level=3]
+      - paragraph: L'ufficio sta verificando i documenti.
+      - separator
+    - listitem:
+      - separator
+      - paragraph: entro 30 aprile
+      - heading "Esito" [level=3]

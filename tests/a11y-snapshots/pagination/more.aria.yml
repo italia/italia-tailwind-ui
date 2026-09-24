@@ -1,0 +1,33 @@
+- main:
+  - 'heading "Pagination: Più pagine" [level=1]'
+  - navigation "Paginazione":
+    - list:
+      - listitem:
+        - link "Pagina precedente":
+          - /url: "?page=24"
+      - listitem:
+        - link "1":
+          - /url: "?page=1"
+      - listitem
+      - listitem:
+        - link "23":
+          - /url: "?page=23"
+      - listitem:
+        - link "24":
+          - /url: "?page=24"
+      - listitem:
+        - link "25":
+          - /url: "?page=25"
+      - listitem:
+        - link "26":
+          - /url: "?page=26"
+      - listitem:
+        - link "27":
+          - /url: "?page=27"
+      - listitem
+      - listitem:
+        - link "50":
+          - /url: "?page=50"
+      - listitem:
+        - link "Pagina successiva":
+          - /url: "?page=26"

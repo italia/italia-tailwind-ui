@@ -3,6 +3,13 @@ import { cx, type ComponentDoc } from "../types";
 import { chevron } from "./dropdown";
 import { megamenuPanel } from "./megamenu";
 
+/**
+ * Which surface the bands sit on: "primary" (the default, blue bands) or
+ * "base" (the page background with primary text). The name is the daisyUI
+ * token, so it stays true in every theme.
+ */
+export type HeaderSurface = "primary" | "base";
+/** @deprecated Use HeaderSurface: "default" is "primary", "light" is "base". */
 export type HeaderTheme = "default" | "light";
 
 export interface NavLink {
@@ -19,6 +26,8 @@ export interface NavLink {
 export interface HeaderSlimArgs {
   owner?: string;
   links?: NavLink[];
+  surface?: HeaderSurface;
+  /** @deprecated Use `surface`: `theme: "light"` is `surface: "base"`. */
   theme?: HeaderTheme;
   /** Login control: a small button, or the full-width one with a circled icon. */
   access?: "button" | "full" | "none";
@@ -29,6 +38,8 @@ export interface HeaderCenterArgs {
   title?: string;
   tagline?: string;
   brandIcon?: IconName;
+  surface?: HeaderSurface;
+  /** @deprecated Use `surface`: `theme: "light"` is `surface: "base"`. */
   theme?: HeaderTheme;
   /** 64/104px band instead of 72/120px. */
   compact?: boolean;
@@ -41,6 +52,8 @@ export interface HeaderCenterArgs {
 export interface HeaderNavArgs {
   links?: NavLink[];
   secondary?: NavLink[];
+  surface?: HeaderSurface;
+  /** @deprecated Use `surface`: `theme: "light"` is `surface: "base"`. */
   theme?: HeaderTheme;
 }
 
@@ -50,32 +63,36 @@ export interface HeaderArgs extends HeaderSlimArgs, HeaderCenterArgs, HeaderNavA
 }
 
 // Literal class maps: Tailwind only sees classes written out in full.
-const slimSurface: Record<HeaderTheme, string> = {
-  default: "bg-accent text-accent-content",
-  light: "border-b border-primary/20 bg-base-100 text-primary",
+const slimSurface: Record<HeaderSurface, string> = {
+  primary: "bg-accent text-accent-content",
+  base: "border-b border-primary/20 bg-base-100 text-primary",
 };
-const centerSurface: Record<HeaderTheme, string> = {
-  default: "bg-primary text-primary-content",
-  light: "bg-base-100 text-primary",
+const centerSurface: Record<HeaderSurface, string> = {
+  primary: "bg-primary text-primary-content",
+  base: "bg-base-100 text-primary",
 };
-const navSurface: Record<HeaderTheme, string> = {
-  default: "bg-primary text-primary-content",
-  light: "bg-base-100 text-primary lg:border-b lg:border-primary/20",
+const navSurface: Record<HeaderSurface, string> = {
+  primary: "bg-primary text-primary-content",
+  base: "bg-base-100 text-primary lg:border-b lg:border-primary/20",
 };
-const accessButton: Record<HeaderTheme, string> = {
-  default: "btn btn-sm border-0 bg-base-100 font-semibold text-primary hover:bg-base-200",
-  light: "btn btn-sm btn-primary font-semibold",
+const accessButton: Record<HeaderSurface, string> = {
+  primary: "btn btn-sm border-0 bg-base-100 font-semibold text-primary hover:bg-base-200",
+  base: "btn btn-sm btn-primary font-semibold",
 };
 // daisyUI's menu paints [aria-current] with --menu-active-bg: the active nav
 // item names its own colours so it keeps the .italia underline instead.
-const navActive: Record<HeaderTheme, string> = {
-  default: "bg-transparent text-primary-content lg:border-b-4 lg:border-primary-content",
-  light: "bg-transparent text-primary lg:border-b-4 lg:border-primary",
+const navActive: Record<HeaderSurface, string> = {
+  primary: "bg-transparent text-primary-content lg:border-b-4 lg:border-primary-content",
+  base: "bg-transparent text-primary lg:border-b-4 lg:border-primary",
 };
-const searchButton: Record<HeaderTheme, string> = {
-  default: "md:bg-base-100 md:text-primary lg:hover:bg-base-200",
-  light: "md:bg-primary md:text-primary-content lg:hover:bg-accent",
+const searchButton: Record<HeaderSurface, string> = {
+  primary: "md:bg-base-100 md:text-primary lg:hover:bg-base-200",
+  base: "md:bg-primary md:text-primary-content lg:hover:bg-accent",
 };
+
+/** The surface to use: `surface`, or the deprecated `theme` alias. */
+const surfaceOf = (a: { surface?: HeaderSurface; theme?: HeaderTheme }): HeaderSurface =>
+  a.surface ?? (a.theme === "light" ? "base" : "primary");
 
 const container = "mx-auto flex w-full max-w-[1320px] items-center gap-4 px-4";
 
@@ -83,9 +100,9 @@ let counter = 0;
 
 /** Band 1: owner, accessory nav, language switcher, login. */
 export function headerSlim(a: HeaderSlimArgs = {}): string {
+  const surface = surfaceOf(a);
   const {
     owner = "Ente appartenenza",
-    theme = "default",
     access = "button",
     languages = ["ITA", "ENG"],
     links = [
@@ -100,14 +117,14 @@ export function headerSlim(a: HeaderSlimArgs = {}): string {
     )}"${l.active ? ' aria-current="page"' : ""}>${l.label}</a></li>`;
   const login =
     access === "full"
-      ? `<a href="#" class="${accessButton[theme]} gap-2 px-2 md:px-3" aria-label="Accedi all'area personale">
+      ? `<a href="#" class="${accessButton[surface]} gap-2 px-2 md:px-3" aria-label="Accedi all'area personale">
             <span class="grid size-6 place-items-center rounded-full bg-primary text-primary-content">${icon("it-user", "size-4")}</span>
             <span class="hidden lg:block" aria-hidden="true">Accedi all'area personale</span>
           </a>`
       : access === "button"
-        ? `<a href="#" class="${accessButton[theme]}">Accedi</a>`
+        ? `<a href="#" class="${accessButton[surface]}">Accedi</a>`
         : "";
-  return `<div class="${slimSurface[theme]}">
+  return `<div class="${slimSurface[surface]}">
   <div class="${container} h-12 justify-between">
     <a href="#" class="min-w-0 truncate text-sm font-semibold hover:underline">${owner}</a>
     <nav aria-label="Navigazione accessoria" class="hidden grow lg:block">
@@ -134,11 +151,11 @@ export function headerSlim(a: HeaderSlimArgs = {}): string {
 
 /** Band 2: institution brand, socials, search, and the burger on mobile. */
 export function headerCenter(a: HeaderCenterArgs = {}): string {
+  const surface = surfaceOf(a);
   const {
     title = "Nome dell'Istituzione",
     tagline = "Tag line dell'Istituzione",
     brandIcon = "it-pa",
-    theme = "default",
     search = true,
     socials = [
       { name: "it-facebook", label: "Facebook" },
@@ -147,7 +164,7 @@ export function headerCenter(a: HeaderCenterArgs = {}): string {
     ],
   } = a;
   const brandSize = a.compact ? "size-10 md:size-12 lg:size-14" : "size-10 md:size-14 lg:size-18";
-  return `<div class="${centerSurface[theme]}">
+  return `<div class="${centerSurface[surface]}">
   <div class="${container} ${a.compact ? "h-16 lg:h-26" : "h-18 lg:h-30"} justify-between">
     <div class="min-w-0">
       <a href="#" class="flex min-w-0 items-center gap-2 no-underline hover:no-underline">
@@ -178,7 +195,7 @@ export function headerCenter(a: HeaderCenterArgs = {}): string {
         search
           ? `<div class="flex items-center gap-2 text-xs md:ms-6">
         <span class="hidden md:block">Cerca</span>
-        <a href="#" class="grid size-12 place-items-center rounded-full lg:size-14 ${searchButton[theme]}" aria-label="Cerca nel sito">${icon("it-search", "size-6")}</a>
+        <a href="#" class="grid size-12 place-items-center rounded-full lg:size-14 ${searchButton[surface]}" aria-label="Cerca nel sito">${icon("it-search", "size-6")}</a>
       </div>`
           : ""
       }
@@ -195,11 +212,11 @@ export function headerCenter(a: HeaderCenterArgs = {}): string {
 </div>`;
 }
 
-const navLink = (l: NavLink, theme: HeaderTheme, secondary = false) => {
+const navLink = (l: NavLink, surface: HeaderSurface, secondary = false) => {
   const cls = cx(
     "rounded-none px-3 py-3 hover:bg-current/10",
     secondary ? "text-sm" : "font-semibold",
-    l.active && navActive[theme],
+    l.active && navActive[surface],
     l.disabled && "pointer-events-none opacity-50",
   );
   if (!l.items?.length)
@@ -223,8 +240,8 @@ const navLink = (l: NavLink, theme: HeaderTheme, secondary = false) => {
 
 /** Band 3: the main navigation. */
 export function headerNav(a: HeaderNavArgs = {}): string {
+  const surface = surfaceOf(a);
   const {
-    theme = "default",
     links = [
       { label: "Link attivo", href: "#", active: true },
       { label: "Link disabilitato", href: "#", disabled: true },
@@ -244,16 +261,16 @@ export function headerNav(a: HeaderNavArgs = {}): string {
     ],
     secondary = [],
   } = a;
-  return `<div class="${navSurface[theme]} border-t border-current/20 lg:relative lg:border-t-0">
+  return `<div class="${navSurface[surface]} border-t border-current/20 lg:relative lg:border-t-0">
   <nav aria-label="Navigazione principale" class="mx-auto w-full max-w-[1320px] px-4">
     <div class="flex flex-col justify-between gap-0 lg:flex-row lg:items-end">
       <ul class="menu menu-vertical w-full gap-0 p-0 lg:menu-horizontal lg:w-auto lg:items-end">
-        ${links.map((l) => navLink(l, theme)).join("\n        ")}
+        ${links.map((l) => navLink(l, surface)).join("\n        ")}
       </ul>
       ${
         secondary.length
           ? `<ul class="menu menu-vertical w-full gap-0 p-0 lg:menu-horizontal lg:w-auto lg:items-end lg:justify-end">
-        ${secondary.map((l) => navLink(l, theme, true)).join("\n        ")}
+        ${secondary.map((l) => navLink(l, surface, true)).join("\n        ")}
       </ul>`
           : ""
       }
@@ -264,12 +281,13 @@ export function headerNav(a: HeaderNavArgs = {}): string {
 
 /** The three bands together, with the CSS-only mobile menu toggle. */
 export function header(a: HeaderArgs = {}): string {
+  const surface = surfaceOf(a);
   const id = `header-nav-${++counter}`;
   return `<header class="${cx("group/nav relative", a.shadow && "shadow-[0_8px_16px_rgb(0_0_0/0.1)]")}">
-${headerSlim({ owner: a.owner, links: a.slimLinks, theme: a.theme, access: a.access, languages: a.languages })}
-${headerCenter({ title: a.title, tagline: a.tagline, brandIcon: a.brandIcon, theme: a.theme, compact: a.compact, socials: a.socials, search: a.search, toggleFor: id })}
+${headerSlim({ owner: a.owner, links: a.slimLinks, surface, access: a.access, languages: a.languages })}
+${headerCenter({ title: a.title, tagline: a.tagline, brandIcon: a.brandIcon, surface, compact: a.compact, socials: a.socials, search: a.search, toggleFor: id })}
 <div class="hidden group-has-checked/nav:block lg:block">
-${headerNav({ links: a.links, secondary: a.secondary, theme: a.theme })}
+${headerNav({ links: a.links, secondary: a.secondary, surface })}
 </div>
 </header>`;
 }
@@ -286,12 +304,12 @@ export const doc: ComponentDoc = {
   examples: [
     { id: "slim", fullBleed: true, title: "Slim Header", html: headerSlim() },
     { id: "slim-full", fullBleed: true, title: "Slim Header con pulsante full-responsive", html: headerSlim({ access: "full" }) },
-    { id: "slim-chiaro", fullBleed: true, title: "Slim Header - versione chiara", html: headerSlim({ theme: "light" }) },
+    { id: "slim-base", fullBleed: true, title: "Slim Header - sfondo base", html: headerSlim({ surface: "base" }) },
     { id: "centrale", fullBleed: true, title: "Header centrale", html: headerCenter() },
     { id: "centrale-compatto", fullBleed: true, title: "Header centrale - versione compatta", html: headerCenter({ compact: true }) },
-    { id: "centrale-chiaro", fullBleed: true, title: "Header centrale - versione chiara", html: headerCenter({ theme: "light" }) },
+    { id: "centrale-base", fullBleed: true, title: "Header centrale - sfondo base", html: headerCenter({ surface: "base" }) },
     { id: "nav", fullBleed: true, title: "Header nav", html: headerNav() },
-    { id: "nav-chiaro", fullBleed: true, title: "Header nav - versione chiara", html: headerNav({ theme: "light" }) },
+    { id: "nav-base", fullBleed: true, title: "Header nav - sfondo base", html: headerNav({ surface: "base" }) },
     {
       id: "nav-secondaria",
       fullBleed: true,
@@ -315,6 +333,6 @@ export const doc: ComponentDoc = {
       description: "Sotto lg la fascia di navigazione si apre con il pulsante burger.",
       html: header(),
     },
-    { id: "completo-chiaro", fullBleed: true, title: "Header completo - versione chiara", html: header({ theme: "light", shadow: true }) },
+    { id: "completo-base", fullBleed: true, title: "Header completo - sfondo base", html: header({ surface: "base", shadow: true }) },
   ],
 };

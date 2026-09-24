@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Back to top: Varianti" [level=1]'
+  - link "Torna su":
+    - /url: "#top"
+  - link "Torna su":
+    - /url: "#top"
+  - link "Torna su":
+    - /url: "#top"
+  - link "Torna su":
+    - /url: "#top"
+  - link "Torna su":
+    - /url: "#top"

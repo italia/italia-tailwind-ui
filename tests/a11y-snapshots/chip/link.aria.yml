@@ -1,0 +1,14 @@
+- main:
+  - 'heading "Chip: Variante con link" [level=1]'
+  - link "Etichetta":
+    - /url: "#"
+  - link "Etichetta":
+    - /url: "#"
+  - link "Etichetta":
+    - /url: "#"
+  - link "Etichetta":
+    - /url: "#"
+  - link "Etichetta":
+    - /url: "#"
+  - link "Etichetta":
+    - /url: "#"

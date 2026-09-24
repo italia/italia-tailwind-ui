@@ -6,7 +6,7 @@ const meta: Meta<ForwardArgs> = {
   title: "Componenti/Forward",
   tags: ["autodocs"],
   render: (args) => forward(args),
-  args: {"href":"#contenuto","label":"Vai al contenuto successivo","size":"default","inverse":false},
+  args: {"href":"#contenuto","label":"Vai al contenuto successivo","size":"default"},
   argTypes: {"size":{"control":"inline-radio","options":["default","lg"]}},
   parameters: { docs: { description: { component: describe(doc) } } },
 };

@@ -1,0 +1,23 @@
+- main:
+  - 'heading "Card: Card editoriali featured" [level=1]'
+  - article:
+    - heading "Titolo del contenuto featured" [level=3]:
+      - link "Titolo del contenuto featured":
+        - /url: "#"
+    - paragraph: Sottotitolo del contenuto
+    - text: di Maria Verde
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.
+  - article:
+    - heading "Titolo del contenuto featured" [level=3]:
+      - link "Titolo del contenuto featured":
+        - /url: "#"
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.
+    - link "Categoria":
+      - /url: "#"
+    - time: 22 aprile 2026
+  - article:
+    - heading "Titolo del contenuto featured" [level=3]:
+      - link "Titolo del contenuto featured":
+        - /url: "#"
+    - paragraph: Sottotitolo del contenuto
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.

@@ -1,0 +1,17 @@
+- main:
+  - 'heading "Avatar: Gruppo di avatar" [level=1]'
+  - list "Partecipanti":
+    - listitem:
+      - img "Mario Rossi"
+    - listitem:
+      - img "Anna Verdi"
+    - listitem: Giulia Bianchi
+    - listitem:
+      - img "Luca Neri"
+    - listitem: e altre 5 persone
+  - list "Redazione":
+    - listitem:
+      - img "Sara Blu"
+    - listitem: Paolo Lilla
+    - listitem:
+      - img "Carla Gialli"

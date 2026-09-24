@@ -1,4 +1,5 @@
 ---
+import { storybookUrl } from "../lib/storybook";
 import Base from "../layouts/Base.astro";
 import { Code } from "astro:components";
 import { components, themes, button, alert, chip, badge, icon } from "@italia-daisy/recipes";
@@ -13,7 +14,7 @@ const sample = [
 
 const cssUsage = `@import "tailwindcss";
 @import "@italia-daisy/css";`;
-const htmlUsage = `<html data-theme="italia">
+const htmlUsage = `<html data-theme="italia-original">
   <button class="btn btn-primary font-semibold">Invia</button>
 
   <!-- i temi si annidano -->
@@ -34,12 +35,12 @@ const htmlUsage = `<html data-theme="italia">
     <a href={`${base}components/button/`} class="btn btn-primary font-semibold gap-3">
       Vedi i componenti <Fragment set:html={icon("it-arrow-right", "size-5")} />
     </a>
-    <a href={`${base}storybook/`} class="btn btn-outline btn-primary border-2 font-semibold">Apri Storybook</a>
+    <a href={storybookUrl} class="btn btn-outline btn-primary border-2 font-semibold">Apri Storybook</a>
   </div>
 
-  <h2 class="mb-2 text-3xl font-bold">Stesso markup, cinque temi</h2>
+  <h2 class="mb-2 text-3xl font-bold">Stesso markup, un tema per riquadro</h2>
   <p class="mb-6 max-w-3xl text-base-content/80">
-    Qui sotto lo stesso frammento HTML è ripetuto dentro cinque contenitori con un <code class="font-mono">data-theme</code> diverso.
+    Qui sotto lo stesso frammento HTML è ripetuto dentro un contenitore per ogni tema, ciascuno con un <code class="font-mono">data-theme</code> diverso.
   </p>
   <div class="mb-16 grid gap-4 md:grid-cols-2">
     {

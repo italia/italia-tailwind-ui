@@ -1,0 +1,47 @@
+- main:
+  - 'heading "Footer: Footer solo contatti" [level=1]'
+  - link "Lorem Ipsum Inserire qui la tag line":
+    - /url: "#"
+    - heading "Lorem Ipsum" [level=2]
+    - text: Inserire qui la tag line
+  - heading "Contatti" [level=3]
+  - paragraph:
+    - strong: Comune di Lorem Ipsum
+    - text: "Via Roma 0 - 00000 Lorem Ipsum Codice fiscale / P. IVA: 000000000"
+  - list:
+    - listitem:
+      - link "Posta Elettronica Certificata":
+        - /url: "#"
+    - listitem:
+      - link "URP - Ufficio Relazioni con il Pubblico":
+        - /url: "#"
+  - heading "Seguici su" [level=3]
+  - list:
+    - listitem:
+      - link "Designers Italia (link esterno)":
+        - /url: "#"
+    - listitem:
+      - link "X (link esterno)":
+        - /url: "#"
+    - listitem:
+      - link "Medium (link esterno)":
+        - /url: "#"
+    - listitem:
+      - link "Behance (link esterno)":
+        - /url: "#"
+  - list:
+    - listitem:
+      - link "Media policy":
+        - /url: "#"
+    - listitem:
+      - link "Note legali":
+        - /url: "#"
+    - listitem:
+      - link "Privacy policy":
+        - /url: "#"
+    - listitem:
+      - link "Mappa del sito":
+        - /url: "#"
+    - listitem:
+      - link "Dichiarazione di accessibilità (link esterno su sito AgID)":
+        - /url: "#"

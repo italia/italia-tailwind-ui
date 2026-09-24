@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Megamenu: Numero di colonne" [level=1]'
+  - navigation "Navigazione principale":
+    - list:
+      - listitem:
+        - group: Due colonne
+      - listitem:
+        - group: Tre colonne

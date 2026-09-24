@@ -1,0 +1,4 @@
+- main:
+  - 'heading "Rating: Sola lettura" [level=1]'
+  - 'img "Valutazione media: 4 stelle su 5"'
+  - 'img "Valutazione: 2 stelle su 5"'

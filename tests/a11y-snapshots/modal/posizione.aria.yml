@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Modal: Allineamento" [level=1]'
+  - button "A sinistra"
+  - button "Centrata"
+  - button "A destra"

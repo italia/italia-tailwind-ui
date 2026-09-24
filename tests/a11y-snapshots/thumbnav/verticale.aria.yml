@@ -1,0 +1,24 @@
+- main:
+  - 'heading "Thumbnav: Verticale" [level=1]'
+  - navigation "Miniature":
+    - list:
+      - listitem:
+        - link "Paesaggio 1":
+          - /url: "#"
+          - img "Paesaggio 1"
+      - listitem:
+        - link "Paesaggio 2":
+          - /url: "#"
+          - img "Paesaggio 2"
+      - listitem:
+        - link "Paesaggio 3":
+          - /url: "#"
+          - img "Paesaggio 3"
+      - listitem:
+        - link "Paesaggio 4":
+          - /url: "#"
+          - img "Paesaggio 4"
+      - listitem:
+        - link "Paesaggio 5":
+          - /url: "#"
+          - img "Paesaggio 5"

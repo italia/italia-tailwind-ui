@@ -1,0 +1,22 @@
+- main:
+  - 'heading "Toolbar: Verticale" [level=1]'
+  - navigation "Barra degli strumenti":
+    - list:
+      - listitem:
+        - link "Condividi":
+          - /url: "#"
+      - listitem:
+        - link "Scarica":
+          - /url: "#"
+      - listitem:
+        - link "Stampa":
+          - /url: "#"
+      - separator
+      - listitem:
+        - link "Commenti , 4 nuovi commenti":
+          - /url: "#"
+      - listitem:
+        - link "Preferiti , novità":
+          - /url: "#"
+      - listitem:
+        - group: Altro

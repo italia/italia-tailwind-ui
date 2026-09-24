@@ -1,0 +1,9 @@
+- main:
+  - 'heading "Hero: Con testi ed immagine di sfondo" [level=1]'
+  - region "Titolo della sezione":
+    - img "Veduta di montagna"
+    - text: Titolo occhiello
+    - heading "Titolo della sezione" [level=2]
+    - paragraph: Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut.
+    - link "Azione primaria":
+      - /url: "#"

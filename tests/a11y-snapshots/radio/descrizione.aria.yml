@@ -1,0 +1,11 @@
+- main:
+  - 'heading "Radio: Con descrizione" [level=1]'
+  - group "Tipo di pagamento":
+    - text: Tipo di pagamento
+    - paragraph: Il costo del servizio è di 16,00 €.
+    - radio "pagoPA Carta, conto corrente o app della tua banca." [checked]
+    - text: pagoPA Carta, conto corrente o app della tua banca.
+    - radio "Bonifico Accredito entro 3 giorni lavorativi."
+    - text: Bonifico Accredito entro 3 giorni lavorativi.
+    - radio "Allo sportello Solo con bancomat." [disabled]
+    - text: Allo sportello Solo con bancomat.

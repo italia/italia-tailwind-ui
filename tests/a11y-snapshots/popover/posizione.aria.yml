@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Popover: Posizionamento" [level=1]'
+  - button "In alto"
+  - button "In basso"
+  - button "A sinistra"
+  - button "A destra"

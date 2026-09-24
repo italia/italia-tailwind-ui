@@ -14,6 +14,11 @@ export interface FooterColumn {
   links: FooterLink[];
 }
 
+/** Which surface the bands sit on: "primary" (default) or "base", the page background with primary text. */
+export type FooterSurface = "primary" | "base";
+/** @deprecated Use FooterSurface: "default" is "primary", "light" is "base". */
+export type FooterTheme = "default" | "light";
+
 export interface FooterArgs {
   brand?: string;
   tagline?: string;
@@ -28,9 +33,23 @@ export interface FooterArgs {
   socials?: Array<{ name: IconName; label: string; href?: string }>;
   smallPrints?: FooterLink[];
   headingLevel?: 2 | 3;
+  /** "base": the bands on the page background with primary text, like the header's base surface. */
+  surface?: FooterSurface;
+  /** @deprecated Use `surface`: `theme: "light"` is `surface: "base"`. */
+  theme?: FooterTheme;
 }
 
 const band = "mx-auto w-full max-w-[1320px] px-4";
+
+// Literal class maps: Tailwind only sees classes written out in full.
+const mainBand: Record<FooterSurface, string> = {
+  primary: "bg-primary text-primary-content",
+  base: "border-t border-primary/20 bg-base-100 text-primary",
+};
+const smallPrintsBand: Record<FooterSurface, string> = {
+  primary: "bg-accent text-accent-content",
+  base: "border-t border-primary/20 bg-base-200 text-primary",
+};
 const listLink =
   "text-sm underline decoration-current/50 decoration-1 underline-offset-[3px] hover:decoration-current";
 
@@ -102,6 +121,7 @@ export function footer(a: FooterArgs = {}): string {
       links: [{ label: "Posta Elettronica Certificata" }, { label: "URP - Ufficio Relazioni con il Pubblico" }],
     },
   } = a;
+  const surface: FooterSurface = a.surface ?? (a.theme === "light" ? "base" : "primary");
   const h = `h${headingLevel}`;
   const sub = `h${headingLevel + 1}`;
   const title = "footer-title mb-3 text-sm font-semibold uppercase opacity-100";
@@ -145,7 +165,7 @@ export function footer(a: FooterArgs = {}): string {
       </section>`;
 
   return `<footer>
-  <div class="bg-primary text-primary-content">
+  <div class="${mainBand[surface]}">
     <div class="${band} py-8">
       <section class="pb-8">
         <a href="#" class="flex items-center gap-4 no-underline hover:no-underline">
@@ -158,7 +178,7 @@ export function footer(a: FooterArgs = {}): string {
       </section>${cols}${contactsBlock}
     </div>
   </div>
-  <div class="bg-accent text-accent-content">
+  <div class="${smallPrintsBand[surface]}">
     <ul class="${cx(band, "flex flex-col gap-3 py-4 text-xs md:flex-row md:flex-wrap md:gap-6")}">
       ${smallPrints.map((l) => `<li>${link(l)}</li>`).join("\n      ")}
     </ul>
@@ -176,19 +196,13 @@ export const doc: ComponentDoc = {
   name: "Footer",
   replaces: ".it-footer (bootstrap-italia)",
   summary:
-    "Piè di pagina istituzionale a due fasce: colonne di link e contatti su primary, note legali su accent. daisyUI footer e footer-title, colori dai token del tema.",
+    "Piè di pagina istituzionale a due fasce: colonne di link e contatti su primary, note legali su accent, oppure sulla superficie base (lo sfondo della pagina) con testo primary. daisyUI footer e footer-title, colori dai token del tema.",
   daisy: ["footer", "footer-title"],
   cssOnly:
     "Nessun comportamento da replicare: è markup statico. Le due fasce usano bg-primary e bg-accent invece dei token primary-muted e primary-deep di bootstrap-italia, così restano leggibili in tutti i temi.",
   examples: [
     { id: "completo", fullBleed: true, title: "Footer completo", html: footer() },
     { id: "contatti", fullBleed: true, title: "Footer solo contatti", html: footerCompact() },
-    {
-      id: "scuro",
-      fullBleed: true,
-      title: "Su tema scuro",
-      description: "Il footer non cambia: cambia data-theme.",
-      html: `<div data-theme="italia-dark">${footer({ columns: defaultColumns.slice(0, 2) })}</div>`,
-    },
+    { id: "completo-base", fullBleed: true, title: "Footer completo - sfondo base", html: footer({ surface: "base" }) },
   ],
 };

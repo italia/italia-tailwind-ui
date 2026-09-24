@@ -6,8 +6,8 @@ const meta: Meta<DropdownArgs> = {
   title: "Componenti/Dropdown",
   tags: ["autodocs"],
   render: (args) => `<div class="h-64">${dropdown(args)}</div>`,
-  args: {"label": "Apri dropdown", "variant": "primary", "size": "default", "align": "start", "dark": false, "fullWidth": false, "disabled": false, "notch": true},
-  argTypes: {"variant": {"control": "select", "options": ["primary", "secondary", "success", "danger", "warning", "link"]}, "size": {"control": "select", "options": ["lg", "default", "xs"]}, "align": {"control": "select", "options": ["start", "end", "top", "top-end", "left", "right"]}},
+  args: {"label": "Apri dropdown", "variant": "primary", "size": "default", "align": "start", "surface": "base", "fullWidth": false, "disabled": false, "notch": true},
+  argTypes: {"surface": {"control": "inline-radio", "options": ["base", "accent"]}, "variant": {"control": "select", "options": ["primary", "secondary", "success", "danger", "warning", "link"]}, "size": {"control": "select", "options": ["lg", "default", "xs"]}, "align": {"control": "select", "options": ["start", "end", "top", "top-end", "left", "right"]}},
   parameters: { docs: { description: { component: describe(doc) } } },
 };
 export default meta;
@@ -23,5 +23,5 @@ export const Intestazioni: Story = example(doc, "intestazioni");
 export const VociGrandi: Story = example(doc, "voci-grandi");
 export const Icone: Story = example(doc, "icone");
 export const TuttaLarghezza: Story = example(doc, "tutta-larghezza");
-export const Scuro: Story = example(doc, "scuro");
+export const SfondoAccent: Story = example(doc, "sfondo-accent");
 export const Azioni: Story = example(doc, "azioni");

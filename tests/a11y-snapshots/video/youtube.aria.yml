@@ -1,0 +1,10 @@
+- main:
+  - 'heading "Video: YouTube con consenso" [level=1]'
+  - 'figure "Centrato l''obiettivo PNRR: le PA locali verso il cloud"':
+    - paragraph: Contenuto di terze parti
+    - paragraph: Il video è ospitato da YouTube, che potrebbe raccogliere dati sulla tua navigazione. Per vederlo qui accetta i cookie di YouTube, oppure aprilo sul sito originale.
+    - button "Accetta e guarda"
+    - link "Guarda su YouTube (si apre in una nuova scheda)":
+      - /url: https://www.youtube.com/watch?v=_0j7ZQ67KtY
+    - text: "Centrato l'obiettivo PNRR: le PA locali verso il cloud"
+    - group: Trascrizione

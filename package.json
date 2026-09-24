@@ -17,9 +17,14 @@
     "storybook:build": "bun run --cwd apps/storybook build",
     "build": "bun run build:css && bun run docs:build && bun run storybook:build && bun run site",
     "typecheck": "tsc -p tsconfig.json",
+    "a11y": "bun run build:css > /dev/null 2>&1 && bun run scripts/a11y/index.ts",
+    "a11y:site": "bun run scripts/a11y/site.ts",
     "site": "rm -rf apps/docs/dist/storybook && cp -r apps/storybook/storybook-static apps/docs/dist/storybook && echo 'Static site ready in apps/docs/dist'"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "html-validate": "^11.16.0",
+    "playwright": "^1.63.0",
     "typescript": "^5.9.0"
   }
 }

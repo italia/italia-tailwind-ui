@@ -1,0 +1,10 @@
+- main:
+  - 'heading "Rating: Esempio base" [level=1]'
+  - group "Valuta il servizio":
+    - text: Valuta il servizio
+    - radio "Nessuna valutazione"
+    - radio "1 stella su 5"
+    - radio "2 stelle su 5"
+    - radio "3 stelle su 5" [checked]
+    - radio "4 stelle su 5"
+    - radio "5 stelle su 5"

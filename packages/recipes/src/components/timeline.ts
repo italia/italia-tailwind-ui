@@ -100,9 +100,10 @@ export const doc: ComponentDoc = {
       }),
     },
     {
-      id: "scuro",
-      title: "Tema scuro",
-      html: `<div data-theme="italia-dark" class="rounded-box bg-base-100 p-6">${timeline({ events: defaultEvents.slice(1, 4) })}</div>`,
+      id: "sfondo-primario",
+      title: "Su sfondo primario",
+      description: "Il contenitore ha la classe it-surface-primary: i token si scambiano (base diventa primary, primary diventa primary-content) e il componente si adatta senza opzioni.",
+      html: `<div class="it-surface-primary rounded-box p-6">${timeline({ events: defaultEvents.slice(1, 4) })}</div>`,
     },
   ],
 };

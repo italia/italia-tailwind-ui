@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Modal: Dimensioni opzionali" [level=1]'
+  - button "Small"
+  - button "Default"
+  - button "Large"
+  - button "Extra large"

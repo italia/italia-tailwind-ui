@@ -1,0 +1,30 @@
+- main:
+  - 'heading "Transfer: Con pulsanti (invio al server)" [level=1]'
+  - group "Uffici da cui ricevere comunicazioni":
+    - text: Uffici da cui ricevere comunicazioni
+    - group "Disponibili":
+      - text: Disponibili
+      - list:
+        - listitem:
+          - checkbox "Anagrafe"
+          - text: Anagrafe
+        - listitem:
+          - checkbox "Servizi sociali"
+          - text: Servizi sociali
+        - listitem:
+          - checkbox "Scuola"
+          - text: Scuola
+        - listitem:
+          - checkbox "Urbanistica" [disabled]
+          - text: Urbanistica
+    - button "Sposta nei selezionati"
+    - button "Rimuovi dai selezionati"
+    - group "Selezionati":
+      - text: Selezionati
+      - list:
+        - listitem:
+          - checkbox "Tributi"
+          - text: Tributi
+        - listitem:
+          - checkbox "Mobilità"
+          - text: Mobilità

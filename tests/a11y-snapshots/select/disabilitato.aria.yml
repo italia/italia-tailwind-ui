@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Select: Disabilitato" [level=1]'
+  - text: Select disabilitata
+  - combobox "Select disabilitata" [disabled]:
+    - option "Non disponibile" [selected]
+    - option "Abruzzo"
+    - option "Basilicata"
+    - option "Calabria"
+    - option "Campania"
+    - option "Lazio"
+    - option "Lombardia"
+    - option "Toscana"

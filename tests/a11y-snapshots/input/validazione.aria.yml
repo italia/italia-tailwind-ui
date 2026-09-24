@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Input: Validazione dal server" [level=1]'
+  - text: Codice fiscale
+  - textbox "Codice fiscale": RSSMRA80A01H501U
+  - paragraph: Codice fiscale corretto
+  - text: Email
+  - textbox "Email" [invalid]: mario.rossi@
+  - paragraph: Inserisci un indirizzo email valido

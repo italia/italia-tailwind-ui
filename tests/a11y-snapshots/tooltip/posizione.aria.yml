@@ -1,0 +1,10 @@
+- main:
+  - 'heading "Tooltip: Posizionamento" [level=1]'
+  - text: Tooltip in alto
+  - button "Top"
+  - text: Tooltip in basso
+  - button "Bottom"
+  - text: Tooltip a sinistra
+  - button "Left"
+  - text: Tooltip a destra
+  - button "Right"

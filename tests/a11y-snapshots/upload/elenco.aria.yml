@@ -1,0 +1,24 @@
+- main:
+  - 'heading "Upload: Elenco dei file" [level=1]'
+  - list "File allegati":
+    - listitem:
+      - paragraph: carta-identita.pdf
+      - paragraph: 1,2 MB
+      - text: Caricato
+      - button "Elimina carta-identita.pdf"
+    - listitem:
+      - paragraph: planimetria.png
+      - paragraph: 3,4 MB
+      - text: 64%
+      - button "Elimina planimetria.png"
+      - progressbar "Caricamento di planimetria.png"
+    - listitem:
+      - paragraph: delega-firmata.docx
+      - paragraph: "Formato non ammesso: usa PDF"
+      - text: Errore
+      - button "Elimina delega-firmata.docx"
+    - listitem:
+      - paragraph: ricevuta-pagamento.pdf
+      - paragraph: 180 KB
+      - text: Caricato
+      - button "Elimina ricevuta-pagamento.pdf"

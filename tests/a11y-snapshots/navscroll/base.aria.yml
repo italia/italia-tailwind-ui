@@ -1,0 +1,49 @@
+- main:
+  - 'heading "Navscroll: Esempio base" [level=1]'
+  - complementary:
+    - navigation "Indice della pagina":
+      - group:
+        - list:
+          - listitem:
+            - link "Descrizione":
+              - /url: "#ns-descrizione"
+          - listitem:
+            - link "A chi è rivolto":
+              - /url: "#ns-destinatari"
+          - listitem:
+            - link "Come fare":
+              - /url: "#ns-come-fare"
+            - list:
+              - listitem:
+                - link "Online":
+                  - /url: "#ns-online"
+              - listitem:
+                - link "Allo sportello":
+                  - /url: "#ns-sportello"
+          - listitem:
+            - link "Costi":
+              - /url: "#ns-costi"
+          - listitem:
+            - link "Contatti":
+              - /url: "#ns-contatti"
+  - heading "Descrizione" [level=2]
+  - paragraph: "Testo di esempio per la sezione «Descrizione». Scorri il riquadro: l'indice evidenzia la sezione visibile e la barra mostra quanto hai letto."
+  - paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+  - heading "A chi è rivolto" [level=2]
+  - paragraph: "Testo di esempio per la sezione «A chi è rivolto». Scorri il riquadro: l'indice evidenzia la sezione visibile e la barra mostra quanto hai letto."
+  - paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+  - heading "Come fare" [level=2]
+  - paragraph: "Testo di esempio per la sezione «Come fare». Scorri il riquadro: l'indice evidenzia la sezione visibile e la barra mostra quanto hai letto."
+  - paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+  - heading "Online" [level=3]
+  - paragraph: "Testo di esempio per la sezione «Online». Scorri il riquadro: l'indice evidenzia la sezione visibile e la barra mostra quanto hai letto."
+  - paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+  - heading "Allo sportello" [level=3]
+  - paragraph: "Testo di esempio per la sezione «Allo sportello». Scorri il riquadro: l'indice evidenzia la sezione visibile e la barra mostra quanto hai letto."
+  - paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+  - heading "Costi" [level=2]
+  - paragraph: "Testo di esempio per la sezione «Costi». Scorri il riquadro: l'indice evidenzia la sezione visibile e la barra mostra quanto hai letto."
+  - paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+  - heading "Contatti" [level=2]
+  - paragraph: "Testo di esempio per la sezione «Contatti». Scorri il riquadro: l'indice evidenzia la sezione visibile e la barra mostra quanto hai letto."
+  - paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.

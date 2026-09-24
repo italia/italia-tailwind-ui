@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Chip: Chip disabilitata" [level=1]'
+  - text: Etichetta MR Mario Rossi
+  - checkbox "Elimina etichetta" [disabled]
+  - text: Elimina etichetta

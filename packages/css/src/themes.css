@@ -1,13 +1,13 @@
 /*
  * .italia themes for daisyUI 5.
- * Switch with data-theme="italia | italia-v3 | italia-dark | light | dark"
+ * Switch with data-theme="italia-original | italia-custom | italia-dark | italia-darker | light | dark"
  * on <html> or any element (themes nest).
  */
 
 /* The theme set up in the "daisyUI" design system: default, light scheme. */
 @plugin "daisyui/theme" {
-  name: "italia";
-  default: true;
+  name: "italia-custom";
+  default: false;
   prefersdark: false;
   color-scheme: light;
 
@@ -24,13 +24,15 @@
   --color-accent-content: #ffffff;
   --color-neutral: #333333;
   --color-neutral-content: #ffffff;
-  --color-info: #17a2b8;
+  /* Status colours darkened (same hues; amber for warning) to reach 4.5:1 as text on
+     base-100/200/300 and with white text on top (WCAG 1.4.3). */
+  --color-info: #00798b;
   --color-info-content: #ffffff;
-  --color-success: #28a745;
+  --color-success: #00812b;
   --color-success-content: #ffffff;
-  --color-warning: #ffc107;
-  --color-warning-content: #333333;
-  --color-error: #dc3545;
+  --color-warning: #9a6400;
+  --color-warning-content: #ffffff;
+  --color-error: #d32b3e;
   --color-error-content: #ffffff;
 
   --radius-selector: 1rem;
@@ -48,8 +50,8 @@
  * dev-kit-italia. Flat (no depth), 4px radii, pill selectors, AA-safe status colors.
  */
 @plugin "daisyui/theme" {
-  name: "italia-v3";
-  default: false;
+  name: "italia-original";
+  default: true;
   prefersdark: false;
   color-scheme: light;
 
@@ -119,5 +121,48 @@
   --size-field: 0.25rem;
   --border: 1px;
   --depth: 0;
+  --noise: 0;
+}
+
+/*
+ * Neutral near-black dark theme. The colours keep the hues of the .italia
+ * palette, lightened just enough for WCAG AA on the three base colours:
+ * every colour reaches 4.5:1 as text on base-100, base-200 and base-300,
+ * and every -content colour (dark, same hue) 4.5:1 on its fill.
+ */
+@plugin "daisyui/theme" {
+  name: "italia-darker";
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-primary: #4a99fe;
+  --color-primary-content: #0e1b2d;
+  --color-secondary: #849bb8;
+  --color-secondary-content: #0d1b2d;
+  --color-accent: #7db4fe;
+  --color-accent-content: #0e1b2d;
+  --color-neutral: #2a2e37;
+  --color-neutral-content: #e3e3e3;
+  --color-base-100: #1f2126;
+  --color-base-200: #2c3035;
+  --color-base-300: #242526;
+  --color-base-content: #e3e3e3;
+  --color-info: #7598e4;
+  --color-info-content: #111a2d;
+  --color-success: #06af4d;
+  --color-success-content: #0c2010;
+  --color-warning: #f6c907;
+  --color-warning-content: #211a03;
+  --color-error: #ff6574;
+  --color-error-content: #2b1214;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
   --noise: 0;
 }

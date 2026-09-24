@@ -1,0 +1,11 @@
+- main:
+  - 'heading "Checkbox: Gruppo con legenda" [level=1]'
+  - group "Argomenti di interesse":
+    - text: Argomenti di interesse
+    - paragraph: Puoi sceglierne più di uno.
+    - checkbox "Cultura e turismo" [checked]
+    - text: Cultura e turismo
+    - checkbox "Mobilità e trasporti"
+    - text: Mobilità e trasporti
+    - checkbox "Scuola e formazione"
+    - text: Scuola e formazione

@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Input: Validazione nativa" [level=1]'
+  - text: Email
+  - textbox "Email":
+    - /placeholder: nome@esempio.it
+  - text: CAP
+  - textbox "CAP":
+    - /placeholder: "00100"

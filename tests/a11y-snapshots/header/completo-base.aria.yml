@@ -1,0 +1,44 @@
+- main:
+  - 'heading "Header: Header completo - sfondo base" [level=1]'
+  - link "Ente appartenenza":
+    - /url: "#"
+  - navigation "Navigazione accessoria":
+    - list:
+      - listitem:
+        - link "Link 1":
+          - /url: "#"
+      - listitem:
+        - link "Link 2 (Attivo)":
+          - /url: "#"
+  - group: ITA
+  - link "Accedi":
+    - /url: "#"
+  - link "Nome dell'Istituzione Tag line dell'Istituzione":
+    - /url: "#"
+  - text: Seguici su
+  - list:
+    - listitem:
+      - link "Facebook":
+        - /url: "#"
+    - listitem:
+      - link "Github":
+        - /url: "#"
+    - listitem:
+      - link "Twitter":
+        - /url: "#"
+  - text: Cerca
+  - link "Cerca nel sito":
+    - /url: "#"
+  - checkbox "Mostra la navigazione"
+  - navigation "Navigazione principale":
+    - list:
+      - listitem:
+        - link "Link attivo":
+          - /url: "#"
+      - listitem:
+        - link "Link disabilitato" [disabled]:
+          - /url: "#"
+      - listitem:
+        - group: Dropdown
+      - listitem:
+        - group: Megamenu

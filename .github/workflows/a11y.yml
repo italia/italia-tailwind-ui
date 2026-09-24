@@ -1,0 +1,30 @@
+# Accessibility checks on every push and pull request (see README "Accessibility checks").
+name: Accessibilità
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bunx playwright install --with-deps --only-shell chromium
+      - name: Componenti (axe, tastiera, interazioni, reflow, HTML, snapshot ARIA)
+        run: bun run a11y --json a11y-report.json
+      - name: Build del sito di documentazione
+        if: ${{ !cancelled() }}
+        run: bun run docs:build
+      - name: Pagine del sito
+        if: ${{ !cancelled() }}
+        run: bun run a11y:site --json a11y-site-report.json
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: a11y-reports
+          path: a11y-*report.json

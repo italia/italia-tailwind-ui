@@ -1,0 +1,26 @@
+- main:
+  - 'heading "Card: Bordi e ombre" [level=1]'
+  - article:
+    - heading "Titolo h3" [level=3]:
+      - link "Titolo h3":
+        - /url: "#"
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.
+    - link "Categoria":
+      - /url: "#"
+    - time: 12 ottobre, 2026
+  - article:
+    - heading "Titolo h3" [level=3]:
+      - link "Titolo h3":
+        - /url: "#"
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.
+    - link "Categoria":
+      - /url: "#"
+    - time: 12 ottobre, 2026
+  - article:
+    - heading "Titolo h3" [level=3]:
+      - link "Titolo h3":
+        - /url: "#"
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.
+    - link "Categoria":
+      - /url: "#"
+    - time: 12 ottobre, 2026

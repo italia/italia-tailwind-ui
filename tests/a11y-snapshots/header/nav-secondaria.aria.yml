@@ -1,0 +1,20 @@
+- main:
+  - 'heading "Header: Header nav con navigazione secondaria" [level=1]'
+  - navigation "Navigazione principale":
+    - list:
+      - listitem:
+        - link "Link attivo":
+          - /url: "#"
+      - listitem:
+        - link "Link disabilitato" [disabled]:
+          - /url: "#"
+      - listitem:
+        - link "Link":
+          - /url: "#"
+    - list:
+      - listitem:
+        - link "Link secondario":
+          - /url: "#"
+      - listitem:
+        - link "Link secondario":
+          - /url: "#"

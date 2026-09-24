@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Input: Disabilitato e sola lettura" [level=1]'
+  - text: Campo disabilitato
+  - textbox "Campo disabilitato" [disabled]: Non modificabile
+  - text: Campo in sola lettura
+  - textbox "Campo in sola lettura": RSSMRA80A01H501U
+  - text: Testo semplice
+  - textbox "Testo semplice": mario.rossi@esempio.it

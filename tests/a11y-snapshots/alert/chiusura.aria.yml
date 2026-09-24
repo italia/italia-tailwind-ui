@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Alert: Chiusura" [level=1]'
+  - alert:
+    - strong: Attenzione
+    - text: Alcuni campi inseriti sono da controllare.
+    - checkbox "Chiudi avviso"
+    - text: Chiudi avviso

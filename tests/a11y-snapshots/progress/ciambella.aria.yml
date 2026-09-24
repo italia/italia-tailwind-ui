@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Progress: Ciambella" [level=1]'
+  - progressbar "Completamento": 30%
+  - progressbar "Pratiche evase": 75%
+  - progressbar "Completamento": 90%

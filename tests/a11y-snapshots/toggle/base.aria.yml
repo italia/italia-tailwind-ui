@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Toggle: Esempio base" [level=1]'
+  - text: Notifiche push
+  - switch "Notifiche push"
+  - text: Modalità risparmio dati
+  - switch "Modalità risparmio dati" [checked]

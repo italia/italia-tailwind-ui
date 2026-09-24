@@ -1,0 +1,3 @@
+- main:
+  - 'heading "Dropdown: Menu con voci grandi" [level=1]'
+  - group: Apri dropdown

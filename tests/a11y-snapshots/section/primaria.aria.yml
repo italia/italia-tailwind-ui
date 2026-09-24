@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Section: Sfondo primario" [level=1]'
+  - region "Iscriviti alla newsletter":
+    - heading "Iscriviti alla newsletter" [level=2]
+    - paragraph: Ricevi ogni mese gli aggiornamenti sui servizi del Comune.
+    - link "Iscriviti":
+      - /url: "#"

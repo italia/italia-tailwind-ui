@@ -1,0 +1,11 @@
+- main:
+  - 'heading "Checkbox: Validazione" [level=1]'
+  - group "Privacy":
+    - text: Privacy
+    - checkbox "Ho letto l'informativa sulla privacy"
+    - text: Ho letto l'informativa sulla privacy
+    - paragraph: Devi accettare l'informativa per proseguire
+  - group "Privacy":
+    - text: Privacy
+    - checkbox "Ho letto l'informativa sulla privacy"
+    - text: Ho letto l'informativa sulla privacy

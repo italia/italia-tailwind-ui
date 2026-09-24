@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Progress: Barra" [level=1]'
+  - progressbar "Avanzamento"
+  - text: Caricamento del documento
+  - progressbar "Caricamento del documento"
+  - text: Spazio usato
+  - progressbar "Spazio usato"

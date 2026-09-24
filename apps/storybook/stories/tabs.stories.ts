@@ -22,4 +22,4 @@ export const SoloIcone: Story = example(doc, "solo-icone");
 export const Schede: Story = example(doc, "schede");
 export const TuttaLarghezza: Story = example(doc, "tutta-larghezza");
 export const Link: Story = example(doc, "link");
-export const Scuro: Story = example(doc, "scuro");
+export const SfondoPrimario: Story = example(doc, "sfondo-primario");

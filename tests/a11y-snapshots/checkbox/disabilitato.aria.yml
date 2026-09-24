@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Checkbox: Disabilitato" [level=1]'
+  - checkbox "Opzione disabilitata" [disabled]
+  - text: Opzione disabilitata
+  - checkbox "Opzione selezionata e disabilitata" [checked] [disabled]
+  - text: Opzione selezionata e disabilitata

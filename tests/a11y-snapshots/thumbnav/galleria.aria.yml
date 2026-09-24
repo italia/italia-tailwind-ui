@@ -1,0 +1,54 @@
+- main:
+  - 'heading "Thumbnav: Con un carosello" [level=1]'
+  - region "Galleria":
+    - group "1 di 7":
+      - img "Paesaggio 1"
+      - paragraph: Paesaggio 1
+    - group "2 di 7":
+      - img "Paesaggio 2"
+      - paragraph: Paesaggio 2
+    - group "3 di 7":
+      - img "Paesaggio 3"
+      - paragraph: Paesaggio 3
+    - group "4 di 7":
+      - img "Paesaggio 4"
+      - paragraph: Paesaggio 4
+    - group "5 di 7":
+      - img "Paesaggio 5"
+      - paragraph: Paesaggio 5
+    - group "6 di 7":
+      - img "Paesaggio 6"
+      - paragraph: Paesaggio 6
+    - group "7 di 7":
+      - img "Paesaggio 7"
+      - paragraph: Paesaggio 7
+  - navigation "Scegli l'immagine":
+    - list:
+      - listitem:
+        - link "Paesaggio 1":
+          - /url: "#galleria-1"
+          - img "Paesaggio 1"
+      - listitem:
+        - link "Paesaggio 2":
+          - /url: "#galleria-2"
+          - img "Paesaggio 2"
+      - listitem:
+        - link "Paesaggio 3":
+          - /url: "#galleria-3"
+          - img "Paesaggio 3"
+      - listitem:
+        - link "Paesaggio 4":
+          - /url: "#galleria-4"
+          - img "Paesaggio 4"
+      - listitem:
+        - link "Paesaggio 5":
+          - /url: "#galleria-5"
+          - img "Paesaggio 5"
+      - listitem:
+        - link "Paesaggio 6":
+          - /url: "#galleria-6"
+          - img "Paesaggio 6"
+      - listitem:
+        - link "Paesaggio 7":
+          - /url: "#galleria-7"
+          - img "Paesaggio 7"

@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Megamenu: Stato attivo e disabilitato" [level=1]'
+  - navigation "Navigazione principale":
+    - list:
+      - listitem:
+        - group: Attivo
+      - listitem:
+        - group: Disabilitato

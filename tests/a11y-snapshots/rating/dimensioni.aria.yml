@@ -1,0 +1,26 @@
+- main:
+  - 'heading "Rating: Dimensioni" [level=1]'
+  - group "Piccolo":
+    - text: Piccolo
+    - radio "Nessuna valutazione"
+    - radio "1 stella su 5"
+    - radio "2 stelle su 5" [checked]
+    - radio "3 stelle su 5"
+    - radio "4 stelle su 5"
+    - radio "5 stelle su 5"
+  - group "Medio":
+    - text: Medio
+    - radio "Nessuna valutazione"
+    - radio "1 stella su 5"
+    - radio "2 stelle su 5"
+    - radio "3 stelle su 5" [checked]
+    - radio "4 stelle su 5"
+    - radio "5 stelle su 5"
+  - group "Grande":
+    - text: Grande
+    - radio "Nessuna valutazione"
+    - radio "1 stella su 5"
+    - radio "2 stelle su 5"
+    - radio "3 stelle su 5"
+    - radio "4 stelle su 5" [checked]
+    - radio "5 stelle su 5"

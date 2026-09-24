@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Overlay: Pannello al passaggio del mouse" [level=1]'
+  - link "Ingrandisci":
+    - /url: "#"
+    - figure "Ingrandisci":
+      - img "Breve descrizione immagine"
+      - img "Ingrandisci"
+  - link "Titolo del contenuto":
+    - /url: "#"
+    - figure "Titolo del contenuto":
+      - img "Breve descrizione immagine"
+      - text: Titolo del contenuto

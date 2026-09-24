@@ -125,7 +125,7 @@ export const doc: ComponentDoc = {
         ],
       }),
     },
-    { id: "scuro", title: "Tema scuro", html: `<div data-theme="italia-dark" class="rounded-box bg-base-100 p-6">${tabs({ items: withIcons })}</div>` },
+    { id: "sfondo-primario", title: "Su sfondo primario", description: "Il contenitore ha la classe it-surface-primary: i token si scambiano (base diventa primary, primary diventa primary-content) e il componente si adatta senza opzioni.", html: `<div class="it-surface-primary rounded-box p-6">${tabs({ items: withIcons })}</div>` },
   ],
   snippets: [
     { title: "Schede ARIA vere (tablist)", lang: "js", description: "Se ti serve la semantica tablist: pulsanti role=tab, frecce sinistra/destra, Home/Fine e aria-selected aggiornato. Markup: div role=tablist con button role=tab aria-controls, seguiti dai pannelli role=tabpanel.", code: `document.querySelectorAll("[role=tablist]").forEach((list) => {

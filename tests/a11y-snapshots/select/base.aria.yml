@@ -1,0 +1,22 @@
+- main:
+  - 'heading "Select: Esempio base" [level=1]'
+  - text: Seleziona una regione
+  - combobox "Seleziona una regione":
+    - option "Scegli un'opzione" [selected]
+    - option "Abruzzo"
+    - option "Basilicata"
+    - option "Calabria"
+    - option "Campania"
+    - option "Lazio"
+    - option "Lombardia"
+    - option "Toscana"
+  - text: Regione di residenza
+  - combobox "Regione di residenza":
+    - option "Abruzzo"
+    - option "Basilicata"
+    - option "Calabria"
+    - option "Campania"
+    - option "Lazio" [selected]
+    - option "Lombardia"
+    - option "Toscana"
+  - paragraph: Puoi cambiarla in seguito.

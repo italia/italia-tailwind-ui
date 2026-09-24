@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Megamenu: Con link \"Esplora la sezione\"" [level=1]'
+  - navigation "Navigazione principale":
+    - list:
+      - listitem:
+        - group: Megamenu

@@ -1,0 +1,9 @@
+- main:
+  - 'heading "Upload: Campo file" [level=1]'
+  - text: Allega un documento
+  - button "Allega un documento"
+  - paragraph: Formato PDF, massimo 5 MB.
+  - text: Allega più documenti
+  - button "Allega più documenti"
+  - text: Campo disabilitato
+  - button "Campo disabilitato" [disabled]

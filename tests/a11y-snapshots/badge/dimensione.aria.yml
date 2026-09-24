@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Badge: Dimensione" [level=1]'
+  - paragraph: Titolo di esempio h1 New
+  - paragraph: Titolo di esempio h2 New
+  - paragraph: Titolo di esempio h3 New
+  - paragraph: Titolo di esempio h4 New
+  - paragraph: Titolo di esempio h5 New
+  - paragraph: Titolo di esempio h6 New

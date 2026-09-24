@@ -1,0 +1,18 @@
+- main:
+  - 'heading "Header: Header centrale" [level=1]'
+  - link "Nome dell'Istituzione Tag line dell'Istituzione":
+    - /url: "#"
+  - text: Seguici su
+  - list:
+    - listitem:
+      - link "Facebook":
+        - /url: "#"
+    - listitem:
+      - link "Github":
+        - /url: "#"
+    - listitem:
+      - link "Twitter":
+        - /url: "#"
+  - text: Cerca
+  - link "Cerca nel sito":
+    - /url: "#"

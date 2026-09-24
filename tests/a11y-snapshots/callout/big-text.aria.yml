@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Callout: Big text" [level=1]'
+  - region "Titolo callout":
+    - heading "Titolo callout" [level=2]
+    - paragraph: Maecenas vulputate ante dictum vestibulum volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non augue non purus vestibulum varius.

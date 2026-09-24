@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Chip: Chip con icona" [level=1]'
+  - text: Download Carica file
+  - link "Preferiti":
+    - /url: "#"

@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Tooltip: Variante accessibile" [level=1]'
+  - button "Mostra tooltip"
+  - tooltip "Testo del tooltip annunciato dallo screen reader"
+  - button "Informazioni"
+  - tooltip "Anche in basso"

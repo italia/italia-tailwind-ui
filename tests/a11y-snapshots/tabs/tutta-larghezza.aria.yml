@@ -1,0 +1,10 @@
+- main:
+  - 'heading "Tabs: A tutta larghezza" [level=1]'
+  - group "Schede":
+    - radio "Scheda 1" [checked]
+    - text: Scheda 1
+    - paragraph: Contenuto della scheda 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    - radio "Scheda 2"
+    - text: Scheda 2
+    - radio "Scheda 3"
+    - text: Scheda 3

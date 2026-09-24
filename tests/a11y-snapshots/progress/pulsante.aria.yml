@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Progress: Pulsante in caricamento" [level=1]'
+  - button "Invio…" [disabled]
+  - button "Caricamento file 45":
+    - text: Caricamento file
+    - progressbar "Caricamento file"

@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Notification: Posizioni sullo schermo" [level=1]'
+  - button "top-start"
+  - button "top-center"
+  - button "top-end"
+  - button "bottom-start"
+  - button "bottom-center"
+  - button "bottom-end"

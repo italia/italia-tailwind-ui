@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Button: Con icona" [level=1]'
+  - button "Pulsante Large con icona"
+  - button "Pulsante con icona"
+  - button "Pulsante Extra Small con icona"
+  - button "Pulsante Link Extra Small con icona"

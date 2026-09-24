@@ -156,10 +156,10 @@ export const doc: ComponentDoc = {
 </button>`,
     },
     {
-      id: "sfondo-scuro",
-      title: "Sfondo scuro",
-      description: "Su una superficie scura si annida un tema scuro: il componente non cambia, cambia data-theme.",
-      html: `<div data-theme="italia-dark" class="rounded-box bg-base-100 p-6">
+      id: "sfondo-primario",
+      title: "Su sfondo primario",
+      description: "Il contenitore ha la classe it-surface-primary: i token si scambiano (base diventa primary, primary diventa primary-content) e il componente si adatta senza opzioni. Il primary pieno diventa chiaro con testo primary, come in bootstrap-italia.",
+      html: `<div class="it-surface-primary rounded-box p-6">
   ${row([
     button({ label: "Primary" }),
     button({ label: "Secondary", variant: "secondary" }),

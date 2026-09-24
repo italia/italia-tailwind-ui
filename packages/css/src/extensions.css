@@ -215,3 +215,41 @@
     inset-inline-end: 0.5rem;
   }
 }
+
+/*
+ * Primary surface: a band in the primary colour where every component keeps
+ * working, like the default header and footer. Inside .it-surface-primary the
+ * base surfaces become primary and primary/accent become primary-content, so
+ * btn-primary turns light with primary text, text-primary links turn light,
+ * step-primary and the focus ring follow. It is a token swap, as a nested
+ * data-theme would be, and it works in every theme.
+ *
+ * A custom property cannot read its own parent value, so --it-primary and
+ * --it-primary-content copy the theme's pair where the theme is declared, and
+ * the surface swaps from those copies.
+ */
+:root,
+[data-theme] {
+  --it-primary: var(--color-primary);
+  --it-primary-content: var(--color-primary-content);
+}
+@layer utilities {
+  .it-surface-primary {
+    --color-base-100: var(--it-primary);
+    --color-base-200: color-mix(in oklab, var(--it-primary) 90%, var(--it-primary-content));
+    --color-base-300: color-mix(in oklab, var(--it-primary) 80%, var(--it-primary-content));
+    --color-base-content: var(--it-primary-content);
+    --color-primary: var(--it-primary-content);
+    --color-primary-content: var(--it-primary);
+    --color-accent: var(--it-primary-content);
+    --color-accent-content: var(--it-primary);
+    background-color: var(--it-primary);
+    color: var(--it-primary-content);
+  }
+  /* primary-content on primary is the only text pair that reaches 4.5:1 on the
+     band: muted text (text-base-content/70 and the like) would drop below it,
+     so it goes back to the full colour, as bootstrap-italia does on its bands. */
+  .it-surface-primary [class*="text-base-content/"] {
+    color: var(--color-base-content);
+  }
+}

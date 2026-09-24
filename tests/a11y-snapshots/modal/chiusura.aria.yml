@@ -1,0 +1,4 @@
+- main:
+  - 'heading "Modal: Con e senza pulsante di chiusura" [level=1]'
+  - button "Lancia la demo della modale"
+  - button "Senza close button"

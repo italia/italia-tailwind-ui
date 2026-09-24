@@ -1,0 +1,9 @@
+- main:
+  - 'heading "Toggle: Gruppo di impostazioni" [level=1]'
+  - group "Preferenze di contatto":
+    - text: Preferenze di contatto Email Un riepilogo alla settimana.
+    - switch "Email Un riepilogo alla settimana." [checked]
+    - text: SMS Solo per le scadenze.
+    - switch "SMS Solo per le scadenze."
+    - text: App IO Avvisi e ricevute di pagamento.
+    - switch "App IO Avvisi e ricevute di pagamento." [checked]

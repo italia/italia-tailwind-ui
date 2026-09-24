@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Button: Varianti di colore" [level=1]'
+  - button "Primary"
+  - button "Secondary"
+  - button "Success"
+  - button "Danger"
+  - button "Warning"
+  - button "Primary outline"
+  - button "Secondary outline"
+  - button "Success outline"
+  - button "Danger outline"
+  - button "Warning outline"

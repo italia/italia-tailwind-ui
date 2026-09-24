@@ -1,0 +1,11 @@
+- main:
+  - 'heading "Card: Card con azioni" [level=1]'
+  - article:
+    - heading "Titolo del contenuto" [level=3]:
+      - link "Titolo del contenuto":
+        - /url: "#"
+    - paragraph: Sottotitolo del contenuto
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.
+    - group "Link correlati:":
+      - link "Leggi di più":
+        - /url: "#"

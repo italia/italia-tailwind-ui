@@ -1,0 +1,32 @@
+- main:
+  - 'heading "Select: Dimensioni" [level=1]'
+  - text: Select piccola
+  - combobox "Select piccola":
+    - option "select-sm" [selected]
+    - option "Abruzzo"
+    - option "Basilicata"
+    - option "Calabria"
+    - option "Campania"
+    - option "Lazio"
+    - option "Lombardia"
+    - option "Toscana"
+  - text: Select standard
+  - combobox "Select standard":
+    - option "Standard" [selected]
+    - option "Abruzzo"
+    - option "Basilicata"
+    - option "Calabria"
+    - option "Campania"
+    - option "Lazio"
+    - option "Lombardia"
+    - option "Toscana"
+  - text: Select grande
+  - combobox "Select grande":
+    - option "select-lg" [selected]
+    - option "Abruzzo"
+    - option "Basilicata"
+    - option "Calabria"
+    - option "Campania"
+    - option "Lazio"
+    - option "Lombardia"
+    - option "Toscana"

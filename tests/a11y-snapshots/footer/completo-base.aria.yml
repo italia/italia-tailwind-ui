@@ -1,0 +1,110 @@
+- main:
+  - 'heading "Footer: Footer completo - sfondo base" [level=1]'
+  - link "Lorem Ipsum Inserire qui la tag line":
+    - /url: "#"
+    - heading "Lorem Ipsum" [level=2]
+    - text: Inserire qui la tag line
+  - navigation:
+    - heading "Amministrazione" [level=3]
+    - list:
+      - listitem:
+        - link "Giunta e consiglio":
+          - /url: "#"
+      - listitem:
+        - link "Aree di competenza":
+          - /url: "#"
+      - listitem:
+        - link "Dipendenti":
+          - /url: "#"
+      - listitem:
+        - link "Luoghi":
+          - /url: "#"
+      - listitem:
+        - link "Associazioni e società partecipate":
+          - /url: "#"
+  - navigation:
+    - heading "Servizi" [level=3]
+    - list:
+      - listitem:
+        - link "Pagamenti":
+          - /url: "#"
+      - listitem:
+        - link "Sostegno":
+          - /url: "#"
+      - listitem:
+        - link "Domande e iscrizioni":
+          - /url: "#"
+      - listitem:
+        - link "Segnalazioni":
+          - /url: "#"
+      - listitem:
+        - link "Autorizzazioni e concessioni":
+          - /url: "#"
+  - navigation:
+    - heading "Novità" [level=3]
+    - list:
+      - listitem:
+        - link "Notizie":
+          - /url: "#"
+      - listitem:
+        - link "Eventi":
+          - /url: "#"
+      - listitem:
+        - link "Comunicati stampa":
+          - /url: "#"
+  - navigation:
+    - heading "Documenti" [level=3]
+    - list:
+      - listitem:
+        - link "Progetti e attività":
+          - /url: "#"
+      - listitem:
+        - link "Delibere, determine e ordinanze":
+          - /url: "#"
+      - listitem:
+        - link "Bandi":
+          - /url: "#"
+      - listitem:
+        - link "Concorsi":
+          - /url: "#"
+  - heading "Contatti" [level=3]
+  - paragraph:
+    - strong: Comune di Lorem Ipsum
+    - text: "Via Roma 0 - 00000 Lorem Ipsum Codice fiscale / P. IVA: 000000000"
+  - list:
+    - listitem:
+      - link "Posta Elettronica Certificata":
+        - /url: "#"
+    - listitem:
+      - link "URP - Ufficio Relazioni con il Pubblico":
+        - /url: "#"
+  - heading "Seguici su" [level=3]
+  - list:
+    - listitem:
+      - link "Designers Italia (link esterno)":
+        - /url: "#"
+    - listitem:
+      - link "X (link esterno)":
+        - /url: "#"
+    - listitem:
+      - link "Medium (link esterno)":
+        - /url: "#"
+    - listitem:
+      - link "Behance (link esterno)":
+        - /url: "#"
+  - list:
+    - listitem:
+      - link "Media policy":
+        - /url: "#"
+    - listitem:
+      - link "Note legali":
+        - /url: "#"
+    - listitem:
+      - link "Privacy policy":
+        - /url: "#"
+    - listitem:
+      - link "Mappa del sito":
+        - /url: "#"
+    - listitem:
+      - link "Dichiarazione di accessibilità (link esterno su sito AgID)":
+        - /url: "#"

@@ -4,3 +4,5 @@ storybook-static
 .astro
 *.log
 .DS_Store
+.env
+a11y-*report.json

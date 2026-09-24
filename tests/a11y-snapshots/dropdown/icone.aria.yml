@@ -1,0 +1,4 @@
+- main:
+  - 'heading "Dropdown: Menu con icone" [level=1]'
+  - group: Icona a sinistra
+  - group: Icona a destra

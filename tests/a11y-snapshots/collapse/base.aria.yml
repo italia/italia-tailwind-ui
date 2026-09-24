@@ -1,0 +1,4 @@
+- main:
+  - 'heading "Collapse: Esempio base" [level=1]'
+  - group: Mostra il contenuto
+  - group: Leggi i dettagli

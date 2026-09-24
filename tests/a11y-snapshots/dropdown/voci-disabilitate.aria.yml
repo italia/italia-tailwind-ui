@@ -1,0 +1,4 @@
+- main:
+  - 'heading "Dropdown: Menu con voci disabilitate" [level=1]'
+  - group: Apri dropdown
+  - group [disabled]: Dropdown disabilitato

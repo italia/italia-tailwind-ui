@@ -1,4 +1,5 @@
 ---
+import { storyUrl } from "../../lib/storybook";
 import Base from "../../layouts/Base.astro";
 import Example from "../../components/Example.astro";
 import { Code } from "astro:components";
@@ -11,7 +12,6 @@ interface Props {
   doc: ComponentDoc;
 }
 const { doc } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 ---
 
 <Base title={doc.name} description={doc.summary}>
@@ -41,7 +41,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
       </>
     )}
     <dt class="font-semibold">Storybook</dt>
-    <dd><a href={`${base}storybook/?path=/docs/componenti-${doc.slug}--docs`}>Apri le storie di {doc.name}</a></dd>
+    <dd><a href={storyUrl(doc.slug)}>Apri le storie di {doc.name}</a></dd>
   </dl>
 
   <nav aria-label="Esempi" class="mb-10">

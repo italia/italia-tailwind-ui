@@ -20,5 +20,5 @@ export const Numeri: Story = example(doc, "numeri");
 export const Icone: Story = example(doc, "icone");
 export const DaisySteps: Story = example(doc, "daisy-steps");
 export const Ultimo: Story = example(doc, "ultimo");
-export const Scuro: Story = example(doc, "scuro");
+export const SfondoPrimario: Story = example(doc, "sfondo-primario");
 export const Modulo: Story = example(doc, "modulo");

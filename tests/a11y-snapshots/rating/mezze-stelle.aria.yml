@@ -1,0 +1,16 @@
+- main:
+  - 'heading "Rating: Mezze stelle" [level=1]'
+  - group "Valuta con mezze stelle":
+    - text: Valuta con mezze stelle
+    - radio "Nessuna valutazione"
+    - radio "0,5 stelle su 5"
+    - radio "1 stella su 5"
+    - radio "1,5 stelle su 5"
+    - radio "2 stelle su 5"
+    - radio "2,5 stelle su 5"
+    - radio "3 stelle su 5"
+    - radio "3,5 stelle su 5" [checked]
+    - radio "4 stelle su 5"
+    - radio "4,5 stelle su 5"
+    - radio "5 stelle su 5"
+  - 'img "Media: 4,5 stelle su 5"'

@@ -1,0 +1,10 @@
+- main:
+  - 'heading "Upload: Area di trascinamento" [level=1]'
+  - paragraph: Trascina qui i file
+  - paragraph: oppure selezionali dal dispositivo
+  - paragraph: PDF o immagini, massimo 10 MB ciascuno
+  - button "Trascina qui i file, oppure selezionali dal dispositivo"
+  - paragraph: Trascina qui il documento d'identità
+  - paragraph: oppure selezionali dal dispositivo
+  - paragraph: Obbligatorio. PDF o JPG, massimo 5 MB
+  - button "Trascina qui il documento d'identità, oppure selezionali dal dispositivo"

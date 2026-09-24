@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Collapse: Aperto di default" [level=1]'
+  - group:
+    - text: Nascondi le istruzioni
+    - paragraph: Compila tutti i campi obbligatori, contrassegnati con l'asterisco, poi premi Invia.

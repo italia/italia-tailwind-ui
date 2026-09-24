@@ -1,0 +1,17 @@
+- main:
+  - 'heading "Transfer: Solo CSS" [level=1]'
+  - group "Uffici da cui ricevere comunicazioni":
+    - text: Uffici da cui ricevere comunicazioni
+    - paragraph: Riceverai avvisi e scadenze solo dagli uffici selezionati.
+    - checkbox "Anagrafe"
+    - text: Anagrafe
+    - checkbox "Tributi" [checked]
+    - text: Tributi
+    - checkbox "Servizi sociali"
+    - text: Servizi sociali
+    - checkbox "Mobilità" [checked]
+    - text: Mobilità
+    - checkbox "Scuola"
+    - text: Scuola
+    - checkbox "Urbanistica" [disabled]
+    - text: Urbanistica

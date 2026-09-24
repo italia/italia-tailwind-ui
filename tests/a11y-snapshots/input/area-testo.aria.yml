@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Input: Area di testo" [level=1]'
+  - text: Messaggio
+  - textbox "Messaggio":
+    - /placeholder: Scrivi qui la tua richiesta
+  - paragraph: Massimo 500 caratteri.

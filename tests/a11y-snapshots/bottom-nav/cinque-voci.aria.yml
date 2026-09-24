@@ -1,0 +1,13 @@
+- main:
+  - 'heading "Bottom navigation: Cinque voci e voce disabilitata" [level=1]'
+  - navigation "Navigazione principale":
+    - link "Home":
+      - /url: "#"
+    - link "Cerca":
+      - /url: "#"
+    - link "Servizi":
+      - /url: "#"
+    - link "Documenti" [disabled]:
+      - /url: "#"
+    - link "Impostazioni , 1 aggiornamento":
+      - /url: "#"

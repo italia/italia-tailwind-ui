@@ -1,0 +1,15 @@
+- main:
+  - 'heading "Header: Slim Header" [level=1]'
+  - link "Ente appartenenza":
+    - /url: "#"
+  - navigation "Navigazione accessoria":
+    - list:
+      - listitem:
+        - link "Link 1":
+          - /url: "#"
+      - listitem:
+        - link "Link 2 (Attivo)":
+          - /url: "#"
+  - group: ITA
+  - link "Accedi":
+    - /url: "#"

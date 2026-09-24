@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Forward: Su sfondo primario" [level=1]'
+  - paragraph: Benvenuti nel portale del Comune
+  - link "Vai al contenuto successivo":
+    - /url: "#contenuto"

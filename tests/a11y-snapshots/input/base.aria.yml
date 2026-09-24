@@ -1,0 +1,15 @@
+- main:
+  - 'heading "Input: Esempio base" [level=1]'
+  - text: Nome
+  - textbox "Nome":
+    - /placeholder: Mario
+  - text: Cognome
+  - textbox "Cognome":
+    - /placeholder: Rossi
+  - text: Indirizzo email
+  - textbox "Indirizzo email":
+    - /placeholder: nome@esempio.it
+  - paragraph: Useremo questo indirizzo solo per risponderti.
+  - text: Telefono
+  - textbox "Telefono":
+    - /placeholder: +39 06 1234567

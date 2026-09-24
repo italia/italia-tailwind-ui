@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Badge: Link" [level=1]'
+  - link "Primary":
+    - /url: "#"
+  - link "Secondary":
+    - /url: "#"
+  - link "Success":
+    - /url: "#"
+  - link "Danger":
+    - /url: "#"
+  - link "Warning":
+    - /url: "#"

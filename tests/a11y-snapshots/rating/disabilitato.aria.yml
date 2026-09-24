@@ -1,0 +1,10 @@
+- main:
+  - 'heading "Rating: Disabilitato" [level=1]'
+  - group "Valutazione chiusa":
+    - text: Valutazione chiusa
+    - radio "Nessuna valutazione" [disabled]
+    - radio "1 stella su 5" [disabled]
+    - radio "2 stelle su 5" [disabled]
+    - radio "3 stelle su 5" [checked] [disabled]
+    - radio "4 stelle su 5" [disabled]
+    - radio "5 stelle su 5" [disabled]

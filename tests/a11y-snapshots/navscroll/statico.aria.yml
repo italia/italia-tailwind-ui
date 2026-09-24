@@ -1,0 +1,14 @@
+- main:
+  - 'heading "Navscroll: Senza barra, voce corrente dal server" [level=1]'
+  - navigation "Indice della pagina":
+    - group:
+      - list:
+        - listitem:
+          - link "Panoramica":
+            - /url: "#panoramica"
+        - listitem:
+          - link "Documenti richiesti":
+            - /url: "#documenti"
+        - listitem:
+          - link "Tempi e scadenze":
+            - /url: "#tempi"

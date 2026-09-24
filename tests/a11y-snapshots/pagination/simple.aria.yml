@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Pagination: Simple mode" [level=1]'
+  - navigation "Paginazione":
+    - list:
+      - listitem:
+        - link "Pagina precedente" [disabled]
+      - listitem: "1"
+      - listitem: /
+      - listitem: "5"
+      - listitem:
+        - link "Pagina successiva":
+          - /url: "?page=2"

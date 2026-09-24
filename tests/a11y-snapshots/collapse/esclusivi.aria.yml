@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Collapse: Uno alla volta" [level=1]'
+  - group: Orari
+  - group: Contatti
+  - group: Come arrivare

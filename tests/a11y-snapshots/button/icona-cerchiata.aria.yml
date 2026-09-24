@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Button: Con icona cerchiata" [level=1]'
+  - button "Pulsante Large con icona"
+  - button "Pulsante con icona"
+  - button "Pulsante Extra Small"

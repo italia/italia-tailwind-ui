@@ -1,0 +1,6 @@
+- main:
+  - 'heading "Toggle: Etichetta a destra" [level=1]'
+  - switch "Ricordami su questo dispositivo"
+  - text: Ricordami su questo dispositivo
+  - switch "Mostra il contrasto elevato" [checked]
+  - text: Mostra il contrasto elevato

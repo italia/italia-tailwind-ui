@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Alert: Contenuto aggiuntivo" [level=1]'
+  - alert:
+    - heading "Avviso di successo!" [level=4]
+    - paragraph: Stai leggendo questo importante messaggio di avviso di successo. Questo testo di esempio sarà più lungo in modo da poter vedere come funzioni la spaziatura all'interno di un avviso con questo tipo di contenuto.
+    - separator
+    - paragraph: Quando necessario, assicurati di inserire le utilità di margine per mantenere gli spazi equilibrati.

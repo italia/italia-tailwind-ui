@@ -5,7 +5,7 @@ export interface BackToTopArgs {
   label?: string;
   /** 56px instead of 40px. */
   large?: boolean;
-  /** Light button for dark pages. */
+  /** @deprecated Put the button inside an it-surface-primary container instead. */
   inverse?: boolean;
   /** Shadow under the button. */
   shadow?: boolean;
@@ -44,13 +44,13 @@ export const doc: ComponentDoc = {
     {
       id: "varianti",
       title: "Varianti",
-      description: "Mostrati sul posto. Nella pagina reale sono fissi in basso a destra.",
+      description: "Mostrati sul posto; nella pagina reale sono fissi in basso a destra. La seconda riga è su sfondo primario (it-surface-primary).",
       html: `${row([
         backToTop({ position: "static" }),
         backToTop({ position: "static", large: true }),
         backToTop({ position: "static", shadow: true }),
       ])}
-<div data-theme="italia-dark" class="mt-6 rounded-box bg-base-100 p-6">${row([backToTop({ position: "static", inverse: true }), backToTop({ position: "static", inverse: true, large: true })])}</div>`,
+<div class="it-surface-primary mt-6 rounded-box p-6">${row([backToTop({ position: "static" }), backToTop({ position: "static", large: true })])}</div>`,
     },
     {
       id: "fisso",

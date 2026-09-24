@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Input: Con pulsante" [level=1]'
+  - text: Cerca un servizio
+  - searchbox "Cerca un servizio"
+  - button "Cerca"

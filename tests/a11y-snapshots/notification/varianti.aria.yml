@@ -1,0 +1,17 @@
+- main:
+  - 'heading "Notification: Varianti" [level=1]'
+  - status "Notifica di esempio":
+    - paragraph: Notifica di esempio
+    - paragraph: Testo della notifica.
+  - status "Domanda inviata":
+    - paragraph: Domanda inviata
+    - paragraph: Riceverai una conferma via email.
+  - alert "Pagamento non riuscito":
+    - paragraph: Pagamento non riuscito
+    - paragraph: Controlla i dati della carta e riprova.
+  - status "Manutenzione programmata":
+    - paragraph: Manutenzione programmata
+    - paragraph: Il servizio non sarà disponibile domenica dalle 8 alle 12.
+  - alert "Sessione in scadenza":
+    - paragraph: Sessione in scadenza
+    - paragraph: Salva il modulo entro 5 minuti.

@@ -1,0 +1,26 @@
+- main:
+  - 'heading "Callout: Varianti di colore" [level=1]'
+  - region "Note a riguardo":
+    - heading "Note a riguardo" [level=2]
+    - paragraph:
+      - text: Maecenas at erat id
+      - strong: sem interdum efficitur eu sed nunc.
+      - text: Mauris sit amet erat eget augue molestie malesuada ut sed ex. In sed dignissim elit. Donec efficitur, sem eget vestibulum auctor, sem erat interdum magna, eu commodo odio mauris semper dolor.
+  - region "Titolo di conferma":
+    - heading "Titolo di conferma" [level=2]
+    - paragraph:
+      - text: Maecenas at erat id
+      - strong: sem interdum efficitur eu sed nunc.
+      - text: Mauris sit amet erat eget augue molestie malesuada ut sed ex. In sed dignissim elit. Donec efficitur, sem eget vestibulum auctor, sem erat interdum magna, eu commodo odio mauris semper dolor.
+  - region "Titolo di attenzione":
+    - heading "Titolo di attenzione" [level=2]
+    - paragraph:
+      - text: Maecenas at erat id
+      - strong: sem interdum efficitur eu sed nunc.
+      - text: Mauris sit amet erat eget augue molestie malesuada ut sed ex. In sed dignissim elit. Donec efficitur, sem eget vestibulum auctor, sem erat interdum magna, eu commodo odio mauris semper dolor.
+  - region "Titolo di allerta":
+    - heading "Titolo di allerta" [level=2]
+    - paragraph:
+      - text: Maecenas at erat id
+      - strong: sem interdum efficitur eu sed nunc.
+      - text: Mauris sit amet erat eget augue molestie malesuada ut sed ex. In sed dignissim elit. Donec efficitur, sem eget vestibulum auctor, sem erat interdum magna, eu commodo odio mauris semper dolor.

@@ -21,5 +21,5 @@ export const Dimensioni: Story = example(doc, "dimensioni");
 export const ConIcona: Story = example(doc, "con-icona");
 export const IconaCerchiata: Story = example(doc, "icona-cerchiata");
 export const Badge: Story = example(doc, "badge");
-export const SfondoScuro: Story = example(doc, "sfondo-scuro");
+export const SfondoPrimario: Story = example(doc, "sfondo-primario");
 export const Tipologie: Story = example(doc, "tipologie");

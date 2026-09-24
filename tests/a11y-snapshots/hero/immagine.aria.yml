@@ -1,0 +1,4 @@
+- main:
+  - 'heading "Hero: Con immagine" [level=1]'
+  - region "In evidenza":
+    - img "Veduta di montagna"

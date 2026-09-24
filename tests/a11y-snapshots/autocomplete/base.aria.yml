@@ -1,0 +1,5 @@
+- main:
+  - 'heading "Autocomplete: Esempio base" [level=1]'
+  - text: Comune
+  - combobox "Comune"
+  - paragraph: Il comune di residenza.

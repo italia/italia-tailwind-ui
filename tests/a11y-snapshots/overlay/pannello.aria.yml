@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Overlay: Pannello sull''immagine" [level=1]'
+  - figure "Titolo del contenuto":
+    - img "Breve descrizione immagine"
+    - text: Titolo del contenuto
+  - figure "Pannello neutral":
+    - img "Breve descrizione immagine"
+    - text: Pannello neutral

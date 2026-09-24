@@ -1,0 +1,11 @@
+- main:
+  - 'heading "Notification: Con chiusura" [level=1]'
+  - status "Nuovo messaggio":
+    - paragraph: Nuovo messaggio
+    - paragraph: Hai un nuovo messaggio dall'ufficio tributi.
+    - checkbox "Chiudi notifica"
+    - text: Chiudi notifica
+  - alert "Documento in scadenza":
+    - paragraph: Documento in scadenza
+    - checkbox "Chiudi notifica"
+    - text: Chiudi notifica

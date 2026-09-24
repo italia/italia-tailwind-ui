@@ -1,0 +1,31 @@
+- main:
+  - 'heading "Card: Card editoriali standard" [level=1]'
+  - article:
+    - heading "Titolo del contenuto" [level=3]:
+      - link "Titolo del contenuto":
+        - /url: "#"
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.
+    - link "Categoria":
+      - /url: "#"
+    - time: 22 aprile 2026
+  - article:
+    - figure:
+      - img "Città"
+    - heading "Titolo del contenuto" [level=3]:
+      - link "Titolo del contenuto":
+        - /url: "#"
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.
+    - link "Categoria":
+      - /url: "#"
+    - time: 22 aprile 2026
+  - article:
+    - figure:
+      - img "Natura"
+    - heading "Titolo del contenuto" [level=3]:
+      - link "Titolo del contenuto":
+        - /url: "#"
+    - paragraph: Questo è un testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.
+    - link "Argomento 1":
+      - /url: "#"
+    - link "Argomento 2":
+      - /url: "#"

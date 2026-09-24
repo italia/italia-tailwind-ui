@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Chip: Chip con avatar" [level=1]'
+  - text: MR Mario Rossi
+  - checkbox "Rimuovi Mario Rossi"
+  - text: Rimuovi Mario Rossi AV Anna Verdi
+  - checkbox "Rimuovi Anna Verdi"
+  - text: Rimuovi Anna Verdi

@@ -2,6 +2,7 @@ import { icon, type IconName } from "../icons";
 import { cx, type ComponentDoc } from "../types";
 import { buttonClass, type ButtonSize, type ButtonVariant } from "./button";
 
+export type DropdownSurface = "base" | "accent";
 export type DropdownAlign = "start" | "end" | "top" | "top-end" | "left" | "right";
 
 export interface DropdownItem {
@@ -29,7 +30,9 @@ export interface DropdownArgs {
   /** Small heading above the items. */
   header?: string;
   align?: DropdownAlign;
-  /** Menu on a dark surface. */
+  /** Menu surface: "base" (default) or "accent", the deep blue of the slim header. */
+  surface?: DropdownSurface;
+  /** @deprecated Use `surface: "accent"`. */
   dark?: boolean;
   /** Menu as wide as its container. */
   fullWidth?: boolean;
@@ -63,7 +66,7 @@ const spacing: Record<DropdownAlign, string> = {
   right: "ms-2",
 };
 // The notch is a 18px square rotated 45°, taking the menu's own background
-// through bg-inherit, so the light and dark menus need no separate rule.
+// through bg-inherit, so the base and accent menus need no separate rule.
 const notchBase =
   "before:absolute before:size-[1.125rem] before:rotate-45 before:rounded-[2px] before:bg-inherit before:content-['']";
 const notchPosition: Record<DropdownAlign, string> = {
@@ -74,24 +77,24 @@ const notchPosition: Record<DropdownAlign, string> = {
   left: "",
   right: "",
 };
-const surface: Record<"light" | "dark", string> = {
-  light: "bg-base-100 text-base-content",
-  dark: "bg-accent text-accent-content",
+const surface: Record<DropdownSurface, string> = {
+  base: "bg-base-100 text-base-content",
+  accent: "bg-accent text-accent-content",
 };
-const linkColor: Record<"light" | "dark", string> = {
-  light: "text-primary hover:bg-primary/10",
-  dark: "text-accent-content hover:bg-base-100/15",
+const linkColor: Record<DropdownSurface, string> = {
+  base: "text-primary hover:bg-primary/10",
+  accent: "text-accent-content hover:bg-base-100/15",
 };
 // daisyUI's menu fills any [aria-current] item with --menu-active-bg; .italia
 // marks the active voice with weight and an underline instead.
-const linkActive: Record<"light" | "dark", string> = {
-  light: "bg-transparent font-bold text-primary underline underline-offset-2",
-  dark: "bg-transparent font-bold text-accent-content underline underline-offset-2",
+const linkActive: Record<DropdownSurface, string> = {
+  base: "bg-transparent font-bold text-primary underline underline-offset-2",
+  accent: "bg-transparent font-bold text-accent-content underline underline-offset-2",
 };
 
-const dropdownItem = (it: DropdownItem, tone: "light" | "dark") => {
+const dropdownItem = (it: DropdownItem, tone: DropdownSurface) => {
   if (it.separator)
-    return `<li class="pointer-events-none my-1 h-px ${tone === "dark" ? "bg-base-100/25" : "bg-base-content/15"}" role="separator"></li>`;
+    return `<li class="pointer-events-none my-1 h-px ${tone === "accent" ? "bg-base-100/25" : "bg-base-content/15"}" role="separator"></li>`;
   const glyph = it.icon ? icon(it.icon, "size-4 text-primary") : "";
   const inner = cx(
     it.iconPosition === "right" ? "" : glyph,
@@ -105,7 +108,7 @@ const dropdownItem = (it: DropdownItem, tone: "light" | "dark") => {
     it.active && linkActive[tone],
     it.disabled && "pointer-events-none opacity-40",
   );
-  if (it.text) return `<li><span class="${cx("px-4 py-2 text-sm", tone === "dark" ? "" : "text-primary")}">${it.label ?? ""}</span></li>`;
+  if (it.text) return `<li><span class="${cx("px-4 py-2 text-sm", tone === "accent" ? "" : "text-primary")}">${it.label ?? ""}</span></li>`;
   const attrs = cx(
     it.active ? ' aria-current="true"' : "",
     it.disabled ? ' aria-disabled="true" tabindex="-1"' : "",
@@ -117,10 +120,10 @@ const dropdownItem = (it: DropdownItem, tone: "light" | "dark") => {
 /** The menu panel on its own, so the header and the megamenu can reuse it. */
 export function dropdownMenu(
   items: DropdownItem[],
-  o: { header?: string; align?: DropdownAlign; dark?: boolean; fullWidth?: boolean; notch?: boolean; role?: "menu" } = {},
+  o: { header?: string; align?: DropdownAlign; surface?: DropdownSurface; dark?: boolean; fullWidth?: boolean; notch?: boolean; role?: "menu" } = {},
 ): string {
   const align = o.align ?? "start";
-  const tone = o.dark ? "dark" : "light";
+  const tone: DropdownSurface = o.surface ?? (o.dark ? "accent" : "base");
   const cls = cx(
     "dropdown-content menu z-30 gap-0 rounded-sm p-2 shadow-[0_4px_12px_rgb(0_0_0/0.15)]",
     surface[tone],
@@ -129,7 +132,7 @@ export function dropdownMenu(
     o.notch !== false && notchPosition[align] && `${notchBase} ${notchPosition[align]}`,
   );
   const head = o.header
-    ? `<li class="menu-title px-4 py-2 text-sm font-semibold ${tone === "dark" ? "text-accent-content/80" : "text-base-content/70"}">${o.header}</li>`
+    ? `<li class="menu-title px-4 py-2 text-sm font-semibold ${tone === "accent" ? "text-accent-content/80" : "text-base-content/70"}">${o.header}</li>`
     : "";
   return `<ul class="${cls}"${o.role ? ` role="${o.role}"` : ""}>
     ${head}${head ? "\n    " : ""}${items.map((i) => dropdownItem(i, tone)).join("\n    ")}
@@ -150,7 +153,7 @@ export function dropdown(a: DropdownArgs = {}): string {
   const cls = cx("dropdown group", alignment[align], a.fullWidth && "w-full", a.disabled && "pointer-events-none opacity-50");
   return `<details class="${cls}"${a.disabled ? " aria-disabled=\"true\"" : ""}>
   ${toggle}
-  ${dropdownMenu(items, { header: a.header, align, dark: a.dark, fullWidth: a.fullWidth, notch: a.notch, role: a.role })}
+  ${dropdownMenu(items, { header: a.header, align, surface: a.surface, dark: a.dark, fullWidth: a.fullWidth, notch: a.notch, role: a.role })}
 </details>`;
 }
 
@@ -251,9 +254,10 @@ export const doc: ComponentDoc = {
       html: `<div class="h-64 w-full max-w-md">${dropdown({ fullWidth: true })}</div>`,
     },
     {
-      id: "scuro",
-      title: "Menu scuro",
-      html: stage(dropdown({ dark: true, header: "Intestazione" })),
+      id: "sfondo-accent",
+      title: "Menu su sfondo accent",
+      description: "surface: \"accent\", il blu profondo dello slim header: la variante scura di Dev Kit Italia, con il colore deciso dal tema.",
+      html: stage(dropdown({ surface: "accent", header: "Intestazione" })),
     },
     {
       id: "azioni",

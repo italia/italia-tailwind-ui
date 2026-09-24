@@ -1,0 +1,12 @@
+- main:
+  - 'heading "Progress: Colori" [level=1]'
+  - text: primary
+  - progressbar "primary"
+  - text: success
+  - progressbar "success"
+  - text: info
+  - progressbar "info"
+  - text: warning
+  - progressbar "warning"
+  - text: danger
+  - progressbar "danger"

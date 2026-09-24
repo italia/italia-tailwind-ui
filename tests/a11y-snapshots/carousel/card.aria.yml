@@ -1,0 +1,59 @@
+- main:
+  - 'heading "Carousel: Carosello di card" [level=1]'
+  - region "Notizie in evidenza":
+    - heading "Notizie in evidenza" [level=2]
+    - group "1 di 5":
+      - article:
+        - figure:
+          - img "Edificio comunale"
+        - heading "Nuovo sportello digitale" [level=3]:
+          - link "Nuovo sportello digitale":
+            - /url: "#"
+        - paragraph: Prenota un appuntamento con l'anagrafe direttamente online.
+        - link "Servizi":
+          - /url: "#"
+        - time: 18 set 2026
+    - group "2 di 5":
+      - article:
+        - figure:
+          - img "Strada cittadina"
+        - heading "Mobilità sostenibile" [level=3]:
+          - link "Mobilità sostenibile":
+            - /url: "#"
+        - paragraph: Quaranta nuove stazioni di bike sharing in tutta la città.
+        - link "Mobilità":
+          - /url: "#"
+        - time: 12 set 2026
+    - group "3 di 5":
+      - article:
+        - figure:
+          - img "Aula scolastica"
+        - heading "Scuole aperte" [level=3]:
+          - link "Scuole aperte":
+            - /url: "#"
+        - paragraph: Iscrizioni ai servizi di mensa e trasporto fino al 30 settembre.
+        - link "Scuola":
+          - /url: "#"
+        - time: 5 set 2026
+    - group "4 di 5":
+      - article:
+        - figure:
+          - img "Parco cittadino"
+        - heading "Estate in città" [level=3]:
+          - link "Estate in città":
+            - /url: "#"
+        - paragraph: Il programma completo degli eventi culturali nei parchi.
+        - link "Cultura":
+          - /url: "#"
+        - time: 1 set 2026
+    - group "5 di 5":
+      - article:
+        - figure:
+          - img "Paesaggio verde"
+        - heading "Raccolta differenziata" [level=3]:
+          - link "Raccolta differenziata":
+            - /url: "#"
+        - paragraph: Cambiano i giorni di ritiro nei quartieri nord.
+        - link "Ambiente":
+          - /url: "#"
+        - time: 28 ago 2026

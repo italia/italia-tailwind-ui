@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Radio: In linea" [level=1]'
+  - group "Hai già un'utenza?":
+    - text: Hai già un'utenza?
+    - radio "Sì"
+    - text: Sì
+    - radio "No" [checked]
+    - text: "No"

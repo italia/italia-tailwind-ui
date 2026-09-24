@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Hero: Con contenuti testuali" [level=1]'
+  - region "Titolo della sezione":
+    - text: Titolo occhiello
+    - heading "Titolo della sezione" [level=2]
+    - paragraph: Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut.
+    - link "Azione primaria":
+      - /url: "#"

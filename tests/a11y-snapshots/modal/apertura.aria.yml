@@ -1,0 +1,7 @@
+- main:
+  - 'heading "Modal: Tre modi di aprirla" [level=1]'
+  - button "Con <dialog> e command"
+  - link "Con :target":
+    - /url: "#modal-2"
+  - text: Con checkbox
+  - checkbox "Con checkbox"

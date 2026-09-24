@@ -1,0 +1,11 @@
+- main:
+  - 'heading "Input: Icone e unità" [level=1]'
+  - text: Cerca
+  - searchbox "Cerca"
+  - text: Email
+  - textbox "Email":
+    - /placeholder: nome@esempio.it
+  - text: Importo
+  - spinbutton "Importo"
+  - text: Sconto
+  - spinbutton "Sconto": "10"

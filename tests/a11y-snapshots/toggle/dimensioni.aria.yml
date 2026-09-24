@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Toggle: Dimensioni" [level=1]'
+  - text: Piccolo
+  - switch "Piccolo" [checked]
+  - text: Standard
+  - switch "Standard" [checked]
+  - text: Grande
+  - switch "Grande" [checked]

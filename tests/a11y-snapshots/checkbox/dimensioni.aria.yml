@@ -1,0 +1,8 @@
+- main:
+  - 'heading "Checkbox: Dimensioni" [level=1]'
+  - checkbox "Piccola" [checked]
+  - text: Piccola
+  - checkbox "Standard" [checked]
+  - text: Standard
+  - checkbox "Grande" [checked]
+  - text: Grande
