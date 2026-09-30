@@ -20,7 +20,7 @@ const { doc } = Astro.props;
   <p class="mb-6 max-w-3xl text-lg text-base-content/85">{doc.summary}</p>
 
   <dl class="mb-10 grid gap-x-8 gap-y-3 rounded-box bg-base-200 p-5 text-sm sm:grid-cols-[max-content_1fr]">
-    <dt class="font-semibold">Sostituisce</dt>
+    <dt class="font-semibold">Riferimento</dt>
     <dd><code class="font-mono">{doc.replaces}</code></dd>
     {doc.classes?.length && (
       <>

@@ -27,7 +27,7 @@ export function example(doc: ComponentDoc, id: string) {
 export function describe(doc: ComponentDoc): string {
   const parts = [
     prose(doc.summary),
-    `**Sostituisce:** \`${doc.replaces}\``,
+    `**Riferimento:** \`${doc.replaces}\``,
     doc.classes?.length ? `**Classi:** ${doc.classes.map((c) => `\`${c}\``).join(", ")}` : "",
     doc.daisy.length ? `**Classi daisyUI:** ${doc.daisy.map((c) => `\`${c}\``).join(", ")}` : "",
     doc.extensions?.length ? `**Estensioni @italia-daisy/css:** ${doc.extensions.map((c) => `\`${c}\``).join(", ")}` : "",
