@@ -3,27 +3,30 @@
   "services": {
     "docs": {
       "root": "apps/docs",
-      "framework": "astro"
+      "framework": "astro",
+      "buildCommand": "DOCS_SITE=https://italia-tailwind-ui.vercel.app DOCS_BASE=/docs/ PUBLIC_STORYBOOK_URL=/storybook/ astro build --outDir dist/docs",
+      "outputDirectory": "dist"
     },
     "storybook": {
       "root": "apps/storybook",
       "framework": "vite",
+      "buildCommand": "storybook build -o storybook-static/storybook",
       "outputDirectory": "storybook-static"
     }
   },
+  "redirects": [
+    { "source": "/", "destination": "/docs/", "permanent": false },
+    { "source": "/docs", "destination": "/docs/", "permanent": false },
+    { "source": "/storybook", "destination": "/storybook/", "permanent": false }
+  ],
   "rewrites": [
     {
-      "source": "/(.*)",
-      "has": [{ "type": "host", "value": { "pre": "storybook." } }],
-      "destination": {
-        "service": "storybook"
-      }
+      "source": "/storybook/(.*)",
+      "destination": { "service": "storybook" }
     },
     {
-      "source": "/(.*)",
-      "destination": {
-        "service": "docs"
-      }
+      "source": "/docs/(.*)",
+      "destination": { "service": "docs" }
     }
   ]
 }
