@@ -1,4 +1,4 @@
-# Italia daisy
+# Italia Tailwind
 
 A **CSS-only** alternative to [dev-kit-italia](https://github.com/italia/dev-kit-italia): the components of the
 .italia design system rewritten as plain HTML **recipes**, with semantic `ita-*` classes built on **daisyUI 5** and
@@ -15,7 +15,114 @@ italia-daisy/
    └─ storybook/  Storybook 10 (html-vite): Playground with controls + one story per example
 ```
 
+## Installation
+
+Two packages on npm. The CSS is the only one you need; the recipes are optional helpers that write the markup for
+you and carry the icons.
+
+```sh
+npm install @italia-tailwind/css tailwindcss daisyui
+npm install @italia-tailwind/recipes        # optional: markup helpers and icons
+```
+
+Then, in the stylesheet of your project (Tailwind 4):
+
+```css
+@import "tailwindcss";
+@import "@italia-tailwind/css";
+/* only if you call the recipe helpers, so Tailwind sees the daisyUI and utility classes they still use: */
+@source "../node_modules/@italia-tailwind/recipes";
+```
+
+The `@source` path is relative to the stylesheet: adjust it to reach `node_modules`.
+
+## Usage
+
+Pick a theme with `data-theme` and write the components as plain HTML with the `ita-*` classes:
+
+```html
+<html data-theme="italia-original">
+  <button class="ita-btn ita-btn-primary">Invia</button>
+  <a href="/servizi" class="ita-btn ita-btn-primary ita-btn-outline">Servizi</a>
+
+  <!-- themes nest -->
+  <section data-theme="italia-dark">…</section>
+</html>
+```
+
+Or let the recipes write the markup. Each one is a function that returns an HTML string:
+
+```ts
+import { button, alert, icon } from "@italia-tailwind/recipes";
+
+button({ label: "Invia", variant: "primary" });
+// <button type="button" class="ita-btn ita-btn-primary"><span>Invia</span></button>
+alert({ variant: "success", content: "Domanda inviata correttamente." });
+icon("it-arrow-right", "size-5"); // inline SVG
+```
+
+In an Astro page:
+
+```astro
+---
+import "../styles/global.css";
+import { button, alert, icon } from "@italia-tailwind/recipes";
+---
+<html lang="it" data-theme="italia-original">
+  <body>
+    <Fragment set:html={alert({ variant: "success", content: "Domanda inviata correttamente." })} />
+    <Fragment set:html={button({ label: "Invia", icon: "it-arrow-right" })} />
+    <a href="/cerca" class="ita-btn ita-btn-primary">Cerca <Fragment set:html={icon("it-search", "size-5")} /></a>
+  </body>
+</html>
+```
+
+The recipes do not escape their arguments: pass trusted text, or escape user input first. A single component can be
+imported on its own, from `@italia-tailwind/recipes/components/button` or `@italia-tailwind/recipes/icons`.
+
+### Icons without the `icon()` helper
+
+`icon()` only returns an inline `<svg>`, so you can write that markup yourself. The same icons ship as SVG files in
+`@italia-tailwind/recipes/svg/`: one file per icon and a sprite with all of them.
+
+In Astro, import an SVG file and use it as a component:
+
+```astro
+---
+import Search from "@italia-tailwind/recipes/svg/it-search.svg";
+---
+<a href="/cerca" class="ita-btn ita-btn-primary">
+  Cerca <Search class="size-5 shrink-0 fill-current" aria-hidden="true" />
+</a>
+```
+
+Or reference the sprite, which holds every icon in one file:
+
+```astro
+---
+import sprites from "@italia-tailwind/recipes/svg/sprites.svg?url";
+---
+<svg class="size-5 shrink-0 fill-current" aria-hidden="true"><use href={`${sprites}#it-search`} /></svg>
+```
+
+In plain HTML, copy `node_modules/@italia-tailwind/recipes/svg/sprites.svg` next to your pages and point `<use>` at
+it:
+
+```html
+<svg class="size-5 shrink-0 fill-current" aria-hidden="true"><use href="/sprites.svg#it-search"></use></svg>
+```
+
+`fill-current` makes the icon take the text colour, and `size-*` sets its size (`size-4` 16px, `size-6` 24px,
+`size-8` 32px). For an icon that carries meaning on its own, replace `aria-hidden="true"` with `role="img"` and an
+`aria-label`.
+
+Every component, with its arguments and examples, is in the [docs](https://italia-tailwind-ui.vercel.app/docs/) and
+in [Storybook](https://italia-tailwind-ui.vercel.app/storybook/). Fonts and the prebuilt stylesheet are covered in
+[Stylesheet and fonts](#stylesheet-and-fonts).
+
 ## Quick start (bun)
+
+To work on this repository:
 
 ```sh
 bun install
@@ -173,16 +280,9 @@ Automated checks find only part of the problems. Screen readers (JAWS or NVDA wi
 VoiceOver, TalkBack), focus order and real use still need people. The Storybook "Accessibility" panel runs axe on the
 story you are looking at.
 
-## Using the CSS in another project
+## Stylesheet and fonts
 
-With Tailwind 4:
-
-```css
-@import "tailwindcss";
-@import "@italia-tailwind/css";
-/* only if you call the recipe helpers, so Tailwind sees the daisyUI and utility classes they still use: */
-@source "../node_modules/@italia-tailwind/recipes";
-```
+With Tailwind 4, import the package as shown in [Installation](#installation).
 
 Without Tailwind, link the prebuilt `packages/css/dist/italia-tailwind.css` (about 490 KB minified, 56 KB gzipped). It
 contains every `ita-*` class and every class the recipes use. The `ita-*` classes need no `@source`: they are plain

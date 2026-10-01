@@ -52,6 +52,42 @@ import { button } from "@italia-tailwind/recipes/components/button";
 import { icon } from "@italia-tailwind/recipes/icons";
 ```
 
+## Icons without the `icon()` helper
+
+`icon()` only returns an inline `<svg>`, so you can write that markup yourself. The same icons ship as SVG files in
+`@italia-tailwind/recipes/svg/`: one file per icon and a sprite with all of them.
+
+In Astro, import an SVG file and use it as a component:
+
+```astro
+---
+import Search from "@italia-tailwind/recipes/svg/it-search.svg";
+---
+<a href="/cerca" class="ita-btn ita-btn-primary">
+  Cerca <Search class="size-5 shrink-0 fill-current" aria-hidden="true" />
+</a>
+```
+
+Or reference the sprite, which holds every icon in one file:
+
+```astro
+---
+import sprites from "@italia-tailwind/recipes/svg/sprites.svg?url";
+---
+<svg class="size-5 shrink-0 fill-current" aria-hidden="true"><use href={`${sprites}#it-search`} /></svg>
+```
+
+In plain HTML, copy `node_modules/@italia-tailwind/recipes/svg/sprites.svg` next to your pages and point `<use>` at
+it:
+
+```html
+<svg class="size-5 shrink-0 fill-current" aria-hidden="true"><use href="/sprites.svg#it-search"></use></svg>
+```
+
+`fill-current` makes the icon take the text colour, and `size-*` sets its size (`size-4` 16px, `size-6` 24px,
+`size-8` 32px). For an icon that carries meaning on its own, replace `aria-hidden="true"` with `role="img"` and an
+`aria-label`.
+
 The recipes do not escape their arguments: pass trusted text, or escape user input first.
 
 Documentation and live examples: https://italia-tailwind-ui.vercel.app/docs/

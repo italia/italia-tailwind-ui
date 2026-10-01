@@ -1,6 +1,6 @@
 {
   "name": "@italia-tailwind/recipes",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "HTML recipes (daisyUI + Tailwind markup) for the dev-kit-italia components, plus the bootstrap-italia icon set",
   "license": "BSD-3-Clause",
   "keywords": ["italia", "design-system", "daisyui", "tailwindcss", "bootstrap-italia", "dev-kit-italia"],

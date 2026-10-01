@@ -1,6 +1,6 @@
 /**
- * Builds the publishable package into dist/: JavaScript, type declarations and
- * a package.json of its own. Inside the monorepo the apps keep importing the
+ * Builds the publishable package into dist/: JavaScript, type declarations, the
+ * icons as SVG files and a package.json of its own. Inside the monorepo the apps keep importing the
  * TypeScript sources (see ../package.json), so nothing here runs in dev.
  *
  *   bun run --cwd packages/recipes build
@@ -9,6 +9,7 @@
 import { $, Glob } from "bun";
 import { cp, mkdir, rm } from "node:fs/promises";
 import { join } from "node:path";
+import { icons } from "../src/icons/icons";
 
 const root = join(import.meta.dir, "..");
 const src = join(root, "src");
@@ -35,6 +36,17 @@ if (!result.success) {
 
 await $`bunx tsc -p ${join(root, "tsconfig.build.json")}`;
 
+// The icons as files too, for pages that write the <svg> themselves:
+// one file per icon (svg/it-search.svg) and a sprite with all of them.
+const svgDir = join(dist, "svg");
+await mkdir(svgDir, { recursive: true });
+const xmlns = `xmlns="http://www.w3.org/2000/svg"`;
+for (const [name, inner] of Object.entries(icons)) {
+  await Bun.write(join(svgDir, `${name}.svg`), `<svg ${xmlns} width="24" height="24" viewBox="0 0 24 24">${inner}</svg>\n`);
+}
+const symbols = Object.entries(icons).map(([name, inner]) => `<symbol id="${name}" viewBox="0 0 24 24">${inner}</symbol>`);
+await Bun.write(join(svgDir, "sprites.svg"), `<svg ${xmlns}>${symbols.join("")}</svg>\n`);
+
 const published = {
   name: pkg.name,
   version: pkg.version,
@@ -52,6 +64,7 @@ const published = {
     ".": { types: "./index.d.ts", default: "./index.js" },
     "./icons": { types: "./icons/index.d.ts", default: "./icons/index.js" },
     "./components/*": { types: "./components/*.d.ts", default: "./components/*.js" },
+    "./svg/*": "./svg/*",
     "./package.json": "./package.json",
   },
   publishConfig: { access: "public" },
