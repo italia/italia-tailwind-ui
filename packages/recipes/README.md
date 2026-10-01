@@ -23,6 +23,10 @@ In the stylesheet of your project (Tailwind 4):
 
 The `@source` path is relative to the stylesheet: adjust it to reach `node_modules`.
 
+Do not add `@plugin "daisyui"` to your stylesheet: `@italia-tailwind/css` loads daisyUI for you, and declaring it
+again would load it twice. `daisyui` must still be installed, as a dependency. Your own `@plugin "daisyui/theme"`
+blocks are fine, after the import.
+
 ## Use
 
 ```ts

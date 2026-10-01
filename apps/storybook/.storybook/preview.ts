@@ -1,6 +1,16 @@
 import type { Preview } from "@storybook/html-vite";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
-import { themes, defaultTheme } from "@italia-tailwind/recipes";
+import { italiaThemes, daisyThemes, defaultTheme, type Theme } from "@italia-tailwind/recipes";
+
+// Toolbar names: the .italia themes first, with the two defaults marked, then daisyUI's.
+const themeName = (t: Theme) =>
+  t.default === "light" ? `${t.label} (predefinito)` : t.default === "dark" ? `${t.label} (predefinito scuro)` : t.label;
+const themeOptions = {
+  ...Object.fromEntries(italiaThemes.map((t) => [themeName(t), t.id])),
+  // The addon's menu has no dividers: this entry only separates the two groups, and picks the default theme.
+  "──── daisyUI ────": defaultTheme.id,
+  ...Object.fromEntries(daisyThemes.map((t) => [themeName(t), t.id])),
+};
 import "./preview.css";
 
 const preview: Preview = {
@@ -13,8 +23,8 @@ const preview: Preview = {
   },
   decorators: [
     withThemeByDataAttribute({
-      themes: Object.fromEntries(themes.map((t) => [t.label, t.id])),
-      defaultTheme: defaultTheme.label,
+      themes: themeOptions,
+      defaultTheme: themeName(defaultTheme),
       attributeName: "data-theme",
     }),
     // Paint the story surface with the active theme's base colour.

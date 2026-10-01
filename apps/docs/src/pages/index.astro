@@ -4,6 +4,10 @@ import Base from "../layouts/Base.astro";
 import { Code } from "astro:components";
 import { components, themes, button, alert, chip, badge, icon } from "@italia-tailwind/recipes";
 
+// The home shows a few themes side by side; the switcher in the header has them all.
+const shown = ["italia-original", "italia-custom", "light", "lofi", "italia-dark", "italia-darker", "dark", "dracula"];
+const sampleThemes = shown.map((id) => themes.find((t) => t.id === id)!);
+
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
 const sample = [
@@ -44,7 +48,7 @@ const htmlUsage = `<html data-theme="italia-original">
   </p>
   <div class="mb-16 grid gap-4 md:grid-cols-2">
     {
-      themes.map((t) => (
+      sampleThemes.map((t) => (
         <div data-theme={t.id} class="rounded-box border border-base-content/15 bg-base-100 p-5 text-base-content">
           <p class="mb-3 font-mono text-sm text-base-content/70">data-theme="{t.id}"</p>
           <div class="flex flex-col gap-4" set:html={sample} />

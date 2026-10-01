@@ -25,7 +25,7 @@ const { doc } = Astro.props;
     {doc.classes?.length && (
       <>
         <dt class="font-semibold">Classi</dt>
-        <dd class="flex flex-wrap gap-1.5">{doc.classes.map((c) => <code class="rounded-sm bg-primary/10 px-1.5 py-0.5 font-mono text-primary">{c}</code>)}</dd>
+        <dd class="flex flex-wrap gap-1.5">{doc.classes.map((c) => <code class="rounded-sm bg-primary px-1.5 py-0.5 font-mono text-primary-content">{c}</code>)}</dd>
       </>
     )}
     {doc.daisy.length > 0 && (
@@ -47,13 +47,13 @@ const { doc } = Astro.props;
       </>
     )}
     <dt class="font-semibold">Storybook</dt>
-    <dd><a href={storyUrl(doc.slug)}>Apri le storie di {doc.name}</a></dd>
+    <dd><a href={storyUrl(doc.slug)} class="link text-base-content">Apri le storie di {doc.name}</a></dd>
   </dl>
 
   <nav aria-label="Esempi" class="mb-10">
     <ul class="flex flex-wrap gap-2">
       {doc.examples.map((ex) => <li><a href={`#${ex.id}`} class="badge badge-lg badge-outline border-base-content/25 font-semibold hover:bg-base-200">{ex.title}</a></li>)}
-      {doc.snippets?.length && <li><a href="#javascript" class="badge badge-lg badge-outline border-primary/40 font-semibold text-primary hover:bg-base-200">Con JavaScript</a></li>}
+      {doc.snippets?.length && <li><a href="#javascript" class="badge badge-lg badge-primary font-semibold">Con JavaScript</a></li>}
     </ul>
   </nav>
 

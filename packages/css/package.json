@@ -1,6 +1,6 @@
 {
   "name": "@italia-tailwind/css",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "daisyUI 5 themes and a thin extension layer that give Tailwind CSS 4 the look of the .italia design system",
   "license": "BSD-3-Clause",
   "keywords": [

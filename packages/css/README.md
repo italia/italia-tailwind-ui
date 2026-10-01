@@ -23,6 +23,13 @@ npm install @italia-tailwind/css tailwindcss daisyui
 </html>
 ```
 
+Themes: `italia-original` (the default), `italia-custom`, `italia-dark`, `italia-darker` (used when the system asks
+for dark), plus every daisyUI built-in theme (`light`, `dark`, `dracula`, `dim`…).
+
+Do not add `@plugin "daisyui"` to your stylesheet: `@italia-tailwind/css` loads daisyUI for you, and declaring it
+again would load it twice. `daisyui` must still be installed, as a dependency. Your own `@plugin "daisyui/theme"`
+blocks are fine, after the import.
+
 The fonts ship with the package and are resolved by Vite, Astro and the Tailwind CLI.
 
 For ready-made markup of every component, and the icons, add

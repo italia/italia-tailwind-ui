@@ -99,20 +99,37 @@ export { video, videoEmbed } from "./components/video";
 export const components = [accordionDoc, alertDoc, autocompleteDoc, avatarDoc, backDoc, backToTopDoc, badgeDoc, bottomNavDoc, breadcrumbsDoc, buttonDoc, calloutDoc, cardDoc, carouselDoc, checkboxDoc, chipDoc, collapseDoc, dropdownDoc, footerDoc, forwardDoc, headerDoc, heroDoc, inputDoc, megamenuDoc, modalDoc, navscrollDoc, notificationDoc, overlayDoc, paginationDoc, popoverDoc, progressDoc, radioDoc, ratingDoc, sectionDoc, selectDoc, skiplinksDoc, stepperDoc, stickyDoc, tabsDoc, thumbnavDoc, timelineDoc, toggleDoc, toolbarDoc, tooltipDoc, transferDoc, uploadDoc, videoDoc];
 export { accordionDoc, alertDoc, autocompleteDoc, avatarDoc, backDoc, backToTopDoc, badgeDoc, bottomNavDoc, breadcrumbsDoc, buttonDoc, calloutDoc, cardDoc, carouselDoc, checkboxDoc, chipDoc, collapseDoc, dropdownDoc, footerDoc, forwardDoc, headerDoc, heroDoc, inputDoc, megamenuDoc, modalDoc, navscrollDoc, notificationDoc, overlayDoc, paginationDoc, popoverDoc, progressDoc, radioDoc, ratingDoc, sectionDoc, selectDoc, skiplinksDoc, stepperDoc, stickyDoc, tabsDoc, thumbnavDoc, timelineDoc, toggleDoc, toolbarDoc, tooltipDoc, transferDoc, uploadDoc, videoDoc };
 
+export interface Theme {
+  /** The value of data-theme. */
+  id: string;
+  label: string;
+  /** italia: the .italia themes of themes.css. daisyui: daisyUI's built-in ones. */
+  group: "italia" | "daisyui";
+  /** Set on the theme used with no data-theme: "light" always, "dark" when the system asks for dark. */
+  default?: "light" | "dark";
+}
+
+/** The .italia themes (themes.css): light ones first, then dark ones. */
+export const italiaThemes: Theme[] = [
+  { id: "italia-original", label: "Italia original", group: "italia", default: "light" },
+  { id: "italia-custom", label: "Italia custom", group: "italia" },
+  { id: "italia-dark", label: "Italia dark", group: "italia" },
+  { id: "italia-darker", label: "Italia darker", group: "italia", default: "dark" },
+];
+
+/** daisyUI's built-in themes, in the order of https://daisyui.com/docs/themes/ */
+export const daisyThemes: Theme[] = [
+  "light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk",
+  "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black",
+  "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter", "dim",
+  "nord", "sunset", "caramellatte", "abyss", "silk",
+].map((id) => ({ id, label: id, group: "daisyui" }));
+
 /**
- * Themes shipped by @italia-tailwind/css, in switcher order: light themes first,
- * then dark ones. The first entry is the default (default: true in themes.css).
+ * Every theme shipped by @italia-tailwind/css, in switcher order: the .italia
+ * themes, then daisyUI's. The first entry is the default (default: true in themes.css).
  */
-export const themes = [
-  { id: "italia-original", label: "Italia original" },
-  { id: "italia-custom", label: "Italia custom" },
-  { id: "light", label: "daisyUI light" },
-  { id: "lofi", label: "lofi" },
-  { id: "italia-dark", label: "Italia dark" },
-  { id: "italia-darker", label: "Italia darker" },
-  { id: "dark", label: "daisyUI dark" },
-  { id: "dracula", label: "dracula" },
-] as const;
+export const themes: Theme[] = [...italiaThemes, ...daisyThemes];
 
 /** The theme pages start with. */
 export const defaultTheme = themes[0];

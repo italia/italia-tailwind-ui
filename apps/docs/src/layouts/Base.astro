@@ -1,7 +1,12 @@
 ---
 import { storybookUrl } from "../lib/storybook";
 import "../styles/global.css";
-import { components, themes, defaultTheme, icon } from "@italia-tailwind/recipes";
+import { components, italiaThemes, daisyThemes, defaultTheme, icon } from "@italia-tailwind/recipes";
+
+const themeGroups = [
+  { title: "Italia", themes: italiaThemes },
+  { title: "daisyUI", themes: daisyThemes },
+];
 
 interface Props {
   title: string;
@@ -79,32 +84,43 @@ const path = Astro.url.pathname;
             </div>
             <ul
               tabindex='-1'
-              class='dropdown-content menu z-40 mt-2 w-52 rounded-box border border-base-content/15 bg-base-100 p-2 shadow-lg'
+              class='dropdown-content menu z-40 mt-2 max-h-[70vh] w-80 flex-nowrap whitespace-nowrap overflow-y-auto rounded-box border border-base-content/15 bg-base-100 p-2 shadow-lg'
             >
               {
-                themes.map((t) => (
-                  <li>
-                    <label class='flex cursor-pointer gap-3'>
-                      <input
-                        type='radio'
-                        name='theme'
-                        value={t.id}
-                        aria-label={t.label}
-                        class='theme-controller radio radio-sm radio-primary'
-                        checked={t.id === defaultTheme.id}
-                      />
-                      <span
-                        data-theme={t.id}
-                        class='flex gap-0.5 rounded-sm bg-base-100 p-0.5'
-                        aria-hidden='true'
-                      >
-                        <span class='size-3 rounded-full bg-primary' />
-                        <span class='size-3 rounded-full bg-secondary' />
-                        <span class='size-3 rounded-full bg-success' />
-                      </span>
-                      {t.label}
-                    </label>
-                  </li>
+                themeGroups.map((g, i) => (
+                  <>
+                    {i > 0 && <li role='separator' />}
+                    <li class='menu-title'>{g.title}</li>
+                    {g.themes.map((t) => (
+                      <li>
+                        <label class='flex cursor-pointer gap-3'>
+                          <input
+                            type='radio'
+                            name='theme'
+                            value={t.id}
+                            aria-label={t.label}
+                            class='theme-controller radio radio-sm radio-primary'
+                            checked={t.id === defaultTheme.id}
+                          />
+                          <span
+                            data-theme={t.id}
+                            class='flex gap-0.5 rounded-sm bg-base-100 p-0.5'
+                            aria-hidden='true'
+                          >
+                            <span class='size-3 rounded-full bg-primary' />
+                            <span class='size-3 rounded-full bg-secondary' />
+                            <span class='size-3 rounded-full bg-success' />
+                          </span>
+                          {t.label}
+                          {t.default && (
+                            <span class='badge badge-sm badge-outline ml-auto'>
+                              {t.default === "light" ? "predefinito" : "predefinito scuro"}
+                            </span>
+                          )}
+                        </label>
+                      </li>
+                    ))}
+                  </>
                 ))
               }
             </ul>
@@ -152,12 +168,12 @@ const path = Astro.url.pathname;
           </a>
           <ul class='menu w-full p-0'>
             <li>
-              <a href={base} class:list={["", { "menu-active": path === base }]}
+              <a href={base} class={path === base ? "bg-primary text-primary-content" : "text-base-content"}
                 >Introduzione</a
               >
             </li>
             <li>
-              <a href={`${base}accessibilita/`} class:list={["", { "menu-active": path.startsWith(`${base}accessibilita`) }]}
+              <a href={`${base}accessibilita/`} class={path.startsWith(`${base}accessibilita`) ? "bg-primary text-primary-content" : "text-base-content"}
                 >Accessibilità</a
               >
             </li>
@@ -169,10 +185,7 @@ const path = Astro.url.pathname;
                   <li>
                     <a
                       href={href}
-                      class:list={[
-                        "",
-                        { "menu-active": path.startsWith(href) },
-                      ]}
+                      class={path.startsWith(href) ? "bg-primary text-primary-content" : "text-base-content"}
                     >
                       {c.name}
                     </a>

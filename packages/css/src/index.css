@@ -12,9 +12,13 @@
  * re-themes every component.
  */
 
-/* daisyUI with its built-in light + dark themes (kept as alternatives). */
+/*
+ * daisyUI with every built-in theme (light, dark, dracula, dim…), about 1 kB
+ * each. The italia-* themes in themes.css come later in the file, so
+ * italia-original stays the default and italia-darker the prefers-dark one.
+ */
 @plugin "daisyui" {
-  themes: light, dark, dracula, cupcake, lofi;
+  themes: all;
   logs: false;
 }
 

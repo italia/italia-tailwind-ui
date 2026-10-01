@@ -16,7 +16,7 @@ const { example } = Astro.props;
   <div class="overflow-hidden rounded-box border border-base-content/15">
     <div class:list={["bg-base-100", example.fullBleed ? "" : "p-6 sm:p-8"]} set:html={example.html} />
     <details class="group border-t border-base-content/15 bg-base-200">
-      <summary class="flex cursor-pointer list-none items-center gap-2 px-4 py-2 text-sm font-semibold text-primary hover:underline [&::-webkit-details-marker]:hidden">
+      <summary class="flex cursor-pointer list-none items-center gap-2 px-4 py-2 text-sm font-semibold text-base-content hover:underline [&::-webkit-details-marker]:hidden">
         <span class="group-open:hidden">Mostra il codice HTML</span>
         <span class="hidden group-open:inline">Nascondi il codice HTML</span>
       </summary>

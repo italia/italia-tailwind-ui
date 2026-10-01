@@ -36,6 +36,10 @@ Then, in the stylesheet of your project (Tailwind 4):
 
 The `@source` path is relative to the stylesheet: adjust it to reach `node_modules`.
 
+Do not add `@plugin "daisyui"` to your stylesheet: `@italia-tailwind/css` loads daisyUI for you, and declaring it
+again would load it twice. `daisyui` must still be installed, as a dependency. Your own `@plugin "daisyui/theme"`
+blocks are fine, after the import.
+
 ## Usage
 
 Pick a theme with `data-theme` and write the components as plain HTML with the `ita-*` classes:
@@ -284,7 +288,7 @@ story you are looking at.
 
 With Tailwind 4, import the package as shown in [Installation](#installation).
 
-Without Tailwind, link the prebuilt `packages/css/dist/italia-tailwind.css` (about 490 KB minified, 56 KB gzipped). It
+Without Tailwind, link the prebuilt `packages/css/dist/italia-tailwind.css` (about 525 KB minified, 62 KB gzipped). It
 contains every `ita-*` class and every class the recipes use. The `ita-*` classes need no `@source`: they are plain
 CSS, always in the stylesheet.
 
@@ -305,7 +309,7 @@ Fonts:
 | `italia-custom` | The theme from your daisyUI design system: `#0066cc` primary, navy secondary, radii 0.25/0.5/1rem, depth on. Status colours keep the Bootstrap hues, darkened to pass WCAG AA (info `#00798b`, success `#00812b`, warning `#9a6400`, error `#d32b3e`) |
 | `italia-dark` | Dark companion from the design-tokens-italia blue and slate scales |
 | `italia-darker` | Neutral near-black dark theme (`#1f2126` base). The .italia hues are lightened to pass WCAG AA on every base colour (primary `#4a99fe`, dark text on coloured fills), 0.5rem radii, depth on. It is the `prefersdark` theme: pages without a `data-theme` use it when the OS is in dark mode |
-| `light`, `dark` | daisyUI built-ins, kept to show the recipes follow any theme |
+| `light`, `dark`, `dracula`, `dim`… | All 35 daisyUI built-in themes, to show the recipes follow any theme. They are not tuned for accessibility like the italia ones |
 
 Themes nest: `<section data-theme="italia-dark">` inside an `italia-original` page works. To add a theme, write one more
 `@plugin "daisyui/theme" { … }` block in `packages/css/src/themes.css`.
