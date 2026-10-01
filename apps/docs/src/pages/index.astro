@@ -2,7 +2,7 @@
 import { storybookUrl } from "../lib/storybook";
 import Base from "../layouts/Base.astro";
 import { Code } from "astro:components";
-import { components, themes, button, alert, chip, badge, icon } from "@italia-daisy/recipes";
+import { components, themes, button, alert, chip, badge, icon } from "@italia-tailwind/recipes";
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
@@ -13,7 +13,7 @@ const sample = [
 ].join("\n");
 
 const cssUsage = `@import "tailwindcss";
-@import "@italia-daisy/css";`;
+@import "@italia-tailwind/css";`;
 const htmlUsage = `<html data-theme="italia-original">
   <button class="ita-btn ita-btn-primary">Invia</button>
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { backToTop, doc, type BackToTopArgs } from "@italia-daisy/recipes/components/back-to-top";
+import { backToTop, doc, type BackToTopArgs } from "@italia-tailwind/recipes/components/back-to-top";
 import { example, describe } from "./helpers";
 
 const meta: Meta<BackToTopArgs> = {

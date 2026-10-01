@@ -54,11 +54,11 @@ export function selectedDocs(): ComponentDoc[] {
 }
 
 // --- browser -----------------------------------------------------------------
-const CSS_PATH = new URL("../../packages/css/dist/italia-daisy.css", import.meta.url);
+const CSS_PATH = new URL("../../packages/css/dist/italia-tailwind.css", import.meta.url);
 
 export async function loadCss(): Promise<string> {
   const file = Bun.file(CSS_PATH);
-  if (!(await file.exists())) throw new Error("packages/css/dist/italia-daisy.css is missing: run `bun run build:css` first.");
+  if (!(await file.exists())) throw new Error("packages/css/dist/italia-tailwind.css is missing: run `bun run build:css` first.");
   return file.text();
 }
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { tooltip, doc, type TooltipArgs } from "@italia-daisy/recipes/components/tooltip";
+import { tooltip, doc, type TooltipArgs } from "@italia-tailwind/recipes/components/tooltip";
 import { example, describe } from "./helpers";
 
 const meta: Meta<TooltipArgs> = {

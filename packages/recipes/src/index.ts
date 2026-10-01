@@ -100,7 +100,7 @@ export const components = [accordionDoc, alertDoc, autocompleteDoc, avatarDoc, b
 export { accordionDoc, alertDoc, autocompleteDoc, avatarDoc, backDoc, backToTopDoc, badgeDoc, bottomNavDoc, breadcrumbsDoc, buttonDoc, calloutDoc, cardDoc, carouselDoc, checkboxDoc, chipDoc, collapseDoc, dropdownDoc, footerDoc, forwardDoc, headerDoc, heroDoc, inputDoc, megamenuDoc, modalDoc, navscrollDoc, notificationDoc, overlayDoc, paginationDoc, popoverDoc, progressDoc, radioDoc, ratingDoc, sectionDoc, selectDoc, skiplinksDoc, stepperDoc, stickyDoc, tabsDoc, thumbnavDoc, timelineDoc, toggleDoc, toolbarDoc, tooltipDoc, transferDoc, uploadDoc, videoDoc };
 
 /**
- * Themes shipped by @italia-daisy/css, in switcher order: light themes first,
+ * Themes shipped by @italia-tailwind/css, in switcher order: light themes first,
  * then dark ones. The first entry is the default (default: true in themes.css).
  */
 export const themes = [

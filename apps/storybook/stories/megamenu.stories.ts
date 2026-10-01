@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { megamenu, doc, type MegamenuArgs } from "@italia-daisy/recipes/components/megamenu";
+import { megamenu, doc, type MegamenuArgs } from "@italia-tailwind/recipes/components/megamenu";
 import { example, describe } from "./helpers";
 
 const meta: Meta<MegamenuArgs> = {

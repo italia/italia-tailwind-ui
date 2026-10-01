@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { button, doc, type ButtonArgs } from "@italia-daisy/recipes/components/button";
+import { button, doc, type ButtonArgs } from "@italia-tailwind/recipes/components/button";
 import { example, describe } from "./helpers";
 
 const meta: Meta<ButtonArgs> = {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { autocomplete, doc, type AutocompleteArgs } from "@italia-daisy/recipes/components/autocomplete";
+import { autocomplete, doc, type AutocompleteArgs } from "@italia-tailwind/recipes/components/autocomplete";
 import { example, describe } from "./helpers";
 
 const meta: Meta<AutocompleteArgs> = {

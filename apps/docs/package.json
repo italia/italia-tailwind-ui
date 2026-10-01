@@ -1,5 +1,5 @@
 {
-  "name": "@italia-daisy/docs",
+  "name": "@italia-tailwind/docs",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,8 +8,8 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@italia-daisy/css": "workspace:*",
-    "@italia-daisy/recipes": "workspace:*",
+    "@italia-tailwind/css": "workspace:*",
+    "@italia-tailwind/recipes": "workspace:*",
     "astro": "^7.3.3"
   },
   "devDependencies": {

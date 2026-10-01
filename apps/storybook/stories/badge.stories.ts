@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { badge, doc, type BadgeArgs } from "@italia-daisy/recipes/components/badge";
+import { badge, doc, type BadgeArgs } from "@italia-tailwind/recipes/components/badge";
 import { example, describe } from "./helpers";
 
 const meta: Meta<BadgeArgs> = {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { timeline, doc, type TimelineArgs } from "@italia-daisy/recipes/components/timeline";
+import { timeline, doc, type TimelineArgs } from "@italia-tailwind/recipes/components/timeline";
 import { example, describe } from "./helpers";
 
 const meta: Meta<TimelineArgs> = {

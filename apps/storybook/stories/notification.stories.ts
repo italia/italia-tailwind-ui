@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { notification, doc, type NotificationArgs } from "@italia-daisy/recipes/components/notification";
+import { notification, doc, type NotificationArgs } from "@italia-tailwind/recipes/components/notification";
 import { example, describe } from "./helpers";
 
 const meta: Meta<NotificationArgs> = {

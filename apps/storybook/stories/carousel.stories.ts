@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { carousel, doc, type CarouselArgs } from "@italia-daisy/recipes/components/carousel";
+import { carousel, doc, type CarouselArgs } from "@italia-tailwind/recipes/components/carousel";
 import { example, describe } from "./helpers";
 
 const meta: Meta<CarouselArgs> = {

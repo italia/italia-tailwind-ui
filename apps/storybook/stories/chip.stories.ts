@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { chip, doc, type ChipArgs } from "@italia-daisy/recipes/components/chip";
+import { chip, doc, type ChipArgs } from "@italia-tailwind/recipes/components/chip";
 import { example, describe } from "./helpers";
 
 const meta: Meta<ChipArgs> = {

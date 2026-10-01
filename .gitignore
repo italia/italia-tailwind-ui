@@ -6,3 +6,4 @@ storybook-static
 .DS_Store
 .env
 a11y-*report.json
+packages/css/LICENSE

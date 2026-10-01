@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { radioGroup, doc } from "@italia-daisy/recipes/components/radio";
-import type { ChoiceGroupArgs } from "@italia-daisy/recipes/components/checkbox";
+import { radioGroup, doc } from "@italia-tailwind/recipes/components/radio";
+import type { ChoiceGroupArgs } from "@italia-tailwind/recipes/components/checkbox";
 import { example, describe } from "./helpers";
 
 const meta: Meta<ChoiceGroupArgs> = {

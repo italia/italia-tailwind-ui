@@ -1,5 +1,5 @@
 {
-  "name": "@italia-daisy/storybook",
+  "name": "@italia-tailwind/storybook",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,8 +7,8 @@
     "build": "storybook build -o storybook-static"
   },
   "dependencies": {
-    "@italia-daisy/css": "workspace:*",
-    "@italia-daisy/recipes": "workspace:*"
+    "@italia-tailwind/css": "workspace:*",
+    "@italia-tailwind/recipes": "workspace:*"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.6.0",

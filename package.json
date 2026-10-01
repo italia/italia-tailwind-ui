@@ -11,6 +11,7 @@
   "scripts": {
     "icons": "bun run packages/recipes/scripts/build-icons.ts",
     "build:css": "bun run --cwd packages/css build",
+    "build:recipes": "bun run --cwd packages/recipes build",
     "dev": "bun run --cwd apps/docs dev",
     "docs:build": "bun run --cwd apps/docs build",
     "storybook": "bun run --cwd apps/storybook storybook",
@@ -19,7 +20,8 @@
     "typecheck": "tsc -p tsconfig.json",
     "a11y": "bun run build:css > /dev/null 2>&1 && bun run scripts/a11y/index.ts",
     "a11y:site": "bun run scripts/a11y/site.ts",
-    "site": "rm -rf apps/docs/dist/storybook && cp -r apps/storybook/storybook-static apps/docs/dist/storybook && echo 'Static site ready in apps/docs/dist'"
+    "site": "rm -rf apps/docs/dist/storybook && cp -r apps/storybook/storybook-static apps/docs/dist/storybook && echo 'Static site ready in apps/docs/dist'",
+    "release:check": "bun run build:recipes && npm pack --dry-run ./packages/recipes/dist && npm pack --dry-run ./packages/css"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

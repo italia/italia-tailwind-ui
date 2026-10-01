@@ -32,7 +32,7 @@ export interface ComponentDoc {
   classes?: string[];
   /** daisyUI component classes the recipe is built on. */
   daisy: string[];
-  /** it-* extension classes it needs from @italia-daisy/css, if any. */
+  /** it-* extension classes it needs from @italia-tailwind/css, if any. */
   extensions?: string[];
   /** Notes on how JS behaviour of the web component is handled CSS-only. */
   cssOnly?: string;

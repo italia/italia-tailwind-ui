@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { callout, doc, type CalloutArgs } from "@italia-daisy/recipes/components/callout";
+import { callout, doc, type CalloutArgs } from "@italia-tailwind/recipes/components/callout";
 import { example, describe } from "./helpers";
 
 const meta: Meta<CalloutArgs> = {

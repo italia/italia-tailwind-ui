@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { skiplinks, doc, type SkiplinksArgs } from "@italia-daisy/recipes/components/skiplinks";
+import { skiplinks, doc, type SkiplinksArgs } from "@italia-tailwind/recipes/components/skiplinks";
 import { example, describe } from "./helpers";
 
 const meta: Meta<SkiplinksArgs> = {

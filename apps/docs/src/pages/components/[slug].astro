@@ -3,7 +3,7 @@ import { storyUrl } from "../../lib/storybook";
 import Base from "../../layouts/Base.astro";
 import Example from "../../components/Example.astro";
 import { Code } from "astro:components";
-import { components, type ComponentDoc } from "@italia-daisy/recipes";
+import { components, type ComponentDoc } from "@italia-tailwind/recipes";
 
 export function getStaticPaths() {
   return components.map((doc) => ({ params: { slug: doc.slug }, props: { doc } }));

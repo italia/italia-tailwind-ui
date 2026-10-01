@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { uploadDropzone, doc, type UploadArgs } from "@italia-daisy/recipes/components/upload";
+import { uploadDropzone, doc, type UploadArgs } from "@italia-tailwind/recipes/components/upload";
 import { example, describe } from "./helpers";
 
 const meta: Meta<UploadArgs> = {

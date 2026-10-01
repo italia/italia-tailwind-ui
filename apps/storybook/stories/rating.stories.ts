@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { rating, doc, type RatingArgs } from "@italia-daisy/recipes/components/rating";
+import { rating, doc, type RatingArgs } from "@italia-tailwind/recipes/components/rating";
 import { example, describe } from "./helpers";
 
 const meta: Meta<RatingArgs> = {

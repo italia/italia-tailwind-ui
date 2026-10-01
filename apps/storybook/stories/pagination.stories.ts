@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { pagination, doc, type PaginationArgs } from "@italia-daisy/recipes/components/pagination";
+import { pagination, doc, type PaginationArgs } from "@italia-tailwind/recipes/components/pagination";
 import { example, describe } from "./helpers";
 
 const meta: Meta<PaginationArgs> = {

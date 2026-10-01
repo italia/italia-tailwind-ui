@@ -8,8 +8,8 @@ A **CSS-only** alternative to [dev-kit-italia](https://github.com/italia/dev-kit
 ```
 italia-daisy/
 ├─ packages/
-│  ├─ css/        @italia-daisy/css      daisyUI themes + foundations + ita-* components + it-* extensions
-│  └─ recipes/    @italia-daisy/recipes  HTML recipe functions, docs metadata, bootstrap-italia icons
+│  ├─ css/        @italia-tailwind/css      daisyUI themes + foundations + ita-* components + it-* extensions
+│  └─ recipes/    @italia-tailwind/recipes  HTML recipe functions, docs metadata, bootstrap-italia icons
 └─ apps/
    ├─ docs/       Astro site: one page per component, live preview and code, theme switcher
    └─ storybook/  Storybook 10 (html-vite): Playground with controls + one story per example
@@ -37,7 +37,7 @@ Node too).
 
 | Command | Output | Contents |
 |---|---|---|
-| `bun run build:css` | `packages/css/dist/italia-daisy.css` | The prebuilt stylesheet, for pages without Tailwind |
+| `bun run build:css` | `packages/css/dist/italia-tailwind.css` | The prebuilt stylesheet, for pages without Tailwind |
 | `bun run docs:build` | `apps/docs/dist/` | The Astro docs site |
 | `bun run storybook:build` | `apps/storybook/storybook-static/` | The static Storybook |
 | `bun run build` | `apps/docs/dist/` | All three, with Storybook copied into `apps/docs/dist/storybook/` |
@@ -179,19 +179,19 @@ With Tailwind 4:
 
 ```css
 @import "tailwindcss";
-@import "@italia-daisy/css";
+@import "@italia-tailwind/css";
 /* only if you call the recipe helpers, so Tailwind sees the daisyUI and utility classes they still use: */
-@source "../node_modules/@italia-daisy/recipes/src";
+@source "../node_modules/@italia-tailwind/recipes";
 ```
 
-Without Tailwind, link the prebuilt `packages/css/dist/italia-daisy.css` (about 490 KB minified, 56 KB gzipped). It
+Without Tailwind, link the prebuilt `packages/css/dist/italia-tailwind.css` (about 490 KB minified, 56 KB gzipped). It
 contains every `ita-*` class and every class the recipes use. The `ita-*` classes need no `@source`: they are plain
 CSS, always in the stylesheet.
 
 Fonts:
 - **Titillium Sans Pro**, the typeface of dev-kit-italia and bootstrap-italia 3, ships with the package:
   `packages/css/fonts/` holds the woff2 files (SIL Open Font License) and `src/fonts.css` the `@font-face` rules.
-  Vite (Astro, Storybook) copies the files when you import `@italia-daisy/css`. With the prebuilt stylesheet, keep
+  Vite (Astro, Storybook) copies the files when you import `@italia-tailwind/css`. With the prebuilt stylesheet, keep
   `fonts/` next to `dist/`, as in the package.
 - **Lora and Roboto Mono** come from Google Fonts. The `<link>` tag is in `packages/css/src/base.css`.
 - The stack is `"Titillium Sans Pro", "Titillium Web", system-ui…`, so a page that loads Titillium Web instead still

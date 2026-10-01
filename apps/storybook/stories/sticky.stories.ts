@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { sticky, doc, type StickyArgs } from "@italia-daisy/recipes/components/sticky";
+import { sticky, doc, type StickyArgs } from "@italia-tailwind/recipes/components/sticky";
 import { example, describe } from "./helpers";
 
 const meta: Meta<StickyArgs> = {

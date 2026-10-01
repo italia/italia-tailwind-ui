@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { collapse, doc, type CollapseArgs } from "@italia-daisy/recipes/components/collapse";
+import { collapse, doc, type CollapseArgs } from "@italia-tailwind/recipes/components/collapse";
 import { example, describe } from "./helpers";
 
 const meta: Meta<CollapseArgs> = {

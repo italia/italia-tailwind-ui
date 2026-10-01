@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { tabs, doc, type TabsArgs } from "@italia-daisy/recipes/components/tabs";
+import { tabs, doc, type TabsArgs } from "@italia-tailwind/recipes/components/tabs";
 import { example, describe } from "./helpers";
 
 const meta: Meta<TabsArgs> = {

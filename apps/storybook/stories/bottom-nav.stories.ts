@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { bottomNav, doc, type BottomNavArgs } from "@italia-daisy/recipes/components/bottom-nav";
+import { bottomNav, doc, type BottomNavArgs } from "@italia-tailwind/recipes/components/bottom-nav";
 import { example, describe } from "./helpers";
 
 const meta: Meta<BottomNavArgs> = {

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { toggle, doc } from "@italia-daisy/recipes/components/toggle";
-import type { ChoiceArgs } from "@italia-daisy/recipes/components/checkbox";
+import { toggle, doc } from "@italia-tailwind/recipes/components/toggle";
+import type { ChoiceArgs } from "@italia-tailwind/recipes/components/checkbox";
 import { example, describe } from "./helpers";
 
 const meta: Meta<ChoiceArgs> = {

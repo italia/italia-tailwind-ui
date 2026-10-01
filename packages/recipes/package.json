@@ -1,17 +1,26 @@
 {
-  "name": "@italia-daisy/recipes",
+  "name": "@italia-tailwind/recipes",
   "version": "0.1.0",
   "description": "HTML recipes (daisyUI + Tailwind markup) for the dev-kit-italia components, plus the bootstrap-italia icon set",
   "license": "BSD-3-Clause",
+  "keywords": ["italia", "design-system", "daisyui", "tailwindcss", "bootstrap-italia", "dev-kit-italia"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/italia/italia-tailwind-ui.git",
+    "directory": "packages/recipes"
+  },
+  "homepage": "https://italia-tailwind-ui.vercel.app/docs/",
+  "bugs": "https://github.com/italia/italia-tailwind-ui/issues",
+  "private": true,
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
     "./icons": "./src/icons/index.ts",
     "./components/*": "./src/components/*.ts"
   },
-  "files": [
-    "src"
-  ],
+  "scripts": {
+    "build": "bun run scripts/build.ts"
+  },
   "devDependencies": {
     "bootstrap-italia": "3.0.0-beta.5"
   }

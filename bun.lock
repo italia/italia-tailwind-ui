@@ -12,10 +12,10 @@
       },
     },
     "apps/docs": {
-      "name": "@italia-daisy/docs",
+      "name": "@italia-tailwind/docs",
       "dependencies": {
-        "@italia-daisy/css": "workspace:*",
-        "@italia-daisy/recipes": "workspace:*",
+        "@italia-tailwind/css": "workspace:*",
+        "@italia-tailwind/recipes": "workspace:*",
         "astro": "^7.3.3",
       },
       "devDependencies": {
@@ -25,10 +25,10 @@
       },
     },
     "apps/storybook": {
-      "name": "@italia-daisy/storybook",
+      "name": "@italia-tailwind/storybook",
       "dependencies": {
-        "@italia-daisy/css": "workspace:*",
-        "@italia-daisy/recipes": "workspace:*",
+        "@italia-tailwind/css": "workspace:*",
+        "@italia-tailwind/recipes": "workspace:*",
       },
       "devDependencies": {
         "@storybook/addon-a11y": "^10.6.0",
@@ -45,7 +45,7 @@
       },
     },
     "packages/css": {
-      "name": "@italia-daisy/css",
+      "name": "@italia-tailwind/css",
       "version": "0.1.0",
       "devDependencies": {
         "@tailwindcss/cli": "^4.3.3",
@@ -58,7 +58,7 @@
       },
     },
     "packages/recipes": {
-      "name": "@italia-daisy/recipes",
+      "name": "@italia-tailwind/recipes",
       "version": "0.1.0",
       "devDependencies": {
         "bootstrap-italia": "3.0.0-beta.5",
@@ -252,13 +252,13 @@
 
     "@img/sharp-win32-x64": ["@img/sharp-win32-x64@0.35.4", "", { "os": "win32", "cpu": "x64" }, "sha512-XtmnYhBcrORsJ4XJngyzr/EWP0hRZLAZRFaApdKuviyqF78+ylxh2y06ZmtULAMOnObJ3ucpN0AcwSWnMowTRg=="],
 
-    "@italia-daisy/css": ["@italia-daisy/css@workspace:packages/css"],
+    "@italia-tailwind/css": ["@italia-tailwind/css@workspace:packages/css"],
 
-    "@italia-daisy/docs": ["@italia-daisy/docs@workspace:apps/docs"],
+    "@italia-tailwind/docs": ["@italia-tailwind/docs@workspace:apps/docs"],
 
-    "@italia-daisy/recipes": ["@italia-daisy/recipes@workspace:packages/recipes"],
+    "@italia-tailwind/recipes": ["@italia-tailwind/recipes@workspace:packages/recipes"],
 
-    "@italia-daisy/storybook": ["@italia-daisy/storybook@workspace:apps/storybook"],
+    "@italia-tailwind/storybook": ["@italia-tailwind/storybook@workspace:apps/storybook"],
 
     "@jridgewell/gen-mapping": ["@jridgewell/gen-mapping@0.3.13", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.0", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA=="],
 

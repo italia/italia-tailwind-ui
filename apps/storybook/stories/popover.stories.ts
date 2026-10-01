@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { popover, doc, type PopoverArgs } from "@italia-daisy/recipes/components/popover";
+import { popover, doc, type PopoverArgs } from "@italia-tailwind/recipes/components/popover";
 import { example, describe } from "./helpers";
 
 const meta: Meta<PopoverArgs> = {

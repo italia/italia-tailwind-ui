@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { stepper, doc, type StepperArgs } from "@italia-daisy/recipes/components/stepper";
+import { stepper, doc, type StepperArgs } from "@italia-tailwind/recipes/components/stepper";
 import { example, describe } from "./helpers";
 
 const meta: Meta<StepperArgs> = {

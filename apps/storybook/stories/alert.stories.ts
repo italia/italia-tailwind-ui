@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { alert, doc, type AlertArgs } from "@italia-daisy/recipes/components/alert";
+import { alert, doc, type AlertArgs } from "@italia-tailwind/recipes/components/alert";
 import { example, describe } from "./helpers";
 
 const meta: Meta<AlertArgs> = {

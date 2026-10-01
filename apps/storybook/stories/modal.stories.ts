@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { modal, doc, type ModalArgs } from "@italia-daisy/recipes/components/modal";
+import { modal, doc, type ModalArgs } from "@italia-tailwind/recipes/components/modal";
 import { example, describe } from "./helpers";
 
 const meta: Meta<ModalArgs> = {

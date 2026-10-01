@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { accordion, doc, type AccordionArgs } from "@italia-daisy/recipes/components/accordion";
+import { accordion, doc, type AccordionArgs } from "@italia-tailwind/recipes/components/accordion";
 import { example, describe } from "./helpers";
 
 const meta: Meta<AccordionArgs> = {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { section, doc, type SectionArgs } from "@italia-daisy/recipes/components/section";
+import { section, doc, type SectionArgs } from "@italia-tailwind/recipes/components/section";
 import { example, describe } from "./helpers";
 
 const meta: Meta<SectionArgs> = {

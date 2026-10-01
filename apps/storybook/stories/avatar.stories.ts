@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { avatar, doc, type AvatarArgs } from "@italia-daisy/recipes/components/avatar";
+import { avatar, doc, type AvatarArgs } from "@italia-tailwind/recipes/components/avatar";
 import { example, describe } from "./helpers";
 
 const meta: Meta<AvatarArgs> = {

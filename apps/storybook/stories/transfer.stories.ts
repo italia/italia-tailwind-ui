@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { transfer, doc, type TransferArgs } from "@italia-daisy/recipes/components/transfer";
+import { transfer, doc, type TransferArgs } from "@italia-tailwind/recipes/components/transfer";
 import { example, describe } from "./helpers";
 
 const meta: Meta<TransferArgs> = {

@@ -168,7 +168,7 @@ export const doc: ComponentDoc = {
   classes: ["ita-field", "ita-label", "ita-required", "ita-hint", "ita-input", "ita-textarea", "ita-input-sm", "ita-input-lg", "ita-textarea-sm", "ita-textarea-lg", "ita-input-plaintext", "ita-input-affix", "ita-floating-label", "ita-valid", "ita-invalid", "ita-feedback", "ita-validate", "ita-validate-hint"],
   daisy: ["input", "textarea", "floating-label", "validator", "join"],
   cssOnly:
-    "Il bordo ardesia (contrasto 3:1) è una regola di @italia-daisy/css nello stesso sotto-layer di daisyUI, quindi input-error, validator e :focus lo sostituiscono. La validazione nativa usa :user-invalid tramite daisyUI validator: il messaggio compare solo dopo che l'utente ha modificato il campo. Mostra/nascondi password e contatore di caratteri richiedono JavaScript e non sono inclusi: il campo password resta type=password.",
+    "Il bordo ardesia (contrasto 3:1) è una regola di @italia-tailwind/css nello stesso sotto-layer di daisyUI, quindi input-error, validator e :focus lo sostituiscono. La validazione nativa usa :user-invalid tramite daisyUI validator: il messaggio compare solo dopo che l'utente ha modificato il campo. Mostra/nascondi password e contatore di caratteri richiedono JavaScript e non sono inclusi: il campo password resta type=password.",
   examples: [
     {
       id: "base",

@@ -1,11 +1,11 @@
 /*
- * @italia-daisy/css
+ * @italia-tailwind/css
  *
  * Use it AFTER Tailwind in your own entry stylesheet:
  *
  *   @import "tailwindcss";
- *   @import "@italia-daisy/css";
- *   @source "../node_modules/@italia-daisy/recipes/src";   (only if you use the recipe helpers)
+ *   @import "@italia-tailwind/css";
+ *   @source "../node_modules/@italia-tailwind/recipes";   (only if you use the recipe helpers)
  *
  * Everything here is daisyUI + Tailwind. Components are written as plain
  * daisyUI class recipes (see packages/recipes), so switching data-theme

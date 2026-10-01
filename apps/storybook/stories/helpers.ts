@@ -1,4 +1,4 @@
-import type { ComponentDoc } from "@italia-daisy/recipes";
+import type { ComponentDoc } from "@italia-tailwind/recipes";
 
 /**
  * Prose from the recipe metadata mentions tags ("un <form>", "<details>").
@@ -30,7 +30,7 @@ export function describe(doc: ComponentDoc): string {
     `**Riferimento:** \`${doc.replaces}\``,
     doc.classes?.length ? `**Classi:** ${doc.classes.map((c) => `\`${c}\``).join(", ")}` : "",
     doc.daisy.length ? `**Classi daisyUI:** ${doc.daisy.map((c) => `\`${c}\``).join(", ")}` : "",
-    doc.extensions?.length ? `**Estensioni @italia-daisy/css:** ${doc.extensions.map((c) => `\`${c}\``).join(", ")}` : "",
+    doc.extensions?.length ? `**Estensioni @italia-tailwind/css:** ${doc.extensions.map((c) => `\`${c}\``).join(", ")}` : "",
     doc.cssOnly ? `**Solo CSS:** ${prose(doc.cssOnly)}` : "",
     ...(doc.snippets?.length
       ? [

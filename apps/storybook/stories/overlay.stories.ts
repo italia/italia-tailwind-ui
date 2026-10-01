@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { overlay, doc, type OverlayArgs } from "@italia-daisy/recipes/components/overlay";
+import { overlay, doc, type OverlayArgs } from "@italia-tailwind/recipes/components/overlay";
 import { example, describe } from "./helpers";
 
 const meta: Meta<OverlayArgs> = {

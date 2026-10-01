@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { video, doc, type VideoArgs } from "@italia-daisy/recipes/components/video";
+import { video, doc, type VideoArgs } from "@italia-tailwind/recipes/components/video";
 import { example, describe } from "./helpers";
 
 const meta: Meta<VideoArgs> = {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { thumbnav, doc, type ThumbnavArgs } from "@italia-daisy/recipes/components/thumbnav";
+import { thumbnav, doc, type ThumbnavArgs } from "@italia-tailwind/recipes/components/thumbnav";
 import { example, describe } from "./helpers";
 
 const meta: Meta<ThumbnavArgs> = {

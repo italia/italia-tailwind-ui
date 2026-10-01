@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { dropdown, doc, type DropdownArgs } from "@italia-daisy/recipes/components/dropdown";
+import { dropdown, doc, type DropdownArgs } from "@italia-tailwind/recipes/components/dropdown";
 import { example, describe } from "./helpers";
 
 const meta: Meta<DropdownArgs> = {

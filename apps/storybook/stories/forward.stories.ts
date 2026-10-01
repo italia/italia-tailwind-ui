@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { forward, doc, type ForwardArgs } from "@italia-daisy/recipes/components/forward";
+import { forward, doc, type ForwardArgs } from "@italia-tailwind/recipes/components/forward";
 import { example, describe } from "./helpers";
 
 const meta: Meta<ForwardArgs> = {

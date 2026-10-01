@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { breadcrumbs, doc, type BreadcrumbsArgs } from "@italia-daisy/recipes/components/breadcrumbs";
+import { breadcrumbs, doc, type BreadcrumbsArgs } from "@italia-tailwind/recipes/components/breadcrumbs";
 import { example, describe } from "./helpers";
 
 const meta: Meta<BreadcrumbsArgs> = {

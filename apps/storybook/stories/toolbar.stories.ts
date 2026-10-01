@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { toolbar, doc, type ToolbarArgs } from "@italia-daisy/recipes/components/toolbar";
+import { toolbar, doc, type ToolbarArgs } from "@italia-tailwind/recipes/components/toolbar";
 import { example, describe } from "./helpers";
 
 const meta: Meta<ToolbarArgs> = {

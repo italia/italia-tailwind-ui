@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { input, doc, type InputArgs } from "@italia-daisy/recipes/components/input";
+import { input, doc, type InputArgs } from "@italia-tailwind/recipes/components/input";
 import { example, describe } from "./helpers";
 
 const meta: Meta<InputArgs> = {

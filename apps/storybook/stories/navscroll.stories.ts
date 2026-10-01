@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { navscroll, doc, type NavscrollArgs } from "@italia-daisy/recipes/components/navscroll";
+import { navscroll, doc, type NavscrollArgs } from "@italia-tailwind/recipes/components/navscroll";
 import { example, describe } from "./helpers";
 
 const meta: Meta<NavscrollArgs> = {

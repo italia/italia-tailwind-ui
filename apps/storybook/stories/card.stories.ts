@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { card, doc, type CardArgs } from "@italia-daisy/recipes/components/card";
+import { card, doc, type CardArgs } from "@italia-tailwind/recipes/components/card";
 import { example, describe } from "./helpers";
 
 const meta: Meta<CardArgs> = {

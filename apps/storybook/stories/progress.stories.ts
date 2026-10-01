@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { progress, doc, type ProgressArgs } from "@italia-daisy/recipes/components/progress";
+import { progress, doc, type ProgressArgs } from "@italia-tailwind/recipes/components/progress";
 import { example, describe } from "./helpers";
 
 const meta: Meta<ProgressArgs> = {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { footer, doc, type FooterArgs } from "@italia-daisy/recipes/components/footer";
+import { footer, doc, type FooterArgs } from "@italia-tailwind/recipes/components/footer";
 import { example, describe } from "./helpers";
 
 const meta: Meta<FooterArgs> = {

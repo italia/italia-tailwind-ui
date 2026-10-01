@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { back, doc, type BackArgs } from "@italia-daisy/recipes/components/back";
+import { back, doc, type BackArgs } from "@italia-tailwind/recipes/components/back";
 import { example, describe } from "./helpers";
 
 const meta: Meta<BackArgs> = {

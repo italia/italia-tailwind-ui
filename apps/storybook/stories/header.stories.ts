@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { header, doc, type HeaderArgs } from "@italia-daisy/recipes/components/header";
+import { header, doc, type HeaderArgs } from "@italia-tailwind/recipes/components/header";
 import { example, describe } from "./helpers";
 
 const meta: Meta<HeaderArgs> = {

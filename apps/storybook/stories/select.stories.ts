@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { select, doc, type SelectArgs } from "@italia-daisy/recipes/components/select";
+import { select, doc, type SelectArgs } from "@italia-tailwind/recipes/components/select";
 import { example, describe } from "./helpers";
 
 const meta: Meta<SelectArgs> = {

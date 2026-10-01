@@ -1,6 +1,6 @@
 import type { Preview } from "@storybook/html-vite";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
-import { themes, defaultTheme } from "@italia-daisy/recipes";
+import { themes, defaultTheme } from "@italia-tailwind/recipes";
 import "./preview.css";
 
 const preview: Preview = {
