@@ -1,0 +1,41 @@
+---
+/**
+ * Bare page for the full-screen layout examples (src/pages/layout/*): only the
+ * stylesheet, the fonts and the theme picked in the docs. The example brings
+ * its own <body> content.
+ */
+import "../styles/global.css";
+import { defaultTheme } from "@italia-tailwind/recipes";
+
+interface Props {
+  title: string;
+  bodyClass?: string;
+}
+const { title, bodyClass } = Astro.props;
+---
+
+<!doctype html>
+<html lang="it" data-theme={defaultTheme.id}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title} · Layout di esempio · Italia daisy</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap"
+    />
+    <script is:inline>
+      // Same theme as the docs (see Base.astro).
+      try {
+        const t = localStorage.getItem("italia-daisy-theme");
+        if (t) document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>

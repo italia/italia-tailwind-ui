@@ -177,6 +177,11 @@ const path = Astro.url.pathname;
                 >Accessibilità</a
               >
             </li>
+            <li>
+              <a href={`${base}layout/`} class={path.startsWith(`${base}layout`) ? "bg-primary text-primary-content" : "text-base-content"}
+                >Layout</a
+              >
+            </li>
             <li class='menu-title mt-4'>Componenti</li>
             {
               components.map((c) => {

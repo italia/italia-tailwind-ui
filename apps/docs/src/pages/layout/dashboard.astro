@@ -1,0 +1,377 @@
+---
+import LayoutDemo from "../../layouts/LayoutDemo.astro";
+---
+
+<LayoutDemo title="Dashboard" bodyClass="bg-base-200 text-base-content antialiased">
+
+
+  <!-- Skiplinks (design system) -->
+  <nav aria-label="Scorciatoie di navigazione" class="ita-skiplinks">
+    <a href="#main">Vai al contenuto principale</a>
+    <a href="#sidebar-nav">Vai alla navigazione</a>
+  </nav>
+
+  <div class="flex h-dvh overflow-hidden">
+
+    <!-- Backdrop (solo mobile) -->
+    <div id="sidebar-backdrop" class="fixed inset-0 z-30 hidden bg-neutral/50 lg:hidden" aria-hidden="true"></div>
+
+    <!-- ============ SIDEBAR ============
+         data-collapsed="true|false" → stato ridotto (solo ≥ lg)
+         data-open="true|false"      → drawer aperto (solo < lg) -->
+    <aside id="sidebar" data-collapsed="false" data-open="false" aria-label="Menu laterale"
+      class="group/sb fixed inset-y-0 left-0 z-40 flex w-72 shrink-0 flex-col border-r border-base-300 bg-base-100
+             transition-[width,translate] duration-200 ease-out
+             max-lg:-translate-x-full max-lg:data-[open=true]:translate-x-0 max-lg:data-[open=true]:shadow-xl
+             lg:relative lg:data-[collapsed=true]:w-20">
+
+      <!-- Brand -->
+      <div class="flex h-20 shrink-0 items-center gap-3 border-b border-base-300 px-4 lg:group-data-[collapsed=true]/sb:justify-center lg:group-data-[collapsed=true]/sb:px-0">
+        <span class="ita-avatar ita-avatar-primary shrink-0">
+          <span><svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3,21h18v1H3V21z M3,20h18v-1H3V20z M22,9H2l10-7L22,9z M5.2,8h13.6L12,3.2L5.2,8z M6,18v-8H5v8H6z M10,18v-8H9v8H10z M15,18v-8h-1v8H15z M19,18v-8h-1v8H19z"/></svg><span class="sr-only">Logo dell'ente</span></span>
+        </span>
+        <div class="min-w-0 leading-tight lg:group-data-[collapsed=true]/sb:hidden">
+          <p class="truncate font-bold">Nome dell'Istituzione</p>
+          <p class="truncate text-sm text-base-content/70">Area riservata</p>
+        </div>
+        <button type="button" data-action="close-sidebar" class="btn btn-ghost btn-square btn-sm ms-auto lg:hidden" aria-label="Chiudi il menu">
+          <svg class="size-5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5.7,5l13.3,13.3l-0.7,0.7L5,5.7L5.7,5z M18.3,5L19,5.7L5.7,19L5,18.3L18.3,5z"/></svg>
+        </button>
+      </div>
+
+      <!-- Spazio di lavoro (dropdown del design system) -->
+      <div class="shrink-0 border-b border-base-300 p-4 lg:group-data-[collapsed=true]/sb:hidden">
+        <details class="dropdown ita-dropdown w-full">
+          <summary class="ita-btn ita-btn-primary ita-btn-outline w-full justify-between gap-2">
+            <span class="flex min-w-0 items-center gap-2"><svg class="size-5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12,13c2.2,0,4-1.8,4-4V6c0-2.2-1.8-4-4-4S8,3.8,8,6v3C8,11.2,9.8,13,12,13z M9,6c0-1.7,1.3-3,3-3s3,1.3,3,3v3 c0,1.7-1.3,3-3,3s-3-1.3-3-3V6z M20,22h-1c0-3.9-3.1-7-7-7s-7,3.1-7,7H4c0-4.4,3.6-8,8-8S20,17.6,20,22z"/></svg><span class="truncate">Personale</span></span>
+            <svg class="ita-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15.5 5.5 9 7 7.5l5 5 5-5L18.5 9z"/></svg>
+          </summary>
+          <ul class="dropdown-content menu ita-menu ita-menu-full">
+            <li class="menu-title">Spazi di lavoro</li>
+            <li><a href="#" aria-current="true"><span>Personale<span class="sr-only"> attivo</span></span></a></li>
+            <li><a href="#"><span>Ufficio anagrafe</span></a></li>
+            <li><a href="#"><span>Servizi digitali</span></a></li>
+            <li role="separator"></li>
+            <li><a href="#"><span>Crea uno spazio</span></a></li>
+          </ul>
+        </details>
+      </div>
+
+      <!-- Navigazione -->
+      <nav id="sidebar-nav" tabindex="-1" aria-label="Navigazione principale" class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden py-4 lg:group-data-[collapsed=true]/sb:overflow-visible">
+        <ul class="menu w-full gap-1 px-3 text-base lg:group-data-[collapsed=true]/sb:items-center">
+          <li class="menu-title lg:group-data-[collapsed=true]/sb:hidden">Gestione</li>
+          <li>
+            <a href="#" data-tip="Panoramica" class="gap-3 py-2.5 lg:group-data-[collapsed=true]/sb:tooltip lg:group-data-[collapsed=true]/sb:tooltip-right">
+              <svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12,2.6l10,8.2l-0.6,0.8L20,10.4V21h-6v-6h-4v6H4V10.4l-1.4,1.2L2,10.8L12,2.6z M5,9.6V20h4v-6h6v6h4V9.6l-7-5.7L5,9.6z"/></svg><span class="lg:group-data-[collapsed=true]/sb:sr-only">Panoramica</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-tip="Area di prova" class="gap-3 py-2.5 lg:group-data-[collapsed=true]/sb:tooltip lg:group-data-[collapsed=true]/sb:tooltip-right">
+              <svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.7,2H6.5C5.7,2,5,2.7,5,3.5v17C5,21.3,5.7,22,6.5,22h11c0.8,0,1.5-0.7,1.5-1.5V6.3L14.7,2z M15,3.7L17.3,6h-1.8 C15.2,6,15,5.8,15,5.5V3.7z M17.5,21h-11C6.2,21,6,20.8,6,20.5v-17C6,3.2,6.2,3,6.5,3H14v2.5C14,6.3,14.7,7,15.5,7H18v13.5 C18,20.8,17.8,21,17.5,21z M8,9h8v1H8V9z M8,11h8v1H8V11z M8,13h4v1H8V13z"/></svg><span class="lg:group-data-[collapsed=true]/sb:sr-only">Area di prova</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-current="page" data-tip="Casi d'uso" class="menu-active gap-3 py-2.5 font-semibold lg:group-data-[collapsed=true]/sb:tooltip lg:group-data-[collapsed=true]/sb:tooltip-right">
+              <svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12,4.9l1.5,4.6l0.2,0.7h5.7l-4,2.9l-0.6,0.4l0.2,0.7l1.5,4.7L12.6,16L12,15.6L11.4,16l-3.9,2.9L9,14.2l0.2-0.7l-0.6-0.4 l-4-2.9h5.7l0.2-0.7L12,4.9 M12,1.7L9.5,9.2H1.6L8,13.9l-2.4,7.6l6.4-4.7l6.4,4.7L16,13.9l6.4-4.7h-7.9L12,1.7z"/></svg><span class="lg:group-data-[collapsed=true]/sb:sr-only">Casi d'uso</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-tip="Pagamenti" class="gap-3 py-2.5 lg:group-data-[collapsed=true]/sb:tooltip lg:group-data-[collapsed=true]/sb:tooltip-right">
+              <svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5,5h-17C2.7,5,2,5.7,2,6.5v11C2,18.3,2.7,19,3.5,19h17c0.8,0,1.5-0.7,1.5-1.5v-11C22,5.7,21.3,5,20.5,5z M3,9h18v3H3V9 z M21,17.5c0,0.3-0.2,0.5-0.5,0.5h-17C3.2,18,3,17.8,3,17.5V13h18V17.5z M3,8V6.5C3,6.2,3.2,6,3.5,6h17C20.8,6,21,6.2,21,6.5V8H3z M8,15H4v-1h4V15z"/></svg><span class="lg:group-data-[collapsed=true]/sb:sr-only">Pagamenti</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-tip="Impostazioni" class="gap-3 py-2.5 lg:group-data-[collapsed=true]/sb:tooltip lg:group-data-[collapsed=true]/sb:tooltip-right">
+              <svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12,7.5c-2.5,0-4.5,2-4.5,4.5s2,4.5,4.5,4.5s4.5-2,4.5-4.5S14.5,7.5,12,7.5z M12,15.5c-1.9,0-3.5-1.6-3.5-3.5 s1.6-3.5,3.5-3.5s3.5,1.6,3.5,3.5S13.9,15.5,12,15.5z M21.8,13.9c0.1-0.6,0.2-1.3,0.2-1.9c0-0.6-0.1-1.3-0.2-1.9l-2.1-0.3 c-0.2-0.6-0.4-1.2-0.7-1.7l1.3-1.7c-0.7-1.1-1.6-2-2.7-2.7L15.9,5l-1.7-0.7l-0.3-2.1L12,2l-1.9,0.2L9.8,4.3L8.1,5L6.4,3.7 c-1.1,0.7-2,1.6-2.7,2.7L5,8.1C4.7,8.6,4.5,9.2,4.3,9.8l-2.1,0.3C2.1,10.7,2,11.4,2,12c0,0.6,0.1,1.3,0.2,1.9l2.1,0.3 c0.2,0.6,0.4,1.2,0.7,1.7l-1.3,1.7c0.7,1.1,1.6,2,2.7,2.7L8.1,19l1.7,0.7l0.3,2.1L12,22l1.9-0.2l0.3-2.1l1.7-0.7l1.7,1.3 c1.1-0.7,2-1.6,2.7-2.7L19,15.9c0.3-0.5,0.5-1.1,0.7-1.7L21.8,13.9z M18.9,13.2l-0.2,0.7c-0.1,0.5-0.3,1-0.6,1.5L17.8,16l0.4,0.5 l0.8,1.1c-0.4,0.5-0.9,1-1.4,1.4l-1.1-0.8L16,17.8l-0.6,0.3c-0.5,0.3-1,0.5-1.5,0.6l-0.7,0.2v0.7L13,20.9h-2l-0.2-1.3v-0.7 l-0.7-0.2c-0.5-0.1-1-0.3-1.5-0.6L8,17.8l-0.5,0.4L6.4,19c-0.5-0.4-1-0.9-1.4-1.4l0.8-1.1L6.2,16l-0.3-0.6c-0.3-0.5-0.5-1-0.6-1.5 l-0.2-0.7H4.4L3.1,13C3,12.7,3,12.3,3,12c0-0.3,0-0.7,0.1-1l1.3-0.2h0.7l0.2-0.7c0.1-0.5,0.3-1,0.6-1.5L6.2,8L5.8,7.5L5,6.4L6.4,5 l1.1,0.8L8,6.2l0.6-0.3c0.5-0.3,1-0.5,1.5-0.6l0.7-0.2V4.4L11,3.1h2l0.2,1.3v0.7l0.7,0.2c0.5,0.1,1,0.3,1.5,0.6L16,6.2l0.5-0.4 L17.6,5c0.5,0.4,1,0.9,1.4,1.4l-0.8,1.1L17.8,8l0.3,0.6c0.3,0.5,0.5,1,0.6,1.5l0.2,0.7h0.7l1.3,0.2c0.1,0.3,0.1,0.7,0.1,1 c0,0.3,0,0.7-0.1,1l-1.3,0.2H18.9z"/></svg><span class="lg:group-data-[collapsed=true]/sb:sr-only">Impostazioni</span>
+            </a>
+          </li>
+
+          <li class="menu-title mt-4 lg:group-data-[collapsed=true]/sb:hidden">Risorse</li>
+          <li class="hidden lg:group-data-[collapsed=true]/sb:block" aria-hidden="true"><hr class="my-2 w-8 border-base-300 p-0"></li>
+          <li>
+            <a href="#" target="_blank" rel="noopener" data-tip="Documentazione" class="gap-3 py-2.5 lg:group-data-[collapsed=true]/sb:tooltip lg:group-data-[collapsed=true]/sb:tooltip-right">
+              <svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4,12c0.1,0.5-0.3,0.9-0.8,1c-0.1,0-0.1,0-0.2,0c-0.6,0-1-0.4-1-1s0.4-1,1-1c0.5-0.1,0.9,0.3,1,0.8C4,11.9,4,11.9,4,12z M3,4.5C2.5,4.4,2.1,4.8,2,5.3c0,0.1,0,0.1,0,0.2C1.9,6,2.3,6.4,2.8,6.5c0.1,0,0.1,0,0.2,0c0.5,0.1,0.9-0.3,1-0.8 c0-0.1,0-0.1,0-0.2c0.1-0.5-0.3-0.9-0.8-1C3.1,4.5,3.1,4.5,3,4.5z M3,17.5c-0.6,0-1,0.4-1,1s0.4,1,1,1s1-0.4,1-1S3.6,17.5,3,17.5z M6,5v1h16V5H6z M6,12.5h16v-1H6V12.5z M6,19h16v-1H6V19z"/></svg><span class="lg:group-data-[collapsed=true]/sb:sr-only">Documentazione</span>
+              <span class="ms-auto lg:group-data-[collapsed=true]/sb:hidden"><svg class="size-4 opacity-60 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21,3v6h-1V4.7l-7.6,7.7l-0.8-0.8L19.3,4H15V3H21z M17,19.5c0,0.3-0.2,0.5-0.5,0.5h-12C4.2,20,4,19.8,4,19.5v-12 C4,7.2,4.2,7,4.5,7H12V6H4.5C3.7,6,3,6.7,3,7.5v12C3,20.3,3.7,21,4.5,21h12c0.8,0,1.5-0.7,1.5-1.5V12h-1V19.5z"/></svg></span><span class="sr-only">(si apre in una nuova scheda)</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank" rel="noopener" data-tip="Comunità" class="gap-3 py-2.5 lg:group-data-[collapsed=true]/sb:tooltip lg:group-data-[collapsed=true]/sb:tooltip-right">
+              <svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19,3H5C3.9,3,3,3.9,3,5v10c0,1.1,0.9,2,2,2h2v5.4l1.7-1.7l3.7-3.7H19c1.1,0,2-0.9,2-2V5C21,3.9,20.1,3,19,3z M20,15 c0.1,0.5-0.3,0.9-0.8,1c-0.1,0-0.1,0-0.2,0h-7l-4,4v-4H5c-0.5,0.1-0.9-0.3-1-0.8c0-0.1,0-0.1,0-0.2V5C3.9,4.5,4.3,4.1,4.8,4 C4.9,4,4.9,4,5,4h14c0.5-0.1,0.9,0.3,1,0.8c0,0.1,0,0.1,0,0.2V15z M9,10c0.1,0.5-0.3,0.9-0.8,1c-0.1,0-0.1,0-0.2,0 c-0.5,0.1-0.9-0.3-1-0.8c0-0.1,0-0.1,0-0.2C6.9,9.5,7.3,9.1,7.8,9C7.9,9,7.9,9,8,9c0.5-0.1,0.9,0.3,1,0.8C9,9.9,9,9.9,9,10z M13,10 c0,0.6-0.4,1-1,1s-1-0.4-1-1s0.4-1,1-1S13,9.4,13,10z M17,10c0,0.6-0.4,1-1,1c-0.6,0-1-0.4-1-1s0.4-1,1-1C16.6,9,17,9.4,17,10z"/></svg><span class="lg:group-data-[collapsed=true]/sb:sr-only">Comunità</span>
+              <span class="ms-auto lg:group-data-[collapsed=true]/sb:hidden"><svg class="size-4 opacity-60 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21,3v6h-1V4.7l-7.6,7.7l-0.8-0.8L19.3,4H15V3H21z M17,19.5c0,0.3-0.2,0.5-0.5,0.5h-12C4.2,20,4,19.8,4,19.5v-12 C4,7.2,4.2,7,4.5,7H12V6H4.5C3.7,6,3,6.7,3,7.5v12C3,20.3,3.7,21,4.5,21h12c0.8,0,1.5-0.7,1.5-1.5V12h-1V19.5z"/></svg></span><span class="sr-only">(si apre in una nuova scheda)</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Riduci / espandi (solo desktop) -->
+      <div class="hidden shrink-0 px-3 pb-2 lg:block">
+        <button type="button" data-action="toggle-collapse" aria-controls="sidebar" aria-expanded="true"
+          class="btn btn-ghost w-full justify-start gap-3 font-normal text-base-content/70 lg:group-data-[collapsed=true]/sb:justify-center lg:group-data-[collapsed=true]/sb:tooltip lg:group-data-[collapsed=true]/sb:tooltip-right"
+          data-tip="Espandi il menu">
+          <svg class="size-5 transition-transform lg:group-data-[collapsed=true]/sb:rotate-180 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15.5 5.5 9 7 7.5l5 5 5-5L18.5 9z" transform="rotate(90 12 12)"/></svg>
+          <span class="lg:group-data-[collapsed=true]/sb:sr-only" data-collapse-label>Riduci il menu</span>
+        </button>
+      </div>
+
+      <!-- Utente (avatar + menu del design system) -->
+      <div class="shrink-0 border-t border-base-300 p-3">
+        <details class="dropdown dropdown-top ita-dropdown w-full">
+          <summary class="ita-avatar-toggle w-full rounded-field p-1 text-base-content hover:bg-base-200 lg:group-data-[collapsed=true]/sb:justify-center">
+            <span class="ita-avatar ita-avatar-sm ita-avatar-secondary shrink-0"><span><span aria-hidden="true">LP</span></span></span>
+            <span class="min-w-0 flex-1 text-start leading-tight lg:group-data-[collapsed=true]/sb:sr-only">
+              <span class="block truncate">Anon Imus</span>
+              <span class="block truncate text-sm font-normal text-base-content/70">Amministratore</span>
+            </span>
+            <svg class="ita-chevron lg:group-data-[collapsed=true]/sb:hidden" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15.5 5.5 9 7 7.5l5 5 5-5L18.5 9z"/></svg>
+          </summary>
+          <ul class="dropdown-content menu ita-menu ita-menu-top w-60">
+            <li><a href="#"><svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12,13c2.2,0,4-1.8,4-4V6c0-2.2-1.8-4-4-4S8,3.8,8,6v3C8,11.2,9.8,13,12,13z M9,6c0-1.7,1.3-3,3-3s3,1.3,3,3v3 c0,1.7-1.3,3-3,3s-3-1.3-3-3V6z M20,22h-1c0-3.9-3.1-7-7-7s-7,3.1-7,7H4c0-4.4,3.6-8,8-8S20,17.6,20,22z"/></svg> <span>Il mio profilo</span></a></li>
+            <li><a href="#"><svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12,7.5c-2.5,0-4.5,2-4.5,4.5s2,4.5,4.5,4.5s4.5-2,4.5-4.5S14.5,7.5,12,7.5z M12,15.5c-1.9,0-3.5-1.6-3.5-3.5 s1.6-3.5,3.5-3.5s3.5,1.6,3.5,3.5S13.9,15.5,12,15.5z M21.8,13.9c0.1-0.6,0.2-1.3,0.2-1.9c0-0.6-0.1-1.3-0.2-1.9l-2.1-0.3 c-0.2-0.6-0.4-1.2-0.7-1.7l1.3-1.7c-0.7-1.1-1.6-2-2.7-2.7L15.9,5l-1.7-0.7l-0.3-2.1L12,2l-1.9,0.2L9.8,4.3L8.1,5L6.4,3.7 c-1.1,0.7-2,1.6-2.7,2.7L5,8.1C4.7,8.6,4.5,9.2,4.3,9.8l-2.1,0.3C2.1,10.7,2,11.4,2,12c0,0.6,0.1,1.3,0.2,1.9l2.1,0.3 c0.2,0.6,0.4,1.2,0.7,1.7l-1.3,1.7c0.7,1.1,1.6,2,2.7,2.7L8.1,19l1.7,0.7l0.3,2.1L12,22l1.9-0.2l0.3-2.1l1.7-0.7l1.7,1.3 c1.1-0.7,2-1.6,2.7-2.7L19,15.9c0.3-0.5,0.5-1.1,0.7-1.7L21.8,13.9z M18.9,13.2l-0.2,0.7c-0.1,0.5-0.3,1-0.6,1.5L17.8,16l0.4,0.5 l0.8,1.1c-0.4,0.5-0.9,1-1.4,1.4l-1.1-0.8L16,17.8l-0.6,0.3c-0.5,0.3-1,0.5-1.5,0.6l-0.7,0.2v0.7L13,20.9h-2l-0.2-1.3v-0.7 l-0.7-0.2c-0.5-0.1-1-0.3-1.5-0.6L8,17.8l-0.5,0.4L6.4,19c-0.5-0.4-1-0.9-1.4-1.4l0.8-1.1L6.2,16l-0.3-0.6c-0.3-0.5-0.5-1-0.6-1.5 l-0.2-0.7H4.4L3.1,13C3,12.7,3,12.3,3,12c0-0.3,0-0.7,0.1-1l1.3-0.2h0.7l0.2-0.7c0.1-0.5,0.3-1,0.6-1.5L6.2,8L5.8,7.5L5,6.4L6.4,5 l1.1,0.8L8,6.2l0.6-0.3c0.5-0.3,1-0.5,1.5-0.6l0.7-0.2V4.4L11,3.1h2l0.2,1.3v0.7l0.7,0.2c0.5,0.1,1,0.3,1.5,0.6L16,6.2l0.5-0.4 L17.6,5c0.5,0.4,1,0.9,1.4,1.4l-0.8,1.1L17.8,8l0.3,0.6c0.3,0.5,0.5,1,0.6,1.5l0.2,0.7h0.7l1.3,0.2c0.1,0.3,0.1,0.7,0.1,1 c0,0.3,0,0.7-0.1,1l-1.3,0.2H18.9z"/></svg> <span>Impostazioni</span></a></li>
+            <li role="separator"></li>
+            <li><a href="#"><svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16.7 7.7L21 12L16.7 16.3L16 15.6L19 12.5L9.8 12.5L9.8 11.5L19.1 11.5L16 8.4L16.7 7.7ZM4.50019 20L12.0002 20L12.0002 21L4.50019 21C3.67177 21 3.00019 20.3284 3.00019 19.5L3.00019 4.5C3.00019 3.67157 3.67177 3 4.50019 3L12.0002 3L12.0002 4L4.50019 4C4.22405 4 4.00019 4.22386 4.00019 4.5L4.00019 19.5C4.00019 19.7761 4.22405 20 4.50019 20Z"/></svg> <span>Esci</span></a></li>
+          </ul>
+        </details>
+      </div>
+    </aside>
+
+    <!-- ============ CORPO CENTRALE (scrolla) ============ -->
+    <div id="scroller" class="relative flex min-w-0 flex-1 flex-col overflow-y-auto bg-base-200">
+
+      <!-- Intestazione fissa -->
+      <header id="page-header" data-stuck="false"
+        class="sticky top-0 z-20 border-b border-base-300 bg-base-100/90 backdrop-blur transition-shadow data-[stuck=true]:shadow-md">
+        <div class="flex min-h-20 items-center gap-3 px-4 py-3 lg:px-8">
+          <button type="button" data-action="open-sidebar" aria-controls="sidebar" aria-expanded="false"
+            class="btn btn-ghost btn-square lg:hidden" aria-label="Apri il menu">
+            <svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22,5v1H2V5H22z M2,12.5h20v-1H2V12.5z M2,19h20v-1H2V19z"/></svg>
+          </button>
+
+          <div class="min-w-0 flex-1">
+            <nav class="ita-breadcrumbs text-sm" aria-label="Percorso di navigazione">
+              <ol>
+                <li><a href="#">Pagine</a></li>
+                <li><span aria-current="page">Casi d'uso</span></li>
+              </ol>
+            </nav>
+            <h1 class="truncate text-2xl font-bold lg:text-3xl">Casi d'uso</h1>
+          </div>
+
+          <div class="flex shrink-0 items-center gap-2">
+            <span class="hidden items-center gap-2 rounded-field border border-base-300 bg-base-100 px-3 py-2 text-sm font-semibold sm:inline-flex">
+              <span class="status status-success" aria-hidden="true"></span>Operativo
+            </span>
+
+            <div class="hidden items-center md:flex">
+              <a href="#" class="btn btn-ghost btn-square" aria-label="GitHub"><svg class="size-5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12,2c-4.9,0-9.1,3.6-9.9,8.4s2.1,9.5,6.7,11.1c0.5,0.1,0.7-0.2,0.7-0.5s0-0.9,0-1.7C6.7,19.9,6.1,18,6.1,18 C6,17.4,5.5,16.8,5,16.5c-0.9-0.6,0.1-0.6,0.1-0.6c0.6,0.1,1.2,0.5,1.5,1c0.6,1,1.9,1.4,2.9,0.8c0-0.5,0.3-1,0.6-1.3 c-2.1-0.2-4.5-1.1-4.5-4.9c0-1,0.3-2,1-2.7C6.3,7.9,6.4,7,6.7,6.2c0,0,0.8-0.3,2.8,1c1.6-0.4,3.4-0.4,5,0c1.9-1.3,2.7-1,2.7-1 c0.4,0.8,0.4,1.8,0.1,2.6c0.7,0.7,1,1.7,1,2.7c0,3.8-2.3,4.7-4.6,4.9c0.5,0.5,0.7,1.2,0.7,1.9c0,1.3,0,2.4,0,2.8s0.2,0.6,0.7,0.5 c4.7-1.5,7.5-6.2,6.7-11.1S16.9,2,12,2z"/></svg></a>
+              <a href="#" class="btn btn-ghost btn-square" aria-label="X (Twitter)"><svg class="size-5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.927 10.4911L19.5111 4H18.1879L13.3392 9.63609L9.4666 4H5L10.8562 12.5228L5 19.3296H6.32332L11.4436 13.3777L15.5334 19.3296H20L13.9267 10.4911H13.927ZM12.1146 12.5979L11.5212 11.7492L6.80014 4.99618H8.83269L12.6426 10.4461L13.236 11.2947L18.1885 18.3788H16.156L12.1146 12.5982V12.5979Z"/></svg></a>
+              <a href="#" class="btn btn-ghost btn-square" aria-label="Scrivici"><svg class="size-5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5,5h-17C2.7,5,2,5.7,2,6.5v11C2,18.3,2.7,19,3.5,19h17c0.8,0,1.5-0.7,1.5-1.5v-11C22,5.7,21.3,5,20.5,5z M20.2,6 l-7.1,7.2c-0.6,0.6-1.6,0.6-2.2,0L3.8,6H20.2z M3,17.3V6.6L8.3,12L3,17.3z M3.7,18L9,12.7l1.2,1.2c1,0.9,2.6,0.9,3.6,0l1.2-1.2l0,0 l5.3,5.3H3.7z M15.7,12L21,6.6v10.7L15.7,12z"/></svg></a>
+            </div>
+
+            <!-- Selettore tema -->
+            <details class="dropdown dropdown-end ita-dropdown">
+              <summary class="btn btn-ghost btn-square" aria-label="Cambia tema"><svg class="size-5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M12,21c-5,0-9-4-9-9s4-9,9-9V21z"/></svg></summary>
+              <ul class="dropdown-content menu ita-menu ita-menu-end w-56">
+                <li class="menu-title">Tema</li>
+                <li><button type="button" data-set-theme="italia-original">italia-original</button></li>
+                <li><button type="button" data-set-theme="italia-custom">italia-custom</button></li>
+                <li><button type="button" data-set-theme="italia-dark">italia-dark</button></li>
+                <li><button type="button" data-set-theme="italia-darker">italia-darker</button></li>
+              </ul>
+            </details>
+          </div>
+        </div>
+      </header>
+
+      <!-- Contenuto -->
+      <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
+        <div class="mx-auto w-full max-w-6xl space-y-10 px-4 py-8 lg:px-8">
+
+          <section aria-labelledby="sec-ufficiali" class="space-y-4">
+            <div class="flex flex-wrap items-end justify-between gap-2">
+              <h2 id="sec-ufficiali" class="text-xl font-bold">Ufficiali</h2>
+              <p class="text-sm text-base-content/70">8 esempi pronti da provare</p>
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-2">
+              <article class="card ita-card relative overflow-hidden">
+                <svg class="pointer-events-none absolute -right-2 -top-2 size-24 text-base-content/5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21.9,21.1L16,15.3c1.3-1.5,2-3.4,2-5.3c0-4.4-3.6-8-8-8s-8,3.6-8,8s3.6,8,8,8c1.9,0,3.8-0.7,5.3-2l5.8,5.9L21.9,21.1z M10,17c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,17,10,17z"/></svg>
+                <div class="card-body">
+                  <h3 class="card-title"><a href="#">Ricerca approfondita</a></h3>
+                  <p class="ita-card-text">Chatta con l'agente di ricerca per ottenere risultati approfonditi, verificati e imparziali.</p>
+                  <div class="card-actions mt-auto justify-end">
+                    <a href="#" class="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs"><span>Prova</span><svg class="size-4 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.9,5.4l-0.7,0.7l5.3,5.4H3v1h15.5l-5.3,5.4l0.7,0.7l6.6-6.6L13.9,5.4z"/></svg><span class="sr-only">: Ricerca approfondita</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="card ita-card relative overflow-hidden">
+                <svg class="pointer-events-none absolute -right-2 -top-2 size-24 text-base-content/5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3,21h18v1H3V21z M3,20h18v-1H3V20z M22,9H2l10-7L22,9z M5.2,8h13.6L12,3.2L5.2,8z M6,18v-8H5v8H6z M10,18v-8H9v8H10z M15,18v-8h-1v8H15z M19,18v-8h-1v8H19z"/></svg>
+                <div class="card-body">
+                  <h3 class="card-title"><a href="#">Ricerca su enti e aziende</a></h3>
+                  <p class="ita-card-text">Usa l'API per svolgere ricerche dettagliate su un'organizzazione.</p>
+                  <div class="card-actions mt-auto justify-end">
+                    <a href="#" class="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs"><span>Prova</span><svg class="size-4 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.9,5.4l-0.7,0.7l5.3,5.4H3v1h15.5l-5.3,5.4l0.7,0.7l6.6-6.6L13.9,5.4z"/></svg><span class="sr-only">: Ricerca su enti e aziende</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="card ita-card relative overflow-hidden">
+                <svg class="pointer-events-none absolute -right-2 -top-2 size-24 text-base-content/5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19,3H5C3.9,3,3,3.9,3,5v10c0,1.1,0.9,2,2,2h2v5.4l1.7-1.7l3.7-3.7H19c1.1,0,2-0.9,2-2V5C21,3.9,20.1,3,19,3z M20,15 c0.1,0.5-0.3,0.9-0.8,1c-0.1,0-0.1,0-0.2,0h-7l-4,4v-4H5c-0.5,0.1-0.9-0.3-1-0.8c0-0.1,0-0.1,0-0.2V5C3.9,4.5,4.3,4.1,4.8,4 C4.9,4,4.9,4,5,4h14c0.5-0.1,0.9,0.3,1,0.8c0,0.1,0,0.1,0,0.2V15z M9,10c0.1,0.5-0.3,0.9-0.8,1c-0.1,0-0.1,0-0.2,0 c-0.5,0.1-0.9-0.3-1-0.8c0-0.1,0-0.1,0-0.2C6.9,9.5,7.3,9.1,7.8,9C7.9,9,7.9,9,8,9c0.5-0.1,0.9,0.3,1,0.8C9,9.9,9,9.9,9,10z M13,10 c0,0.6-0.4,1-1,1s-1-0.4-1-1s0.4-1,1-1S13,9.4,13,10z M17,10c0,0.6-0.4,1-1,1c-0.6,0-1-0.4-1-1s0.4-1,1-1C16.6,9,17,9.4,17,10z"/></svg>
+                <div class="card-body">
+                  <h3 class="card-title"><a href="#">Chat</a></h3>
+                  <p class="ita-card-text">Ottieni risposte su misura per le tue esigenze.</p>
+                  <div class="card-actions mt-auto justify-end">
+                    <a href="#" class="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs"><span>Prova</span><svg class="size-4 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.9,5.4l-0.7,0.7l5.3,5.4H3v1h15.5l-5.3,5.4l0.7,0.7l6.6-6.6L13.9,5.4z"/></svg><span class="sr-only">: Chat</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="card ita-card relative overflow-hidden">
+                <svg class="pointer-events-none absolute -right-2 -top-2 size-24 text-base-content/5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12,14.2L7.7,9.9l0.7-0.7l3.1,3.1V3h1v9.2l3.1-3l0.7,0.7L12,14.2z M19,12v7.5c0,0.3-0.2,0.5-0.5,0.5h-13 C5.2,20,5,19.8,5,19.5V12H4v7.5C4,20.3,4.7,21,5.5,21h13c0.8,0,1.5-0.7,1.5-1.5V12H19z"/></svg>
+                <div class="card-body">
+                  <h3 class="card-title"><a href="#">Da sito a base di conoscenza</a></h3>
+                  <p class="ita-card-text">Trasforma qualsiasi sito web in una base di conoscenza consultabile.</p>
+                  <div class="card-actions mt-auto justify-end">
+                    <a href="#" class="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs"><span>Prova</span><svg class="size-4 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.9,5.4l-0.7,0.7l5.3,5.4H3v1h15.5l-5.3,5.4l0.7,0.7l6.6-6.6L13.9,5.4z"/></svg><span class="sr-only">: Da sito a base di conoscenza</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="card ita-card relative overflow-hidden">
+                <svg class="pointer-events-none absolute -right-2 -top-2 size-24 text-base-content/5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="21,20 21,21 3,21 3,3 4,3 4,20"/><polygon points="10.5,9.2 13,11.7 19,5.7 19,9.5 20,9.5 20,4 14.5,4 14.5,5 18.3,5 13,10.3 10.5,7.8 6.2,12.1 6.8,12.9"/></svg>
+                <div class="card-body">
+                  <h3 class="card-title"><a href="#">Analisi di mercato</a></h3>
+                  <p class="ita-card-text">Ottieni analisi e indicatori completi sui titoli del tuo portafoglio.</p>
+                  <div class="card-actions mt-auto justify-end">
+                    <a href="#" class="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs"><span>Prova</span><svg class="size-4 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.9,5.4l-0.7,0.7l5.3,5.4H3v1h15.5l-5.3,5.4l0.7,0.7l6.6-6.6L13.9,5.4z"/></svg><span class="sr-only">: Analisi di mercato</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="card ita-card relative overflow-hidden">
+                <svg class="pointer-events-none absolute -right-2 -top-2 size-24 text-base-content/5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4,12c0.1,0.5-0.3,0.9-0.8,1c-0.1,0-0.1,0-0.2,0c-0.6,0-1-0.4-1-1s0.4-1,1-1c0.5-0.1,0.9,0.3,1,0.8C4,11.9,4,11.9,4,12z M3,4.5C2.5,4.4,2.1,4.8,2,5.3c0,0.1,0,0.1,0,0.2C1.9,6,2.3,6.4,2.8,6.5c0.1,0,0.1,0,0.2,0c0.5,0.1,0.9-0.3,1-0.8 c0-0.1,0-0.1,0-0.2c0.1-0.5-0.3-0.9-0.8-1C3.1,4.5,3.1,4.5,3,4.5z M3,17.5c-0.6,0-1,0.4-1,1s0.4,1,1,1s1-0.4,1-1S3.6,17.5,3,17.5z M6,5v1h16V5H6z M6,12.5h16v-1H6V12.5z M6,19h16v-1H6V19z"/></svg>
+                <div class="card-body">
+                  <h3 class="card-title"><a href="#">Fogli di calcolo</a></h3>
+                  <p class="ita-card-text">Popola e arricchisci i tuoi dataset con dati aggiornati.</p>
+                  <div class="card-actions mt-auto justify-end">
+                    <a href="#" class="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs"><span>Prova</span><svg class="size-4 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.9,5.4l-0.7,0.7l5.3,5.4H3v1h15.5l-5.3,5.4l0.7,0.7l6.6-6.6L13.9,5.4z"/></svg><span class="sr-only">: Fogli di calcolo</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="card ita-card relative overflow-hidden">
+                <svg class="pointer-events-none absolute -right-2 -top-2 size-24 text-base-content/5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5,5h-17C2.7,5,2,5.7,2,6.5v11C2,18.3,2.7,19,3.5,19h17c0.8,0,1.5-0.7,1.5-1.5v-11C22,5.7,21.3,5,20.5,5z M20.2,6 l-7.1,7.2c-0.6,0.6-1.6,0.6-2.2,0L3.8,6H20.2z M3,17.3V6.6L8.3,12L3,17.3z M3.7,18L9,12.7l1.2,1.2c1,0.9,2.6,0.9,3.6,0l1.2-1.2l0,0 l5.3,5.3H3.7z M15.7,12L21,6.6v10.7L15.7,12z"/></svg>
+                <div class="card-body">
+                  <h3 class="card-title"><a href="#">Preparazione riunioni</a></h3>
+                  <p class="ita-card-text">Prepara le riunioni con note su organizzazioni e partecipanti, integrate con il tuo calendario.</p>
+                  <div class="card-actions mt-auto justify-end">
+                    <a href="#" class="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs"><span>Tutorial</span><svg class="size-4 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.9,5.4l-0.7,0.7l5.3,5.4H3v1h15.5l-5.3,5.4l0.7,0.7l6.6-6.6L13.9,5.4z"/></svg><span class="sr-only">: Preparazione riunioni</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="card ita-card relative overflow-hidden">
+                <svg class="pointer-events-none absolute -right-2 -top-2 size-24 text-base-content/5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15.7,2H7.5C6.7,2,6,2.7,6,3.5V4H5.5C4.7,4,4,4.7,4,5.5v15C4,21.3,4.7,22,5.5,22h11c0.8,0,1.5-0.7,1.5-1.5V20h0.5 c0.8,0,1.5-0.7,1.5-1.5V6.3L15.7,2z M16,3.7L18.3,6h-1.8C16.2,6,16,5.8,16,5.5V3.7z M17,20.5c0,0.3-0.2,0.5-0.5,0.5h-11 C5.2,21,5,20.8,5,20.5v-15C5,5.2,5.2,5,5.5,5H6v13.5C6,19.3,6.7,20,7.5,20H17V20.5z M18.5,19h-11C7.2,19,7,18.8,7,18.5v-15 C7,3.2,7.2,3,7.5,3H15v2.5C15,6.3,15.7,7,16.5,7H19v11.5C19,18.8,18.8,19,18.5,19z M9,9h8v1H9V9z M9,11h8v1H9V11z M9,13h4v1H9V13z"/></svg>
+                <div class="card-body">
+                  <h3 class="card-title"><a href="#">Guida introduttiva</a></h3>
+                  <p class="ita-card-text">Impara a usare l'API per costruire agenti che cercano, estraggono e analizzano il web.</p>
+                  <div class="card-actions mt-auto justify-end">
+                    <a href="#" class="ita-btn ita-btn-primary ita-btn-outline ita-btn-xs"><span>Tutorial</span><svg class="size-4 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.9,5.4l-0.7,0.7l5.3,5.4H3v1h15.5l-5.3,5.4l0.7,0.7l6.6-6.6L13.9,5.4z"/></svg><span class="sr-only">: Guida introduttiva</span></a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section aria-labelledby="sec-comunita" class="space-y-4">
+            <h2 id="sec-comunita" class="text-xl font-bold">Comunità</h2>
+            <div class="it-surface-primary flex flex-col gap-4 rounded-box p-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p class="text-lg font-bold">Condividi il tuo progetto</p>
+                <p>Hai costruito qualcosa di utile? Invia il tuo caso d'uso per comparire nella sezione della comunità.</p>
+              </div>
+              <a href="#" class="ita-btn ita-btn-primary shrink-0"><svg class="size-6 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.5,15c-0.8,0-1.5,0.4-2,1l-7.6-3.4C8,12.4,8,12.2,8,12c0-0.2,0-0.4-0.1-0.6L15.5,8c0.8,1.1,2.4,1.3,3.5,0.5 s1.3-2.4,0.5-3.5S17.1,3.7,16,4.5c-0.6,0.5-1,1.2-1,2c0,0.2,0,0.4,0.1,0.6l-7.6,3.4C6.7,9.4,5.1,9.2,4,10s-1.3,2.4-0.5,3.5 S5.9,14.8,7,14c0.2-0.1,0.4-0.3,0.5-0.5l7.6,3.4C15,17.1,15,17.3,15,17.5c0,1.4,1.1,2.5,2.5,2.5s2.5-1.1,2.5-2.5S18.9,15,17.5,15z M17.5,5C18.3,5,19,5.7,19,6.5S18.3,8,17.5,8S16,7.3,16,6.5S16.7,5,17.5,5z M5.5,13.5C4.7,13.5,4,12.8,4,12s0.7-1.5,1.5-1.5 S7,11.2,7,12S6.3,13.5,5.5,13.5z M17.5,19c-0.8,0-1.5-0.7-1.5-1.5s0.7-1.5,1.5-1.5s1.5,0.7,1.5,1.5S18.3,19,17.5,19z"/></svg><span>Condividi</span></a>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="border-t border-base-300 bg-base-100">
+        <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-6 text-sm sm:flex-row sm:items-center sm:justify-between lg:px-8">
+          <ul class="flex flex-wrap gap-x-6 gap-y-2">
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Termini d'uso</a></li>
+            <li><a href="#">Contatti</a></li>
+            <li><a href="#">Dichiarazione di accessibilità</a></li>
+          </ul>
+          <p class="text-base-content/70">© 2026 Nome dell'Istituzione</p>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script is:inline>
+  (() => {
+    const root = document.documentElement;
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    const openBtn = document.querySelector('[data-action="open-sidebar"]');
+    const collapseBtn = document.querySelector('[data-action="toggle-collapse"]');
+    const collapseLabel = document.querySelector('[data-collapse-label]');
+    const header = document.getElementById('page-header');
+    const scroller = document.getElementById('scroller');
+    const store = {
+      get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+      set(k, v) { try { localStorage.setItem(k, v); } catch {} }
+    };
+
+    // Riduci / espandi (desktop)
+    function setCollapsed(on) {
+      sidebar.dataset.collapsed = String(on);
+      collapseBtn.setAttribute('aria-expanded', String(!on));
+      collapseLabel.textContent = on ? 'Espandi il menu' : 'Riduci il menu';
+      sidebar.querySelectorAll('details[open]').forEach(d => d.open = false);
+      store.set('sidebar-collapsed', on ? '1' : '0');
+    }
+    collapseBtn.addEventListener('click', () => setCollapsed(sidebar.dataset.collapsed !== 'true'));
+    if (store.get('sidebar-collapsed') === '1') setCollapsed(true);
+
+    // Drawer (mobile)
+    function setOpen(on) {
+      sidebar.dataset.open = String(on);
+      backdrop.classList.toggle('hidden', !on);
+      openBtn.setAttribute('aria-expanded', String(on));
+      if (on) sidebar.querySelector('a, button, summary')?.focus();
+      else openBtn.focus();
+    }
+    openBtn.addEventListener('click', () => setOpen(true));
+    document.querySelector('[data-action="close-sidebar"]').addEventListener('click', () => setOpen(false));
+    backdrop.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      const d = document.querySelector('details.dropdown[open]');
+      if (d) { d.open = false; d.querySelector('summary').focus(); return; }
+      if (sidebar.dataset.open === 'true') setOpen(false);
+    });
+    matchMedia('(min-width: 64rem)').addEventListener('change', e => { if (e.matches && sidebar.dataset.open === 'true') { sidebar.dataset.open = 'false'; backdrop.classList.add('hidden'); } });
+
+    // Dropdown <details>: chiudi cliccando fuori e quando se ne apre un altro
+    document.addEventListener('click', e => {
+      document.querySelectorAll('details.dropdown[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; });
+    });
+
+    // Ombra sull'intestazione quando il contenuto scorre sotto
+    scroller.addEventListener('scroll', () => { header.dataset.stuck = String(scroller.scrollTop > 4); }, { passive: true });
+
+    // Tema
+    function setTheme(t) {
+      root.dataset.theme = t;
+      document.querySelectorAll('[data-set-theme]').forEach(b => {
+        const on = b.dataset.setTheme === t;
+        b.classList.toggle('menu-active', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+      store.set('italia-daisy-theme', t);
+    }
+    document.querySelectorAll('[data-set-theme]').forEach(b => b.addEventListener('click', () => {
+      setTheme(b.dataset.setTheme); b.closest('details').open = false;
+    }));
+    setTheme(store.get('italia-daisy-theme') || root.dataset.theme);
+  })();
+  </script>
+</LayoutDemo>
